@@ -1,16 +1,15 @@
 ﻿The Front Controller
 ====================
 
-`Zend_Controller_Front` is the unique entry point to our application.  
-It serves as a registry to the _router_, _dispatcher_, and _action controllers_
-trough parameters:
+`Zend_Controller_Front` is the unique entry point to our application. It serves
+as a registry to the _router_, _dispatcher_, and _action controllers_ trough
+parameters:
 ```php
 $front->setParam('noErrorHandler', true);
 $front->setParam('noViewRenderer', true);
 ```
 Different useful methods:
 -------------------------
-
 ```php
 $front->setControllerDirectory(''); // used by the Dispatcher
 $front->throwExceptions(true);      // instead of storing them into the Response
@@ -20,26 +19,26 @@ $front->returnResponse(true);       // check the stored exceptions
 $front->getRouter();
 ```
 `Zend_Controller_Front` triggers different dispatch events which could be
-observed by plugins.  
-Thus, we don't need to extend the front controller to add functionality.
+observed by plugins. Thus, we don't need to extend the front controller to add
+functionality.
 
 The Zend_Controller basics
 ==========================
 
-1. **Zend_Router_Rewrite**
+* **Zend_Router_Rewrite**
 Writes controller/action/parameter into `Zend_Controller_Request_Http` with its' own methods:
 ```php
 $request->setControllerName('');
 $request->setActionName('');
 ```
-2. **Zend_Controller_Dispatcher_Standard**
+* **Zend_Controller_Dispatcher_Standard**
 Pulls controller/action/parameter from `Zend_Controller_Request_Http` with its' own methods:
 ```php
 $request->getControllerName('');
 $request->getActionName('');
 $request->getUserParam('');
 ```
-3. **Zend_Controller_Dispatcher_Standard**
+* **Zend_Controller_Dispatcher_Standard**
 Loop `while !$request->isDispatched()`:
 - Controller instantiated
 - Action called
