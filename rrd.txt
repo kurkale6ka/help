@@ -1,0 +1,29 @@
+DS:variable_name:DST:heartbeat:min:max
+--------------------------------------
+
+DS - data source
+DST -
+   COUNTER will save the rate of change
+   DERIVE is the same as COUNTER, but it allows negative values as well
+   ABSOLUTE also saves the rate of change, but it assumes that the previous value is set to 0
+   GAUGE does not save the rate of change. It saves the actual value itself
+
+heartbeat - time in seconds before saving UNKNOWN
+
+min, max - any data out of range is saved as UNKNOWN
+
+RRA:CF:xff:step:rows
+--------------------
+
+Consolidation function (CF) - AVERAGE, MINIMUM, MAXIMUM, and LAST
+   Uses step number of PDPs per row (primary data points: one PDP per --step: see create below)
+
+xff - XFiles Factor (XFF), this is the percentage of PDPs that can be unknown
+      without making the recorded value unknown
+
+rrdtool create target.rrd         \
+        --start 1023654125        \
+        --step 300                \ 5 minutes
+        DS:mem:GAUGE:600:0:671744 \
+        RRA:AVERAGE:0.5:12:24     \ ( 12  * 300 = one value per 1h,  24 => a day)
+        RRA:AVERAGE:0.5:288:31      ( 288 * 300 = one value per 24H, 31 => a month)

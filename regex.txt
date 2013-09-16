@@ -1,0 +1,29 @@
+                                   Regex
+    Globs: * ? [...]                                    bash,    find
+POSIX BRE:   . [...] ^ $ * \{,\} \(\) \1               (s)ed,    grep
+  GNU BRE:   --------------------------- \? \+ \|      (s)ed,    grep
+  GNU ERE:   ------------------------------------ no \ (s)ed -r, grep -E, awk
+             \w \W \s \S \b \B \< \>
+             Multiline: \` ^ $ \'
+
+Notes: * POSIX [[:upper:]] will match according to the locale
+         perl's one will match unicode chars
+       * \d (not in BRE/ERE) is a shortcut for [[:digit:]] and is equivalent to [0-9] only faster
+       * POSIX: \ cannot escape stuff in [...]
+       * perl: The \d\s\w\D\S\W abbreviations can be used both inside and outside of character classes
+
+Extended Globs: bash (shopt -s extglob)
+
+    @(item1|item2): 1      <=> item1|item2
+    ?               0 or 1 occurrence of the given patterns
+    *               0 or >
+    +               1 or >
+    !               none   <~> [^...]
+
+Date: 1900-2099/01-12/01-31
+===========================
+^(?:19|20)\d\d/(?:0?[1-9]|1[0-2])/(?:0?[1-9]|[12]\d|3[01])$
+
+Time: 03:24:44 Pm
+=================
+^(?:0?\d|1\d|2[0-3])(?::[0-5]\d){1,2}[[:space:]]*(?:[aA]|[pP])[mM]$
