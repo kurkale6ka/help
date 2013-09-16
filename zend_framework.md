@@ -1,14 +1,13 @@
 ﻿The Front Controller
 ====================
 
-Zend_Controller_Front is the unique entry point to our application
+`Zend_Controller_Front` is the unique entry point to our application.  
 It serves as a registry to the _router_, _dispatcher_, and _action controllers_
 trough parameters:
 ```php
 $front->setParam('noErrorHandler', true);
 $front->setParam('noViewRenderer', true);
 ```
-
 Different useful methods:
 -------------------------
 
@@ -20,53 +19,42 @@ $front->returnResponse(true);       // check the stored exceptions
 ```php
 $front->getRouter();
 ```
-Zend_Controller_Front triggers different dispatch events which could be
-observed by plugins.
+`Zend_Controller_Front` triggers different dispatch events which could be
+observed by plugins.  
 Thus, we don't need to extend the front controller to add functionality.
 
 The Zend_Controller basics
 ==========================
 
 1. **Zend_Router_Rewrite**
-
-writes controller/action/parameter into
-
-**Zend_Controller_Request_Http**
-
-with its' own methods:
+Writes controller/action/parameter into `Zend_Controller_Request_Http` with its' own methods:
 ```php
 $request->setControllerName('');
 $request->setActionName('');
 ```
 2. **Zend_Controller_Dispatcher_Standard**
-
-pulls controller/action/parameter from
-
-**Zend_Controller_Request_Http**
-
-with its' own methods:
+Pulls controller/action/parameter from `Zend_Controller_Request_Http` with its' own methods:
 ```php
 $request->getControllerName('');
 $request->getActionName('');
 $request->getUserParam('');
 ```
 3. **Zend_Controller_Dispatcher_Standard**
-
-Loop while \!$request->isDispatched():
+Loop `while !$request->isDispatched()`:
 - Controller instantiated
 - Action called
 
-The workflow of Zend_Controller is relatively simple. A request is received by
-Zend_Controller_Front, which in turn calls Zend_Controller_Router_Rewrite to
+The workflow of `Zend_Controller` is relatively simple. A request is received by
+`Zend_Controller_Front`, which in turn calls `Zend_Controller_Router_Rewrite` to
 determine which controller (and action in that controller) to dispatch.
-Zend_Controller_Router_Rewrite decomposes the URI in order to set the
-controller and action names in the request. Zend_Controller_Front then enters a
-dispatch loop. It calls Zend_Controller_Dispatcher_Standard, passing it the
+`Zend_Controller_Router_Rewrite` decomposes the URI in order to set the
+controller and action names in the request. `Zend_Controller_Front` then enters
+a dispatch loop. It calls `Zend_Controller_Dispatcher_Standard`, passing it the
 request, to dispatch to the controller and action specified in the request (or
 use defaults). After the controller has finished, control returns to
-Zend_Controller_Front. If the controller has indicated that another controller
-should be dispatched by resetting the dispatched status of the request, the
-loop continues and another dispatch is performed. Otherwise, the process ends.
+`Zend_Controller_Front`. If the controller has indicated that another controller
+should be dispatched by resetting the dispatched status of the request, the loop
+continues and another dispatch is performed. Otherwise, the process ends.
 
 Routing
 =======
@@ -112,7 +100,6 @@ $route = new Zend_Controller_Router_Route_Regex(
 );
 $router->addRoute('archive', $route);
 ```
-
 Dispatching
 ===========
 
@@ -129,7 +116,6 @@ public function bazAction()
     );
 }
 ```
-
 Useful links
 ============
 
