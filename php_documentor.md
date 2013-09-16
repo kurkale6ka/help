@@ -1,6 +1,7 @@
-﻿﻿h1. DocBlock:
+﻿DocBlock
+========
 
-{code}
+```php
 /**
  * Short Description
  *
@@ -14,37 +15,41 @@
  * This {@author} is a valid tag
  * This  @author  is NOT (you need braces)
  */
-{code}
-{color:#cc0033}{_}Warning:_{color} /\*\* This explanation is *NOT* parsed \*/ (2 lines is the minimum)
+```
+_Warning:_ `/** This explanation is NOT parsed */` (2 lines is the minimum)
 
-h2. A DocBlock is valid {color:#cc0033}only{color} when the following element is one of:
+A DocBlock is valid only when the following element is one of:
+--------------------------------------------------------------
 
 * class
 * class method
-* class variable (A variable local to a function can *NOT* be documented)
+* class variable (A variable local to a function can _NOT_ be documented)
 * global variable
 * function
 * define statement
 * include statement
 
-See [Documentable PHP Elements|http://manual.phpdoc.org/HTMLSmartyConverter/HandS/phpDocumentor/tutorial_elements.pkg.html]
+See [Documentable PHP Elements](http://manual.phpdoc.org/HTMLSmartyConverter/HandS/phpDocumentor/tutorial_elements.pkg.html)
 
-h2. Package DocBlock:
+Package DocBlock:
+-----------------
 
-A @package tag should reside in it's own DocBlock and that DocBlock should be the very first in the file
-{code}
+A `@package` tag should reside in it's own DocBlock and that DocBlock should be the very first in the file
+```php
 /**
  * @package Controllers
  */
-{code}
+```
 
-h1. Links:
+Links
+=====
 
-[PHP Documentor  Documentation|http://manual.phpdoc.org/]
+[PHP Documentor  Documentation](http://manual.phpdoc.org/)
 
-h1. Tags:
+Tags
+====
 
-{code}
+```php
  /**
   * The short description
   *
@@ -102,4 +107,4 @@ h1. Tags:
  {
  // ...
  }
-{code}
+```
