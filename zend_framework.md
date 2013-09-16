@@ -8,8 +8,10 @@ parameters:
 $front->setParam('noErrorHandler', true);
 $front->setParam('noViewRenderer', true);
 ```
+
 Different useful methods:
 -------------------------
+
 ```php
 $front->setControllerDirectory(''); // used by the Dispatcher
 $front->throwExceptions(true);      // instead of storing them into the Response
@@ -25,20 +27,23 @@ functionality.
 The Zend_Controller basics
 ==========================
 
-* **Zend_Router_Rewrite**
+1. **Zend_Router_Rewrite**
+
 Writes controller/action/parameter into `Zend_Controller_Request_Http` with its' own methods:
 ```php
 $request->setControllerName('');
 $request->setActionName('');
 ```
-* **Zend_Controller_Dispatcher_Standard**
+2. **Zend_Controller_Dispatcher_Standard**
+
 Pulls controller/action/parameter from `Zend_Controller_Request_Http` with its' own methods:
 ```php
 $request->getControllerName('');
 $request->getActionName('');
 $request->getUserParam('');
 ```
-* **Zend_Controller_Dispatcher_Standard**
+3. **Zend_Controller_Dispatcher_Standard**
+
 Loop `while !$request->isDispatched()`:
 - Controller instantiated
 - Action called
@@ -99,6 +104,7 @@ $route = new Zend_Controller_Router_Route_Regex(
 );
 $router->addRoute('archive', $route);
 ```
+
 Dispatching
 ===========
 
@@ -115,6 +121,7 @@ public function bazAction()
     );
 }
 ```
+
 Useful links
 ============
 
