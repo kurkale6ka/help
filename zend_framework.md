@@ -27,22 +27,22 @@ functionality.
 The Zend_Controller basics
 ==========================
 
-1. **Zend_Router_Rewrite**
+1\. `Zend_Router_Rewrite`
 
-Writes controller/action/parameter into `Zend_Controller_Request_Http` with its' own methods:
+Writes controller/action/parameter into `Zend_Controller_Request_Http` with it's own methods:
 ```php
 $request->setControllerName('');
 $request->setActionName('');
 ```
-2. **Zend_Controller_Dispatcher_Standard**
+2\. `Zend_Controller_Dispatcher_Standard`
 
-Pulls controller/action/parameter from `Zend_Controller_Request_Http` with its' own methods:
+Pulls controller/action/parameter from `Zend_Controller_Request_Http` with it's own methods:
 ```php
 $request->getControllerName('');
 $request->getActionName('');
 $request->getUserParam('');
 ```
-3. **Zend_Controller_Dispatcher_Standard**
+3\. `Zend_Controller_Dispatcher_Standard`
 
 Loop `while !$request->isDispatched()`:
 - Controller instantiated
@@ -51,7 +51,7 @@ Loop `while !$request->isDispatched()`:
 The workflow of `Zend_Controller` is relatively simple. A request is received by
 `Zend_Controller_Front`, which in turn calls `Zend_Controller_Router_Rewrite` to
 determine which controller (and action in that controller) to dispatch.
-`Zend_Controller_Router_Rewrite` decomposes the URI in order to set the
+`Zend_Controller_Router_Rewrite` decomposes the **URI** in order to set the
 controller and action names in the request. `Zend_Controller_Front` then enters
 a dispatch loop. It calls `Zend_Controller_Dispatcher_Standard`, passing it the
 request, to dispatch to the controller and action specified in the request (or
