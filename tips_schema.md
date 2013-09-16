@@ -32,6 +32,7 @@ These default configured property file locations from highest to lowest preceden
 * `/Company Home/Data Dictionary/Web Forms/{form name}/strings.properties`
 * `/Company Home/Data Dictionary/Web Forms/strings.properties`
 * `webclient.properties` (within the Alfresco webapp)
+
 ```
 key1=val1
 key2=val2
@@ -42,22 +43,19 @@ Webscripts:
 
 Importing or including within an imported or included schema is a known Alfresco
 bug. Your imports or includes must be one level deep atmost. Your webscripts
-must reside within: `Data Dictionary/Web Scripts` and you can test them using
-urls of the sort:
-
-https://.../folder?f1=typeZprint&storeid=ORG
+must reside within: `Data Dictionary/Web Scripts`.
 
 Save Location for your schema:
 ------------------------------
 
-If you want to use a normalizedString field for defining the name under which
-your schema should be saved, here is the kind of Freemaker output pattern to be
-used:
+If you want to use a `normalizedString` field for defining the name under which
+your schema should be saved, here is the kind of **Freemaker** output pattern to
+be used:
 ```
 /${webapp}/brand/${xml['org:org']['org:brand']['org:name_id']}.xml
 ```
 
-*See:* [Output Path Pattern Examples)[http://wiki.alfresco.com/wiki/WCM_Forms_Developer_Guide#Output_Path_Pattern_Examples]
+_See:_ [Output Path Pattern Examples](http://wiki.alfresco.com/wiki/WCM_Forms_Developer_Guide#Output_Path_Pattern_Examples)
 
 Links:
 ------
