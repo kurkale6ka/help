@@ -66,7 +66,8 @@ Routing
 *Note*: *Reverse Matching*
 Routes are matched in reverse order so make sure your most generic routes are defined first.
 
-1. **Variable route**
+1\. **Variable route**
+
 ```php
 $route = new Zend_Controller_Router_Route(
     'archive/:year',
@@ -79,7 +80,8 @@ $route = new Zend_Controller_Router_Route(
 );
 $router->addRoute('archive', $route);
 ```
-2. **Static route**
+2\. **Static route**
+
 ```php
 $route = new Zend_Controller_Router_Route_Static(
     'login',
@@ -87,7 +89,8 @@ $route = new Zend_Controller_Router_Route_Static(
 );
 $router->addRoute('login', $route);
 ```
-3. **Regex route**
+3\. **Regex route**
+
 ```php
 $route = new Zend_Controller_Router_Route_Regex(
     'archive(?:/(\d+))?',
