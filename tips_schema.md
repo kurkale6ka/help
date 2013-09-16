@@ -19,13 +19,13 @@
 </xs:element>
 ```
 
-The above would create a basic `<textarea>` form field (not a rich text editor).
-Make sure you position the annotation element immediately after the opening
-`xs:element` tag, no other elements can go in between.
+The above would create a basic `<textarea>` form field (not a **rich text
+editor**). Make sure you position the **annotation** element immediately after
+the opening `xs:element` tag, no other elements can go in between.
 
-*Note:* be careful with use of `minimal`, don't add it unless it is needed.
+_Note:_ be careful with use of `minimal`, don't add it unless it is needed.
 
-*Note:* If a value starts with `${` and ends with `}`, the Form UI will look up
+_Note:_ If a value starts with `${` and ends with `}`, the Form UI will look up
 for the key/value pair in a chain of property files
 
 These default configured property file locations from highest to lowest precedence are:
