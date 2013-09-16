@@ -18,8 +18,8 @@
 ```
 _Warning:_ `/** This explanation is NOT parsed */` (2 lines is the minimum)
 
-A DocBlock is valid only when the following element is one of:
---------------------------------------------------------------
+A DocBlock is valid only when the following element is:
+-------------------------------------------------------
 
 * class
 * class method
@@ -29,12 +29,13 @@ A DocBlock is valid only when the following element is one of:
 * define statement
 * include statement
 
-See [Documentable PHP Elements](http://manual.phpdoc.org/HTMLSmartyConverter/HandS/phpDocumentor/tutorial_elements.pkg.html)
+_See:_ [Documentable PHP Elements](http://manual.phpdoc.org/HTMLSmartyConverter/HandS/phpDocumentor/tutorial_elements.pkg.html)
 
 Package DocBlock:
 -----------------
 
-A `@package` tag should reside in it's own DocBlock and that DocBlock should be the very first in the file
+A `@package` tag should reside in it's own **DocBlock** and that **DocBlock**
+should be the very first in the file:
 ```php
 /**
  * @package Controllers
