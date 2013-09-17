@@ -1,0 +1,80 @@
+Apache {{{1
+-----------
+
+Modules {{{2
+
+Modules can be statically compiled into the httpd binary when the server is
+built. Alternatively, modules can be compiled as Dynamic Shared Objects (DSOs)
+that exist separately from the main httpd binary file. You must use a
+LoadModule directive in httpd.conf to tell Apache to activate a module.
+
+Options {{{2
+
+The Options directive controls which server features are available in a
+particular directory
+
+<Directory /web/docs>
+# Indexes: if no index.html => formatted listing of the directory
+Options Indexes FollowSymLinks
+</Directory>
+
+Alias {{{2
+
+Alias /docs /var/web (server config, virtual host)
+http://www.example.com/docs/dir/file.html will be served from /var/web/dir/file.html
+
+This is to allow web access to parts of the filesystem that are not strictly
+underneath the DocumentRoot (or use symlinks in DocumentRoot but options in
+their parent directories must include FollowSymLinks)
+
+Virtual Hosts {{{2
+
+IP-Based Virtual Host:
+The physical server should have as many NICs as served websites
+
+Name-Based Virtual Host:
+Apache looks for the hostname in the HTTP header, and depending on the
+hostname, it servers different websites. You need only one ip-address on the
+physical server; but, you update the DNS with multiple website names pointing
+to the same ip-address.
+
+NameVirtualHost 111.22.33.44:80 (NameVirtualHost *:80 - listen on all NICs)
+IP on which the server will receive requests for the name-based virtual hosts
+
+<VirtualHost *:80> (See above: which NIC on the machine?)
+ServerName server.domain.com   # the vhost name
+ServerAlias server2.domain.com # an alias for that name (analogue to /etc/hosts)
+                               # CNAME set in DNS must exist
+</VirtualHost>
+
+Allow, Deny {{{2
+
+mod_authz_host
+
+All Allow and Deny directives are processed, unlike a typical firewall, where
+only the first match is used. The last match is effective (also unlike a
+typical firewall).
+
+Match                   | Allow,Deny result                   | Deny,Allow result
+------------------------+-------------------------------------+-------------------------------------
+Match Allow only        | Request allowed                     | Request allowed
+Match Deny only         | Request denied                      | Request denied
+No match                | Default to second directive: Denied | Default to second directive: Allowed
+Match both Allow & Deny | Final match controls: Denied        | Final match controls: Allowed
+
+<Directory /www>
+Order Allow,Deny (A,D means D is the default; D,A means A is)
+Allow from apache.org
+Deny from foo.apache.org
+</Directory>
+
+.htaccess {{{2
+
+* Any directive that you can include in a .htaccess file is better set in a
+  Directory block (in httpd.conf), as it will have the same effect with better
+  performance.
+
+* The .htaccess file is placed in a particular document directory, and the
+  directives apply to that directory, and all subdirectories thereof.
+
+* What you can put in these files is determined by the AllowOverride directive.
