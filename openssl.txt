@@ -1,0 +1,83 @@
+OpenSSL: certificate generation for OpenLDAP
+============================================
+
+Set openssl defaults:
+---------------------
+/etc/pki/tls/openssl.cnf (OPENSSLDIR: openssl version -d)
+
+[ req ]
+default_bits = 2048
+req_extensions = v3_req
+
+# Share the same certificate among several servers
+[ v3_req ]
+subjectAltName=DNS:vm_centos1,DNS:vm_centos2
+NB: DNS:host must be a fqdn as returned by hostname -f
+
+CA self-signed certificate:
+---------------------------
+1. key pair generation
+   cd /etc/openldap/cacerts &&
+   openssl genrsa -out cakey.pem 2048
+   chmod 600 cakey.pem
+   Note: cakey.pem contains BOTH keys, same for serverkey.pem below
+
+2. new self-signed certificate
+   openssl req -new -x509 -days 1095 -key cakey.pem -out cacert.pem # -subj "/C=GB/ST=State/L=Locality/O=Org/OU=IT/CN=CA"
+
+LDAP Master certificate:
+------------------------
+1. mkdir -p /etc/CA/{newcerts,private}
+   touch /etc/CA/index.txt
+   echo '01' > /etc/CA/serial ?
+   (cd /etc/CA/private && ln -s /etc/openldap/cacerts/cakey.pem)
+   (cd /etc/CA && ln -s /etc/openldap/cacerts/cacert.pem)
+
+2. key pair generation + new CSR
+   openssl req -new -nodes -keyout serverkey.pem -out server.csr # -subj "/C=GB/ST=State/L=Locality/O=Org/OU=IT/CN=ldap_master_hostname_fqdn"
+   chmod 600 serverkey.pem
+
+3. Sign the CSR in order to create a valid digital certificate
+   openssl ca -days 1095 -extensions v3_req -in server.csr -out servercert.pem
+
+4. chown ldap:ldap *
+
+* Install cacert.pem, servercert.pem and serverkey.pem on the slave,
+          cacert.pem on all clients
+
+* /etc/openldap/cacerts must also contain a set of symlinks pointing to the
+  certificate files, each named using a hash with extension .0 of the
+  corresponding certificate's subject's Distinguished Name:
+
+  for c in *cert.pem; do  ln -s "$c" $(openssl x509 -hash -in "$c" -noout).0; done
+
+  http://jw35.blogspot.co.uk/2010/05/doing-certificate-verification-in.html
+  man openssl-verify
+
+Notes:
+-nodes: unencrypted private key
+   req: PKCS#10 certificate request and certificate generating utility (man req)
+   pem: Privacy Enhanced Email
+
+Tests:
+------
+
+See key pair:
+openssl rsa -in privkey.pem -noout -text
+openssl rsa -in privkey.pem -pubout
+
+See certificate:
+openssl x509 -in cert.pem -noout -text
+
+Misc:
+-----
+
+openssl enc -aes-256-cbc -in plain.txt -out encrypted.bin
+
+Location with a bundle of certificates trusted by default:
+/etc/pki/tls/certs on RedHat/Fedora
+/etc/ssl/certs     on Ubuntu/Debian
+
+CRL: certificate revocation list - permanent (revoked) or temporary (hold)
+
+http://users.dcc.uchile.cl/~pcamacho/tutorial/crypto/openssl/openssl_intro.html#htoc6

@@ -1,0 +1,33 @@
+PKI (Public Key Infrastructure)
+===============================
+
+Note: public key certificate == digital certificate
+
+CA - certificate authority:
+---------------------------
+Issues digital certificates certifying the ownership of a public key
+It uses a digital signature to bind a public key with an identity
+
+Ex: AAAAB3NzaC1yc2EAAAADA + mitko is RELIABLE
+
+Note: a CA is identified by its own self-signed certificate
+Note: The CA certificates of many well known and trusted CA companies already
+      come installed on your PC as part of your Web browser installation.
+
+Scenario: User sends CSR (certificate signing request) to CA, then CA creates
+          the digital certificate
+
+Digital signature:
+------------------
+In public-key systems integrity is guaranteed by using digital signatures. A
+digital signature is a message digest which is attached to a message and which
+can be used to find out if the message was tampered with during the
+conversation. Even the slightest change in the message produces a different
+digest. The message digest is encrypted using the sender's private key. The
+receiver uses the same message digest algorithm used by the sender to generate
+a message digest of the received message.
+
+http://gdp.globus.org/gt4-tutorial/multiplehtml/ch09s03.html
+
+Asymmetric key algorithms: the key used to encrypt a message is not the same as
+                           the key used to decrypt it
