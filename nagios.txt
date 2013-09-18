@@ -1,0 +1,21 @@
+NRPE - Nagios Remote Plugin Executor
+====================================
+
+The NRPE addon consists of two pieces:
+--------------------------------------
+The check_nrpe plugin, which resides on the local monitoring machine
+The NRPE daemon, which runs on the remote Linux/Unix machine
+
+1. Nagios will execute the check_nrpe plugin and tell it what service needs to
+   be checked
+2. The NRPE daemon runs the appropriate Nagios plugin to check the service or
+   resource. The NRPE daemon is started by xinetd
+
+Note: The NRPE daemon requires that Nagios plugins package be installed on the
+      remote Linux/Unix host. Without these, the daemon wouldn't be able to
+      monitor anything.
+
+Test: clush -aB '/usr/lib64/nagios/plugins/check_nrpe -H localhost'
+      Use the appropriate plugins location on your remote hosts
+
+http://www.google.co.uk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&ved=0CC8QFjAA&url=http%3A%2F%2Fnagios.sourceforge.net%2Fdocs%2Fnrpe%2FNRPE.pdf&ei=q7M5UvfQGKXW0QXqooHIBA&usg=AFQjCNGYpmjIaMBRWQWzjMSmZZ_Zl_BgLA&sig2=sDp_95AVMs2amDitMTplgQ&bvm=bv.52288139,d.d2k
