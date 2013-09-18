@@ -6,25 +6,30 @@ The NRPE addon consists of two pieces:
 The check_nrpe plugin, which resides on the local monitoring machine
 The NRPE daemon, which runs on the remote Linux/Unix machine
 
+Note: nrpe runs on port 5666 (define in /etc/services)
+
 1. Nagios will execute the check_nrpe plugin and tell it what service needs to
    be checked
    * define    host { name/IP } to be monitored
-   * define service { name/command }
-   Notes: name should match a defined host
-          command is the same as defined in nrpe.cfg below
+   * define service { name/check_command check_init_service!sinatra (ex) }
+   Notes: - name should match a defined host
+          - command is the same as defined in nrpe.cfg below
+   * Verify your Nagios configuration files: nagios -v /etc/nagios/nagios.cfg
    * service nagios restart
 
 2. The NRPE daemon runs the appropriate Nagios plugin to check the service or
    resource
    * The NRPE daemon is started by xinetd
    * nrpe.cfg is used to configure the plugins
-   * nrpe runs on port 5666 (define in /etc/services)
+     Example: command[check_init_service]=/usr/lib64/nagios/plugins/check_init_service $ARG1$
+   * Get help on a plugin: /usr/lib64/nagios/plugins/check_procs -h
 
 Note: The NRPE daemon requires that Nagios plugins package be installed on the
       remote Linux/Unix host. Without these, the daemon wouldn't be able to
       monitor anything.
 
-Test:    on remote: /usr/lib64/nagios/plugins/check_nrpe -H localhost
+Tests:   on remote: /usr/lib64/nagios/plugins/check_nrpe -H localhost
+                    /usr/lib64/nagios/plugins/check_init_service sinatra
       from monitor: /usr/lib64/nagios/plugins/check_nrpe -H remote_machine
       Note: Adapt paths to your plugin location
 
