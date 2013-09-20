@@ -1,9 +1,8 @@
 Logrotate Configuration files
 =============================
 
-**1. /usr/sbin/logrotate** – The logrotate command
-
-**2. /etc/logrotate.conf** – Global log rotation configuration file
+1. **/usr/sbin/logrotate** – The logrotate command which runs from **/etc/cron.daily/logrotate** (see notes)
+2. **/etc/logrotate.conf** – Global logrotate configuration file
 ```
 weekly
 rotate 4
@@ -12,15 +11,7 @@ include /etc/logrotate.d
 /var/log/wtmp {
 ...
 ```
-
-**/etc/cron.daily/logrotate** – The shell script that executes the logrotate command everyday
-```
-#!/bin/sh
-/usr/sbin/logrotate /etc/logrotate.conf
-...
-```
-
-**3. /etc/logrotate.d** – When individual packages are installed on the system, they drop the log rotation configuration information in this directory
+3. **/etc/logrotate.d** – Application specific logrotate configuration files
 ```
 /var/log/yum.log {
     missingok
@@ -30,5 +21,14 @@ include /etc/logrotate.d
     create 0600 root root
 }
 ```
+---
+Notes:
+------
+**/etc/cron.daily/logrotate**
+```
+#!/bin/sh
+/usr/sbin/logrotate /etc/logrotate.conf
+...
+```
 
-_**Test**_: logrotate -d -f /etc/logrotate.conf
+_**Test**_: logrotate -df my_logrotate.conf (d for debug, f for file)
