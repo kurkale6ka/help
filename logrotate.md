@@ -31,11 +31,10 @@ include /etc/logrotate.d
 Notes:
 ------
 
-_**/etc/cron.daily/logrotate**_
+- _**/etc/cron.daily/logrotate**_
 ```
 #!/bin/sh
 /usr/sbin/logrotate /etc/logrotate.conf
 ...
 ```
-
-_**Test**_: `logrotate -df my_logrotate.conf` - **d** for debug, **f** for file
+- _**Test**_: `logrotate -df my_logrotate.conf` - **d** for debug, **f** for file
