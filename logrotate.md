@@ -3,14 +3,7 @@ Logrotate Configuration files
 
 **1. /usr/sbin/logrotate** – The logrotate command
 
-**2. /etc/cron.daily/logrotate** – This shell script executes the logrotate command everyday
-```
-#!/bin/sh
-/usr/sbin/logrotate /etc/logrotate.conf
-...
-```
-
-**3. /etc/logrotate.conf** – Global Log rotation configuration file
+**2. /etc/logrotate.conf** – Global log rotation configuration file
 ```
 weekly
 rotate 4
@@ -20,7 +13,14 @@ include /etc/logrotate.d
 ...
 ```
 
-**4. /etc/logrotate.d** – When individual packages are installed on the system, they drop the log rotation configuration information in this directory
+_**Note:**_ **/etc/cron.daily/logrotate** – The shell script that executes the logrotate command everyday
+```
+#!/bin/sh
+/usr/sbin/logrotate /etc/logrotate.conf
+...
+```
+
+**3. /etc/logrotate.d** – When individual packages are installed on the system, they drop the log rotation configuration information in this directory
 ```
 /var/log/yum.log {
     missingok
@@ -31,4 +31,4 @@ include /etc/logrotate.d
 }
 ```
 
-_**Test**_: logrotate -d -f `/etc/logrotate.conf`
+_**Test**_: logrotate -d -f **/etc/logrotate.conf**
