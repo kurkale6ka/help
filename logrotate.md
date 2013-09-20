@@ -26,7 +26,7 @@ include /etc/logrotate.d
    yearly
    create 0600 root root
 }
-```  
+```
 
 ---
 
