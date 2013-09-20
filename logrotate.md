@@ -19,14 +19,14 @@ include /etc/logrotate.d
 /var/log/yum/*.log
 /var/log/emerge/*.log
 {
-    missingok
-    notifempty
-    size 30k
-    yearly
-    create 0600 root root
+   compress
+   missingok
+   notifempty
+   size 30k
+   yearly
+   create 0600 root root
 }
-```
-
+```  
 
 ---
 
