@@ -31,4 +31,4 @@ include /etc/logrotate.d
 }
 ```
 
-_**Test**_: `logrotate -d -f /etc/logrotate.conf`
+_**Test**_: logrotate -d -f /etc/logrotate.conf
