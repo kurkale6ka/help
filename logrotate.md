@@ -16,7 +16,9 @@ include /etc/logrotate.d
 - **/etc/logrotate.d** – Application specific logrotate configuration files
 
 ```
-/var/log/yum.log {
+/var/log/yum/*.log
+/var/log/emerge/*.log
+{
     missingok
     notifempty
     size 30k
@@ -38,4 +40,4 @@ Notes:
 /usr/sbin/logrotate /etc/logrotate.conf
 ...
 ```
-- _**Test**_: `logrotate -df my_logrotate.conf` - **d** for debug, **f** for file
+- _**Test with**_: `logrotate -df my_logrotate.conf` - **d** for debug, **f** for file
