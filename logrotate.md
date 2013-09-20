@@ -32,6 +32,7 @@ Notes:
 ------
 
 - _**/etc/cron.daily/logrotate**_
+
 ```
 #!/bin/sh
 /usr/sbin/logrotate /etc/logrotate.conf
