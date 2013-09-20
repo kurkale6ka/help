@@ -3,6 +3,7 @@ Logrotate Configuration files
 
 1. **/usr/sbin/logrotate** – The logrotate command which runs from **/etc/cron.daily/logrotate** (see notes)
 2. **/etc/logrotate.conf** – Global logrotate configuration file
+
 ```
 weekly
 rotate 4
@@ -12,6 +13,7 @@ include /etc/logrotate.d
 ...
 ```
 3. **/etc/logrotate.d** – Application specific logrotate configuration files
+
 ```
 /var/log/yum.log {
     missingok
@@ -21,9 +23,12 @@ include /etc/logrotate.d
     create 0600 root root
 }
 ```
+
 ---
+
 Notes:
 ------
+
 **/etc/cron.daily/logrotate**
 ```
 #!/bin/sh
