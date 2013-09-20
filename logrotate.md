@@ -13,7 +13,7 @@ include /etc/logrotate.d
 ...
 ```
 
-_**Note:**_ **/etc/cron.daily/logrotate** – The shell script that executes the logrotate command everyday
+**/etc/cron.daily/logrotate** – The shell script that executes the logrotate command everyday
 ```
 #!/bin/sh
 /usr/sbin/logrotate /etc/logrotate.conf
@@ -31,4 +31,4 @@ _**Note:**_ **/etc/cron.daily/logrotate** – The shell script that executes the
 }
 ```
 
-_**Test**_: logrotate -d -f **/etc/logrotate.conf**
+_**Test**_: `logrotate -d -f /etc/logrotate.conf`
