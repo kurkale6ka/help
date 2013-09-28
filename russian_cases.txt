@@ -1,4 +1,4 @@
-Prepositional case
+Prepositional case {{{1
 ==================
 
 в, на, о, при:
@@ -20,13 +20,24 @@ Personal pronouns:
   о тебе           о вас
   о нём, ней, нём  о них
 
+Possessive pronouns:
+--------------------
+m and n  f
+моём     моей
+твоём    твоей        Note: его, её, его, их are indeclinable
+нашем    нашей
+вашем    вашей
+---
+этом     этой
+том      той
+
 Adjectives:
 -----------
 новый -> новом | зимнии -> зимнем | третии -> третьем
 новая -> новой | зимняя -> зимней | третья -> третьей
 новое -> новом | зимнее -> зимнем | третье -> третьем
 
-Accusative case
+Accusative case {{{1
 ===============
 
    а : у |    Москва -> Я люблю Москву
@@ -49,9 +60,20 @@ Personal pronouns:
 тебя          вас
 его, её, его  их
 
+Possessive pronouns:
+--------------------
+m animate  f
+моего      мою
+твоего     твою       Note: его, её, его, их are indeclinable
+нашего     нашу
+вашего     вашу
+---
+этого      эту
+того       ту
+
 Adjectives:
 -----------
 новый -> нового | зимнии -> зимнего | третии -> третьего
 новая -> новую  | зимняя -> зимнюю  | третья -> третью
 
-# vim: keymap=ru spelllang=ru
+# vim: keymap=ru spelllang=ru foldmethod=marker foldmarker={{{,}}}
