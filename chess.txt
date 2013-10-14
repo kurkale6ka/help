@@ -41,8 +41,9 @@ B - bishop (♗)
 N - knight (♘)
   - pawn   (♙)
 
-Move: piece [file|rank|square] [x] square (letter first)
-                 ambiguity    takes
+Move: PIECE [file[,rank]] [x] SQUARE (letter first)
+              ambiguity  takes
+  Ex: fxe5 (pawn(file only if no ambiguity) takes e5)
 
  kingside castling: O-O
 queenside castling: O-O-O
