@@ -15,7 +15,7 @@ Movetext in algebraic chess notation
                                     file (a-h)
 
                                         ↑
-         Black                 White
+
 8   ♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜   1   ♖ ♘ ♗ ♔ ♕ ♗ ♘ ♖   →   rank (1-8)
 7   ♟ ♟ ♟ ♟ ♟ ♟ ♟ ♟   2   ♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙
 6                     3
@@ -26,7 +26,6 @@ Movetext in algebraic chess notation
 1   ♖ ♘ ♗ ♕ ♔ ♗ ♘ ♖   8   ♜ ♞ ♝ ♚ ♛ ♝ ♞ ♜
 
     a b c d e f g h       h g f e d c b a
-         White                 Black
 
 Standard Algebraic Notation:
 -~-~-~-~-~-~-~-~-~-~-~-~-~-~
