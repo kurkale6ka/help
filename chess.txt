@@ -12,11 +12,11 @@ Tag pairs: [Name "Value"]
 Movetext in algebraic chess notation
 ------------------------------------
 
-                                    file (a-h)
+                                    file (a → h for white, h → a for black)
 
                                         ↑
 
-8   ♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜   1   ♖ ♘ ♗ ♔ ♕ ♗ ♘ ♖   →   rank (1-8)
+8   ♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜   1   ♖ ♘ ♗ ♔ ♕ ♗ ♘ ♖   →   rank (1-8 from white upwards)
 7   ♟ ♟ ♟ ♟ ♟ ♟ ♟ ♟   2   ♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙
 6                     3
 5                     4
