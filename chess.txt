@@ -1,0 +1,63 @@
+Portable Game Notation (pgn)
+============================
+
+The board is placed so that a white square is in each player's near-right corner
+
+Tag pairs: [Name "Value"]
+  Example: [Result "1-0"     (white wins)
+                   "0-1"     (black wins)
+                   "1/2-1/2" (draw)
+                   "*"       (other, e.g., the game is ongoing)
+
+Movetext in algebraic chess notation
+------------------------------------
+
+                                    file (a-h)
+
+                                        ↑
+         Black                 White
+8   ♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜   1   ♖ ♘ ♗ ♔ ♕ ♗ ♘ ♖   →   rank (1-8)
+7   ♟ ♟ ♟ ♟ ♟ ♟ ♟ ♟   2   ♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙
+6                     3
+5                     4
+4                     5
+3                     6
+2   ♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙   7   ♟ ♟ ♟ ♟ ♟ ♟ ♟ ♟
+1   ♖ ♘ ♗ ♕ ♔ ♗ ♘ ♖   8   ♜ ♞ ♝ ♚ ♛ ♝ ♞ ♜
+
+    a b c d e f g h       h g f e d c b a
+         White                 Black
+
+Standard Algebraic Notation:
+-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+. (next move white) or ... (next move is black)
+1. e4 e5
+1. e4 1... e5
+
+K - king   (♔)
+Q - queen  (♕)
+R - rook   (♖)
+B - bishop (♗)
+N - knight (♘)
+  - pawn   (♙)
+
+Move: piece [file|rank|square] [x] square (letter first)
+                 ambiguity    takes
+
+ kingside castling: O-O
+queenside castling: O-O-O
+    Pawn promotion: e8=Q [+ check, # checkmate]
+
+Comments: ; or {...}
+
+Numeric Annotation Glyphs
+-~-~-~-~-~-~-~-~-~-~-~-~-
+
+!  good move
+?  poor move or mistake
+!! very good or brilliant move
+?? very poor move or blunder
+!? speculative or interesting move
+?! questionable or dubious move
+...
