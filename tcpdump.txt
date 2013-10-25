@@ -1,0 +1,43 @@
+options
+-------
+-i any : listen on all interfaces
+-nn    : no hostnames or port names
+-A     : packet's contents in ASCII
+-X     : packet's contents in both hex and ASCII
+-s0    : get all packet sizes
+
+source / destination
+--------------------
+tcpdump host x.x.x.x
+tcpdump src x.x.x.x
+tcpdump dst x.x.x.x
+tcpdump net x.x.x.x/24
+
+protocol
+--------
+tcpdump icmp
+
+port
+----
+tcpdump port 636
+tcpdump src port 22
+tcpdump dst port 389
+tcpdump portrange 21-53
+
+size
+----
+tcpdump less 32
+tcpdump greater 128
+
+capture
+-------
+# can be read by wireshark, snort...
+tcpdump -s 1514 port 53 -w capture_file
+tcpdump -r capture_file
+
+combine filters with and, or and not
+------------------------------------
+tcpdump src port 81 and udp
+tcpdump udp and src port 53
+# To group use ()s but escape them for bash
+tcpdump 'src 10.0.0.1 and (dst port 389 or 21)'
