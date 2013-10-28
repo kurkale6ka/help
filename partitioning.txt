@@ -1,0 +1,9 @@
+Partitioning of a 350GB hard drive
+
+/boot 128MB     ext2 sda1
+swap    6GB     ext4 sda2 # ~ double of RAM
+/      80GB     ext4 sda3 # includes /usr
+/home 190GB LVM ext4
+/var    5GB LVM ext4
+/opt    3GB LVM ext4
+/tmp    2GB LVM ext4
