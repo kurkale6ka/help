@@ -1,0 +1,80 @@
+loadkeys uk (/usr/share/kbd/keymaps/)
+
+nano /etc/locale.gen
+bg_BG.UTF-8 UTF-8
+fr_FR.UTF-8 UTF-8
+es_ES.UTF-8 UTF-8
+en_GB.UTF-8 UTF-8
+ru_RU.UTF-8 UTF-8
+
+$ locale-gen
+$ export LANG=de_DE.UTF-8
+
+Partitioning of a 350GB hard drive {{{1
+
+/boot 512MB     ext2 /dev/sda1
+swap    6GB     ext4 /dev/sda2 # ~ double of RAM
+/      80GB     ext4 /dev/sda3 # includes /usr
+/home 190GB LVM ext4
+/var   12GB LVM ext4
+/opt    3GB LVM ext4
+/tmp    2GB LVM ext4
+
+1. fdisk /dev/sda {{{2
+
+* (d)elete all partitions
+* boot: /dev/sda1: (n)ew, (p)rimary, +512M, a (bootable)
+* swap: /dev/sda2: (n)ew, (p)rimary, +6G  , (t)ype 82
+* root: /dev/sda3: (n)ew, (p)rimary, +80G
+*  LVM: /dev/sda4: (n)ew, (p)rimary,        (t)ype 8e
+
+Note: (p)rint, (w)rite
+
+Label a Linux Partition:
+
+e2label /dev/sdb2 usbstorage
+tune2fs -L usbstorage /dev/sdb2
+
+/etc/fstabs
+LABEL=usbstorage /mnt/data ext4 noauto,users,rw 0 0
+
+2. Creating Filesystems {{{2
+
+* mkfs.ext2 /dev/sda1
+* mkswap    /dev/sda2
+  swapon    /dev/sda2
+* mkfs.ext4 /dev/sda3
+* pvcreate       /dev/sda4
+  vgcreate vdisk /dev/sda4
+  lvcreate -L190G vdisk -nhome; mkfs.ext4 /dev/vdisk/home
+  lvcreate -L12G  vdisk -nvar ; mkfs.ext4 /dev/vdisk/var
+  lvcreate -L3G   vdisk -nopt ; mkfs.ext4 /dev/vdisk/opt
+  lvcreate -L2G   vdisk -ntmp ; mkfs.ext4 /dev/vdisk/tmp
+
+Note: pvdisplay, pvscan...
+
+2.1 Mount the partitions {{{2
+
+for i in boot home var opt tmp; do mkdir -p /mnt/"$i"; done
+
+mount /dev/sda3 /mnt
+mount /dev/sda1 /mnt/boot
+
+for i in boot home var opt tmp; do mount /dev/vdisk/"$i" /mnt/"$i"; done
+
+3. Install {{{1
+
+nano /etc/pacman.d/mirrorlist
+Preferred first
+
+pacstrap -i /mnt base
+
+$ genfstab -U -p /mnt >> /mnt/etc/fstab
+$ nano /mnt/etc/fstab
+
+arch-chroot /mnt
+
+$ loadkeys uk
+
+$ nano /etc/vconsole.conf
+  KEYMAP=uk
