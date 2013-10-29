@@ -1,14 +1,5 @@
 loadkeys uk (/usr/share/kbd/keymaps/)
-
-nano /etc/locale.gen
-bg_BG.UTF-8 UTF-8
-fr_FR.UTF-8 UTF-8
-es_ES.UTF-8 UTF-8
-en_GB.UTF-8 UTF-8
-ru_RU.UTF-8 UTF-8
-
-$ locale-gen
-$ export LANG=de_DE.UTF-8
+ping -c3 www.google.com
 
 Partitioning of a 350GB hard drive {{{1
 
@@ -74,7 +65,34 @@ $ nano /mnt/etc/fstab
 
 arch-chroot /mnt
 
-$ loadkeys uk
+nano /etc/locale.gen
+bg_BG.UTF-8 UTF-8
+fr_FR.UTF-8 UTF-8
+es_ES.UTF-8 UTF-8
+en_GB.UTF-8 UTF-8
+ru_RU.UTF-8 UTF-8
+$ locale-gen
 
-$ nano /etc/vconsole.conf
-  KEYMAP=uk
+$ echo LANG=en_GB.UTF-8 >> /etc/locale.conf
+$ export LANG=en_GB.UTF-8
+
+$ loadkeys uk
+$ echo KEYMAP=uk >> /etc/vconsole.conf
+
+$ ln -s /usr/share/zoneinfo/Europe/London /etc/localtime
+
+$ hwclock --systohc --utc
+
+$ echo myhostname > /etc/hostname
+
+$ systemctl enable dhcpcd.service # systemctl enable dhcpcd@interface_name.service
+
+$ passwd
+
+$ pacman -S grub
+$ grub-install # --target=i386-pc (correct for x86_64) --recheck /dev/sda
+$ grub-mkconfig -o /boot/grub/grub.cfg
+
+$ exit
+$ umount -R /mnt
+$ reboot
