@@ -44,6 +44,8 @@ LABEL=usbstorage /mnt/data ext4 noauto,users,rw 0 0
 
 Note: pvdisplay, pvscan...
 
+reboot
+
 2.1 Mount the partitions {{{2
 
 for i in boot home var opt tmp; do mkdir -p /mnt/"$i"; done
@@ -51,21 +53,21 @@ for i in boot home var opt tmp; do mkdir -p /mnt/"$i"; done
 mount /dev/sda3 /mnt
 mount /dev/sda1 /mnt/boot
 
-for i in boot home var opt tmp; do mount /dev/vdisk/"$i" /mnt/"$i"; done
+for i in home var opt tmp; do mount /dev/vdisk/"$i" /mnt/"$i"; done
 
 3. Install {{{1
 
-nano /etc/pacman.d/mirrorlist
+vi /etc/pacman.d/mirrorlist
 Preferred first
 
 pacstrap -i /mnt base
 
 $ genfstab -U -p /mnt >> /mnt/etc/fstab
-$ nano /mnt/etc/fstab
+$ vi /mnt/etc/fstab
 
 arch-chroot /mnt
 
-nano /etc/locale.gen
+vi /etc/locale.gen
 bg_BG.UTF-8 UTF-8
 fr_FR.UTF-8 UTF-8
 es_ES.UTF-8 UTF-8
@@ -90,9 +92,27 @@ $ systemctl enable dhcpcd.service # systemctl enable dhcpcd@interface_name.servi
 $ passwd
 
 $ pacman -S grub
-$ grub-install # --target=i386-pc (correct for x86_64) --recheck /dev/sda
+$ grub-install /dev/sda # --target=i386-pc (correct for x86_64) --recheck /dev/sda
 $ grub-mkconfig -o /boot/grub/grub.cfg
 
 $ exit
 $ umount -R /mnt
 $ reboot
+
+useradd -m mitko
+passwd mitko
+
+pacman -S alsa-utils # for alsamixer
+pacman -S xorg-server xorg-server-utils xorg-xinit
+
+lspci | grep VGA
+pacman -S xf86-video-ati
+
+pacman -S ttf-dejavu
+pacman -S xfce4
+pacman -S gvfs # for automounting
+
+pacman -S lightdm lightdm-gtk-greeter
+systemctl -f enable lightdm
+
+pacman -S git openssh sudo xscreensaver
