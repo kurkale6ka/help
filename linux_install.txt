@@ -114,5 +114,6 @@ pacman -S gvfs # for automounting
 
 pacman -S lightdm lightdm-gtk-greeter
 systemctl -f enable lightdm
+ln -s /usr/lib/lightdm/lightdm/gdmflexiserver /usr/bin/gdmflexiserver
 
 pacman -S git openssh sudo xscreensaver
