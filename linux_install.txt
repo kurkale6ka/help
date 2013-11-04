@@ -1,4 +1,5 @@
-loadkeys uk (/usr/share/kbd/keymaps/)
+loadkeys uk # /usr/share/kbd/keymaps/
+
 ping -c3 www.google.com
 
 Partitioning of a 350GB hard drive {{{1
@@ -21,13 +22,13 @@ swap    6GB     ext4 /dev/sda2 # ~ double of RAM
 
 Note: (p)rint, (w)rite
 
-Label a Linux Partition:
-
-e2label /dev/sdb2 usbstorage
-tune2fs -L usbstorage /dev/sdb2
-
-/etc/fstabs
-LABEL=usbstorage /mnt/data ext4 noauto,users,rw 0 0
+# Label a Linux Partition:
+#
+# e2label /dev/sdb2 usbstorage
+# tune2fs -L usbstorage /dev/sdb2
+#
+# /etc/fstabs
+# LABEL=usbstorage /mnt/data ext4 noauto,users,rw 0 0
 
 2. Creating Filesystems {{{2
 
@@ -57,13 +58,12 @@ for i in home var opt tmp; do mount /dev/vdisk/"$i" /mnt/"$i"; done
 
 3. Install {{{1
 
-vi /etc/pacman.d/mirrorlist
-Preferred first
+vi /etc/pacman.d/mirrorlist # Preferred first
 
-pacstrap -i /mnt base
+pacstrap -i /mnt base # exclude with ^: ^1-5
 
-$ genfstab -U -p /mnt >> /mnt/etc/fstab
-$ vi /mnt/etc/fstab
+genfstab -U -p /mnt >> /mnt/etc/fstab
+vi /mnt/etc/fstab
 
 arch-chroot /mnt
 
@@ -73,31 +73,34 @@ fr_FR.UTF-8 UTF-8
 es_ES.UTF-8 UTF-8
 en_GB.UTF-8 UTF-8
 ru_RU.UTF-8 UTF-8
-$ locale-gen
 
-$ echo LANG=en_GB.UTF-8 >> /etc/locale.conf
-$ export LANG=en_GB.UTF-8
+locale-gen
 
-$ loadkeys uk
-$ echo KEYMAP=uk >> /etc/vconsole.conf
+echo LANG=en_GB.UTF-8 >> /etc/locale.conf
+export LANG=en_GB.UTF-8
 
-$ ln -s /usr/share/zoneinfo/Europe/London /etc/localtime
+loadkeys uk
+echo KEYMAP=uk >> /etc/vconsole.conf
 
-$ hwclock --systohc --utc
+ln -s /usr/share/zoneinfo/Europe/London /etc/localtime
 
-$ echo myhostname > /etc/hostname
+hwclock --systohc --utc
 
-$ systemctl enable dhcpcd.service # systemctl enable dhcpcd@interface_name.service
+echo myhostname > /etc/hostname
 
-$ passwd
+systemctl enable dhcpcd.service # systemctl enable dhcpcd@interface_name.service
+# Or: systemctl stop dhcpcd.service && systemctl disable dhcpcd.service
+#     systemctl enable dhclient.service && systemctl start dhclient.service
 
-$ pacman -S grub
-$ grub-install /dev/sda # --target=i386-pc (correct for x86_64) --recheck /dev/sda
-$ grub-mkconfig -o /boot/grub/grub.cfg
+passwd
 
-$ exit
-$ umount -R /mnt
-$ reboot
+pacman -S grub
+grub-install /dev/sda # --target=i386-pc (correct for x86_64) --recheck /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+
+exit
+umount -R /mnt
+reboot
 
 useradd -m mitko
 passwd mitko
@@ -106,7 +109,8 @@ pacman -S alsa-utils # for alsamixer
 pacman -S xorg-server xorg-server-utils xorg-xinit
 
 lspci | grep VGA
-pacman -S xf86-video-ati
+pacman -Ss xf86-video | less # to see all
+pacman -S xf86-video-XXX
 
 pacman -S ttf-dejavu
 pacman -S xfce4
