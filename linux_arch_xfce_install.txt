@@ -119,7 +119,7 @@ pacman -S lightdm lightdm-gtk-greeter
 systemctl -f enable lightdm
 ln -s /usr/lib/lightdm/lightdm/gdmflexiserver /usr/bin/gdmflexiserver # user switvhing
 
-pacman -S ristretto ttf-dejavu xscreensaver
+pacman -S ristretto ttf-dejavu vlc xscreensaver
 pacman -S git sudo
 pacman -S mlocate
 pacman -S ctags ed gvim
@@ -127,4 +127,4 @@ pacman -S clipit xclip wgetpaste
 pacman -S firefox flashplugin
 pacman -S openssh
 
-pacman -S clusterssh openldap thunderbird terminator virtualbox
+pacman -S clusterssh xterm openldap thunderbird terminator virtualbox
