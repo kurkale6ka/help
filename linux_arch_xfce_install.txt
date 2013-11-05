@@ -4,23 +4,17 @@ ping -c3 www.google.com
 
 Partitioning of a 350GB hard drive {{{1
 
-/boot 512MB     ext2 /dev/sda1
-swap    6GB     ext4 /dev/sda2 # ~ double of RAM
-/      80GB     ext4 /dev/sda3 # includes /usr
-/home 190GB LVM ext4
-/var   12GB LVM ext4
-/opt    3GB LVM ext4
-/tmp    2GB LVM ext4
-
-1. fdisk /dev/sda {{{2
+1. fdisk/gdisk /dev/sda {{{2
 
 * (d)elete all partitions
-* boot: /dev/sda1: (n)ew, (p)rimary, +512M, a (bootable)
-* swap: /dev/sda2: (n)ew, (p)rimary, +6G  , (t)ype 82
-* root: /dev/sda3: (n)ew, (p)rimary, +80G
-*  LVM: /dev/sda4: (n)ew, (p)rimary,        (t)ype 8e
+* boot: /dev/sda1: (n)ew, (p)rimary, +512M,   type ef00, a (bootable)
+* swap: /dev/sda2: (n)ew, (p)rimary, +6G  , (t)ype 8200  # ~ double of RAM
+* root: /dev/sda3: (n)ew, (p)rimary, +80G                # includes /usr
+*  LVM: /dev/sda4: (n)ew, (p)rimary,        (t)ype 8e00
 
 Note: (p)rint, (w)rite
+
+reboot
 
 # Label a Linux Partition:
 #
@@ -32,7 +26,8 @@ Note: (p)rint, (w)rite
 
 2. Creating Filesystems {{{2
 
-* mkfs.ext2 /dev/sda1
+fdisk -l, then:
+* mkfs.ext2 /dev/sda1 OR mkfs.fat -F32 /dev/sda1
 * mkswap    /dev/sda2
   swapon    /dev/sda2
 * mkfs.ext4 /dev/sda3
@@ -45,15 +40,13 @@ Note: (p)rint, (w)rite
 
 Note: pvdisplay, pvscan...
 
-reboot
-
 2.1 Mount the partitions {{{2
+
+mount /dev/sda3 /mnt
 
 for i in boot home var opt tmp; do mkdir -p /mnt/"$i"; done
 
-mount /dev/sda3 /mnt
 mount /dev/sda1 /mnt/boot
-
 for i in home var opt tmp; do mount /dev/vdisk/"$i" /mnt/"$i"; done
 
 3. Install {{{1
@@ -94,8 +87,15 @@ systemctl enable dhcpcd.service # systemctl enable dhcpcd@interface_name.service
 
 passwd
 
-pacman -S grub
-grub-install /dev/sda # --target=i386-pc (correct for x86_64) --recheck /dev/sda
+pacman -S grub # efibootmgr dosfstools
+
+grub-install /dev/sda
+
+# UEFI only
+mount -t efivarfs efivarfs /sys/firmware/efi/efivars
+efivar -l # test if booted into UEFI mode
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub --recheck # --debug
+
 grub-mkconfig -o /boot/grub/grub.cfg
 
 exit
@@ -112,12 +112,19 @@ lspci | grep VGA
 pacman -Ss xf86-video | less # to see all
 pacman -S xf86-video-XXX
 
-pacman -S ttf-dejavu
 pacman -S xfce4
 pacman -S gvfs # for automounting
 
 pacman -S lightdm lightdm-gtk-greeter
 systemctl -f enable lightdm
-ln -s /usr/lib/lightdm/lightdm/gdmflexiserver /usr/bin/gdmflexiserver
+ln -s /usr/lib/lightdm/lightdm/gdmflexiserver /usr/bin/gdmflexiserver # user switvhing
 
-pacman -S git openssh sudo xscreensaver
+pacman -S ristretto ttf-dejavu xscreensaver
+pacman -S git sudo
+pacman -S mlocate
+pacman -S ctags ed gvim
+pacman -S clipit xclip wgetpaste
+pacman -S firefox flashplugin
+pacman -S openssh
+
+pacman -S clusterssh openldap thunderbird terminator virtualbox
