@@ -122,10 +122,12 @@ ln -s /usr/lib/lightdm/lightdm/gdmflexiserver /usr/bin/gdmflexiserver # user swi
 pacman -S --needed base-devel
 pacman -S ristretto ttf-dejavu vlc xscreensaver
 pacman -S git sudo
-pacman -S mlocate
+pacman -S mlocate ntp
 pacman -S ctags ed gvim
 pacman -S clipit xclip wgetpaste
 pacman -S firefox flashplugin
 pacman -S openssh
 
 pacman -S clusterssh xterm openldap thunderbird terminator virtualbox
+
+systemctl enable ntpd.service
