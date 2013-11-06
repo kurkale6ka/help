@@ -14,8 +14,6 @@ Partitioning of a 350GB hard drive {{{1
 
 Note: (p)rint, (w)rite
 
-reboot
-
 # Label a Linux Partition:
 #
 # e2label /dev/sdb2 usbstorage
@@ -23,6 +21,8 @@ reboot
 #
 # /etc/fstabs
 # LABEL=usbstorage /mnt/data ext4 noauto,users,rw 0 0
+
+reboot
 
 2. Creating Filesystems {{{2
 
@@ -128,6 +128,7 @@ pacman -S clipit xclip wgetpaste
 pacman -S firefox flashplugin
 pacman -S openssh
 
+pacman -S dnsutils rsync
 pacman -S clusterssh xterm openldap thunderbird terminator virtualbox
 
 systemctl enable ntpd.service
