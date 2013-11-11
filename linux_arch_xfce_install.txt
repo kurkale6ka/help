@@ -120,8 +120,8 @@ systemctl -f enable lightdm
 ln -s /usr/lib/lightdm/lightdm/gdmflexiserver /usr/bin/gdmflexiserver # user switvhing
 
 pacman -S --needed base-devel
-pacman -S ristretto ttf-dejavu vlc xscreensaver
-pacman -S git sudo
+pacman -S orage ristretto ttf-dejavu vlc xscreensaver
+pacman -S bash-completion git sudo
 pacman -S mlocate ntp tree
 pacman -S ctags ed gvim
 pacman -S clipit xclip wgetpaste
