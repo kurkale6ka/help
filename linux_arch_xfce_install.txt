@@ -115,7 +115,7 @@ pacman -S xf86-video-XXX
 pacman -S xfce4
 pacman -S gvfs # for automounting
 
-pacman -S lightdm lightdm-gtk-greeter
+pacman -S lightdm lightdm-gtk-greeter accountsservice numlockx
 systemctl enable lightdm
 ln -s /usr/lib/lightdm/lightdm/gdmflexiserver /usr/bin/gdmflexiserver # user switching
 
