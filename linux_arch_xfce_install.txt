@@ -115,14 +115,9 @@ pacman -S xf86-video-XXX
 pacman -S xfce4
 pacman -S gvfs # for automounting
 
-pacman -S lxdm
-systemctl enable lxdm
-cat > /usr/bin/gdmflexiserver
-#!/bin/bash
-/usr/bin/lxdm -c USER_SWITCH
-
-chmod 755 /usr/bin/gdmflexiserver
-chown root:root /usr/bin/gdmflexiserver
+pacman -S lightdm lightdm-gtk-greeter
+systemctl enable lightdm
+ln -s /usr/lib/lightdm/lightdm/gdmflexiserver /usr/bin/gdmflexiserver # user switching
 
 pacman -S --needed base-devel
 pacman -S bc orage ristretto ttf-dejavu vlc xscreensaver
