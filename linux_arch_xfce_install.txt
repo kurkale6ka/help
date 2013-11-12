@@ -125,7 +125,7 @@ chmod 755 /usr/bin/gdmflexiserver
 chown root:root /usr/bin/gdmflexiserver
 
 pacman -S --needed base-devel
-pacman -S orage ristretto ttf-dejavu vlc xscreensaver
+pacman -S bc orage ristretto ttf-dejavu vlc xscreensaver
 pacman -S bash-completion git sudo
 pacman -S mlocate ntp tree
 pacman -S ctags ed gvim
