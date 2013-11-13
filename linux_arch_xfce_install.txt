@@ -120,13 +120,15 @@ systemctl enable lightdm
 ln -s /usr/lib/lightdm/lightdm/gdmflexiserver /usr/bin/gdmflexiserver # user switching
 
 # Universal
-pacman -S bc ttf-dejavu vlc xscreensaver
-pacman -S bash-completion git sudo
+pacman -S bc ttf-dejavu xscreensaver
+pacman -S bash-completion sudo
 pacman -S mlocate ntp tree
 pacman -S ctags ed gvim
 pacman -S clipit xclip wgetpaste
 pacman -S firefox flashplugin
 pacman -S openssh
+# optional
+pacman -S cups git vlc
 
 # Distro / Desktop Environment specific
 pacman -S --needed base-devel
@@ -138,4 +140,4 @@ pacman -S dnsutils rsync
 pacman -S cifs-utils clusterssh openldap virtualbox thunderbird tcpdump terminator xterm
 
 # Services
-systemctl enable ntpd.service
+systemctl enable ntpd
