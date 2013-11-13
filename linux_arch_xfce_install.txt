@@ -119,8 +119,8 @@ pacman -S lightdm lightdm-gtk-greeter accountsservice numlockx
 systemctl enable lightdm
 ln -s /usr/lib/lightdm/lightdm/gdmflexiserver /usr/bin/gdmflexiserver # user switching
 
-pacman -S --needed base-devel
-pacman -S bc orage ristretto ttf-dejavu vlc xscreensaver
+# Universal
+pacman -S bc ttf-dejavu vlc xscreensaver
 pacman -S bash-completion git sudo
 pacman -S mlocate ntp tree
 pacman -S ctags ed gvim
@@ -128,7 +128,14 @@ pacman -S clipit xclip wgetpaste
 pacman -S firefox flashplugin
 pacman -S openssh
 
+# Distro / Desktop Environment specific
+pacman -S --needed base-devel
+pacman -S orage ristretto
+pacman -S xfce4-notifyd # xfce4-notifyd-config
+
+# Work
 pacman -S dnsutils rsync
 pacman -S cifs-utils clusterssh openldap virtualbox thunderbird tcpdump terminator xterm
 
+# Services
 systemctl enable ntpd.service
