@@ -133,7 +133,7 @@ pacman -S cups git vlc
 # Distro / Desktop Environment specific
 pacman -S --needed base-devel
 pacman -S orage ristretto
-pacman -S xfce4-notifyd # xfce4-notifyd-config
+pacman -S xfce4-notifyd
 
 # Work
 pacman -S dnsutils rsync
