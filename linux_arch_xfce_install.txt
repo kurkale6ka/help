@@ -129,6 +129,6 @@ pacman -S firefox flashplugin
 pacman -S openssh
 
 pacman -S dnsutils rsync
-pacman -S clusterssh openldap virtualbox thunderbird tcpdump terminator xterm
+pacman -S cifs-utils clusterssh openldap virtualbox thunderbird tcpdump terminator xterm
 
 systemctl enable ntpd.service
