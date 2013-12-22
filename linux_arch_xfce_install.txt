@@ -132,7 +132,7 @@ pacman -S cups git vlc
 
 # Distro / Desktop Environment specific
 pacman -S --needed base-devel
-pacman -S orage ristretto
+pacman -S orage ristretto ffmpegthumbnailer
 pacman -S xfce4-notifyd
 
 # Work
