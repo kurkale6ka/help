@@ -1,0 +1,2 @@
+mkdir -p /tmp/iphone && ifuse /tmp/iphone
+fusermount -u /tmp/iphone
