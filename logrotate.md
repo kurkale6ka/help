@@ -42,7 +42,7 @@ Notes:
 ```
 - _**Test with**_: `logrotate -df my_logrotate.conf` - **d** for debug, **f** for file
 
-- copytruncate Vs create:
+- _**copytruncate Vs create**_:  
 copytruncate should be used with services like apache that keep files open
 continuously. Such services won't notice the file has been renamed (ex:
 error.log -> error.log.1.gz and will keep writing to the old file descriptor now
