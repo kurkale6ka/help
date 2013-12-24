@@ -1,3 +1,26 @@
+Concepts
+--------
+
+In purely functional programming you don't tell the computer what to do as such
+but rather you tell it what stuff is.
+
+If you say that a is 5, you can't say it's something else.
+
+In purely functional languages, a function has no side-effects. The only thing a
+function can do is calculate something and return it as a result. If a function
+is called twice with the same parameters, it's guaranteed to return the same
+result. That's called referential transparency.
+
+Haskell is lazy. That means that unless specifically told otherwise, Haskell
+won't execute functions and calculate things until it's really forced to show
+you a result.
+
+Haskell uses a very good type system that has type inference. Type inference
+allows your code to be more general.
+
+Functor
+-------
+
 instance Functor (Either a) where    -- Either a has nothing to do with currying, it is simple substitution
     fmap f (Right x) = Right (f x)   -- Right is usually used for the result
     fmap f (Left x) = Left x         -- Left is usually used for the error
