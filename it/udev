@@ -1,0 +1,34 @@
+udev
+====
+
+Uses:
+-----
+
+* Rename a device node from the default name to something else
+
+* Provide an alternative/persistent name for a device node by creating a
+  symbolic link to the default device node
+
+* Name a device node based on the output of a program
+
+* Change permissions and ownership of a device node
+
+* Launch a script when a device node is created or deleted (typically when a
+  device is attached or unplugged)
+
+* Rename network interfaces
+
+Example:
+--------
+
+/etc/udev/rules.d/83-disk.rules
+KERNEL=="hdb", DRIVER=="ide-disk", SYMLINK+="sparedisk"
+
+The above rule says: match a device which was named by the kernel as hdb AND
+where the driver is ide-disk. Name the device node with the default name and
+create a symbolic link to it named sparedisk
+
+Using attributes for finer control:
+-----------------------------------
+
+SUBSYSTEM=="block", ATTR{size}=="234441648", SYMLINK+="my_disk"
