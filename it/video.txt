@@ -1,0 +1,26 @@
+                                     Video
+
+Frame rate:
+the number of still pictures per unit of time of video
+for good quality it must be >= 16
+
+PAL   (Europe, Asia, Australia...)         25 frame/s
+SECAM (France, Russia, parts of Africa...) 25 frame/s
+NTSC  (USA, Canada, Japan...)              29.97 frame/s
+are different color television standards
+
+Aspect ratio:
+width:height => 4:3, 16:9
+
+Video compression:
+image compression + motion compensation
+
+* H.264/MPEG-4 Part 10 or AVC (Advanced Video Coding) is a video compression
+  format, and is currently one of the most commonly used formats
+
+* Xvid is a video codec which implements encoding and decoding videos using the
+  MPEG-4 Part 2
+
+Multimedia container formats
+AVI, MP4, FLV, RealMedia, or Matroska
+Such containers usually bundle both compressed video and audio streams (files)
