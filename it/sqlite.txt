@@ -3,5 +3,6 @@ sqlite3 places.sqlite
 
 sqlite> .databases
 sqlite> .tables
+sqlite> .schema moz_places
 sqlite> select url from moz_places where url like '%dailymotion%broca%';
 sqlite> select url from moz_places where url like '%ulozto%medved%';
