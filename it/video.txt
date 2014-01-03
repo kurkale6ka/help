@@ -38,8 +38,20 @@ Presentation Time Stamp (PTS)
 ffmpeg
 
 Rotate:
-ffmpeg -i video.mp4 -c:a copy -vf 'transpose=1' out.mp4
+ffmpeg -i video.mp4 -c copy -vf 'transpose=1' out.mp4
 
 -c:(a|v) codec specifies the audio/video codec to use with copy meaning preserve
 -vf stands for video filter
 %03d means a 3 digits number padded with 0s
+
+-map: a way to tell FFmpeg which streams you want to select/copy from input to output
+
+Ex: extract audio streams:
+
+Stream #0:0(eng): Video: h264 (High), yuv420p, 1920x800, 23.98 fps, 23.98 tbr, 1k tbn, 47.95 tbc (default)
+Stream #0:1(ger): Audio: dts (DTS), 48000 Hz, 5.1(side), s16, 1536 kb/s (default)
+Stream #0:2(eng): Audio: dts (DTS), 48000 Hz, 5.1(side), s16, 1536 kb/s
+Stream #0:3(ger): Subtitle: text (default)
+
+ffmpeg -i input.mkv -map 0:1 -map 0:2 -c copy output.mkv
+
