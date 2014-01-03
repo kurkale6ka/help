@@ -1,6 +1,7 @@
                                      Video
 
 Frame rate:
+-----------
 the number of still pictures per unit of time of video
 for good quality it must be >= 16
 
@@ -10,9 +11,11 @@ NTSC  (USA, Canada, Japan...)              29.97 frame/s
 are different color television standards
 
 Aspect ratio:
+-------------
 width:height => 4:3, 16:9
 
 Video compression:
+------------------
 image compression + motion compensation
 
 * H.264/MPEG-4 Part 10 or AVC (Advanced Video Coding) is a video compression
@@ -22,6 +25,7 @@ image compression + motion compensation
   MPEG-4 Part 2
 
 Multimedia container formats
+----------------------------
 AVI, MP4, FLV, RealMedia, or Matroska
 Such containers usually bundle both compressed video and audio streams (files)
 
@@ -36,15 +40,18 @@ A container will synchronize video and audio frames according to their
 Presentation Time Stamp (PTS)
 
 ffmpeg
+======
 
 Rotate:
-ffmpeg -i video.mp4 -c copy -vf 'transpose=1' out.mp4
+-------
+ffmpeg -i video.mp4 -c:a copy -vf 'transpose=1' out.mp4
 
 -c:(a|v) codec specifies the audio/video codec to use with copy meaning preserve
 -vf stands for video filter
-%03d means a 3 digits number padded with 0s
 
--map: a way to tell FFmpeg which streams you want to select/copy from input to output
+Map:
+----
+a way to tell FFmpeg which streams you want to select/copy from input to output
 
 Ex: extract audio streams:
 
@@ -55,3 +62,14 @@ Stream #0:3(ger): Subtitle: text (default)
 
 ffmpeg -i input.mkv -map 0:1 -map 0:2 -c copy output.mkv
 
+Cutting small sections: (the following 2 are equivalent)
+--------------------------------------------------------
+ffmpeg -i video-in.mp4 -ss 11 -t 11 -c copy cut.mp4
+ffmpeg -i video-in.mp4 -ss 11 -to 22 -c copy cut.mp4
+-ss: seek
+-t: duration
+-to: position
+
+Misc:
+-----
+%03d means a 3 digits number padded with 0s
