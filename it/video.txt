@@ -25,10 +25,6 @@ Multimedia container formats
 AVI, MP4, FLV, RealMedia, or Matroska
 Such containers usually bundle both compressed video and audio streams (files)
 
-Rotate:
-ffmpeg -i video.mp4 -c:a copy -vf 'transpose=1' out.mp4
--c:(a|v) codec specifies the audio/video codec to use with copy meaning preserve
-
       Codec                     encoders                      Containers
 MPEG-2          |                                       |  .MPG
 MPEG-4 Part 2   |  DivX, XviD (open), and Nero Digital  |  .AVI
@@ -38,3 +34,12 @@ Note: MPEG-4 (AVC) or H.264 (this is the name of the standard)
 
 A container will synchronize video and audio frames according to their
 Presentation Time Stamp (PTS)
+
+ffmpeg
+
+Rotate:
+ffmpeg -i video.mp4 -c:a copy -vf 'transpose=1' out.mp4
+
+-c:(a|v) codec specifies the audio/video codec to use with copy meaning preserve
+-vf stands for video filter
+%03d means a 3 digits number padded with 0s
