@@ -45,6 +45,10 @@ ffmpeg
 Rotate:
 -------
 ffmpeg -i video.mp4 -c:a copy -vf 'transpose=1' out.mp4
+find . -iname 'video*.mp4' | parallel ffmpeg -i {} -c:a copy -vf 'transpose=1' rotated/{}
+
+for i in *.mov; do ffprobe -show_streams "$i" 2>&1 | { grep -q 'rotate=90' && echo "$i" >> /tmp/movies; }; done
+parallel < /tmp/movies ffmpeg -i {} -c:a copy -vf 'transpose=1' rotated/{}
 
 -c:(a|v) codec specifies the audio/video codec to use with copy meaning preserve
 -vf stands for video filter
