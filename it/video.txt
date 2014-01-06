@@ -48,7 +48,7 @@ Rotate:
 180°: ffmpeg -i video.mp4 -c:a copy -vf 'transpose=1, transpose=1' out.mp4
 
 All movies:
-find . -iname 'video*.mp4' | parallel ffmpeg -i {} -c:a copy -vf 'transpose=1' rotated/{}
+find . -iname 'video*.mp4' -print0 | parallel -0 ffmpeg -i {} -c:a copy -vf 'transpose=1' rotated/{}
 
 Differentiate depending on rotation:
 > /tmp/movies
@@ -65,7 +65,7 @@ for i in *.mov; do
 done
 if [[ -s /tmp/movies ]]
 then
-   parallel < /tmp/movies ffmpeg -i {} -c:a copy -vf 'transpose=2' rotated/{}
+   parallel ffmpeg -i {} -c:a copy -vf 'transpose=2' rotated/{} < /tmp/movies
 fi
 
 -c:(a|v) codec specifies the audio/video codec to use with copy meaning preserve
