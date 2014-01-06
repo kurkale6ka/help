@@ -49,6 +49,9 @@ Rotate:
 
 All movies:
 find . -iname 'video*.mp4' -print0 | parallel -0 ffmpeg -i {} -c:a copy -vf 'transpose=1' rotated/{}
+or
+parallel ffmpeg -i {} -c:a copy -vf 'transpose=1' rotated/{} ::: video*.mp4
+if recursion (sub directories) isn't needed
 
 Differentiate depending on rotation:
 > /tmp/movies
