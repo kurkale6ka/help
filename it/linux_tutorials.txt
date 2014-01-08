@@ -1,0 +1,117 @@
+YAML
+List:
+- item1
+- item2
+
+Mapping:
+item1: value1
+item2: value2
+
+Anchors/aliases
+&defaults (define an anchor)
+*defaults (use the anchor)
+'? ' -> complex mapping key
+
+<< means “merge the given hash (mapping) into the current one”
+Note: merging arrays is not possible, simple inheritance is supported,
+      integration:
+        *defaults
+
+Vim:
+:bun unload,          , :ls :ls!
+:bd  unload,          ,  X  :ls!
+:bw  unload, del marks,  X   X
+
+cb^=unnamed:     y/d/c go to " and *
+cb^=unnamedplus: y/d/c go to " and +
+
+lsof -i :6667
+
+Node.js - a V8 js platform which allows to build server/client apps all in js
+          ex of such an app: statsd
+
+xargs    - execute command on arguments in bulk
+parallel - execute command on arguments in parallel
+echo 1 2 3 4 | xargs echo (default)
+ex: file with files to remove - xargs rm < file
+
+diff: unified format
+
+--- /path/to/old    <tab> ''timestamp''
++++ /path/to/new    <tab> ''timestamp''
+@@ -1,3 +1,8 @@           => -1 means first line in old file
++ This is an important        3 = sum of contextual lines + -s in this hunk
++ notice! It should          +1 means first line in new file
++ therefore be located at     8 = sum of contextual lines + +s in this hunk
++                             - line: only present in old file
+  This part of the            + line: only present in new file
+- document has stayed the
+  same from version to
++ the beginning of this
++ document!
+
+Remove dependencies with yum:
+yum install rkhunter
+yum history list rkhunter
+yum history undo 304
+
+Zombies
+
+You can’t kill a zombie process because it’s already dead. Zombies are
+basically dead processes that haven’t been cleaned up. The child notifies his
+parent that it has terminated, with the SIGCHLD signal. The parent then is
+supposed to call wait() in order to gather info from the dead process. After
+wait() is called, the zombie process is completely removed from memory. Zombies
+keep a descriptor in memory + they preserve their PIDs. Zombies are harmless
+unless there are so many it results in a shortage of PIDs.
+
+Solutions:
+* Resend SIGCHLD
+* Kill the parent which will make init the new parent and rely on init to call
+  wait() which it does periodically
+* Reprogram the parent so it doesn't ignore SIGCHLD and calls wait()
+
+        data transfer (ftp, http, pop, ldap...)
+curl <-------------------------------------------> server
+        http://site.{one,two,three}.com, ftp://ftp.numericals.com/file[1-100:2].txt
+
+-A <user-agent>
+
+DNS
+
+$ORIGIN uk.example.com. (@ used as an alias)
+ftp  IN   A   10.0.16.34 => not ftp. so ftp.uk.example.com.
+
+dig @8.8.8.8 redhat.com mx +short centos.org cname
+dig -x 209.132.183.81
+Note: a/cname/mx/ns
+     (default NS server chosen from /etc/resolv.conf)
+
+Bash:
+parent shell PID: $$, current subshell: BASHPID
+
+quotes:
+Q. In FAQ096, why is this ok? ssh localhost '~/bin/args make CFLAGS="-g -O"'
+   Why do we end up with 2 args and not 3 because of remote word splitting?
+A. it gets parsed by the local shell, then the remote shell
+   it'll run                             "$SHELL" -c '~/bin/args make CFLAGS="-g -O"' on the remote end
+   if you omit the '' quotes, it'll run  "$SHELL" -c '/home/localhomedir/bin/args make CFLAGS=-g -O'
+
+Nesting single quotes:
+   ssh 'grep -iE '\''blah'\'' file'
+1. ssh 'grep -iE '  'blah'  ' file' -> break it in 3 sets of quotes
+2.                \''blah'\'        -> use literal 's that bash won't parse
+   ssh grep -iE 'blah' file         -> our remote command
+
+completion:
+complete -d -Fmyfunc cd: cd will use myfunc and dir completion
+compgen -d m: generate completion list of dirs    named m... (<=> -Adirectory)
+compgen -a m: generate completion list of aliases named m...
+compgen must put the possible completions in the COMPREPLY array
+COMP_WORDS: command line args during completion - [ cd m ]<tab>
+COMP_CWORD: index in COMP_WORDS of the word containing the cursor
+
+man issues:
+LESS= man manpage # -F was the problem
+nroff -man <(zcat /usr/share/man/man1/env.1.gz) | LESS= less
+groff -man -Tascii <(zcat /usr/share/man/man1/env.1.gz) | LESS= less
