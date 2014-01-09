@@ -115,3 +115,8 @@ man issues:
 LESS= man manpage # -F was the problem
 nroff -man <(zcat /usr/share/man/man1/env.1.gz) | LESS= less
 groff -man -Tascii <(zcat /usr/share/man/man1/env.1.gz) | LESS= less
+
+gvfs-mtp:
+mount -tfuse.gvfsd-fuse
+rsync -aun --progress /run/user/1000/gvfs/mtp\:host\=%5Busb%3A002%2C006%5D/Card/DCIM/Camera/ ~/dest/ > /tmp/copy
+parallel -a /tmp/copy gvfs-copy mtp://[usb:002,006]/Card/DCIM/Camera/{} ~/dest/
