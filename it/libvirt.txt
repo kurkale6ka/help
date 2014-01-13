@@ -1,0 +1,27 @@
+                     Hypervisors (virtual machine monitors)
+
+native, bare metal hypervisors: (KVM)
+hardware -> hypervisor -> guest OSs
+
+hosted hypervisors: (VMware, VirtualBox, QEMU (Quick Emulator), KVM)
+hardware -> OS -> hypervisor -> guest OSs
+
+KVM (Kernel Virtual Machine) is a Linux kernel module that allows a user space
+program to utilize the hardware virtualization features of various processors
+QEMU uses emulation; KVM uses processor extensions (HVM) for virtualization.
+
+Libvirt
+
+System URIs connect to the system libvirtd daemon (started by system
+init scripts), which is shared among all users on the machine, and which
+allows access to anything that requires superuser capabilities (such as
+creating tun devices for networking).
+
+Session URIs connect to a per-user daemon (which will be started
+automatically if needed), and which cannot access anything that the user
+cannot access (and unfortunately, given that no one has yet figured out
+how to make Linux share tun devices with ordinary users, that means that
+session guests are currently rather limited because they will not have
+networking support). The goal is to make things support full
+virtualization under session URIs, once the kernel adds the support we
+need for networking.
