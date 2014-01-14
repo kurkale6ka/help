@@ -1,16 +1,26 @@
-DS:variable_name:DST:heartbeat:min:max
---------------------------------------
+                      Round Robin Database tool (RRDtool)
 
-DS - data source
-DST -
-   COUNTER will save the rate of change
-   DERIVE is the same as COUNTER, but it allows negative values as well
-   ABSOLUTE also saves the rate of change, but it assumes that the previous value is set to 0
-   GAUGE does not save the rate of change. It saves the actual value itself
+RRDtool lets you create a database, store data in it, retrieve that data and
+create graphs in PNG format for display on a web browser.
 
-heartbeat - time in seconds before saving UNKNOWN
+rrdtool create test.rrd              \ #                          ,any data out of range is saved as UNKNOWN
+            --start 920804400        \ #                         /
+            DS:speed:COUNTER:600:U:U \ # DS:var:DST:heartbeat:min:max
+            RRA:AVERAGE:0.5:1:24     \ #               \
+            RRA:AVERAGE:0.5:6:10       #                `time in seconds before saving UNKNOWN
+                               \
+                                keep 10 samples (an average of 6 values in here)
 
-min, max - any data out of range is saved as UNKNOWN
+The database holds one data source (DS) named "speed" that represents a counter
+that is read every 5m (--step 300) which is the default.
+
+Several round robin archives (RRA) can be kept in the same database.
+
+Data source types (DST):
+COUNTER  - saves the rate of change
+DERIVE   - same as COUNTER, but it allows negative values as well
+ABSOLUTE - also saves the rate of change, but it assumes that the previous value is set to 0
+GAUGE    - does not save the rate of change. It saves the actual value itself
 
 RRA:CF:xff:step:rows
 --------------------
