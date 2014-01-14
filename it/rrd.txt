@@ -3,6 +3,8 @@
 RRDtool lets you create a database, store data in it, retrieve that data and
 create graphs in PNG format for display on a web browser.
 
+An RRD is composed of RRAs (db -> tables)
+
 rrdtool create test.rrd              \ #                          ,any data out of range is saved as UNKNOWN
             --start 920804400        \ #                         /
             DS:speed:COUNTER:600:U:U \ # DS:var:DST:heartbeat:min:max
@@ -10,6 +12,15 @@ rrdtool create test.rrd              \ #                          ,any data out 
             RRA:AVERAGE:0.5:6:10       #                `time in seconds before saving UNKNOWN
                                \
                                 keep 10 samples (an average of 6 values in here)
+
+rrdtool update test.rrd 920804700:12345 920805000:12357 920805300:12363
+rrdtool fetch test.rrd AVERAGE --start 920804400 --end 920809200
+rrdtool graph speed.png                     \
+         --start 920804400 --end 920808000  \
+         DEF:myspeed=test.rrd:speed:AVERAGE \
+         LINE2:myspeed#FF0000
+             \
+              pixels
 
 The database holds one data source (DS) named "speed" that represents a counter
 that is read every 5m (--step 300) which is the default.
@@ -33,7 +44,7 @@ xff - XFiles Factor (XFF), this is the percentage of PDPs that can be unknown
 
 rrdtool create target.rrd         \
         --start 1023654125        \
-        --step 300                \ 5 minutes
+        --step 300                \ # 5 minutes
         DS:mem:GAUGE:600:0:671744 \
-        RRA:AVERAGE:0.5:12:24     \ ( 12  * 300 = one value per 1h,  24 => a day)
-        RRA:AVERAGE:0.5:288:31      ( 288 * 300 = one value per 24H, 31 => a month)
+        RRA:AVERAGE:0.5:12:24     \ # ( 12  * 300 = one value per 1h,  24 => a day)
+        RRA:AVERAGE:0.5:288:31      # ( 288 * 300 = one value per 24H, 31 => a month)
