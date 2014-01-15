@@ -46,5 +46,5 @@ rrdtool create target.rrd         \
         --start 1023654125        \
         --step 300                \ # 5 minutes
         DS:mem:GAUGE:600:0:671744 \
-        RRA:AVERAGE:0.5:12:24     \ # ( 12  * 300 = one value per 1h,  24 => a day)
-        RRA:AVERAGE:0.5:288:31      # ( 288 * 300 = one value per 24H, 31 => a month)
+        RRA:AVERAGE:0.5:12:24     \ # (resolution: 12  * 300 = 3600 , one value per 1h,  24 => a day)
+        RRA:AVERAGE:0.5:288:31      # (resolution: 288 * 300 = 86400, one value per 24H, 31 => a month)
