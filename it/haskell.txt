@@ -2,9 +2,9 @@ Concepts
 --------
 
 In purely functional programming you don't tell the computer what to do as such
-but rather you tell it what stuff is.
+but rather you tell it what stuff is in the form of functions.
 
-If you say that a is 5, you can't say it's something else.
+If you say that a is 5, you can't say it's something else, a is immutable.
 
 In purely functional languages, a function has no side-effects. The only thing a
 function can do is calculate something and return it as a result. If a function
