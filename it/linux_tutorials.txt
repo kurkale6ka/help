@@ -120,3 +120,17 @@ gvfs-mtp:
 mount -tfuse.gvfsd-fuse
 rsync -aun --progress /run/user/1000/gvfs/mtp\:host\=%5Busb%3A002%2C006%5D/Card/DCIM/Camera/ ~/dest/ > /tmp/copy
 parallel -a /tmp/copy gvfs-copy mtp://[usb:002,006]/Card/DCIM/Camera/{} ~/dest/
+
+Ruby and rack servers:
+----------------------
+
+Rack provides a minimal interface between webservers supporting Ruby and Ruby frameworks
+
+Phusion Passenger (mod_rails, mod_rack) is a free web server and application
+server with support for Ruby, Python and Node.js. It is designed to integrate
+into the Apache HTTP Server or the nginx web server. It supports arbitrary Ruby
+web frameworks through the Rack interface
+
+Unicorn is an HTTP server for Rack applications designed to only serve fast
+clients on low-latency, high-bandwidth connections and take advantage of
+features in Unix/Unix-like kernels
