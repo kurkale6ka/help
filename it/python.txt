@@ -1,0 +1,19 @@
+sequences:
+
+   lists:      mutable, homogeneous     (iterating)
+               [2, 3, 5, 7, 11, 13, 17, 19]
+
+   tuples:     immutable, heterogeneous (unpacking)
+               t = (1, 2, 'hey')
+
+   sets:       unordered, unique        (membership, eliminating duplicate entries)
+               {'a', 'r', 'b', 'c', 'd'}
+
+   dictionary: unordered set of 'key: value' pairs
+               {'one': 1, 'two': 2}
+
+zip
+
+l1 = [1, 2, 3]
+l2 = [11, 22, 33]
+list(zip(l1, l2)) -> [(1, 11), (2, 22), (3, 33)]
