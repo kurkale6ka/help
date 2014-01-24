@@ -1,3 +1,12 @@
+MySQL
+-----
+mysql.user: global privileges (*.*)
+mysql.db: database privileges (db.tbl)
+Note: for every user/password pair in mysql.db, an entry in mysql.user is
+      created anyway in order to store the password
+
+SQLite
+------
 cd ~/.mozilla/firefox/g3iwn869.default
 sqlite3 places.sqlite
 
