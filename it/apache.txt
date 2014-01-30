@@ -66,11 +66,6 @@ LoadModule deflate_module modules/mod_deflate.so
 #    or request method - Script PUT /~bob/put.cgi
 LoadModule actions_module modules/mod_actions.so
 
-# Allows "anonymous" user access to authenticated areas. Allows user tracking
-# and customization according to a user profile while still keeping the site
-# open for 'unregistered' users
-LoadModule authn_anon_module modules/mod_authn_anon.so
-
 # Content cache using URIs for keys
 # Can be used to circumvent Allow/Deny directives. Shouldn't be enabled for any
 # content to which you wish to limit access by hostname, address or env var.
@@ -106,6 +101,11 @@ LoadModule authn_dbd_module modules/mod_authn_dbd.so
 LoadModule ldap_module modules/mod_ldap.so
 LoadModule authnz_ldap_module modules/mod_authnz_ldap.so
 
+# Allows "anonymous" user access to authenticated areas. Allows user tracking
+# and customization according to a user profile while still keeping the site
+# open for 'unregistered' users
+LoadModule authn_anon_module modules/mod_authn_anon.so
+
 # This module is designed to be the fallback module, if you don't have
 # configured an authentication module. It rejects any supplied credentials
 LoadModule authn_default_module modules/mod_authn_default.so
@@ -115,11 +115,18 @@ LoadModule authn_alias_module modules/mod_authn_alias.so
 
 # Todo: explain these:
 LoadModule vhost_alias_module modules/mod_vhost_alias.so
+
 LoadModule proxy_module modules/mod_proxy.so
 LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
 LoadModule proxy_ftp_module modules/mod_proxy_ftp.so
 LoadModule proxy_http_module modules/mod_proxy_http.so
 LoadModule proxy_connect_module modules/mod_proxy_connect.so
+
+Note: use the following substitute command in Vim to disable most unneeded modules
+
+clush -aB 'grep -hr "Proxy\|\[.*P.*\]" /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/ /etc/httpd/vhosts.d/ | grep -vE "^\s*#"'
+
+:s/\v^\ze\s*LoadModule\s+%(include|dav.*|%(user)?dir|version|usertrack|logio|speling|ext_filter|expires|deflate|actions|proxy_balancer|%(disk_|mem_|file_)*cache|%(authnz_)?ldap|authz_%(groupfile|dbm|default)|auth_%(basic|digest)|authn_.*)_module/#/c
 
 Usually needed:
 ---------------
