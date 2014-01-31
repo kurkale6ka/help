@@ -33,7 +33,7 @@ LoadModule version_module modules/mod_version.so
 
 # Personalized directory index (index.html) Vs a server generated one
 # <Directory> Options Indexes ...
-# See: mod_autoindex
+# Note: doesn't need Options +Indexes, related: mod_autoindex
 LoadModule dir_module modules/mod_dir.so
 
 # Clickstream logging of user activity on a site (previously mod_cookies).
@@ -169,7 +169,7 @@ LoadModule info_module modules/mod_info.so
 LoadModule headers_module modules/mod_headers.so
 
 # Generates directory indexes, automatically, similar to the Unix ls command
-# see: mod_dir
+# Note: needs Options +Indexes, related: mod_dir
 LoadModule autoindex_module modules/mod_autoindex.so
 
 # Provides for content negotiation: selection of the document that best matches
