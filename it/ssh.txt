@@ -1,0 +1,67 @@
+Ordinary Password Authentication
+--------------------------------
+
+1 connection = 1 password
+
+--> username
+<-- PASSWORD
+--> password (/etc/passwd)
+
+Public Key Access
+-----------------
+
+1 connection = 1 passphrase
+
+--> username + request to use a public key
+<-- KEY CHALLENGE (after looking in /home/user/.ssh/authorized_keys)
+--> key response (after unlocking id_rsa with the passphrase)
+
+Public Key Access with Agent support (local key holder)
+-------------------------------------------------------
+
+many connections = 1 passphrase
+
+--> username + request to use a public key
+<-- KEY CHALLENGE (after looking in /home/user/.ssh/authorized_keys)
+
+* The ssh client receives the key challenge, and forwards it to the waiting agent
+* The agent constructs the key response and hands it back to the ssh process
+  (after unlocking id_rsa with the passphrase)
+
+--> key response
+
+Public Key Access with Agent Forwarding
+---------------------------------------
+
+many connections = 1 passphrase + chaining allowed
+
+Problem:
+Once logged into a remote server, connecting from there to yet a third server
+requires either password access, or setting up the user's private key...
+
+server0       server1        server2
+
+ssh --------- sshd
+              >
+  FORWARDING /   \
+             \   / FORWARDING
+                <
+              ssh ---------- sshd
+
+* From local server0 connect to server1:
+
+server1 $ --> username + request to use a public key on server2
+server1 $ <-- KEY CHALLENGE (after looking in /home/user/.ssh/authorized_keys)
+server1 $     ssh  FORWARDS the key challenge to sshd
+                            which relays it to server0, which in turn sends a key response
+server1 $     sshd FORWARDS the key response  to ssh
+server1 $ --> key response
+
+Requirements:
+server0 - ForwardAgent yes in ~/.ssh/config (or ssh -A ...)
+server1 - AllowAgentForwarding in sshd_config
+
+ssh-agent tests/tasks:
+echo "$SSH_AUTH_SOCK"
+ssh-add -l
+ssh-add [~/.ssh/id_rsa_git]
