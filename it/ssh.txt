@@ -65,3 +65,7 @@ ssh-agent tests/tasks:
 echo "$SSH_AUTH_SOCK"
 ssh-add -l
 ssh-add [~/.ssh/id_rsa_git]
+
+~/.ssh/config note:
+for ProxyCommand to work an appropriate ssh setup is needed
+(like Agent Forwarding or private key on the Proxying host)
