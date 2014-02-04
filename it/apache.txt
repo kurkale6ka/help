@@ -200,9 +200,24 @@ Options {{{1
 The Options directive controls which server features are available in a
 particular directory
 
+Not merging with parent:
 <Directory /web/docs>
-# Indexes: if no index.html => formatted listing of the directory
 Options Indexes FollowSymLinks
+</Directory>
+
+# No -/+ => only Includes will be set for /web/docs/spec
+<Directory /web/docs/spec>
+Options Includes
+</Directory>
+
+Merging with parent:
+<Directory /web/docs>
+Options Indexes FollowSymLinks
+</Directory>
+
+# FollowSymLinks and Includes are set for /web/docs/spec
+<Directory /web/docs/spec>
+Options +Includes -Indexes
 </Directory>
 
 Alias {{{1
