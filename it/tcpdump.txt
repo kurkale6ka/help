@@ -5,6 +5,7 @@ options
 -A     : packet's contents in ASCII
 -X     : packet's contents in both hex and ASCII
 -s0    : get all packet sizes
+-q     : less protocol info (ex: tcp 92 Vs ack 185 win 257 <nop,nop,timestamp...)
 
 source / destination
 --------------------
