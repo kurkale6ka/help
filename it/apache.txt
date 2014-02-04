@@ -265,3 +265,50 @@ Deny from foo.apache.org
   directives apply to that directory, and all subdirectories thereof.
 
 * What you can put in these files is determined by the AllowOverride directive.
+
+Proxy {{{1
+
+A proxy server acts on behalf of another machine - client or server
+
+Forward proxy - ProxyRequests
+-----------------------------
+
+A forward proxy provides proxy services to clients
+
+client1                                  +--------+
+client2 --> FORWARD PROXY -- firewall -- |internet| -- target server
+clientn                                  +--------+
+
+From the point of view of the server, it is the proxy server that issued the
+request, not the client. Depending on the forward proxy's settings, a request
+can be allowed or denied. The proxy can serve as a single point of access and
+control. It is primarily aimed at enforcing security on client computers in your
+internal network.
+
+Notes:
+* the client must be specially configured to use the forward proxy
+* a typical usage of a forward proxy is to provide Internet access to internal
+  clients that are otherwise restricted by a firewall.
+* because forward proxies allow clients to access arbitrary sites and to hide
+  their true origin, it is essential that only authorized clients can access the
+  proxy before activating it.
+
+Reverse proxy (gateway) - ProxyPass
+-----------------------------------
+
+A reverse proxy accepts requests from external clients on behalf of servers
+stationed behind it.
+
+           +--------+                                 server1
+client --> |internet| -- firewall -- REVERSE PROXY -- server2
+           +--------+                                 servern
+
+To the client in our example, it is the reverse proxy that is providing
+services. Thus, a reverse proxy hides the identities of servers, whereas a
+forward proxy hides the identities of clients. Just like forward proxy servers,
+reverse proxies also provide a single point of access and control.
+
+Reverse proxies can be used for:
+* load balancing
+* caching for a slower back-end server
+* bring several servers into the same URL space
