@@ -10,10 +10,28 @@ Note: nrpe runs on port 5666 (define in /etc/services)
 
 1. Nagios will execute the check_nrpe plugin and tell it what service needs to
    be checked
-   * define    host { name/IP } to be monitored
-   * define service { name/check_command check_init_service!sinatra (ex) }
-     Notes: - name should match a defined host
-            - command is the same as defined in nrpe.cfg below
+
+   Example:
+   /etc/nagios/objects/hosts.cfg
+   define host {
+      host_name ...bla.com
+
+   define hostgroup {
+      hostgroup_name all_bla
+      members ^.*bla.com$ # the above host will be part of this group
+
+   /etc/nagios/objects/services.cfg
+   define service {
+      hostgroup_name all_bla # use this group...
+      host_name !host1       # ...but exclude that host
+      check_command check_init_service!sinatra
+      servicegroups s_bla # group for display purposes
+
+   define servicegroup {
+      servicegroup_name s_bla
+
+   Notes:
+   * command is the same as defined in nrpe.cfg below
    * Verify your Nagios configuration files: nagios -v /etc/nagios/nagios.cfg
    * service nagios restart
 
