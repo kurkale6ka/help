@@ -51,4 +51,5 @@ Tests:   on remote: /usr/lib64/nagios/plugins/check_nrpe -H localhost
       from monitor: /usr/lib64/nagios/plugins/check_nrpe -H remote_machine
       Note: Adapt paths to your plugin location
 
+NRPE.pdf:
 http://www.google.co.uk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&ved=0CC8QFjAA&url=http%3A%2F%2Fnagios.sourceforge.net%2Fdocs%2Fnrpe%2FNRPE.pdf&ei=q7M5UvfQGKXW0QXqooHIBA&usg=AFQjCNGYpmjIaMBRWQWzjMSmZZ_Zl_BgLA&sig2=sDp_95AVMs2amDitMTplgQ&bvm=bv.52288139,d.d2k
