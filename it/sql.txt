@@ -14,6 +14,7 @@ We want to grant access to all existing users from an additional IP (8.8.8.8)
 Solution:
 #         db   tbl1 tbl2
 mysqldump mysql db user --where='host = "1.2.3.4"' --no-create-info --compact | sed 's/1.2.3.4/8.8.8.8/g' | mysql mysql
+flush privileges;
 
 SQLite
 ------
