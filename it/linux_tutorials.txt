@@ -31,9 +31,12 @@ Node.js - a V8 js platform which allows to build server/client apps all in js
           ex of such an app: statsd
 
 xargs    - execute command on arguments in bulk
-parallel - execute command on arguments in parallel
+parallel - execute command on arguments in parallel (and in bulk with -X)
+
+Examples:
 echo 1 2 3 4 | xargs echo (default)
-ex: file with files to remove - xargs rm < file
+parallel echo ::: 1 2 3 4 (default is bash)
+parallel/xargs rm < file # file with files to remove
 
 diff: unified format
 
