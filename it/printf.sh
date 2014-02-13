@@ -8,18 +8,21 @@ Reset="$(tput sgr0)"
 # %d - print the associated argument as signed decimal number
 # %s - interprets the associated argument literally as string
 
+figlet -f smslant printf
+echo
+
 arr=('In addition to the standard')
 arr+=('format specifications')
 arr+=('described in printf(1)')
 arr+=('and printf(3)')
 
-# note: no width results in left alignment
 printf "$Green# Min width 35 right align, pad with spaces$Reset\n"
 printf "${Blue}printf '%%35s\\\n' \"\${arr[@]}\"$Reset\n"
 printf '%35s\n' "${arr[@]}"
 echo
 
-printf "$Green# Min width 35 left align, left align$Reset\n"
+# Note: no width results in left alignment
+printf "$Green# Min width 35 left align, left align (no width means left aligned)$Reset\n"
 printf "${Blue}printf '%%-35s%%s\\\n' \"\${arr[@]}\"$Reset\n"
 printf '%-35s%s\n' "${arr[@]}"
 echo
