@@ -29,11 +29,11 @@ printf "${Blue}printf '%%05d\\\n' 11$Reset\n"
 printf '%05d\n' 11
 echo
 
+printf "$Green# \\\047 is the octal value of '\n"
+printf "${Blue}printf '\\\047Quotes\\\047\\\n'$Reset\n"
+printf '\047Quotes\047\n'
+echo
+
 printf "$Green# * refers to 31$Reset\n"
 printf "${Blue}printf '%%*s\\\n' 31 'Asus z87-pro'$Reset\n"
 printf '%*s\n' 31 'Asus z87-pro'
-echo
-
-printf "$Green# \\\047 is the octal value of '\n"
-printf "${Blue}printf \"\\\047Quotes\\\047\\\n\"$Reset\n"
-printf "\047Quotes\047\n"
