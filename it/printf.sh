@@ -27,9 +27,9 @@ printf "${Blue}printf '%%-35s%%s\\\n' \"\${arr[@]}\"$Reset\n"
 printf '%-35s%s\n' "${arr[@]}"
 echo
 
-printf "$Green# Pad a number with zeros$Reset\n"
-printf "${Blue}printf '%%05d\\\n' 11$Reset\n"
-printf '%05d\n' 11
+printf "$Green# Pad numbers with zeros$Reset\n"
+printf "${Blue}printf '%%03d\\\n' 1 22 333$Reset\n"
+printf '%03d\n' 1 22 333
 echo
 
 printf "$Green# \\\047 is the octal value of '\n"
