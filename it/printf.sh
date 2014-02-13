@@ -21,7 +21,7 @@ printf "${Blue}printf '%%35s\\\n' \"\${arr[@]}\"$Reset\n"
 printf '%35s\n' "${arr[@]}"
 echo
 
-# Note: no width results in left alignment
+# Note: no width (%s), results in left alignment
 printf "$Green# Min width 35 left align, left align (no width means left aligned)$Reset\n"
 printf "${Blue}printf '%%-35s%%s\\\n' \"\${arr[@]}\"$Reset\n"
 printf '%-35s%s\n' "${arr[@]}"
