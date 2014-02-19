@@ -1,0 +1,12 @@
+Mutt
+
+Get help with ?
+
+T.  - tag all messages
+;W  - apply to tagged messages (;), clear a status flag (W)
+^T. - unrag all (.) messages
+
+So:
+T.;WN^T. - mark all messages as read
+
+d$ - delete a message (d) and save changes to the mailbox ($)
