@@ -85,8 +85,16 @@ openssl req -new -x509 -days 1095 -key ca_keys.pem -out ca_cert.pem # new self s
 openssl ca -days 1095 -extensions v3_req -in host.csr -out host_cert.pem # create a valid digital certificate by signing a CSR
 
 # Certificate display and signing
-openssl x509 -in host_cert.pem                # see certificate
-openssl x509 -in host_cert.pem -noout -pubkey # print the public key
+openssl x509 -in host_cert.pem                     # see certificate
+openssl x509 -in host_cert.pem -noout -dates       # check certificate's validity period
+                                      -subject
+                                      -fingerprint
+                                      -pubkey
+                                      -serial
+
+Convert a certificate from PEM to DER format:
+
+openssl x509 -in cert.pem -inform PEM -out cert.der -outform DER
 
 Notes:
 * -noout: no private key output
