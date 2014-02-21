@@ -54,26 +54,6 @@ LDAP Master certificate:
   http://jw35.blogspot.co.uk/2010/05/doing-certificate-verification-in.html
   man openssl-verify
 
-Notes:
--nodes: unencrypted private key
-   req: PKCS#10 certificate request and certificate generating utility (man req)
-   pem: Privacy Enhanced Email
-
-Tests:
-------
-
-See key pair:
-openssl rsa -in privkey.pem -noout -text
-openssl rsa -in privkey.pem -pubout
-
-See certificate:
-openssl x509 -in cert.pem -noout -text
-
-Misc:
------
-
-openssl enc -aes-256-cbc -in plain.txt -out encrypted.bin
-
 Location with a bundle of certificates trusted by default:
 /etc/pki/tls/certs on RedHat/Fedora
 /etc/ssl/certs     on Ubuntu/Debian
@@ -81,3 +61,38 @@ Location with a bundle of certificates trusted by default:
 CRL: certificate revocation list - permanent (revoked) or temporary (hold)
 
 http://users.dcc.uchile.cl/~pcamacho/tutorial/crypto/openssl/openssl_intro.html#htoc6
+
+Examples:
+---------
+
+# Key pair generation (gendsa if relevant)
+openssl genrsa -out keys.pem 2048         # generate a public/private key pair
+openssl genrsa -out keys.pem -aes256 2048 # with passphrase
+
+# Key pair processing
+openssl rsa -in keys.pem 2>/dev/null                # print the private key
+openssl rsa -in keys.pem -pubout 2>/dev/null        # print the public key
+openssl rsa -in keys.pem -text -noout               # print out the components of a key pair
+openssl rsa -in keys.pem -outform DER -out keys.der # convert from PEM to DER format
+openssl rsa -in keys.pem -out keys2.pem             # remove the pass phrase
+
+# Certificate signing request or self signed certificate generation (see: PKCS#10)
+openssl req -new -nodes -keyout keys.pem -out host.csr              # new CSR with key pair generation (no passphrase) beforehand
+openssl req -new -x509 -days 1095 -key ca_keys.pem -out ca_cert.pem # new self signed certificate based on an existing key pair
+
+# Certificate Authority
+openssl ca -days 1095 -extensions v3_req -in host.csr -out host_cert.pem # Create a valid digital certificate by signing a CSR
+
+# Certificate display and signing
+openssl x509 -in host_cert.pem                # see certificate
+openssl x509 -in host_cert.pem -noout -pubkey # print the public key
+
+Notes:
+* -noout: no private key output
+* -text: key pair components
+* pem: privacy enhanced email
+* man genrsa|rsa|req|ca
+* openssl enc -aes-256-cbc -in plain.txt -out encrypted.bin
+* des < des3 < aes128 # data encryption standard < advanced encryption standard
+               aes192
+               aes256
