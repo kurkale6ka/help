@@ -99,7 +99,7 @@ Notes:
 * -noout: no private key or x509 certificate output
 * -text: key pair components
 * pem: privacy enhanced email
-* man genrsa|rsa|req|ca
+* man genrsa|rsa|req|ca|x509
 * openssl enc -aes-256-cbc -in plain.txt -out encrypted.bin
 * des < des3 < aes128 # data encryption standard < advanced encryption standard
                aes192
