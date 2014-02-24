@@ -240,14 +240,25 @@ hostname, it servers different websites. You need only one ip-address on the
 physical server; but, you update the DNS with multiple website names pointing
 to the same ip-address.
 
-NameVirtualHost 111.22.33.44:80 (NameVirtualHost *:80 - listen on all NICs)
-IP on which the server will receive requests for the name-based virtual hosts
+IP on which the server will receive requests for the name-based virtual hosts:
+NameVirtualHost 111.22.33.44:80 - listen on this NIC
+NameVirtualHost *:80            - listen on all NICs
 
-<VirtualHost *:80> (See above: which NIC on the machine?)
+<VirtualHost *:80>
 ServerName server.domain.com   # the vhost name
 ServerAlias server2.domain.com # an alias for that name (analogue to /etc/hosts)
                                # CNAME set in DNS must exist
 </VirtualHost>
+
+Note on Name-Based Virtual Hosts and SSL:
+It is impossible to host more than one SSL virtual host on the same IP address
+and port. This is because Apache needs to know the name of the host in order to
+choose the correct certificate to setup the encryption layer. But the name of
+the host being requested is contained only in the HTTP request headers, which
+are part of the encrypted content. It is therefore not available until after the
+encryption is already negotiated. This means that the correct certificate cannot
+be selected, and clients will receive certificate mismatch warnings and be
+vulnerable to man-in-the-middle attacks.
 
 Allow, Deny {{{1
 
