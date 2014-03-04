@@ -36,7 +36,7 @@ parallel - execute command on arguments in parallel (and in bulk with -X)
 Examples:
 echo 1 2 3 4 | xargs echo (default)
 parallel echo ::: 1 2 3 4 (default is bash)
-parallel/xargs rm < file # file with files to remove
+parallel -X/xargs rm < file # file with files to remove
 
 diff: unified format
 
