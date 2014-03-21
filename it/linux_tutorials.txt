@@ -1,4 +1,5 @@
-YAML
+YAML {{{1
+
 List:
 - item1
 - item2
@@ -17,7 +18,8 @@ Note: merging arrays is not possible, simple inheritance is supported,
       integration:
         *defaults
 
-Vim:
+Vim: {{{1
+
 :bun unload,          , :ls :ls!
 :bd  unload,          ,  X  :ls!
 :bw  unload, del marks,  X   X
@@ -25,10 +27,7 @@ Vim:
 cb^=unnamed:     y/d/c go to " and *
 cb^=unnamedplus: y/d/c go to " and +
 
-lsof -i :6667
-
-Node.js - a V8 js platform which allows to build server/client apps all in js
-          ex of such an app: statsd
+xargs and parallel {{{1
 
 xargs    - execute command on arguments in bulk
 parallel - execute command on arguments in parallel (and in bulk with -X)
@@ -38,7 +37,7 @@ echo 1 2 3 4 | xargs echo (default)
 parallel echo ::: 1 2 3 4 (default is bash)
 parallel -X/xargs rm < file # file with files to remove
 
-diff: unified format
+diff: unified format {{{1
 
 --- /path/to/old    <tab> ''timestamp''
 +++ /path/to/new    <tab> ''timestamp''
@@ -53,12 +52,13 @@ diff: unified format
 + the beginning of this
 + document!
 
-Remove dependencies with yum:
+Remove dependencies with yum: {{{1
+
 yum install rkhunter
 yum history list rkhunter
 yum history undo 304
 
-Zombies
+Zombies {{{1
 
 You can’t kill a zombie process because it’s already dead. Zombies are
 basically dead processes that haven’t been cleaned up. The child notifies his
@@ -74,13 +74,15 @@ Solutions:
   wait() which it does periodically
 * Reprogram the parent so it doesn't ignore SIGCHLD and calls wait()
 
+curl {{{1
+
         data transfer (ftp, http, pop, ldap...)
 curl <-------------------------------------------> server
         http://site.{one,two,three}.com, ftp://ftp.numericals.com/file[1-100:2].txt
 
 -A <user-agent>
 
-DNS
+DNS {{{1
 
 $ORIGIN uk.example.com. (@ used as an alias)
 ftp  IN   A   10.0.16.34 => not ftp. so ftp.uk.example.com.
@@ -90,7 +92,8 @@ dig -x 209.132.183.81
 Note: a/cname/mx/ns
      (default NS server chosen from /etc/resolv.conf)
 
-Bash:
+Bash {{{1
+
 parent shell PID: $$, current subshell: BASHPID
 
 quotes:
@@ -114,18 +117,20 @@ compgen must put the possible completions in the COMPREPLY array
 COMP_WORDS: command line args during completion - [ cd m ]<tab>
 COMP_CWORD: index in COMP_WORDS of the word containing the cursor
 
-man issues:
+man issues {{{1
+
 LESS= man manpage # -F was the problem
 nroff -man <(zcat /usr/share/man/man1/env.1.gz) | LESS= less
 groff -man -Tascii <(zcat /usr/share/man/man1/env.1.gz) | LESS= less
 
-gvfs-mtp:
+Android PnP (gvfs-mtp:) {{{1
+
 mount -tfuse.gvfsd-fuse
 rsync -aun --progress /run/user/1000/gvfs/mtp\:host\=%5Busb%3A002%2C006%5D/Card/DCIM/Camera/ ~/dest/ > /tmp/copy
 parallel -a /tmp/copy gvfs-copy mtp://[usb:002,006]/Card/DCIM/Camera/{} ~/dest/
 
-Ruby and rack servers:
-----------------------
+Ruby and rack servers {{{1
+---------------------
 
 Rack provides a minimal interface between webservers supporting Ruby and Ruby frameworks
 
@@ -137,3 +142,12 @@ web frameworks through the Rack interface
 Unicorn is an HTTP server for Rack applications designed to only serve fast
 clients on low-latency, high-bandwidth connections and take advantage of
 features in Unix/Unix-like kernels
+
+lsof, nodejs {{{1
+
+lsof -i :6667
+
+Node.js - a V8 js platform which allows to build server/client apps all in js
+          ex of such an app: statsd
+
+# vim: foldmethod=marker foldmarker={{{,}}}
