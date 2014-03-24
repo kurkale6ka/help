@@ -1,5 +1,5 @@
 MySQL
------
+=====
 mysql.user: global privileges (*.*)
 mysql.db: database privileges (db.tbl)
 Note: for every user/password pair in mysql.db, an entry in mysql.user is
@@ -16,8 +16,35 @@ Solution:
 mysqldump mysql db user --where='host = "1.2.3.4"' --no-create-info --compact | sed 's/1.2.3.4/8.8.8.8/g' | mysql mysql
 flush privileges;
 
+Storage Engines
+---------------
+
+MyISAM: table-level locking
+        great for very low INSERT/UPDATE rate and a very high SELECT rate
+
+InnoDB: row-level locking
+        parallel INSERT/UPDATE/DELETE queries
+        data integrity trough foreign key functionality
+        caching for data and indexes in memory (servers with lots of RAM), as well as on disk
+
+Transactions
+------------
+
+START TRANSACTION -- or BEGIN WORK
+update tableX...
+insert values...
+SAVEPOINT tableXupdated;
+update tableY
+insert...
+COMMIT -- or ROLLBACK, or ROLLBACK TO tableAupdated;
+
+Note 1: A transaction will never be complete unless each individual operation
+        within the group is successful
+
+Note 2: Transactions can't be used on ALTER, DROP, RENAME, TRUNCATE...
+
 SQLite
-------
+======
 cd ~/.mozilla/firefox/g3iwn869.default
 sqlite3 places.sqlite
 
