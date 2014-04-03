@@ -150,4 +150,12 @@ lsof -i :6667
 Node.js - a V8 js platform which allows to build server/client apps all in js
           ex of such an app: statsd
 
+Host controller {{{1
+---------------
+
+        host controller           network
+host    host adapter              storage devices (usb: xhci, sata: ahci)
+        host bus adapter (HBA)
+        (PCI cards or directly on the mobo: usb, sata)
+
 # vim: foldmethod=marker foldmarker={{{,}}}
