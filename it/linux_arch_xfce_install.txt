@@ -2,14 +2,14 @@ loadkeys uk # /usr/share/kbd/keymaps/
 
 ping -c3 www.google.com
 
-Partitioning of a 350GB hard drive {{{1
+Partitioning of a 500GB hard drive {{{1
 
 1. fdisk/gdisk /dev/sda {{{2
 
 * (d)elete all partitions
 * boot: /dev/sda1: (n)ew, (p)rimary, +512M, (t)ype ef00, (a) bootable
 * swap: /dev/sda2: (n)ew, (p)rimary, +6G  , (t)ype 8200  # ~ double of RAM
-* root: /dev/sda3: (n)ew, (p)rimary, +80G                # includes /usr
+* root: /dev/sda3: (n)ew, (p)rimary, +40G                # includes /usr
 *  LVM: /dev/sda4: (n)ew, (p)rimary,        (t)ype 8e00
 
 Note: (p)rint, (w)rite
@@ -33,10 +33,9 @@ fdisk -l, then:
 * mkfs.ext4 /dev/sda3
 * pvcreate       /dev/sda4
   vgcreate vdisk /dev/sda4
-  lvcreate -L190G vdisk -nhome; mkfs.ext4 /dev/vdisk/home
-  lvcreate -L12G  vdisk -nvar ; mkfs.ext4 /dev/vdisk/var
+  lvcreate -L210G vdisk -nhome; mkfs.ext4 /dev/vdisk/home
+  lvcreate -L11G  vdisk -nvar ; mkfs.ext4 /dev/vdisk/var
   lvcreate -L3G   vdisk -nopt ; mkfs.ext4 /dev/vdisk/opt
-  lvcreate -L2G   vdisk -ntmp ; mkfs.ext4 /dev/vdisk/tmp
 
 Note: pvdisplay, pvscan...
 
@@ -44,10 +43,10 @@ Note: pvdisplay, pvscan...
 
 mount /dev/sda3 /mnt
 
-for i in boot home var opt tmp; do mkdir -p /mnt/"$i"; done
+for i in boot home var opt; do mkdir -p /mnt/"$i"; done
 
 mount /dev/sda1 /mnt/boot
-for i in home var opt tmp; do mount /dev/vdisk/"$i" /mnt/"$i"; done
+for i in home var opt; do mount /dev/vdisk/"$i" /mnt/"$i"; done
 
 3. Install {{{1
 
