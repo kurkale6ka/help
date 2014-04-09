@@ -7,7 +7,7 @@ Partitioning of a 350GB hard drive {{{1
 1. fdisk/gdisk /dev/sda {{{2
 
 * (d)elete all partitions
-* boot: /dev/sda1: (n)ew, (p)rimary, +512M,   type ef00, a (bootable)
+* boot: /dev/sda1: (n)ew, (p)rimary, +512M, (t)ype ef00, (a) bootable
 * swap: /dev/sda2: (n)ew, (p)rimary, +6G  , (t)ype 8200  # ~ double of RAM
 * root: /dev/sda3: (n)ew, (p)rimary, +80G                # includes /usr
 *  LVM: /dev/sda4: (n)ew, (p)rimary,        (t)ype 8e00
