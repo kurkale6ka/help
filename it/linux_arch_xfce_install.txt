@@ -96,6 +96,7 @@ mount -t efivarfs efivarfs /sys/firmware/efi/efivars
 efivar -l # test if booted into UEFI mode
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub --recheck # --debug
 
+pacman -S os-prober # for a dual boot setup
 grub-mkconfig -o /boot/grub/grub.cfg
 
 exit
