@@ -1,70 +1,84 @@
-loadkeys uk # /usr/share/kbd/keymaps/
+1. loadkeys uk # /usr/share/kbd/keymaps/
 
-ping -c3 www.google.com
+2. ping -c3 www.google.com
 
-Partitioning of a 500GB hard drive {{{1
+3. Partitioning of a 500GB hard drive {{{1
 
-1. fdisk/gdisk /dev/sda {{{2
+fdisk/gdisk /dev/sda
 
-* (d)elete all partitions
+(d)elete all partitions
+
 * boot: /dev/sda1: (n)ew, (p)rimary, +512M, (t)ype ef00, (a) bootable
 * swap: /dev/sda2: (n)ew, (p)rimary, +6G  , (t)ype 8200  # ~ double of RAM
 * root: /dev/sda3: (n)ew, (p)rimary, +40G                # includes /usr
 *  LVM: /dev/sda4: (n)ew, (p)rimary,        (t)ype 8e00
 
-Note: (p)rint, (w)rite
+(p)rint, (w)rite
 
-# Label a Linux Partition:
-#
-# e2label /dev/sdb2 usbstorage
-# tune2fs -L usbstorage /dev/sdb2
-#
-# /etc/fstabs
-# LABEL=usbstorage /mnt/data ext4 noauto,users,rw 0 0
+Note: (p)rimary and (a) are not relevant with gdisk
+}}}1
 
-reboot
+4. reboot # or the the new partitions are not seen!
 
-2. Creating Filesystems {{{2
+5. Creating Filesystems {{{1
 
-fdisk -l, then:
-* mkfs.ext2 /dev/sda1 OR mkfs.fat -F32 /dev/sda1
-* mkswap    /dev/sda2
-  swapon    /dev/sda2
+* mkfs.ext2 /dev/sda1
+  OR
+  mkfs.fat -F32 /dev/sda1
+
+* mkswap /dev/sda2
+  swapon /dev/sda2
+
 * mkfs.ext4 /dev/sda3
-* pvcreate       /dev/sda4
+
+* pvcreate /dev/sda4
   vgcreate vdisk /dev/sda4
-  lvcreate -L210G vdisk -nhome; mkfs.ext4 /dev/vdisk/home
-  lvcreate -L11G  vdisk -nvar ; mkfs.ext4 /dev/vdisk/var
-  lvcreate -L3G   vdisk -nopt ; mkfs.ext4 /dev/vdisk/opt
+  vol() { lvcreate -L"$1"G vdisk -n"$2" && mkfs.ext4 /dev/vdisk/"$2"; }
+  vol 210 home
+  vol 11 var
+  vol 3 opt
 
-Note: pvdisplay, pvscan...
+Checks: fdisk -l, lsblk
+        pvdisplay, pvscan...
 
-2.1 Mount the partitions {{{2
+6. Mount the partitions {{{1
 
 mount /dev/sda3 /mnt
 
-for i in boot home var opt; do mkdir -p /mnt/"$i"; done
+for i in boot home var opt
+do
+   mkdir -p /mnt/"$i"
+done
 
 mount /dev/sda1 /mnt/boot
-for i in home var opt; do mount /dev/vdisk/"$i" /mnt/"$i"; done
 
-3. Install {{{1
+for i in home var opt
+do
+   mount /dev/vdisk/"$i" /mnt/"$i"
+done
 
-vi /etc/pacman.d/mirrorlist # Preferred first
+7. Mirror list {{{1
 
-pacstrap -i /mnt base # exclude with ^: ^1-5
+vi /etc/pacman.d/mirrorlist
+# :g/united\s\+kingdom\n.\+\c/,+m0
+# then reverse from 2 to 1
+#                   1    2
+}}}1
+
+8. pacstrap -i /mnt base # exclude with ^: ^1-5,^8
+
+9. fstab {{{1
 
 genfstab -U -p /mnt >> /mnt/etc/fstab
-vi /mnt/etc/fstab
+cat /mnt/etc/fstab # to check
+}}}1
 
-arch-chroot /mnt
+10. arch-chroot /mnt
 
-vi /etc/locale.gen
-bg_BG.UTF-8 UTF-8
-fr_FR.UTF-8 UTF-8
-es_ES.UTF-8 UTF-8
-en_GB.UTF-8 UTF-8
-ru_RU.UTF-8 UTF-8
+11. Local settings {{{1
+
+# \\1 - \\ needed so $'' doesn't parse it
+ed -s /etc/locale.gen <<< $'H\n%s/#\(bg_BG\|fr_FR\|es_ES\|en_GB\|ru_RU\).UTF-8/\\1.UTF-8/\nwq'
 
 locale-gen
 
@@ -78,19 +92,20 @@ ln -s /usr/share/zoneinfo/Europe/London /etc/localtime
 
 hwclock --systohc --utc
 
+12. Networking {{{1
+
 echo myhostname > /etc/hostname
 
 systemctl enable dhcpcd.service # systemctl enable dhcpcd@interface_name.service
 # Or: systemctl stop dhcpcd.service && systemctl disable dhcpcd.service
 #     systemctl enable dhclient.service && systemctl start dhclient.service
 
-passwd
+13. GRUB {{{1
 
 pacman -S grub # efibootmgr dosfstools
 
 grub-install /dev/sda
-
-# UEFI only
+OR
 mount -t efivarfs efivarfs /sys/firmware/efi/efivars
 efivar -l # test if booted into UEFI mode
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub --recheck # --debug
@@ -98,9 +113,14 @@ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub --re
 pacman -S os-prober # for a dual boot setup
 grub-mkconfig -o /boot/grub/grub.cfg
 
+14. Finish {{{1
+
+passwd
 exit
 umount -R /mnt
 reboot
+
+15. Post install {{{1
 
 useradd -m mitko
 passwd mitko
