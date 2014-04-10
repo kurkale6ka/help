@@ -18,7 +18,7 @@ fdisk/gdisk /dev/sda
 Note: (p)rimary and (a) are not relevant with gdisk
 }}}1
 
-4. reboot # or the the new partitions are not seen!
+4. reboot # or the new partitions are not seen!
 
 5. Creating Filesystems {{{1
 
