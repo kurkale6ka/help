@@ -9,9 +9,9 @@ CD/DVD mounting:
 ----------------
 1. mount -t iso9660 -o ro /dev/cdrom /mnt
 
-A 'loop' device in Linux is an abstraction that lets you treat a file (our iso
-image which is not an actual CD) like a block device
 2. mount -t iso9660 -o loop,ro matlab.iso /media/cdrom0
+# A loop device in Linux is an abstraction that lets you treat a file (our iso
+# image which is not an actual CD) like a block device
 
 /etc/fstab:
 -----------
