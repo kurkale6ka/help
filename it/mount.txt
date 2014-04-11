@@ -16,7 +16,11 @@ CD/DVD mounting:
 /etc/fstab:
 -----------
 mount /mydata looks in /etc/fstab (first for mount points then for devices)
-# <fs(device)> <dir> <type> <options> <dump> <pass>
+#                                           0 for swap/remote
+#                                           1 for /
+#                                           2 otherwise
+# <device> <mount> <type> <options> <dump> <fsck>
+# UUID=... /home   ext4   rw...     0      2
 
 View all mounted partitions of specific type:
 ---------------------------------------------
