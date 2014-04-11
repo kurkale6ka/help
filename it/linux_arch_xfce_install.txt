@@ -4,14 +4,15 @@
 
 3. Partitioning of a 500GB hard drive {{{1
 
-fdisk/gdisk /dev/sda
+disk=sda
+fdisk/gdisk /dev/"$disk"
 
 (d)elete all partitions
 
-* boot: /dev/sda1: (n)ew, (p)rimary, +512M, (t)ype ef00, (a) bootable
-* swap: /dev/sda2: (n)ew, (p)rimary, +6G  , (t)ype 8200  # ~ double of RAM
-* root: /dev/sda3: (n)ew, (p)rimary, +40G                # includes /usr
-*  LVM: /dev/sda4: (n)ew, (p)rimary,        (t)ype 8e00
+* boot: /dev/sd_1: (n)ew, (p)rimary, +512M, (t)ype ef00, (a) bootable
+* swap: /dev/sd_2: (n)ew, (p)rimary, +6G  , (t)ype 8200  # ~ double of RAM
+* root: /dev/sd_3: (n)ew, (p)rimary, +40G                # includes /usr
+*  LVM: /dev/sd_4: (n)ew, (p)rimary,        (t)ype 8e00
 
 (p)rint, (w)rite
 
@@ -22,16 +23,15 @@ Note: (p)rimary and (a) are not relevant with gdisk
 
 5. Creating Filesystems {{{1
 
-disk=sda
 
-* mkfs.ext2 /dev/"$disk"1
+* mkfs.ext2 /dev/"$disk"1 # boot
   OR
-  mkfs.fat -F32 /dev/"$disk"1
+  mkfs.fat -F32 /dev/"$disk"1 # boot
 
 * mkswap /dev/"$disk"2
   swapon /dev/"$disk"2
 
-* mkfs.ext4 /dev/"$disk"3
+* mkfs.ext4 /dev/"$disk"3 # root
 
 * pvcreate /dev/"$disk"4
   vgcreate vdisk /dev/"$disk"4
@@ -45,14 +45,14 @@ Checks: fdisk -l, lsblk
 
 6. Mount the partitions {{{1
 
-mount /dev/sda3 /mnt
+mount /dev/"$disk"3 /mnt # root
 
 for i in boot home var opt
 do
    mkdir -p /mnt/"$i"
 done
 
-mount /dev/sda1 /mnt/boot
+mount /dev/"$disk"1 /mnt/boot
 
 for i in home var opt
 do
@@ -106,7 +106,7 @@ systemctl enable dhcpcd.service # systemctl enable dhcpcd@interface_name.service
 
 pacman -S grub # efibootmgr dosfstools
 
-grub-install /dev/sda
+grub-install /dev/"$disk"
 OR
 mount -t efivarfs efivarfs /sys/firmware/efi/efivars
 efivar -l # test if booted into UEFI mode
