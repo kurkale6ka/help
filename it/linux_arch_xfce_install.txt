@@ -22,17 +22,19 @@ Note: (p)rimary and (a) are not relevant with gdisk
 
 5. Creating Filesystems {{{1
 
-* mkfs.ext2 /dev/sda1
+disk=sda
+
+* mkfs.ext2 /dev/"$disk"1
   OR
-  mkfs.fat -F32 /dev/sda1
+  mkfs.fat -F32 /dev/"$disk"1
 
-* mkswap /dev/sda2
-  swapon /dev/sda2
+* mkswap /dev/"$disk"2
+  swapon /dev/"$disk"2
 
-* mkfs.ext4 /dev/sda3
+* mkfs.ext4 /dev/"$disk"3
 
-* pvcreate /dev/sda4
-  vgcreate vdisk /dev/sda4
+* pvcreate /dev/"$disk"4
+  vgcreate vdisk /dev/"$disk"4
   vol() { lvcreate -L"$1"G vdisk -n"$2" && mkfs.ext4 /dev/vdisk/"$2"; }
   vol 210 home
   vol 11 var
