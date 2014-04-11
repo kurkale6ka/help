@@ -122,7 +122,8 @@ exit
 umount -R /mnt
 reboot
 
-15. Post install {{{1
+Post install {{{1
+------------
 
 useradd -m mitko
 passwd mitko
