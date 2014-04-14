@@ -74,7 +74,7 @@ vi /etc/pacman.d/mirrorlist
 # Note: vi don't recognise \n and \c, so /United Kingdom, dj, {, P...
 }}}1
 
-8. pacstrap -i /mnt base # exclude with ^: ^22,^21-32,^44,^52
+8. pacstrap -i /mnt base # exclude with ^: ^22,^31-32,^36,^40,^52
 
 9. fstab {{{1
 
