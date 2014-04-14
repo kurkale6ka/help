@@ -1,3 +1,5 @@
+https://wiki.archlinux.org/index.php/beginners%27_guide#Installation
+
 1. ping -c3 www.google.com
 
 2. Make the install process friendlier :) {{{1
