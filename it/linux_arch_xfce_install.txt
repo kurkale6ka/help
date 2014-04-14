@@ -168,8 +168,16 @@ xterm cifs-utils
 # Services
 systemctl enable ntpd lightdm
 
-# Terminal color settings
+# Settings
+# Terminal colors
 cursor: #444444
   text: #bebebe
     bg: #292929 (html color grey15)
 scheme: tango # terminator
+
+# Orage
+Line 1: %a %d %b
+Tooltip: %A %d %B %Y
+
+# gVim shortcut
+gvim -u /home/"$USER"/.vimrc -U /home/"$USER"/.gvimrc -f %F
