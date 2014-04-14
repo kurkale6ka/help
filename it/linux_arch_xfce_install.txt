@@ -148,8 +148,8 @@ clipit xclip wgetpaste \
 firefox flashplugin \
 sudo git openssh bash-completion mlocate ntp tree bc
 
-lspci | grep VGA
-pacman -Ss xf86-video | less # to see all
+lspci | grep VGA # -> XXX
+pacman -Ss xf86-video | grep -i -C1 --color=auto XXX
 pacman -S xf86-video-XXX
 
 pacman -S alsa-utils # for alsamixer
