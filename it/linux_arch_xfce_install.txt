@@ -1,6 +1,11 @@
-1. loadkeys uk # /usr/share/kbd/keymaps/
+1. ping -c3 www.google.com
 
-2. ping -c3 www.google.com
+2. Make the install process friendlier :) {{{1
+
+loadkeys uk # /usr/share/kbd/keymaps/
+systemctl start gpm
+# Mount a usb drive including this help
+mkdir /tmp/help && mount /dev/sdd1 /tmp/help
 
 3. Partitioning of a 500GB hard drive {{{1
 
@@ -23,10 +28,9 @@ Note: (p)rimary and (a) are not relevant with gdisk
 
 5. Creating Filesystems {{{1
 
-
-* mkfs.ext2 /dev/"$disk"1 # boot
+* mkfs.fat -F32 /dev/"$disk"1 # boot (UEFI system)
   OR
-  mkfs.fat -F32 /dev/"$disk"1 # boot
+  mkfs.ext2 /dev/"$disk"1 # boot (BIOS system)
 
 * mkswap /dev/"$disk"2
   swapon /dev/"$disk"2
@@ -65,9 +69,10 @@ vi /etc/pacman.d/mirrorlist
 # :g/united\s\+kingdom\n.\+\c/,+m0
 # then reverse from 2 to 1
 #                   1    2
+# Note: vi don't recognise \n and \c, so /United Kingdom, dj, {, P...
 }}}1
 
-8. pacstrap -i /mnt base # exclude with ^: ^1-5,^8
+8. pacstrap -i /mnt base # exclude with ^: ^22,^21-32,^44,^52
 
 9. fstab {{{1
 
@@ -79,6 +84,7 @@ cat /mnt/etc/fstab # to check
 
 11. Local settings {{{1
 
+pacman -S ed gvim ttf-dejavu ctags # + repeat step 2.
 # \\1 - \\ needed so $'' doesn't parse it
 ed -s /etc/locale.gen <<< $'H\n%s/#\(bg_BG\|fr_FR\|es_ES\|en_GB\|ru_RU\).UTF-8/\\1.UTF-8/\nwq'
 
@@ -106,13 +112,14 @@ systemctl enable dhcpcd.service # systemctl enable dhcpcd@interface_name.service
 
 pacman -S grub # efibootmgr dosfstools
 
-grub-install /dev/"$disk"
-OR
-mount -t efivarfs efivarfs /sys/firmware/efi/efivars
+# UEFI system
 efivar -l # test if booted into UEFI mode
+mount -t efivarfs efivarfs /sys/firmware/efi/efivars
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub --recheck # --debug
+OR
+grub-install /dev/"$disk" # BIOS system
 
-pacman -S os-prober # for a dual boot setup
+# pacman -S os-prober # for a dual boot setup (doesn't detect Windows)
 grub-mkconfig -o /boot/grub/grub.cfg
 
 14. Finish {{{1
@@ -128,39 +135,33 @@ Post install {{{1
 useradd -m mitko
 passwd mitko
 
-pacman -S alsa-utils # for alsamixer
-pacman -S xorg-server xorg-server-utils xorg-xinit
+# gvfs for automounting
+# User switching: (deprecated)
+# ln -s /usr/lib/lightdm/lightdm/gdmflexiserver /usr/bin/gdmflexiserver
+pacman -S \
+xorg-server xorg-server-utils xorg-xinit xscreensaver \
+xfce4 xfce4-notifyd gvfs orage ristretto ffmpegthumbnailer \
+lightdm lightdm-gtk-greeter accountsservice numlockx \
+clipit xclip wgetpaste \
+firefox flashplugin \
+sudo git openssh bash-completion mlocate ntp tree bc
 
 lspci | grep VGA
 pacman -Ss xf86-video | less # to see all
 pacman -S xf86-video-XXX
 
-pacman -S xfce4
-pacman -S gvfs # for automounting
+pacman -S alsa-utils # for alsamixer
 
-pacman -S lightdm lightdm-gtk-greeter accountsservice numlockx
-systemctl enable lightdm
-ln -s /usr/lib/lightdm/lightdm/gdmflexiserver /usr/bin/gdmflexiserver # user switching
-
-# Universal
-pacman -S bc ttf-dejavu xscreensaver
-pacman -S bash-completion sudo
-pacman -S mlocate ntp tree
-pacman -S ctags ed gvim
-pacman -S clipit xclip wgetpaste
-pacman -S firefox flashplugin
-pacman -S openssh
 # optional
-pacman -S cups git vlc
+pacman -S cups vlc
 
 # Distro / Desktop Environment specific
 pacman -S --needed base-devel
-pacman -S orage ristretto ffmpegthumbnailer
-pacman -S xfce4-notifyd
 
 # Work
-pacman -S dnsutils rsync
-pacman -S cifs-utils clusterssh openldap virtualbox thunderbird tcpdump terminator xterm
+pacman -S \
+dnsutils rsync clusterssh openldap virtualbox thunderbird tcpdump terminator \
+xterm cifs-utils
 
 # Services
-systemctl enable ntpd
+systemctl enable ntpd lightdm
