@@ -110,7 +110,7 @@ systemctl enable dhcpcd.service # systemctl enable dhcpcd@interface_name.service
 
 13. GRUB {{{1
 
-pacman -S grub # efibootmgr dosfstools
+pacman -S grub efibootmgr dosfstools # only grub is needed for a BIOS system
 
 # UEFI system
 efivar -l # test if booted into UEFI mode
@@ -165,3 +165,9 @@ xterm cifs-utils
 
 # Services
 systemctl enable ntpd lightdm
+
+# Terminal color settings
+cursor: #444444
+  text: #bebebe
+    bg: #292929 (html color grey15)
+scheme: tango # terminator
