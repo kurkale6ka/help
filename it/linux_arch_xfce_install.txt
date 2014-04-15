@@ -132,7 +132,7 @@ umount -R /mnt
 reboot
 
 Post install {{{1
-------------
+============
 
 useradd -m mitko
 passwd mitko
@@ -169,7 +169,9 @@ xterm cifs-utils
 # Services
 systemctl enable ntpd lightdm
 
-# Settings
+Settings
+--------
+
 # Terminal colors
 cursor: #444444
   text: #bebebe
