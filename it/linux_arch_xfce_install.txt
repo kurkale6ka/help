@@ -176,7 +176,8 @@ Settings
 cursor: #444444
   text: #bebebe
     bg: #292929 (html color grey15)
-scheme: tango # terminator
+
+terminator scheme: tango
 
 # Orage
 Line 1: %a %d %b
@@ -188,3 +189,6 @@ gvim -u /home/"$USER"/.vimrc -U /home/"$USER"/.gvimrc -f %F
 # pacman (/etc/pacman.conf)
 color
 VerbosePkgLists
+
+# Git
+~/github/config/git.bash # run config script
