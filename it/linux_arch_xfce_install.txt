@@ -146,7 +146,8 @@ xfce4 xfce4-notifyd gvfs orage ristretto ffmpegthumbnailer \
 lightdm lightdm-gtk-greeter accountsservice numlockx \
 clipit xclip wgetpaste \
 firefox flashplugin \
-sudo git openssh bash-completion mlocate ntp tree bc
+sudo keychain x11-ssh-askpass \
+git openssh bash-completion mlocate ntp tree bc
 
 lspci | grep VGA # -> XXX
 pacman -Ss xf86-video | grep -i -C1 --color=auto XXX
@@ -181,3 +182,7 @@ Tooltip: %A %d %B %Y
 
 # gVim shortcut
 gvim -u /home/"$USER"/.vimrc -U /home/"$USER"/.gvimrc -f %F
+
+# pacman (/etc/pacman.conf)
+color
+VerbosePkgLists
