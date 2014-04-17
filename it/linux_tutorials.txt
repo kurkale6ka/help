@@ -33,9 +33,9 @@ xargs    - execute command on arguments in bulk
 parallel - execute command on arguments in parallel (and in bulk with -X)
 
 Examples:
-echo 1 2 3 4 | xargs echo (default)
-parallel echo ::: 1 2 3 4 (default is bash)
-parallel -X/xargs rm < file # file with files to remove
+printf '%s ' 1 2 3 4 | xargs -n2 (default command is echo)
+parallel echo (default command is bash not echo) ::: 1 2 3 4
+parallel -X rm OR xargs rm < file # file with files to remove
 
 diff: unified format {{{1
 
