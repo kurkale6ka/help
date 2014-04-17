@@ -72,7 +72,7 @@ then
 fi
 
 -c:(a|v) codec specifies the audio/video codec to use with copy meaning preserve
--vf stands for video filter
+-vf stands for video filter (short for -filter:v)
 
 Map:
 ----
