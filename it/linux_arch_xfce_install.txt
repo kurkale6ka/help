@@ -172,6 +172,15 @@ systemctl enable ntpd lightdm
 Settings
 --------
 
+# AUR: /etc/makepkg.conf
+CFLAGS and CXXFLAGS: -march=native
+MAKEFLAGS: -jn (with n being the output of nproc)
+BUILDDIR=/tmp
+
+# pacman: /etc/pacman.conf
+color
+VerbosePkgLists
+
 # Terminal colors
 cursor: #444444
   text: #bebebe
@@ -185,10 +194,6 @@ Tooltip: %A %d %B %Y
 
 # gVim shortcut
 gvim -u /home/"$USER"/.vimrc -U /home/"$USER"/.gvimrc -f %F
-
-# pacman (/etc/pacman.conf)
-color
-VerbosePkgLists
 
 # Git
 ~/github/config/git.bash # run config script
