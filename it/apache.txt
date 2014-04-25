@@ -242,7 +242,7 @@ to the same ip-address.
 
 IP on which the server will receive requests for the name-based virtual hosts:
 NameVirtualHost 111.22.33.44:80 - listen on this NIC
-NameVirtualHost *:80            - listen on all NICs
+NameVirtualHost *:80            - listen on all NICs (not reliable!?)
 
 <VirtualHost *:80>
 ServerName server.domain.com   # the vhost name
