@@ -26,3 +26,6 @@ Less common:
 Example:
 rsync -au --delete --stats --progress src  dst # copies src            to dst
 rsync -au --delete --stats --progress src/ dst # copies src's contents to dst
+
+Tip:
+mkdir /tmp/empty && rsync -r --delete /tmp/empty/ /DIR_TO_DELETE/
