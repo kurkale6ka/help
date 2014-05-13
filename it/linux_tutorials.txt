@@ -129,8 +129,11 @@ mount -tfuse.gvfsd-fuse
 rsync -aun --progress /run/user/1000/gvfs/mtp\:host\=%5Busb%3A002%2C006%5D/Card/DCIM/Camera/ ~/dest/ > /tmp/copy
 parallel -a /tmp/copy gvfs-copy mtp://[usb:002,006]/Card/DCIM/Camera/{} ~/dest/
 
-Ruby and rack servers {{{1
----------------------
+Ruby {{{1
+----
+
+Rack Servers
+============
 
 Rack provides a minimal interface between webservers supporting Ruby and Ruby frameworks
 
@@ -142,6 +145,25 @@ web frameworks through the Rack interface
 Unicorn is an HTTP server for Rack applications designed to only serve fast
 clients on low-latency, high-bandwidth connections and take advantage of
 features in Unix/Unix-like kernels
+
+Bundler
+=======
+
+Ensure a bundle of gems get installed at their expected versions.
+
+gem install bundler
+
+Gemfile:
+gem "nokogiri", "~> 1.4.4" # I want nokogiri as long as it’s greater than version 1.4.4
+
+bundle install will install the latest stable version of nokogiri in this case.
+Using Gemfile.lock, we make sure, say, version 1.5.3 gets installed.
+
+So first, Gemfile.lock gets created after running bundle install, then it gets
+used for all subsequent runs of bundle install!
+
+bundle exec executes a script using the gems specified in the script's Gemfile
+rather than the systemwide Gemfile
 
 lsof, nodejs {{{1
 
