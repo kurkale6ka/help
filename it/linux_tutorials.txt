@@ -34,8 +34,13 @@ parallel - execute command on arguments in parallel (and in bulk with -X)
 
 Examples:
 printf '%s ' 1 2 3 4 | xargs -n2 (default command is echo)
-parallel echo (default command is bash not echo) ::: 1 2 3 4
-parallel -X rm OR xargs rm < file # file with files to remove
+parallel echo ::: 1 2 3 4 # default command is bash not echo
+
+parallel -X rm < file
+Or
+xargs rm < file # file with files to remove
+
+find . -name '*.jpg' ! -path '*thumbs*' -print | parallel -X cp -a {} ~/Pictures/iphoto_lib
 
 diff: unified format {{{1
 
