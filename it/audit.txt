@@ -1,0 +1,24 @@
+                                  Audit - RHEL
+
+auditctl -l # list defined rules
+auditctl -s # check status
+
+Examples of FS rules
+
+Watch for writes (w, a - attributes) to a file:
+auditctl -w /etc/passwd -p wa -k passwd_changes # random tag (key) definition
+
+Log the execution of the insmod command:
+auditctl -w /sbin/insmod -p x -k module_insertion
+
+Permanent rules
+
+/etc/audit/audit.rules:
+-w /etc/passwd -p wa -k passwd_changes # same as above
+
+Read rules from a file:
+auditctl -R /usr/share/doc/audit-version/stig.rules
+
+By default, the Audit system stores log entries in the /var/log/audit/audit.log
+
+ausearch -i (human readable)
