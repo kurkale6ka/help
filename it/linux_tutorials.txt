@@ -24,8 +24,8 @@ Vim: {{{1
 :bd  unload,          ,  X  :ls!
 :bw  unload, del marks,  X   X
 
-cb^=unnamed:     y/d/c go to " and *
-cb^=unnamedplus: y/d/c go to " and +
+cb^=unnamed:     y/d/c go to "" and "*
+cb^=unnamedplus: y/d/c go to "" and "+
 
 xargs and parallel {{{1
 
