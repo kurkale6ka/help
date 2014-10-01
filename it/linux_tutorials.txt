@@ -170,9 +170,7 @@ used for all subsequent runs of bundle install!
 bundle exec executes a script using the gems specified in the script's Gemfile
 rather than the systemwide Gemfile
 
-lsof, nodejs {{{1
-
-lsof -i :6667
+nodejs {{{1
 
 Node.js - a V8 js platform which allows to build server/client apps all in js
           ex of such an app: statsd
