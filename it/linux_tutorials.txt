@@ -40,7 +40,7 @@ parallel -X rm < file
 Or
 xargs rm < file # file with files to remove
 
-find . -name '*.jpg' ! -path '*thumbs*' -print | parallel -X cp -a {} ~/Pictures/iphoto_lib
+find . -name '*.jpg' ! -path '*thumbs*' -print0 | parallel -0X cp -a {} ~/Pictures/iphoto_lib
 
 diff: unified format {{{1
 
