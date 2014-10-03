@@ -1,0 +1,33 @@
+                                  ImageMagick
+
+Ex: convert eye.gif news.gif -append storm.gif tree.gif \
+            -background skyblue +append result.gif
+
+Argument                          Action Performed                                Images
+----------------------------------------------------------------------------------------
+convert             Initialize and Create an empty 'image list'                   empty seq
+eye.gif             Read in image and add to end of current image list            1 image
+news.gif            Add a second image into list (now with two images)            2 images
+-append             Take all images in current list, and append vertically.
+                    All images are replaced by a single image.                    1 (merged)
+storm.gif           Add another image to the image list                           2
+tree.gif            And another                                                   3
+-background skyblue Set a 'background color' to be used later.
+                    No changes are made to any images.                            3
++append             Join all 3 images in the list horizontally
+                    Current background color is used to fill the empty space      1 (merged)
+result.gif          As this is last argument, an explicit -write operation is
+                    performed with this argument. The single image in the current
+                    image the list is written using the given filename and image
+                    file format.                                                  written
+
+Command Line:
+1. + input filenames.
+2. * image settings.  Ex: ‑adjoin, ‑affine, ‑alpha, ‑antialias # an image setting stays in effect until it is reset
+3. * image operators. Ex: ‑contrast, ‑convolve, ‑crop, ‑cycle  # an operator is applied to an image and forgotten
+4. * image sequence operators.
+5. * image stacks.
+6. ? output image filenames (required by convert, composite, montage, compare, import, conjure).
+
+Print image dimensions:
+identify -format '%w x %h (width x height)' image.jpg
