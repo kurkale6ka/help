@@ -1,0 +1,18 @@
+                                      ntp
+ntp strata
+----------
+stratum 0: time keeping device
+stratum 1: server directly attached to a stratum 0
+stratum 2: server which queries a        stratum 1
+...
+
+Recommendations:
+* sync from a stratum 2 up so not to overload stratum 1s
+* Use a ntp pool, ex:
+
+    - 0.uk.pool.ntp.org
+    - 1.uk.pool.ntp.org
+    - 2.uk.pool.ntp.org
+    - 3.uk.pool.ntp.org
+
+  (http://www.pool.ntp.org/en/use.html)
