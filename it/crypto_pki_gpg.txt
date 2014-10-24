@@ -1,5 +1,11 @@
-PKI (Public Key Infrastructure)
-===============================
+                                      PKI
+                           Public Key Infrastructure
+                           =========================
+
+Public Key -> CA (sign key) -> digital certificate (PK ownership garanteed)
+
+Note about ssh:
+server cert ok => server is who it claims to be -> put PK in ~/.known_hosts
 
 Note: public key certificate == digital certificate
 
@@ -11,8 +17,11 @@ It uses a digital signature to bind a public key with an identity
 Ex: AAAAB3NzaC1yc2EAAAADA + mitko is RELIABLE
 
 Note: a CA is identified by its own self-signed certificate
+
 Note: The CA certificates of many well known and trusted CA companies already
-      come installed on your PC as part of your Web browser installation.
+      come installed on your PC as part of your Web browser installation. So if
+      one of these CAs has signed the certificate presented by a web server, you
+      can trust it to encrypt your communication (ex: payment via web browser)
 
 Scenario: User sends CSR (certificate signing request) to CA, then CA creates
           the digital certificate
