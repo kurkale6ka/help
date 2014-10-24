@@ -1,0 +1,16 @@
+                                     Clush
+
+Insert the contents of /tmp/insert after line matching Pattern (case sensitive)
+-------------------------------------------------------------------------------
+
+* Copy the file accross:
+clush -B -w NODES --copy /tmp/insert # copy to /tmp by default (--dest to change)
+
+* Modify /file/to/change:
+clush -B -wNODES << 'CLUSH'
+ed -s /file/to/change << 'ED'
+H
+/Pattern/r /tmp/insert
+wq
+ED
+CLUSH
