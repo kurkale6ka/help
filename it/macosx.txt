@@ -1,0 +1,15 @@
+                            Mac OS X for Linux users
+iTerm2
+
+Shortcuts:
+⇧ ⌘ Enter - maximize window
+     fn ← - Home
+     fn → - End
+    Esc . - Alt .
+
+Custom layout:
+Window/Restore Window Arrangement
+
+Brew
+
+brew update && brew upgrade # as your normal user
