@@ -1,0 +1,73 @@
+                                    iptables
+
+Policy chains
+
+→ input
+    incoming connections
+
+⇒ forward
+    incoming connections going forward (connections to routers only)
+
+← output
+    outgoing connections
+
+NB: for ping to succeed it will need BOTH the input/output chains. Same for ssh...
+
+iptables -L -vn:
+policy chain default behavior - (policy ACCEPT)
+
+Change with:
+iptables --policy INPUT DROP
+iptables --policy OUTPUT DROP
+iptables --policy FORWARD DROP
+
+  DROP - drop the connection, no notification to source =>
+                              source is unaware of our system
+REJECT - drop the connection, notify source
+
+-A: append rules to an existing chain
+-I: [chain] [number] - insert rule to a specific place in the list of rules
+                       giving it higher priority
+
+Examples:
+iptables -A INPUT -s 10.10.10.0/24 -j DROP
+iptables -A INPUT -p tcp --dport 22 -j DROP # block from any IP (--dport ssh works too)
+iptables -F # flush all rules
+
+note: omit iptables when using the config file (/etc/sysconfig/iptables)
+
+States:
+# Allow 2 way ssh communication but the connection can be established inbound
+# only (NEW). Outbound is ok as long as the connection's been already established!
+iptables -A INPUT -p tcp --dport ssh -s 10.10.10.10 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 22 -d 10.10.10.10 -m state --state ESTABLISHED -j ACCEPT
+
+Save changes: (else lost on restart)
+iptables-save # Ubuntu
+service iptables save # CentOS
+
+Tables:
+filter, raw, mangle, and nat
+
+Flush existing rules in memory and load a new set: (all in this case)
+iptables-restore < /etc/sysconfig/iptables
+# From memory to file
+iptables-save > /etc/sysconfig/iptables
+
+# [ number of packets : number of bytes ], [in:out] packet counter
+:INPUT DROP [0:0]
+
+# Act on that table
+*filter
+# Set default policy
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+# Create an empty chain <=> iptables -N RH-Firewall-1-INPUT
+:RH-Firewall-1-INPUT - [0:0]
+
+Jump to the RH-Firewall-1-INPUT chain and traverse all rules ↓,
+then come back to INPUT and traverse all rulles too ↓
+-A INPUT -j RH-Firewall-1-INPUT
+
+-A FORWARD -j RH-Firewall-1-INPUT
