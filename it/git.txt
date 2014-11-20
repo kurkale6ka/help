@@ -1,0 +1,6 @@
+                                      Git
+
+Everything tracked is in your staging area - the index.
+
+git rm removes from your index and from the working copy
+git rm --cached removes from the index only => untracks the file!
