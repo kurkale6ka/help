@@ -2,5 +2,14 @@
 
 Everything tracked is in your staging area - the index.
 
-git rm removes from your index and from the working copy
-git rm --cached removes from the index only => untracks the file!
+git rm
+    removes from your index and from the working copy
+
+git rm --cached
+    removes from the index only => untracks the file!
+
+git commit --amend
+    change the message of the previous commit + add any staged files
+
+git reset HEAD file
+    unstage file
