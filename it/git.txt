@@ -3,13 +3,32 @@
 Everything tracked is in your staging area - the index.
 
 git rm
-    removes from your index and from the working copy
+------
+    removes from both the index and the working copy
 
 git rm --cached
     removes from the index only => untracks the file!
 
 git commit --amend
+------------------
     change the message of the previous commit + add any staged files
 
-git reset HEAD file
-    unstage file
+git reset
+---------
+HEAD    ⇒  Index    ⇒  Working dir
+move       copy to     copy to
+--soft     --mixed     --hard
+
+git reset
+    unstage all files
+git reset file
+    unstage file (opposite of git add file)
+git reset --hard
+    unstage everything + reset working dir
+git reset HEAD~
+    undo previous commit (move branch) + unstage everything
+
+git config
+----------
+    ~/github/config/git.bash
+    ~/.bashrc 851
