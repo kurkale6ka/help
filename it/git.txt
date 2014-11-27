@@ -32,3 +32,26 @@ git config
 ----------
     ~/github/config/git.bash
     ~/.bashrc 851
+
+git checkout
+------------
+git checkout -b topic master
+git branch topic master && git checkout topic
+    create topic from local master and check it out
+
+git push
+--------
+git push origin serverfix
+git push origin serverfix:serverfix
+git push origin refs/heads/serverfix:refs/heads/serverfix
+                               local:remote
+
+After a git fetch that brings origin/serverfix (upstream or @{u}),
+is git checkout -b serverfix origin/serverfix equivalent to
+   git checkout --track origin/serverfix
+   git checkout serverfix
+
+Those create a tracking branch => git pull knows what server/branch to pull from
+
+Set current branch to track:
+    git branch -u origin/serverfix
