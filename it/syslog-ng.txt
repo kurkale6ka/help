@@ -1,0 +1,7 @@
+                                   syslog-ng
+
+Final means that anything that goes through that log path (past the filters and
+to the destination), will not go to any other log paths defined after it. Any
+other messages will be sent to the other log paths
+
+Basically it means we always want final unless we want duplicated logs.
