@@ -1,0 +1,40 @@
+                                  ps BSD-style
+
+export PS_PERSONALITY=bsd
+export PS_FORMAT=pid,ppid,pgid,sid,tname,tpgid,stat,euser,egroup,start_time,cmd
+
+       .- f: ASCII art hierarchical forest
+      / .-- x: ! must have a tty
+     / / .--- h: display headers (if PS_PERSONALITY)
+    / / /
+ps faxuhw
+     \ \ \
+      \ \ *--- w: wide output (ww for unlimited)
+       \ *-- u: user-oriented format, other formats --> j BSD job control
+        *- a: ! only yourself                           l BSD long
+                                                        s signal
+          .- o: user defined format                     v virtual memory
+         /                                              X registers
+ps faxw o pid,stat,euser,egroup,start_time,cmd
+
+ps faxu U httpd
+         \
+          *- userlist - id or name
+
+ps faxu:
+USER  PID  %CPU  %MEM  VSZ  RSS  TT  STAT  STARTED  TIME  COMMAND
+
+ps faxj:
+USER  PID  PPID  PGID  SESS  JOBC  STAT  TT  TIME  COMMAND
+
+ps faxl:
+UID  PID  PPID  CPU  PRI  NI  VSZ  RSS  WCHAN  STAT  TT  TIME  COMMAND
+
+ps faxs:
+UID  PID  PENDING  BLOCKED  IGNORED  CAUGHT  STAT  TTY  TIME  COMMAND
+
+ps faxv:
+PID  STAT  TIME  SL  RE  PAGEIN  VSZ  RSS  LIM  TSIZ  %CPU  %MEM  COMMAND
+
+ps faxX:
+PID  STACKP  ESP  EIP  TMOUT  ALARM  STAT  TTY  TIME  COMMAND
