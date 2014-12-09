@@ -30,4 +30,4 @@ Command Line:
 6. ? output image filenames (required by convert, composite, montage, compare, import, conjure).
 
 Print image dimensions:
-identify -format '%w x %h (width x height)' image.jpg
+identify -format '%w x %h (width x height)\n' image.jpg
