@@ -1,3 +1,5 @@
+                                      lsof
+
 lsof                          - procs for all files
 lsof /var/log/httpd/error_log - procs for a single file
 lsof +D /var/log/             - procs for files in a dir
@@ -6,5 +8,9 @@ lsof -u ^oge                  - files not opened by user
 lsof -p 1911                  - files opened by PID
 lsof -i :25                   - internet procs listening on port
                                 (standard port syntax as in: http://localhost:25/)
+lsof -P -n
+      \  \
+       \  *-- numeric hosts
+        *- numeric ports
 
 Note: options are ORed by default, use -a for AND
