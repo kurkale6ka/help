@@ -55,3 +55,18 @@ Those create a tracking branch => git pull knows what server/branch to pull from
 
 Set current branch to track:
     git branch -u origin/serverfix
+
+Submodules
+----------
+
+Update:
+git submodule foreach git pull origin master
+
+Rename:
+1. Delete the relevant section from the .gitmodules file
+2. git add .gitmodules
+3. Delete the relevant section from .git/config
+4. git rm --cached bundle/_my/\* (no trailing slash)
+5. rm -rf .git/modules/bundle/_my/*
+6. rm -rf bundle/_my/
+7. git submodule add git@github.com:kurkale6ka/vim-swap.git .bundle/swap
