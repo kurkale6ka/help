@@ -1,41 +1,43 @@
                                   ps BSD-style
+                                  ============
 
 export PS_PERSONALITY=bsd
 export PS_FORMAT=pid,ppid,pgid,sid,tname,tpgid,stat,euser,egroup,start_time,cmd
 
        .- f: ASCII art hierarchical forest
       / .-- x: ! must have a tty
-     / / .--- h: display headers (if PS_PERSONALITY)
+     / / .--- w: wide output (ww for unlimited)
     / / /
-ps faxuhw
+ps faxuwh
      \ \ \
-      \ \ *--- w: wide output (ww for unlimited)
-       \ *-- u: user-oriented format, other formats --> j BSD job control
-        *- a: ! only yourself                           l BSD long
-                                                        s signal
-          .- o: user defined format                     v virtual memory
-         /                                              X registers
-ps faxw o pid,stat,euser,egroup,start_time,cmd
+      \ \ *--- h: display headers (if PS_PERSONALITY)
+       \ *-- u: user-oriented format
+        *- a: ! only yourself
 
-ps faxuZ U httpd
-        \ \
-         \ *-- userlist: id or name
-          *- SELinux column
-
-ps faxu:
+Formats:
+--------
+u: (user oriented)
 USER  PID  %CPU  %MEM  VSZ  RSS  TT  STAT  STARTED  TIME  COMMAND
 
-ps faxj:
+j: (bsd job ctrl)
 USER  PID  PPID  PGID  SESS  JOBC  STAT  TT  TIME  COMMAND
 
-ps faxl:
+l: (bsd long)
 UID  PID  PPID  CPU  PRI  NI  VSZ  RSS  WCHAN  STAT  TT  TIME  COMMAND
 
-ps faxs:
+Custom:
+o pid,stat,euser,egroup,start_time,cmd
+
+s: (signal)
 UID  PID  PENDING  BLOCKED  IGNORED  CAUGHT  STAT  TTY  TIME  COMMAND
 
-ps faxv:
+v: (virtual mem)
 PID  STAT  TIME  SL  RE  PAGEIN  VSZ  RSS  LIM  TSIZ  %CPU  %MEM  COMMAND
 
-ps faxX:
+X: (registers)
 PID  STACKP  ESP  EIP  TMOUT  ALARM  STAT  TTY  TIME  COMMAND
+
+Less used options:
+------------------
+U httpd # userlist: id or name
+Z       # SELinux column
