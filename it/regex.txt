@@ -1,18 +1,29 @@
                                    Regex
-    Globs: * ? [...]                                    bash,    find
-POSIX BRE:   . [...] ^ $ * \{,\} \(\) \1               (s)ed,    grep
-  GNU BRE:   --------------------------- \? \+ \|      (s)ed,    grep
-  GNU ERE:   ------------------------------------ no \ (s)ed -r, grep -E, awk
-             \w \W \s \S \b \B \< \>
-             Multiline: \` ^ $ \'
 
-Notes: * POSIX [[:upper:]] will match according to the locale
-         perl's one will match unicode chars
-       * \d (not in BRE/ERE) is a shortcut for [[:digit:]] and is equivalent to [0-9] only faster
-       * POSIX: \ cannot escape stuff in [...]
-       * perl: The \d\s\w\D\S\W abbreviations can be used both inside and outside of character classes
+              .- a single char
+             / .-- a string of any length
+            / /
+    Globs: ? * [...]                                  bash,    find
+POSIX BRE: . * [...] ^ $ \{,\} \(\) \1               (s)ed,    grep
+  GNU BRE: --------------------------- \? \+ \|      (s)ed,    grep
+  GNU ERE: ------------------------------------ no \ (s)ed -r, grep -E, awk
+           \w \W \s \S \b \B \< \>
+           Multiline: \` ^ $ \'
 
-Extended Globs: bash (shopt -s extglob)
+Notes:
+
+* POSIX's [[:upper:]] will match according to the locale
+  perl's one will match unicode chars
+
+* \d (not in BRE/ERE) is a shortcut for [[:digit:]] and is equivalent to [0-9]
+  only faster
+
+* POSIX: \ cannot escape stuff in [...]
+
+* perl: The \d\s\w\D\S\W abbreviations can be used both inside and outside of
+  character classes
+
+Extended Globs: (shopt -s extglob in bash)
 
     @(item1|item2): 1      <=> item1|item2
     ?               0 or 1 occurrence of the given patterns
