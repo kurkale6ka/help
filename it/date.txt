@@ -1,0 +1,4 @@
+                                      Date
+
+date -d@      # unix -> std
+date -d'' +%s # std  -> unix
