@@ -48,22 +48,6 @@ yum install rkhunter
 yum history list rkhunter
 yum history undo 304
 
-Zombies {{{1
-
-You can’t kill a zombie process because it’s already dead. Zombies are
-basically dead processes that haven’t been cleaned up. The child notifies his
-parent that it has terminated, with the SIGCHLD signal. The parent then is
-supposed to call wait() in order to gather info from the dead process. After
-wait() is called, the zombie process is completely removed from memory. Zombies
-keep a descriptor in memory + they preserve their PIDs. Zombies are harmless
-unless there are so many it results in a shortage of PIDs.
-
-Solutions:
-* Resend SIGCHLD
-* Kill the parent which will make init the new parent and rely on init to call
-  wait() which it does periodically
-* Reprogram the parent so it doesn't ignore SIGCHLD and calls wait()
-
 curl {{{1
 
         data transfer (ftp, http, pop, ldap...)
