@@ -42,21 +42,6 @@ xargs rm < file # file with files to remove
 
 find . -name '*.jpg' ! -path '*thumbs*' -print0 | parallel -0X cp -a {} ~/Pictures/iphoto_lib
 
-diff: unified format {{{1
-
---- /path/to/old    <tab> ''timestamp''
-+++ /path/to/new    <tab> ''timestamp''
-@@ -1,3 +1,8 @@           => -1 means first line in old file
-+ This is an important        3 = sum of contextual lines + -s in this hunk
-+ notice! It should          +1 means first line in new file
-+ therefore be located at     8 = sum of contextual lines + +s in this hunk
-+                             - line: only present in old file
-  This part of the            + line: only present in new file
-- document has stayed the
-  same from version to
-+ the beginning of this
-+ document!
-
 Remove dependencies with yum: {{{1
 
 yum install rkhunter

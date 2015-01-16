@@ -1,0 +1,34 @@
+                                      diff
+                                      ====
+
+Unified format:
+
+--- /path/to/old <tab> ''timestamp''
++++ /path/to/new <tab> ''timestamp''
+
+       .- Line number 1 in the old file
+      / .-- Sum of contextual lines and minuses in this hunk (1)
+     / /
+@@ -1,3 +1,8 @@
+          \ \
+           \ *-- Sum of contextual lines and pluses in this hunk (2)
+            *- Line number 1 in the new file
+
+- line: only present in old file
++ line: only present in new file
+
+Differencies:
+
++ This is an important        (2)
++ notice! It should           (2)
++ therefore be located at     (2)
++                             (2)
+  This part of the        (1) (2)
+- document has stayed the (1)
+  same from version to    (1) (2)
++ the beginning of this       (2)
++ document!                   (2)
+
+Multiple files comparison:
+
+diff -uq --from-file file1 file2...filen
