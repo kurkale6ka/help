@@ -1,0 +1,23 @@
+                                    Crontab
+
+SHELL = /bin/bash
+
+ *      *      *      *      *
+0-59 | 0-23 | 1-31 | 1-12 | 1-6 | user /path/to/command
+Min    Hour   Day    Month  Mon-Sat
+                            Sun: 0,7
+
+- %s are newlines and need to be escaped:
+  % -> \%
+
+- Ranges and steps:
+  0-23/2 <=>
+  0,2,4,6,8,10,12,14,16,18,20,22
+
+- No $PATH as variables can't be de-referenced in cron
+
+- No comments at EOL
+
+- No subshells: `` or $()
+
+- Make sure there is a new line after the last cron command
