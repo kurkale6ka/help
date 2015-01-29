@@ -58,7 +58,7 @@
 
    2.2. Orient
 
-        * Rotate 3 corners clockwise on themselves at once (from the sides to the top)
+        * Rotate 3 corners clockwise on themselves (from the sides to the top)
 
           .---.---.---.
           | X |   | X | Xs represent wrongly oriented corners
