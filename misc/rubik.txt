@@ -58,15 +58,17 @@
 
    2.2. Orient
 
-        * Rotate 3 corners clockwise on themselves (from the sides to the top)
+        * L. Rotate 3 corners clockwise on themselves (from the sides to the top)
 
+            o
           .---.---.---.
-          | X |   | X | Xs represent wrongly oriented corners
+          |   |   |   | o (wrongly oriented corner)
           +---+---+---+
-          |   |   |   | Bottom
+          |   | O |   | Bottom
           +---+---+---+
-          |   |   | X |
+          | O |   |   |
           *---*---*---*
+                    o
           .---.---.---.
           |   |   |   |
           +---+---+---+
@@ -79,15 +81,17 @@
           ··⇑  ·  ··⇓  ·  ··⇑  ·  ·  ··⇓  ·  ·  (10)
                ·       ·       ·  ·       ·  ·
 
-        * Rotate anti clockwise
+        * R. Rotate anti clockwise
 
+                    o
           .---.---.---.
-          | X |   | X |
+        o |   |   |   |
           +---+---+---+
-          |   |   |   | Bottom
+          |   | O |   | Bottom
           +---+---+---+
-          | X |   |   |
+          |   |   | O |
           *---*---*---*
+            o
           .---.---.---.
           |   |   |   |
           +---+---+---+
@@ -99,6 +103,36 @@
                ⇒       ⇒       ⇒  ⇒       ⇒  ⇒
           ⇑··  ·  ⇓··  ·  ⇑··  ·  ·  ⇓··  ·  ·  (10)
                ·       ·       ·  ·       ·  ·
+
+        - Possible Bottom layouts and their solutions:
+
+                          R
+                          ⇩
+                      o
+                    .---.---.---.     .---.---.---.     .---.---.---.
+                    |   |   | O |     | O |   | O |     | O |   |   | o
+                    +---+---+---+     +---+---+---+     +---+---+---+
+          L and R:  |   | O |   |     |   | O |   |     |   | O |   |  ⇦ R
+                    +---+---+---+     +---+---+---+     +---+---+---+
+                    |   |   | O |     |   |   |   |     |   |   | O |
+                    *---*---*---*     *---*---*---*     *---*---*---*
+                      o                 o       o         o
+                          ⇧                 ⇧                 ⇧
+                          L               L & R               L
+
+                            L
+                            ⇩
+                                                     o
+                      .---.---.---.         .---.---.---.
+                    o |   |   |   | o     o |   |   |   |
+                      +---+---+---+         +---+---+---+
+          L and L:    |   | O |   |         |   | O |   |  ⇦ L
+                      +---+---+---+         +---+---+---+
+                    o |   |   |   | o     o |   |   |   |
+                      *---*---*---*         *---*---*---*
+                                                     o
+                            ⇧                     ⇧
+                            L                     L
 
 3. Edges
 
