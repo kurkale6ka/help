@@ -1,5 +1,9 @@
 MySQL
 =====
+
+For a verbose command line, use:
+mysql -v db <<< 'your query; SELECT row_count();'
+
 mysql.user: global privileges (*.*)
 mysql.db: database privileges (db.tbl)
 Note: for every user/password pair in mysql.db, an entry in mysql.user is
@@ -45,6 +49,7 @@ Note 2: Transactions can't be used on ALTER, DROP, RENAME, TRUNCATE...
 
 SQLite
 ======
+
 cd ~/.mozilla/firefox/g3iwn869.default
 sqlite3 places.sqlite
 
