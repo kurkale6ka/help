@@ -45,7 +45,7 @@
    ·  ⟳  ·  ⟳  ⇓··  ⟲  ⇑··  (7)
    ·     ·
 
-3. Corners
+3. Bottom corners
 
    3.1. Permute
 
@@ -157,7 +157,7 @@
                             ⇧                     ⇧
                             L                     L
 
-4. Edges
+4. Bottom edges
 
    4.1. Permute
 
