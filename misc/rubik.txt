@@ -1,6 +1,29 @@
                                   Rubik's cube
 
-1. Middle row
+1. Top layer
+
+   .---.---.---.
+   |   |   |   |
+   +---+---+---+
+   |   |   |   | Top
+   +---+---+---+
+   |   |   | B |
+   *---*---*---*
+   .---.---.---.
+   |   |   |   |
+   +---+---+---+
+   |   |   |   | facing
+   +---+---+---+
+   |   |   | A |
+   *---*---*---*
+
+   Move A to B:
+
+      ·
+   ⟳  ·  ⟲
+      ⇒
+
+2. Middle row
 
                  .---.---.---.
                  | B | B | B |
@@ -22,9 +45,9 @@
    ·  ⟳  ·  ⟳  ⇓··  ⟲  ⇑··  (7)
    ·     ·
 
-2. Corners
+3. Corners
 
-   2.1. Permute
+   3.1. Permute
 
           .---.---.---.
         3 |   |   |   | 4
@@ -56,7 +79,7 @@
                ·          ·  ·          ·
           ~-~-~-~-~-~        +     ~-~-~-~-~-~
 
-   2.2. Orient
+   3.2. Orient
 
         L. Rotate 3 corners clockwise on themselves (from the sides to the top)
 
@@ -134,9 +157,9 @@
                             ⇧                     ⇧
                             L                     L
 
-3. Edges
+4. Edges
 
-   3.1. Permute
+   4.1. Permute
 
         .---.---.---.
         |   | X |   | Xs represent incorrectly positioned edges
@@ -167,7 +190,7 @@
                ·       ·  ·       ·
           -----------        -----------
 
-   3.2. Orient
+   4.2. Orient
 
         * Dedmore 'H' Pattern
 
@@ -211,7 +234,7 @@
              ⟳  ··⇑  'H'        ··⇓  ⟲  (20)
           ⇔  ⟳       'H' - 1st  ··⇓  ⟲
 
-4. Summary
+5. Summary
 
    Middle row:
    ⇒     ⇐
@@ -258,27 +281,27 @@
       ⟳  ··⇑  'H'        ··⇓  ⟲  (20) Fish
    ⇔  ⟳       'H' - 1st  ··⇓  ⟲
 
-5. Patterns
+6. Patterns
 
-   5.1 Nested cube
+   6.1 Nested cube
 
                   ⇒       ⇐                  ⇒           ·                ⇐
        ⟳  ⇓··  ⟳  ·  ··⇑  ·  ⟳  ⟳  ⇓··  ⇓··  ·  ⇑··  ⟲`  ·  ⟳`  ⇓··  ⇓··  ·  (18)
                   ·       ·                  ·           ⇐                ·
 
-   5.2 Two nested cubes
+   6.2 Two nested cubes
 
           ·     ·  ·           ⇐       ·       ⇐          ⇐       ⇐  ⇐
        ⟳  ·  ⟲  ·  ·  ⇑··  ⟳`  ·  ⇓··  ·  ··⇑  ·  ⇑··  ⟲  ·  ⇓··  ·  ·  (18)
           ⇒     ⇒  ⇒           ·       ⇒       ·          ·       ·  ·
 
-   5.3 Six Ts
+   6.3 Six Ts
 
                        ⇐  ⇐         ·  ·
        ⟳  ⟳  ··⇑  ··⇑  ·  ·  ⟲  ⟲`  ·  ·  ⇓··  ⇓··  ⟳  ⟲`  (14)
                        ·  ·         ⇒  ⇒
 
-   5.4 Two Twisted Peaks
+   6.4 Two Twisted Peaks
 
               ⇐     ⇐     ⇐                         ⇐          ⇐
        ⟳  ⟳`  ·  ⟳  ·  ⟳  ·  ⇓··  ⟲`  ⇓··  ⇓··  ⟳`  ·  ⟲  ⇓··  ·  ⇑··  ⟲`  (18)
@@ -290,19 +313,19 @@
        ⟳  ·  ·  ⟲`  ··⇑  ⟳`  ⇑··  ⟳  ·  ⇓··  ⇓··  ⟳  ⟳  ··⇑  ⟲  ··⇓  ⟳  ⟳  ⇑··  ⟲  (20)
           ⇒  ⇒                       ⇐
 
-   5.5 Stripes
+   6.5 Stripes
 
           ⇐                   ·       ·  ·       ·                   ⇐
        ⟳  ·  ⟳  ⇓·⇑  ⇓··  ⟲`  ·  ··⇑  ·  ·  ⇓··  ·  ⟲`  ··⇑  ⇓·⇑  ⟳  ·  ⟳  (20)
           ·                   ⇐       ⇒  ⇒       ⇐                   ·
        -------  ---                                          ---  -------
 
-   5.6 Zigzag
+   6.6 Zigzag
 
        ⇓·⇑  ⟲`  ⟳  ⇓·⇑  ⟲`  ⟳  ⇓·⇑  ⟲`  ⟳  (12)
        ----------  ----------  ----------
 
-   5.7 Four holes
+   6.7 Four holes
 
                      ⇐            ⇐
        ⟳  ⟳`  ⟳  ⟳`  ·  ⇓·⇑  ⇓·⇑  ·  (12)
