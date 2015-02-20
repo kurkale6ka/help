@@ -1,3 +1,11 @@
+In interactive mode, the last printed expression is assigned to _
+
+print 'First line.\nSecond line.'
+print r'First line.\nSecond line.' -> First line.\nSecond line.
+print """\
+
+string concatenation: +
+
 sequences:
 
    lists:      mutable, homogeneous     (iterating)
