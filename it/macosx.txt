@@ -15,3 +15,5 @@ Window/Restore Window Arrangement
 Brew
 
 brew update && brew upgrade # as your normal user
+
+brew install coreutils # to get gls...
