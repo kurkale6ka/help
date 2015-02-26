@@ -5,7 +5,9 @@ Shortcuts:
 ⇧ ⌘ Enter - maximize window
      fn ← - Home
      fn → - End
+  fn <bs> - del
     Esc . - Alt .
+    alt 3 - #
 
 Custom layout:
 Window/Restore Window Arrangement
