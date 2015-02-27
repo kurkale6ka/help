@@ -1,0 +1,7 @@
+zstyle is a configuration system
+
+zstyle "context-pattern" style(key) value
+
+Ex:
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:complete:ls:*:*' verbose no
