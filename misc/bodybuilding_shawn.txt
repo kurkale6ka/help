@@ -191,3 +191,5 @@ adapt and stop growing. The old bodybuilding adage is true: Every exercise
 works, but none of them work forever. Change things up, and you can shape, build
 and strengthen your body any way you desire. Give these five principles a try,
 and you will get the shock of your life.
+
+# vim: foldmethod=marker foldmarker={{{,}}}
