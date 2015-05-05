@@ -21,3 +21,11 @@ Alt-q:
 Kill the whole line
 do stuff, then on Enter
 paste the line back
+
+zle
+---
+
+Alt-x will open the minibuffer
+
+Call a builtin widget, even if the behaviour has been redefined:
+Ex: .end-of-line # prefix with .
