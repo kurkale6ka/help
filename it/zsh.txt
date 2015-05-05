@@ -1,10 +1,23 @@
-zstyle is a configuration system
+                                      zsh
 
-zstyle "context-pattern" style(key) value
-
-Ex:
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:complete:ls:*:*' verbose no
-
-# Right align and pad with :-: : :
+Right align and pad with :-: : :
 for i in qw qwer qwerty; echo ${(l:19::-:: :)i}
+---------------- qw
+-------------- qwer
+------------ qwerty
+
+Query package owning pgrep:
+rpm -qf =pgrep # dpkg -S =pgrep
+
+> and < are 'synonyms' for cat
+
+Truncate file:
+:>file
+
+Send both STDIN and STDERR over the pipe:
+httpd -S |& grep ...
+
+Alt-q:
+Kill the whole line
+do stuff, then on Enter
+paste the line back
