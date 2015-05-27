@@ -1,0 +1,12 @@
+                                   Capisrano
+
+cd /project/root
+
+capify .
+       └→ Capfile: helps Capistrano load your recipes and libraries
+       └→ config/deploy.rb
+
+cap deploy:setup
+       └→ ssh to server (deploy_to) and create a special directory structure
+
+cap deploy:check
