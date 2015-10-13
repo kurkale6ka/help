@@ -1,0 +1,4 @@
+Check the owner of a file/app:
+
+rpm -qf /usr/bin/certutil # nss-tools
+pacman -Qo clear # ncurses
