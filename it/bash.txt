@@ -1,0 +1,15 @@
+Pitfalls
+========
+
+touch /tmp/brr && ech 'created' || echo 'fail'
+
+Here the touch succedes so we only want ech 'created' to be executed
+but since that is wrong we also get the second echo
+
+Compare with:
+if touch /tmp/brr
+then
+  ech 'created'
+else
+  echo 'fail'
+fi
