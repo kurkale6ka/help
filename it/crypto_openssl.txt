@@ -34,7 +34,7 @@ LDAP Master certificate:
    (cd /etc/CA && ln -s /etc/openldap/cacerts/cacert.pem)
 
 2. key pair generation + new CSR
-   openssl req -new -nodes -keyout serverkey.pem -out server.csr # -subj "/C=GB/ST=State/L=Locality/O=Org/OU=IT/CN=ldap_master_hostname_fqdn"
+   openssl req -new -newkey rsa:4096 -nodes -keyout serverkey.pem -out server.csr # -subj "/C=GB/ST=State/L=Locality/O=Org/OU=IT/CN=ldap_master_hostname_fqdn"
    chmod 600 serverkey.pem
 
 3. Sign the CSR in order to create a valid digital certificate
