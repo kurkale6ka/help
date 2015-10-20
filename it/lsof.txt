@@ -14,3 +14,8 @@ lsof -P -n
         *- numeric ports
 
 Note: options are ORed by default, use -a for AND
+
+lsof -i -sTCP:LISTEN # netstat -nltp
+
+lsof -FR0 # list pids and ppids only separated by nulls (vs \n)
+          # p12765R63987
