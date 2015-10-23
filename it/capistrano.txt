@@ -1,12 +1,55 @@
                                    Capisrano
 
-cd /project/root
+Summary:
+   - define servers + repos in deploy.rb
+   - cap deploy (ssh to server, clone app or pull)
+
+Details:
+
+cd /location/from/where/you/want/to/deploy
 
 capify .
-       └→ Capfile: helps Capistrano load your recipes and libraries
-       └→ config/deploy.rb
+       └→ Capfile
+       └→ config/deploy.rb - deployment recipes # <=> project name click in Webistrano (Project configuration)
 
-cap deploy:setup
+          require 'capistrano/ext/multistage' # for production.rb...
+          set :stages, ["staging", "production"]
+          set :default_stage, "staging"
+
+          set :application, "fancy_shoes"
+          set :repository, "git@account.git.beanstalkapp.com:/account/repository.git"
+          ---------------------------------------------------------------------------
+          set :user, "server-user-name"
+          set :deploy_via, :remote_cache # use clone once to the server then use git pulls
+
+          namespace :deploy do
+            # default
+            # task :restart, :roles => :web do
+            #   run "touch #{ current_path }/tmp/restart.txt"
+            # end
+
+            desc "Restarting all daemons!"
+            task :restart_daemons, :roles => :app do
+              sudo "monit restart all -g daemons"
+            end
+          end
+
+          after "deploy", "deploy:restart_daemons"
+          # after "deploy", "deploy:restart" # built into Capistrano so not explicitly needed
+
+          config/production.rb
+          set :branch, 'master'
+
+          config/staging.rb
+          set :branch, 'staging'
+          server "my_fancy_server.com", :app, :web, :db, :primary => true # 3 roles for that server
+          set :deploy_to, "/var/www/fancy_shoes"
+          --------------------------------------
+
+cap deploy:setup # look for equivalent link in Webistrano
        └→ ssh to server (deploy_to) and create a special directory structure
 
 cap deploy:check
+
+cap production deploy
+cap deploy # default
