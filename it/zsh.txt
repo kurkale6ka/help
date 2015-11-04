@@ -29,3 +29,49 @@ Alt-x will open the minibuffer
 
 Call a builtin widget, even if the behaviour has been redefined:
 Ex: .end-of-line # prefix with .
+
+Globs
+-----
+
+Glob operators:
+                *, ?, []
+                <x-y> numeric range
+                ^x    anything except x # extended_glob
+                x~y   x but not y       # extended_glob
+                x#    0 or more of x    # extended_glob
+                x##   1 or more of x    # extended_glob
+            Ex:
+                ls -l **/*<1-10>.txt
+
+Globbing flags:
+(#X) - affect text to their right; extended_glob required
+
+                [[ hello == (#i)HELLO ]] && echo match
+                ls -d -- (#i)*vim* # match files case insensitively
+
+                (#cN,M) is equivalent to {N,M} in regex
+
+Mystery: unsetopt CASE_GLOB then [[ hello == HELLO ]] && echo match # no output?
+A: string matching isn't globbing. Find docs about this
+
+Glob qualifiers:
+                print -l **/*(/)    # dirs only
+                print -l **/*(.)    # files only
+                print -l **/*(L0)   # empty files
+                print -l **/*(Lk+3) # greater than 3 KB
+                print -l **/*(mh-1) # modified in the last hour
+                print -l **/*(e:'[[ $REPLY != sometest ]]':) # estring
+
+Modifiers:
+: inside a qualifier list => the rest is interpreted as a modifier
+
+                print -l **/*(u0^@:t) # basename (tail) of files (minus links) owned by root
+                echo ${foo:gs/r/@}    # parameter expansion with global substitution
+
+Recursive globbing:
+                **/ is equivalent to (*/)#
+
+Parameter Expansion Flags:
+                line=one:two:three
+                print -l ${(s.:.)line} # field splitting at :
+                           j:string:   # join words in an array
