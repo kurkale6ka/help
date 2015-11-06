@@ -30,3 +30,5 @@ Extended Globs: (shopt -s extglob in bash)
     *               0 or >
     +               1 or >
     !               none   <~> [^...]
+
+Test in irb with: 'your_string'.match(%r@...@)
