@@ -75,3 +75,17 @@ Parameter Expansion Flags:
                 line=one:two:three
                 print -l ${(s.:.)line} # field splitting at :
                            j:string:   # join words in an array
+
+Word splitting exception:
+
+% rm $(echo a b; echo '*')
+rm: cannot remove ‘a’: No such file or directory
+rm: cannot remove ‘b’: No such file or directory
+rm: cannot remove ‘*’: No such file or directory
+
+% rm "$(echo a b; echo '*')"
+rm: cannot remove ‘a b\n*’: No such file or directory
+
+% rm ${(f)"$(echo a b; echo '*')"}
+rm: cannot remove ‘a b’: No such file or directory
+rm: cannot remove ‘*’: No such file or directory
