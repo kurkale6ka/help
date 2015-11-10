@@ -60,7 +60,13 @@ Submodules
 ----------
 
 Update:
+all
 git submodule foreach git pull origin master
+
+only one
+cd $my_submodule && git pull # OR
+git -C my_submodule pull
+
 
 Rename:
 1. Delete the relevant section from the .gitmodules file
