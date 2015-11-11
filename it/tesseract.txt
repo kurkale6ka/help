@@ -1,0 +1,8 @@
+                                      OCR
+                         Optical character recognition
+
+# Optical character recognition from a bg pic
+tesseract test.png stdout -l bul
+tesseract test.png test -l bul
+
+Note: -lbul is a fail! Use -l bul # space
