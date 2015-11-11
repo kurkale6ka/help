@@ -182,11 +182,13 @@ color
 VerbosePkgLists
 
 # Terminal colors
+Palette:
+tango
+
+Modifications:
 cursor: #444444
   text: #bebebe
-    bg: #292929 (html color grey15)
-
-terminator scheme: tango
+    bg: #262626 (html color grey15)
 
 # Orage
 Line 1: %a %d %b
