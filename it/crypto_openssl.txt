@@ -22,7 +22,7 @@ CA self-signed certificate:
    chmod 600 cakey.pem
    Note: cakey.pem contains BOTH keys, same for serverkey.pem below
 
-2. new self-signed certificate
+2. new self-signed ca certificate
    openssl req -new -x509 -days 1095 -key cakey.pem -out cacert.pem # -subj "/C=GB/ST=State/L=Locality/O=Org/OU=IT/CN=CA"
 
 LDAP Master certificate:
