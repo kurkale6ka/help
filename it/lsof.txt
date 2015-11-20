@@ -2,7 +2,7 @@
 
 lsof                          - procs for all files
 lsof /var/log/httpd/error_log - procs for a single file
-lsof +D /var/log/             - procs for files in a dir
+lsof +D /var/log/             - procs for files in a dir # slow because it recurses through the filesystem ~ fuser -mv /var/log/
 lsof -c ssh                   - files opened by a command
 lsof -u ^oge                  - files not opened by user
 lsof -p 1911                  - files opened by PID
