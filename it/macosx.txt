@@ -1,5 +1,7 @@
                             Mac OS X for Linux users
+
 iTerm2
+------
 
 Shortcuts:
 ⇧ ⌘ Enter - maximize window
@@ -13,7 +15,26 @@ Custom layout:
 Window/Restore Window Arrangement
 
 Brew
+----
 
-brew update && brew upgrade # as your normal user
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+brew install zsh
+echo /usr/local/bin/zsh >> /etc/shells # as root
+chsh -s /usr/local/bin/zsh
 
 brew install coreutils # to get gls...
+brew install tmux
+brew install fzf
+
+# nvim
+brew tap neovim/neovim
+brew install --HEAD neovim
+sudo easy_install pip
+mkdir ~/.config
+
+# Updating brew formulas
+brew update && brew upgrade # as your normal user
+
+brew update
+brew reinstall --HEAD neovim
