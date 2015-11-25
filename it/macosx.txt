@@ -31,6 +31,7 @@ brew install fzf
 brew tap neovim/neovim
 brew install --HEAD neovim
 sudo easy_install pip
+pip2 install --user neovim # even root is not allowed to write to some locations!
 mkdir ~/.config
 
 # Updating brew formulas
