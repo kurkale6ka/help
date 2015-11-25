@@ -4,12 +4,14 @@ iTerm2
 ------
 
 Shortcuts:
-⇧ ⌘ Enter - maximize window
-     fn ← - Home
-     fn → - End
-  fn <bs> - del
-    Esc . - Alt .
-    alt 3 - #
+       ⇧ ⌘ Enter - maximize window
+            fn ← - Home
+            fn → - End
+Ctrl + Shift + ↑ - PageUp
+Ctrl + Shift + ↓ - PageDown
+         fn <bs> - del
+           Esc . - Alt .
+           alt 3 - #
 
 Custom layout:
 Window/Restore Window Arrangement
@@ -23,7 +25,20 @@ brew install zsh
 echo /usr/local/bin/zsh >> /etc/shells # as root
 chsh -s /usr/local/bin/zsh
 
+https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
+
 brew install coreutils # to get gls...
+brew install ed --default-names
+brew install findutils --with-default-names # to get glocate...
+brew install ag
+brew install ctags
+brew install tree
+brew install gnu-sed --with-default-names
+brew install homebrew/dupes/grep --with-default-names
+
+Cron jobs: (for updatedb)
+http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs
+
 brew install tmux
 brew install fzf
 
