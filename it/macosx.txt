@@ -40,7 +40,8 @@ Cron jobs: (for updatedb)
 http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs
 
 brew install tmux
-brew install fzf
+
+fzf: don't use brew
 
 # nvim
 brew tap neovim/neovim
