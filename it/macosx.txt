@@ -35,6 +35,7 @@ brew install ctags
 brew install tree
 brew install gnu-sed --with-default-names
 brew install homebrew/dupes/grep --with-default-names
+brew install vim
 
 Cron jobs: (for updatedb)
 http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs
