@@ -39,7 +39,7 @@ note: omit iptables when using the config file (/etc/sysconfig/iptables)
 States:
 # Allow 2 way ssh communication but the connection can be established inbound
 # only (NEW). Outbound is ok as long as the connection's been already established!
-iptables -A INPUT -p tcp --dport ssh -s 10.10.10.10 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp --dport ssh -s 10.10.10.10 -m state --state NEW,ESTABLISHED -j ACCEPT # allow from 10.10.10.10 to OUR ssh port!
 iptables -A OUTPUT -p tcp --sport 22 -d 10.10.10.10 -m state --state ESTABLISHED -j ACCEPT
 
 Save changes: (else lost on restart)
