@@ -12,6 +12,7 @@ Ctrl + Shift + ↓ - PageDown
          fn <bs> - del
            Esc . - Alt .
            alt 3 - #
+           ⇧ ⌘ g - open location bar in Finder (so you can go to /usr/local say)
 
 Custom layout:
 Window/Restore Window Arrangement
