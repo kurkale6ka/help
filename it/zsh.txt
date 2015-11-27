@@ -89,3 +89,6 @@ rm: cannot remove ‘a b\n*’: No such file or directory
 % rm ${(f)"$(echo a b; echo '*')"}
 rm: cannot remove ‘a b’: No such file or directory
 rm: cannot remove ‘*’: No such file or directory
+
+Open clean zsh with modified PATH:
+exec env PATH=/usr/local/bin/:$PATH zsh -f
