@@ -1,0 +1,11 @@
+                Indexing when using an encrypted home directory
+
+/etc/zsh/zprofile
+export LOCATE_PATH=/home/user/var/mlocate.db
+
+/etc/updatedb.conf
+PRUNEPATHS = "... /home/.ecryptfs"
+
+Index your home files:
+updatedb -l 0 -o ~/var/mlocate.db -U ~
+TODO: run on a daily basis
