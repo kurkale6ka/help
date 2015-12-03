@@ -42,6 +42,15 @@ brew install vim
 Cron jobs: (for updatedb)
 http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs
 
+Notes:
+* updatedb from findutils is different than its Linux counterpart. It doesn't use /etc/updatedb.conf. Run it like so:
+* updatedb --prunepaths='/afs /media /mnt /net /sfs /tmp /udev /var/cache /var/lock /var/run /var/spool /var/tmp /Recovered.Items /.DocumentRevisions-V100 /.MobileBackups /.Spotlight-V100 /.Trashes /.fseventsd /Groups /Shared /Shared.Items /private/tmp /private/var/cache /private/var/lock /private/var/run /private/var/spool /private/var/tmp /Applications /Library /System'
+
+  /.DocumentRevisions-V100 (equivalent of .git for Versions)
+  /.Spotlight-V100         (spotlight indexes)
+
+* Replace spaces with dots because of some oddity related to updatedb using regexes
+
 brew install tmux
 
 fzf: don't use brew
