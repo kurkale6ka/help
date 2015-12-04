@@ -1,0 +1,41 @@
+                 Mandatory Access Control confined environment
+
+ps Z:
+every process is assigned a security context or label which defines the rights
+and privileges of the process
+
+security context: system_u:system_r:auditd_t
+                                       \
+                                     domain
+
+type enforcement:
+allow <domain> <type>:<class> { <permissions> };
+
+ex:
+allow auditd_t auditd_log_t:file { write };
+         \              \
+    process type  file target of type log
+
+sesearch --allow --source auditd_t --target auditd_log_t --class file --perm write
+
+Extended attributes:
+   * ls -lZ /var/log/audit/audit.log # or getfattr -m security.selinux -d /var/log/audit/audit.log
+      \ ... auditd_log_t
+
+Domains are types assigned to running processes
+
+Possible logging locations:
+   /var/log/avc.log
+   /var/log/audit... # lines with avc
+
+Check for hidden cosmetic denials:
+seinfo --stats | grep audit
+Auditallow: 1 Dontaudit: 5341
+
+Rebuild the SELinux policy:
+semodule --disable_dontaudit --build # semodule --build (to revert)
+
+Also:
+ausearch -m avc --start recent # denials in the last 10 min
+or
+sealert -l 84e0b04d-d0ad-4347-8317-22e74f6cd020 # as reported by setroubleshoot
