@@ -1,5 +1,25 @@
                                       zsh
 
+XDG
+/etc/zsh/zshenv
+# XDG configuration home
+if [[ -z $XDG_CONFIG_HOME ]]
+then
+   export XDG_CONFIG_HOME=$HOME/.config
+fi
+
+export ZDOTDIR=$XDG_CONFIG_HOME/zsh
+
+# XDG data home
+if [[ -z $XDG_DATA_HOME ]]
+then
+   export XDG_DATA_HOME=$HOME/.local/share
+fi
+
+As your day to day user:
+mkdir -p $XDG_CONFIG_HOME/zsh
+mkdir -p $XDG_DATA_HOME/zsh
+
 Right align and pad with :-: : :
 for i in qw qwer qwerty; echo ${(l:19::-:: :)i}
 ---------------- qw
