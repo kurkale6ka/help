@@ -1,7 +1,6 @@
                                       zsh
 
-XDG
-/etc/zsh/zshenv
+/etc/zshenv
 # XDG configuration home
 if [[ -z $XDG_CONFIG_HOME ]]
 then
@@ -17,8 +16,7 @@ then
 fi
 
 As your day to day user:
-mkdir -p $XDG_CONFIG_HOME/zsh
-mkdir -p $XDG_DATA_HOME/zsh
+mkdir -p {$XDG_CONFIG_HOME,$XDG_DATA_HOME}/zsh
 
 Right align and pad with :-: : :
 for i in qw qwer qwerty; echo ${(l:19::-:: :)i}
