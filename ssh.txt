@@ -1,7 +1,6 @@
 Ordinary Password Authentication
 --------------------------------
-
-1 connection = 1 password
+password required for every connection
 
 --> username
 <-- PASSWORD
@@ -9,8 +8,7 @@ Ordinary Password Authentication
 
 Public Key Access
 -----------------
-
-1 connection = 1 passphrase
+passphrase required for every connection
 
 --> username + request to use a public key
 <-- KEY CHALLENGE (after looking in /home/user/.ssh/authorized_keys)
@@ -18,8 +16,7 @@ Public Key Access
 
 Public Key Access with Agent support (local key holder)
 -------------------------------------------------------
-
-many connections = 1 passphrase
+passphrase required only once and used for all connections
 
 --> username + request to use a public key
 <-- KEY CHALLENGE (after looking in /home/user/.ssh/authorized_keys)
@@ -32,8 +29,8 @@ many connections = 1 passphrase
 
 Public Key Access with Agent Forwarding
 ---------------------------------------
-
-many connections = 1 passphrase + chaining allowed
+passphrase required only once and used for all connections, plus allow sshing
+from destinations by forwarding the key challenge to the initial local server
 
 Problem:
 Once logged into a remote server, connecting from there to yet a third server
@@ -58,14 +55,29 @@ server1 $     sshd FORWARDS the key response  to ssh
 server1 $ --> key response
 
 Requirements:
-server0 - ForwardAgent yes in ~/.ssh/config (or ssh -A ...)
-server1 - AllowAgentForwarding in sshd_config
+server0
+  ~/.ssh/config
+  Host server1
+     ForwardAgent yes
+  OR
+  ssh -A server1
+
+server1
+  - AllowAgentForwarding in sshd_config
 
 ssh-agent tests/tasks:
 echo "$SSH_AUTH_SOCK"
 ssh-add -l
-ssh-add [~/.ssh/id_rsa_git]
 
 ~/.ssh/config note:
 for ProxyCommand to work an appropriate ssh setup is needed
 (like Agent Forwarding or private key on the Proxying host)
+
+Annexe:
+http://www.unixwiz.net/techtips/ssh-agent-forwarding.html
+
+Initial requirements:
+eval "$(ssh-agent)"
+ssh-add [~/.ssh/id_rsa_git]
+OR
+eval "$(keychain --eval --agents ssh -Q --quiet id_rsa id_rsa_git)"
