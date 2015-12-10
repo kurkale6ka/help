@@ -39,3 +39,6 @@ Also:
 ausearch -m avc --start recent # denials in the last 10 min
 or
 sealert -l 84e0b04d-d0ad-4347-8317-22e74f6cd020 # as reported by setroubleshoot
+
+Query file context definitions:
+semanage fcontext -l | grep auditd_log_t
