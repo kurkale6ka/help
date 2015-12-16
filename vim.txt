@@ -1,0 +1,17 @@
+1
+2
+3
+4    oge
+5    [cursor]
+6
+7    oge
+8
+9
+
+2,/oge/p -> find the next occurrence of oge starting from the cursor's position
+            range printed: 2-7
+
+2;/oge/p -> find the next occurrence of oge starting from 2
+            range printed: 2-4
+
+:h:;
