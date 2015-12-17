@@ -1,0 +1,23 @@
+[ ] is for creating lenses (tree nodes)
+
+del /:\s+/ ": " means that there might be several spaces but we want only one when reconstructing?
+
+file.aug:16.56-.71 exception on line 16, col 56 to 71 (the line is omitted since it remains the same)
+
+let lens is forbidden, use let lns instead
+
+No ~ in filter! Only absolute paths
+
+Don't try to not store
+
+a label doesn't consume text from the concrete view. So if you expect a lens to produce { "<<" = "production" }, you need to use [ key "<<" ... ]
+
+labels are only produced in the abstract view
+
+the tree is composed of nodes
+each node can have a label (a), an optional value (b), and optional children (c)
+
+[ key "a" . store "b" . [ key "c" ] ] will parse "abc" as { "a" = "b" { "c" } }
+
+Example:
+augtool -I . ls /files/path/to/file.yml/host1/
