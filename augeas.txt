@@ -21,3 +21,7 @@ each node can have a label (a), an optional value (b), and optional children (c)
 
 Example:
 augtool -I . ls /files/path/to/file.yml/host1/
+
+augtool -I . -At "YAML incl '/home/xxx/bla.yml'" print '/augeas//error'
+or
+augtool -I . -At "YAML incl '/home/xxx/bla.yml'" errors
