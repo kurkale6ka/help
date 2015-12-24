@@ -25,3 +25,9 @@ augtool -I . ls /files/path/to/file.yml/host1/
 augtool -I . -At "YAML incl '/home/xxx/bla.yml'" print '/augeas//error'
 or
 augtool -I . -At "YAML incl '/home/xxx/bla.yml'" errors
+
+note:
+if running in non-interactive mode, you won't be able to access the errors as kept in RAM.
+Instead:
+augtool> your_command
+augtool> errors
