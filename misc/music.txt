@@ -1,10 +1,14 @@
 musical scale:
+
   a set of ordered notes grouped together for a musical reason.
   notes in a particular scale always sound good played together =>
     chords derive from scales
 
 dot above note: staccato (detached)
+
   pause before next note + shorter duration
+
+Musical staff & piano keyboard:
 
   --do--
         si
@@ -35,3 +39,13 @@ dot above note: staccato (detached)
   --mi--
         re
   --do--
+
+Sharps, flats and naturals:
+
+* If a ♯ or a ♭ sits in the header, it affects all similar notes (ex: do1, do2,
+  do3...) till the end of the composition.
+
+* If it sits on a measure, it only affects that particular note (ex: do1 but
+  not do2...) till the next bar.
+
+* A ♮ cancels the effects of both ♯ and ♭ till the end of the current measure.
