@@ -1,0 +1,7 @@
+musical scale:
+  a set of ordered notes grouped together for a musical reason.
+  notes in a particular scale always sound good played together =>
+    chords derive from scales
+
+dot above note: staccato (detached)
+  pause before next note + shorter duration
