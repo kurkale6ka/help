@@ -1,0 +1,4 @@
+while getopts ':f:b:su' opt
+                \ \
+                 \ -f expects an argument (available in $OPTARG)
+                  silent error mode
