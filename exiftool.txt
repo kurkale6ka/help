@@ -1,0 +1,14 @@
+Options can't be grouped => -s -G but not -sG
+                              \  \
+                               \  show groups
+                               show real tag names
+
+Display the createdate tag using a different formatting:
+exiftool -createdate -p '${createdate;s/:/-/g}' 2011-07-22_13.30.18.jpg # perl s///
+exiftool -createdate -p '$createdate' -d '%Y-%m-%d' 2011-07-22_13.30.18.jpg
+
+Move /bar/**/*.jpg into subdirectories based on createdate and a strftime format:
+exiftool -r -ext jpg '-directory<createdate' -d %Y/%B /bar
+
+Add summer to the keywords tag:
+exiftool -iptc:keywords+=summer my_pic.jpg
