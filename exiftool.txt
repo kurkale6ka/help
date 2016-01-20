@@ -45,6 +45,12 @@ Append camera maker to the file name:
 # make sure beforehand that basename hasn't got any letters in it
 exiftool -r -ext jpg '-filename<%f ${make;}.%e' -if '${filename;s/\.\S+//} !~ /[[:alpha:]]/i' .
 
+# Change -createdate
+exiftool -createdate='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
+
+# Look for problems detected by Dropbox
+ll **/*conflict*
+
 Print file names (within your years folders) with camera brands ('make') != *(samsung|apple)*:
 for i in 20??/**/*(.); [[ ${i##*/} != *(#i)(samsung|apple)* ]] && echo $i
 
