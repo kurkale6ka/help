@@ -23,8 +23,8 @@ exiftool '-filename<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' .
 Explanations
 ------------
 
-Move /bar/**/*.jpg into subdirectories based on createdate and a strftime format:
-exiftool -r -ext jpg '-directory<createdate' -d '%Y/%B' /bar
+Move /bar/*.jpg into subdirectories based on createdate and a strftime format:
+exiftool -ext jpg '-directory<createdate' -d '%Y/%B' /bar
 
 Rename to Dropbox format:
 exiftool '-filename<createdate' -d '%Y-%m-%d %H.%M.%S%%-c.%%le' .
@@ -43,7 +43,7 @@ exiftool '-filename<createdate' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c.%%le' With*
 
 Append camera maker to the file name:
 # make sure beforehand that basename hasn't got any letters in it
-exiftool -r -ext jpg '-filename<%f ${make;}.%e' -if '${filename;s/\.\S+//} !~ /[[:alpha:]]/i' .
+exiftool -ext jpg '-filename<%f ${make;}.%e' -if '${filename;s/\.\S+//} !~ /[[:alpha:]]/i' .
 
 # Change -createdate
 exiftool -createdate='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
