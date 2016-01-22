@@ -27,5 +27,16 @@ Example:
 rsync -au --delete --stats --progress src  dst # copies src            to dst
 rsync -au --delete --stats --progress src/ dst # copies src's contents to dst
 
+rsync -ai --no-t --remove-source-files --ignore-existing 2012/ pics/2012
+         \    \             \                   \
+          \    \             \                   only transfer new files
+           \    \             del from source after transfer
+            \    don't compare timestamps
+             change summaries
+
+rsync -ain --modify-window=432000 2015/ ../pics/2015
+                     \
+                      timestamps are considered different only above 5 days (432000 seconds)
+
 Tip:
 mkdir /tmp/empty && rsync -r --delete /tmp/empty/ /DIR_TO_DELETE/
