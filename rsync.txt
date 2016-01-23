@@ -1,3 +1,10 @@
+Filters
+-f '+ foo' include files and directories named foo
+-f '- foo/' exclude directories named foo
+-f '+ */' -f '+ *.vim' -f '- *' transfer vim files only
+        \
+          the / means directory objects
+
 Archive mode -a:
 -r: recursive
 -l: copy symlinks as symlinks
@@ -9,23 +16,27 @@ Archive mode -a:
     --specials: preserve special files
 
 Common:
--u: do not overwrite the modified files at the destination
+-n: dry run
+
+--delete: if the file exists in the destination only, delete it
+-u: if the destination file has a more recent modification time, don't update it
+
 -z: enable compression
     use to improve bandwidth => not for local operation unless good CPU
--n: test run
-
---delete: deleted files in src get deleted at dst as well
 
 Less common:
 -e: "ssh -l user_if_different_than_local"
 -d: copy directory structure
 
+--ignore-existing: transfer new files only (non existing on destination)
+--existing: transfer old files only (already existing on destination)
+
 -W: transfer whole modified files (not only the changed blocks) if network
     bandwidth is not an issue for you but CPU is! (default for local)
 
-Example:
-rsync -au --delete --stats --progress src  dst # copies src            to dst
-rsync -au --delete --stats --progress src/ dst # copies src's contents to dst
+Examples:
+rsync -ain src  dst # copies src            to dst
+rsync -ain src/ dst # copies src's contents to dst
 
 rsync -ai --no-t --remove-source-files --ignore-existing 2012/ pics/2012
          \    \             \                   \
@@ -37,6 +48,3 @@ rsync -ai --no-t --remove-source-files --ignore-existing 2012/ pics/2012
 rsync -ain --modify-window=432000 2015/ ../pics/2015
                      \
                       timestamps are considered different only above 5 days (432000 seconds)
-
-Tip:
-mkdir /tmp/empty && rsync -r --delete /tmp/empty/ /DIR_TO_DELETE/
