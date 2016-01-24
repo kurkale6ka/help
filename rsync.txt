@@ -3,7 +3,9 @@ Filters
 -f '- foo/' exclude directories named foo
 -f '+ */' -f '+ *.vim' -f '- *' transfer vim files only
         \
-          the / means directory objects
+         the / means directory objects
+
+ex: rsync -ai -f '+ */' -f '- *' ~/foo /tmp # copy foo's directory structure to /tmp
 
 Archive mode -a:
 -r: recursive
@@ -14,6 +16,14 @@ Archive mode -a:
 -o: preserve owner (super-user only)
 -D: --devices:  preserve device files (super-user only)
     --specials: preserve special files
+
+Notes about -d and -a:
+* without -a or -d, no dirs would be transfered
+* -d allows to copy dirs but isn't recursive
+
+rsync -a ~/foo  /tmp # copy ~/foo and its contents to /tmp
+rsync -d ~/foo  /tmp # copy ~/foo without its contents to /tmp
+rsync -d ~/foo/ /tmp # copy ~/foo's contents to /tmp
 
 Common:
 -n: dry run
