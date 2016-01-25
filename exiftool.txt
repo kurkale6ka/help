@@ -1,4 +1,4 @@
-Options can't be grouped => -s -G but not -sG
+Options can't be grouped => -S -G but not -SG
                               \  \
                                \  show groups
                                show real tag names
@@ -47,6 +47,7 @@ exiftool -ext jpg '-filename<%f ${make;}.%e' -if '${filename;s/\.\S+//} !~ /[[:a
 
 # Change -createdate
 exiftool -createdate='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
+exiftool -datetimeoriginal='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
 
 # Look for problems detected by Dropbox
 ll **/*conflict*
@@ -59,10 +60,16 @@ ll 20??/**/[^a-zA-Z]##.[^.]##
 ll 20??/**/[^a-zA-Z]##.jpg(_original)#
 
 Find file names with a specific tag:
-exiftool -q -r -if '$iptc:keywords =~ /birthday/i' -if '$iptc:keywords =~ /victor/i' -p '$filename: $keywords' .
+exiftool -q -r -if '$iptc:keywords =~ /birthday/i' -p '$filename: $keywords' .
 
 List files without a -keywords tag:
-exiftool -if 'not $keywords' -filename -p '$filename' . 2>/dev/null
+exiftool -if 'not $keywords' -p '$filename' . 2>/dev/null
+
+List files with a -keywords tag:
+exiftool -if '$keywords' -p '$filename' . 2>/dev/null
+
+# Show files with different -createdate and -datetimeoriginal
+exiftool -createdate -datetimeoriginal -if '$createdate !~ $datetimeoriginal' .
 
 List tags in a specific group only:
 exiftool -xmp:all my_pic.jpg
@@ -80,9 +87,12 @@ exiftool -iptc:keywords+='christmas' 20[0-9][0-9]/**/20[0-9][0-9]-12-25*(.)
 exiftool -iptc:keywords+='Mitko' -iptc:keywords+='birthday' 20[0-9][0-9]/October/*-10-19*(.)
 exiftool -iptc:keywords+='Iva' -iptc:keywords+='birthday' 20[0-9][0-9]/May/*-05-30*(.)
 
-TODO: add video tag to all videos
-
 Question: how to avoid duplication when adding tags?
 # after running the below 2 commands, -keywords will have a value of my_tag, my_tag
 exiftool -iptc:keywords+=my_tag my_pic
 exiftool -iptc:keywords+=my_tag my_pic
+
+Photo management software tips:
+If you are unable to delete a cached tag:
+* rm -r ~/.local/share/shotwell ~/.cache/shotwell
+* check the -xmp:subject tag
