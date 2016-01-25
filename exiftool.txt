@@ -4,8 +4,8 @@ Options can't be grouped => -S -G but not -SG
                                show real tag names
 
 Display the createdate tag using a different formatting:
-exiftool -createdate -p '${createdate;s/:/-/g}' my_pic.jpg # perl s///
-exiftool -createdate -p '$createdate' -d '%Y-%m-%d' my_pic.jpg
+exiftool -p '${createdate;s/:/-/g}' my_pic.jpg # perl s///
+exiftool -p '$createdate' -d '%Y-%m-%d' my_pic.jpg
 
 Practical
 ---------
@@ -66,7 +66,7 @@ List files without a -keywords tag:
 exiftool -if 'not $keywords' -p '$filename' . 2>/dev/null
 
 List files with a -keywords tag:
-exiftool -if '$keywords' -p '$filename' . 2>/dev/null
+exiftool -if '$keywords' -p '$directory/$filename' . 2>/dev/null
 
 # Show files with different -createdate and -datetimeoriginal
 exiftool -createdate -datetimeoriginal -if '$createdate !~ $datetimeoriginal' .
@@ -75,7 +75,7 @@ List tags in a specific group only:
 exiftool -xmp:all my_pic.jpg
 
 Print files' keywords tag:
-exiftool -q -r -iptc:keywords -p '$filename: $iptc:keywords' -if '$iptc:keywords' .
+exiftool -q -r -p '$filename: $iptc:keywords' -if '$iptc:keywords' .
 
 View embedded thumbnails:
 exiftool -thumbnailimage '2012/April/2012-04-23 11.29.04 Apple.jpg' -b | ffplay -v error -
