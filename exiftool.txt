@@ -9,9 +9,9 @@
 #
 # If you are unable to delete a cached tag in Shotwell:
 #    * rm -r ~/.local/share/shotwell ~/.cache/shotwell
-#    * check the -xmp:subject tag:
+#    * check -xmp:subject, -xmp:lastkeywordxmp, -exif:xpkeywords, ...
 #
-# View embedded thumbnails
+# View embedded thumbnails:
 #    exiftool -thumbnailimage '2012/April/2012-04-23 11.29.04 Apple.jpg' -b | ffplay -v error -
 #
 # Question: how to avoid duplication when adding tags?
@@ -72,7 +72,10 @@ exiftool -createdate='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
 exiftool -datetimeoriginal='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
 
 # Set the subject from the keywords
-exiftool -q -if '$subject =~ /.../i' -p 'exiftool -xmp:subject="$iptc:keywords" "$filename"' . | zsh -
+exiftool -q -if '$subject =~ /^@@@$/i' -p 'exiftool -xmp:subject="${iptc:keywords;s/,\s/" -xmp:subject="/g}" "$filename"' . 2>/dev/null | zsh -
+
+# Change the keywords reusing the old ones
+exiftool -q -if '$iptc:keywords =~ /^@@@$/i' -p 'exiftool -iptc:keywords="${iptc:keywords;s/,\s/" -iptc:keywords="/g}" "$filename"' . 2>/dev/null | zsh -
 
 ## Checks
 
@@ -139,4 +142,4 @@ do
    fi
 done < <(exiftool -r -if '$iptc:keywords' -p '$directory/$filename|$iptc:keywords' ~/Dropbox/pics 2>/dev/null)
 
-# vim: fde=getline(v\:lnum)=~'^\\s*##'?'>'.(len(matchstr(getline(v\:lnum),'###*'))-1)\:'='
+# vim: ft=zsh fdm=expr fde=getline(v\:lnum)=~'^\\s*##'?'>'.(len(matchstr(getline(v\:lnum),'###*'))-1)\:'='
