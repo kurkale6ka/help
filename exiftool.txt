@@ -1,98 +1,142 @@
-Options can't be grouped => -S -G but not -SG
-                              \  \
-                               \  show groups
-                               show real tag names
+# Options can't be grouped => -S -G but not -SG
+#                               \  \
+#                                \  show groups
+#                                 show real tag names
+#
+# Display the createdate tag using a different formatting:
+#    exiftool -p '${createdate;s/:/-/g}' my_pic.jpg # perl s///
+#    exiftool -p '$createdate' -d '%Y-%m-%d' my_pic.jpg
+#
+# If you are unable to delete a cached tag in Shotwell:
+#    * rm -r ~/.local/share/shotwell ~/.cache/shotwell
+#    * check the -xmp:subject tag:
+#
+# View embedded thumbnails
+#    exiftool -thumbnailimage '2012/April/2012-04-23 11.29.04 Apple.jpg' -b | ffplay -v error -
+#
+# Question: how to avoid duplication when adding tags?
+#    after running the below 2 commands, -keywords will have a value of my_tag, my_tag
+#    exiftool -iptc:keywords+=my_tag my_pic
+#    exiftool -iptc:keywords+=my_tag my_pic
 
-Display the createdate tag using a different formatting:
-exiftool -p '${createdate;s/:/-/g}' my_pic.jpg # perl s///
-exiftool -p '$createdate' -d '%Y-%m-%d' my_pic.jpg
+## Manage pictures
 
-Practical
----------
+# Add tags
+exiftool -iptc:keywords+=my_tag -iptc:keywords+=my_tag_2 my_pic # or -xmp:usercomment
 
-Add tags:
-exiftool -iptc:keywords+=my_tag -iptc:keywords+=my_tag_2 my_pic
-exiftool -xmp:usercomment=mytag my_pic
-
-Delete originals:
+# Delete originals
 exiftool -delete_original! .
 
-move, rename and add make:
+# move, rename and add camera 'make'
 exiftool '-filename<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' .
 
-Explanations
-------------
+## Renaming/Moving
 
-Move /bar/*.jpg into subdirectories based on createdate and a strftime format:
-exiftool -ext jpg '-directory<createdate' -d '%Y/%B' /bar
-
-Rename to Dropbox format:
+# replace current name with the creation date
 exiftool '-filename<createdate' -d '%Y-%m-%d %H.%M.%S%%-c.%%le' .
 
-Prepend the creation date:
+# prepend the creation date
 exiftool '-filename<$createdate %f.%le' -d '%Y-%m-%d %H.%M.%S%%-c' .
 
-Move to yyyy/Month folders + rename files to dropbox format:
-# %%-c if 2 images have the same name, add a number
-# %%le is for lowercase extension
-exiftool '-filename<createdate' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c.%%le' .
-
-Target specific file names:
-exiftool -if '$filename =~ /With/' '-filename<createdate' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c.%%le' .
-exiftool '-filename<createdate' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c.%%le' With*
-
-Append camera maker to the file name:
+# Append camera maker to the file name
 # make sure beforehand that basename hasn't got any letters in it
 exiftool -ext jpg '-filename<%f ${make;}.%e' -if '${filename;s/\.\S+//} !~ /[[:alpha:]]/i' .
 
-# Change -createdate
+# Move /bar/*.jpg into subdirectories based on createdate and a strftime format
+exiftool -ext jpg '-directory<createdate' -d '%Y/%B' /bar # yyyy/Month
+
+# Move + rename files to Dropbox format
+#   %%-c if 2 images have the same name, add a number
+#   %%le is for lowercase extension
+exiftool '-filename<createdate' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c.%%le' .
+
+## Filtering
+
+# Target specific file names
+exiftool -if '$filename =~ /With/' ...
+exiftool ... With*
+
+# Find file names with a specific tag
+exiftool -if '$iptc:keywords =~ /birthday/i' -p '"$filename": $iptc:keywords' .
+
+# List files with(out) a -keywords tag
+exiftool -if '(not )$iptc:keywords' -p '"$directory/$filename"' . 2>/dev/null
+
+# List tags in a specific group only
+exiftool -xmp:all my_pic.jpg
+
+## Change various metadata
+
+# Always change these together
 exiftool -createdate='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
 exiftool -datetimeoriginal='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
 
-# Look for problems detected by Dropbox
-ll **/*conflict*
+# Set the subject from the keywords
+exiftool -q -if '$subject =~ /.../i' -p 'exiftool -xmp:subject="$iptc:keywords" "$filename"' . | zsh -
 
-Print file names (within your years folders) with camera brands ('make') != *(samsung|apple)*:
+## Checks
+
+# Look for problems detected by Dropbox. Look for backups
+ll **/*(conflict|_original)*
+
+# Print file names (within your years folders) with camera brands ('make') != *(samsung|apple)*
 for i in 20??/**/*(.); [[ ${i##*/} != *(#i)(samsung|apple)* ]] && echo $i
 
-List files without camera brands in the name:
+# List files without camera brands in the name
 ll 20??/**/[^a-zA-Z]##.[^.]##
 ll 20??/**/[^a-zA-Z]##.jpg(_original)#
-
-Find file names with a specific tag:
-exiftool -q -r -if '$iptc:keywords =~ /birthday/i' -p '$filename: $keywords' .
-
-List files without a -keywords tag:
-exiftool -if 'not $keywords' -p '$filename' . 2>/dev/null
-
-List files with a -keywords tag:
-exiftool -if '$keywords' -p '$directory/$filename' . 2>/dev/null
 
 # Show files with different -createdate and -datetimeoriginal
 exiftool -createdate -datetimeoriginal -if '$createdate !~ $datetimeoriginal' .
 
-List tags in a specific group only:
-exiftool -xmp:all my_pic.jpg
-
-Print files' keywords tag:
-exiftool -q -r -p '$filename: $iptc:keywords' -if '$iptc:keywords' .
-
-View embedded thumbnails:
-exiftool -thumbnailimage '2012/April/2012-04-23 11.29.04 Apple.jpg' -b | ffplay -v error -
-
-Mass tagging:
+## Mass tagging
 exiftool -iptc:keywords+='christmas eve' 20[0-9][0-9]/**/20[0-9][0-9]-12-24*(.)
 exiftool -iptc:keywords+='christmas' 20[0-9][0-9]/**/20[0-9][0-9]-12-25*(.)
 
 exiftool -iptc:keywords+='Mitko' -iptc:keywords+='birthday' 20[0-9][0-9]/October/*-10-19*(.)
 exiftool -iptc:keywords+='Iva' -iptc:keywords+='birthday' 20[0-9][0-9]/May/*-05-30*(.)
 
-Question: how to avoid duplication when adding tags?
-# after running the below 2 commands, -keywords will have a value of my_tag, my_tag
-exiftool -iptc:keywords+=my_tag my_pic
-exiftool -iptc:keywords+=my_tag my_pic
+## Tags database
+sqlite3 ~/Dropbox/pics/tags.sqlite << 'INIT'
+CREATE TABLE tags (
+  pic VARCHAR(200) UNIQUE,
+  tag VARCHAR(200)
+);
+CREATE INDEX _pic ON tags (pic);
+INIT
 
-Photo management software tips:
-If you are unable to delete a cached tag:
-* rm -r ~/.local/share/shotwell ~/.cache/shotwell
-* check the -xmp:subject tag
+# Export all pictures with their keywords
+# ---------------------------------------
+cat << 'HEADER' > /tmp/pics
+sqlite3 ~/Dropbox/pics/tags.sqlite << 'INSERTS'
+INSERT INTO tags (pic, tag) VALUES
+HEADER
+
+exiftool -r -if '$iptc:keywords' -p '("${directory;s:.*pics/::}/$filename", "$iptc:keywords"),' ~/Dropbox/pics 2>/dev/null >> /tmp/pics
+
+# Note: change the last , to ;
+echo INSERTS >> /tmp/pics
+# ----------------------------
+
+# Find all keywords containning capital letters
+sqlite3 ~/Dropbox/pics/tags.sqlite "select * from tags where tag glob '*[A-Z]*';"
+
+# Update keywords to lower case
+while read -r
+do
+   exiftool -iptc:keywords=birthday -iptc:keywords=mitko $REPLY
+   sqlite3 ~/Dropbox/pics/tags.sqlite "UPDATE tags SET tag = 'birthday, mitko' WHERE pic = '$REPLY';"
+done < <(sqlite3 ~/Dropbox/pics/tags.sqlite "select pic from tags where tag = 'Mitko, birthday';")
+
+# Compare tags in pictures with tags in db
+while IFS='|' read -r pic tags
+do
+   db_tags="$(sqlite3 ~/Dropbox/pics/tags.sqlite "select tag from tags where pic = '${pic##*pics/}';")"
+   if [[ -n $db_tags && $db_tags != $tags ]]
+   then
+      cecho -fred "Problem with '$pic':"
+      printf "EXIF '%s' != DB '%s'\n\n" $tags $db_tags
+   fi
+done < <(exiftool -r -if '$iptc:keywords' -p '$directory/$filename|$iptc:keywords' ~/Dropbox/pics 2>/dev/null)
+
+# vim: fde=getline(v\:lnum)=~'^\\s*##'?'>'.(len(matchstr(getline(v\:lnum),'###*'))-1)\:'='
