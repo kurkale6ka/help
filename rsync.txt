@@ -5,6 +5,21 @@ Filters
         \
          the / means directory objects
 
+-f".- $HOME/.gitignore" -f':- .gitignore' -f'- .git'
+             \                   \
+              \                   ignore patterns in .gitignore files located anywhere
+               exclude patterns in this file
+               the - is needed because the patterns don't start with -/+/...
+               otherwise ". $HOME/.gitignore" would be enough
+
+after the following 2, the directory is included (first EXACT match wins???):
++ colors/
+- colors/
+
+after the following 2, the directory is excluded:
++ colors/
+- *
+
 ex: rsync -ai -f '+ */' -f '- *' ~/foo /tmp # copy foo's directory structure to /tmp
 
 Archive mode -a:
