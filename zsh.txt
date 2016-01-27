@@ -69,6 +69,9 @@ Globbing flags:
 
                 (#cN,M) is equivalent to {N,M} in regex
 
+                echo ${(L)variable} # to lower case, (U for upper)
+                echo $variable:l    # to lower case  (u for upper)
+
 Mystery: unsetopt CASE_GLOB then [[ hello == HELLO ]] && echo match # no output?
 A: string matching isn't globbing. Find docs about this
 
