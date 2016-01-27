@@ -9,7 +9,7 @@
 #
 # If you are unable to delete a cached tag in Shotwell:
 #    * rm -r ~/.local/share/shotwell ~/.cache/shotwell
-#    * check -xmp:subject, -xmp:lastkeywordxmp, -exif:xpkeywords, ...
+#    * exiftool -xmp:subject= -xmp:lastkeywordxmp= -exif:xpkeywords= .
 #
 # View embedded thumbnails:
 #    exiftool -thumbnailimage '2012/April/2012-04-23 11.29.04 Apple.jpg' -b | ffplay -v error -
@@ -71,11 +71,8 @@ exiftool -xmp:all my_pic.jpg
 exiftool -createdate='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
 exiftool -datetimeoriginal='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
 
-# Set the subject from the keywords
-exiftool -q -if '$subject =~ /^@@@$/i' -p 'exiftool -xmp:subject="${iptc:keywords;s/,\s/" -xmp:subject="/g}" "$filename"' . 2>/dev/null | zsh -
-
 # Change the keywords reusing the old ones
-exiftool -q -if '$iptc:keywords =~ /^@@@$/i' -p 'exiftool -iptc:keywords="${iptc:keywords;s/,\s/" -iptc:keywords="/g}" "$filename"' . 2>/dev/null | zsh -
+exiftool -q -if '$iptc:keywords =~ /^@@@$/i' -p 'exiftool -iptc:keywords="${iptc:keywords;s/,\s/" -iptc:keywords="/g}" "$filename"' . 2>/dev/null | v -
 
 ## Checks
 
@@ -111,25 +108,32 @@ INIT
 # Export all pictures with their keywords
 # ---------------------------------------
 cat << 'HEADER' > /tmp/pics
+rm ~/Dropbox/pics/tags.sqlite
+# Re-create before running the below
+
 sqlite3 ~/Dropbox/pics/tags.sqlite << 'INSERTS'
 INSERT INTO tags (pic, tag) VALUES
 HEADER
 
 exiftool -r -if '$iptc:keywords' -p '("${directory;s:.*pics/::}/$filename", "$iptc:keywords"),' ~/Dropbox/pics 2>/dev/null >> /tmp/pics
 
-# Note: change the last , to ;
 echo INSERTS >> /tmp/pics
-# ----------------------------
+printf '%s\n' H '$-1s/,$/;/' wq | 'ed' -s /tmp/pics
+
+zsh /tmp/pics
+# -------------------------------------------------
 
 # Find all keywords containning capital letters
 sqlite3 ~/Dropbox/pics/tags.sqlite "select * from tags where tag glob '*[A-Z]*';"
 
 # Update keywords to lower case
+_keywords='Mitko, birthday'
 while read -r
 do
-   exiftool -iptc:keywords=birthday -iptc:keywords=mitko $REPLY
-   sqlite3 ~/Dropbox/pics/tags.sqlite "UPDATE tags SET tag = 'birthday, mitko' WHERE pic = '$REPLY';"
-done < <(sqlite3 ~/Dropbox/pics/tags.sqlite "select pic from tags where tag = 'Mitko, birthday';")
+   _tags=$_keywords:l
+   exiftool -iptc:keywords='${_tags//, /' -iptc:keywords='}' $REPLY
+   sqlite3 ~/Dropbox/pics/tags.sqlite "UPDATE tags SET tag = '$_tags' WHERE pic = '$REPLY';"
+done < <(sqlite3 ~/Dropbox/pics/tags.sqlite "select pic from tags where tag = '$_keywords';")
 
 # Compare tags in pictures with tags in db
 while IFS='|' read -r pic tags
