@@ -14,6 +14,8 @@
 # View embedded thumbnails:
 #    exiftool -thumbnailimage '2012/April/2012-04-23 11.29.04 Apple.jpg' -b | ffplay -v error -
 #
+# Tip: ignore minor errors/warnings with -m
+#
 # Question: how to avoid duplication when adding tags?
 #    after running the below 2 commands, -keywords will have a value of my_tag, my_tag
 #    exiftool -iptc:keywords+=my_tag my_pic
@@ -77,7 +79,7 @@ exiftool -q -if '$iptc:keywords =~ /^@@@$/i' -p 'exiftool -iptc:keywords="${iptc
 ## Checks
 
 # Look for problems detected by Dropbox. Look for backups
-ll **/*(conflict|_original)*
+ll **/*(conflict*|_original|~)(D)
 
 # Print file names (within your years folders) with camera brands ('make') != *(samsung|apple)*
 for i in 20??/**/*(.); [[ ${i##*/} != *(#i)(samsung|apple)* ]] && echo $i
@@ -87,14 +89,13 @@ ll 20??/**/[^a-zA-Z]##.[^.]##
 ll 20??/**/[^a-zA-Z]##.jpg(_original)#
 
 # Show files with different -createdate and -datetimeoriginal
-exiftool -createdate -datetimeoriginal -if '$createdate !~ $datetimeoriginal' .
+exiftool -r -p '"$directory/$filename": $createdate - $datetimeoriginal' -if '$createdate !~ $datetimeoriginal' . 2>/dev/null
 
 ## Mass tagging
-exiftool -iptc:keywords+='christmas eve' 20[0-9][0-9]/**/20[0-9][0-9]-12-24*(.)
-exiftool -iptc:keywords+='christmas' 20[0-9][0-9]/**/20[0-9][0-9]-12-25*(.)
-
-exiftool -iptc:keywords+='Mitko' -iptc:keywords+='birthday' 20[0-9][0-9]/October/*-10-19*(.)
-exiftool -iptc:keywords+='Iva' -iptc:keywords+='birthday' 20[0-9][0-9]/May/*-05-30*(.)
+exiftool -if '$iptc:keywords !~ /christmas/i' -iptc:keywords+='christmas eve' 20??/**/20??-12-24*(.)
+exiftool -if '$iptc:keywords !~ /christmas/i' -iptc:keywords+='christmas' 20??/**/20??-12-25*(.)
+exiftool -if '$iptc:keywords !~ /birthday/i' -iptc:keywords+='mitko' -iptc:keywords+='birthday' 20??/October/*-10-19*(.)
+exiftool -if '$iptc:keywords !~ /birthday/i' -iptc:keywords+='iva' -iptc:keywords+='birthday' 20??/May/*-05-30*(.)
 
 ## Tags database
 sqlite3 ~/Dropbox/pics/tags.sqlite << 'INIT'
