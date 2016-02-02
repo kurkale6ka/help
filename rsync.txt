@@ -51,7 +51,9 @@ Common:
 
 Less common:
 -e: "ssh -l user_if_different_than_local"
--d: copy directory structure
+-I: compare files even if size and timestamp are the same
+    (this happens if -t is omitted => not very efficient)
+--size-only: compare files based on size only (no modification timestamp)
 
 --ignore-existing: transfer new files only (non existing on destination)
 --existing: transfer old files only (already existing on destination)
