@@ -1,0 +1,17 @@
+List:
+- item1
+- item2
+
+Mapping:
+item1: value1
+item2: value2
+
+Anchors/aliases
+&defaults (define an anchor)
+*defaults (use the anchor)
+'? ' -> complex mapping key
+
+<< means “merge the given hash (mapping) into the current one”
+Note: merging arrays is not possible, simple inheritance is supported,
+      integration:
+        *defaults

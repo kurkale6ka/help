@@ -1,0 +1,2 @@
+Node.js - a V8 js platform which allows to build server/client apps all in js
+          ex of such an app: statsd

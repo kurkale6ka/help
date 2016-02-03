@@ -19,3 +19,10 @@ Min    Hour   Day    Month  Mon-Sat
 - No comments at EOL
 
 - Make sure there is a new line after the last cron command
+
+anacron:
+nb-days | delay after start | job-identifier | command
+ |         |                   |
+ |         |                   name for the job’s timestamp file (ex: /var/spool/anacron/fstrim.daily)
+ |         minutes to wait before executing the job after the machine starts
+ 7 (@weekly)

@@ -1,15 +1,45 @@
-Pitfalls
-========
+|| vs if/else pitfall
+---------------------
 
 touch /tmp/brr && ech 'created' || echo 'fail'
 
 Here the touch succedes so we only want ech 'created' to be executed
 but since that is wrong we also get the second echo
 
-Compare with:
+compare with:
 if touch /tmp/brr
 then
   ech 'created'
 else
   echo 'fail'
 fi
+
+Quotes
+------
+
+Q. In FAQ096, why is this ok? ssh localhost '~/bin/args make CFLAGS="-g -O"'
+   Why do we end up with 2 args and not 3 because of remote word splitting?
+A. it gets parsed by the local shell, then the remote shell
+   it'll run                             "$SHELL" -c '~/bin/args make CFLAGS="-g -O"' on the remote end
+   if you omit the '' quotes, it'll run  "$SHELL" -c '/home/localhomedir/bin/args make CFLAGS=-g -O'
+
+nesting single quotes:
+   ssh 'grep -iE '\''blah'\'' file'
+1. ssh 'grep -iE '  'blah'  ' file' -> break it in 3 sets of quotes
+2.                \''blah'\'        -> use literal 's that bash won't parse
+   ssh grep -iE 'blah' file         -> our remote command
+
+Completion
+----------
+
+complete -d -Fmyfunc cd: cd will use myfunc and dir completion
+compgen -d m: generate completion list of dirs    named m... (<=> -Adirectory)
+compgen -a m: generate completion list of aliases named m...
+compgen must put the possible completions in the COMPREPLY array
+COMP_WORDS: command line args during completion - [ cd m ]<tab>
+COMP_CWORD: index in COMP_WORDS of the word containing the cursor
+
+Misc
+----
+
+parent shell PID: $$, current subshell: BASHPID

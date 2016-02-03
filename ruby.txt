@@ -1,0 +1,32 @@
+Rack Servers
+============
+
+Rack provides a minimal interface between webservers supporting Ruby and Ruby frameworks
+
+Phusion Passenger (mod_rails, mod_rack) is a free web server and application
+server with support for Ruby, Python and Node.js. It is designed to integrate
+into the Apache HTTP Server or the nginx web server. It supports arbitrary Ruby
+web frameworks through the Rack interface
+
+Unicorn is an HTTP server for Rack applications designed to only serve fast
+clients on low-latency, high-bandwidth connections and take advantage of
+features in Unix/Unix-like kernels
+
+Bundler
+=======
+
+Ensure a bundle of gems get installed at their expected versions.
+
+gem install bundler
+
+Gemfile:
+gem "nokogiri", "~> 1.4.4" # I want nokogiri as long as it’s greater than version 1.4.4
+
+bundle install will install the latest stable version of nokogiri in this case.
+Using Gemfile.lock, we make sure, say, version 1.5.3 gets installed.
+
+So first, Gemfile.lock gets created after running bundle install, then it gets
+used for all subsequent runs of bundle install!
+
+bundle exec executes a script using the gems specified in the script's Gemfile
+rather than the systemwide Gemfile

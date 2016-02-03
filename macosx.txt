@@ -66,3 +66,5 @@ brew update && brew upgrade # as your normal user
 
 brew update
 brew reinstall --HEAD neovim
+
+Bashrc paths:

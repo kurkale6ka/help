@@ -1,0 +1,6 @@
+Host controller
+
+        host controller           network
+host    host adapter              storage devices (usb: xhci, sata: ahci)
+        host bus adapter (HBA)
+        (PCI cards or directly on the mobo: usb, sata)
