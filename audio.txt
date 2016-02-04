@@ -1,0 +1,8 @@
+Stereophonic sound creates an illusion of directionality and audible
+perspective. Stereo uses an array of microphones (for true stereo) to capture
+sound (1 channel per micro) and two or more loudspeakers are necessary in order
+to recreate it. Simulated stereo is when a mono signal is manipulated by
+software to create delays and changes in amplitude.
+The reason we use stereo is because we have two ears thus we perceive sounds
+with delay and pressure difference in each ear. Mono uses a single audio
+channel.
