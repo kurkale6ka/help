@@ -5,7 +5,6 @@
 #
 # Display the createdate tag using a different formatting:
 #    exiftool -p '${createdate;s/:/-/g}' my_pic.jpg # perl s///
-#    exiftool -p '$createdate' -d '%Y-%m-%d' my_pic.jpg
 #
 # If you are unable to delete a cached tag in Shotwell:
 #    * rm -r ~/.local/share/shotwell ~/.cache/shotwell
@@ -23,25 +22,25 @@
 
 ## Manage pictures
 
-# Add tags
+# add tags
 exiftool -sep ', ' -iptc:keywords+='tag1, tag2' picture.jpg
 exiftool -sep ', ' -xmp:subject+='tag1, tag2' video.mp4
 
-# Delete originals
+# delete originals
 exiftool -delete_original! .
 
-# move, rename and add camera 'make'
+# rename (creation date + camera 'make') then put into hierarchical folders
 exiftool '-filename<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' .
 
 ## Renaming/Moving
 
-# replace current name with the creation date
+# rename using the creation date
 exiftool '-filename<createdate' -d '%Y-%m-%d %H.%M.%S%%-c.%%le' .
 
-# prepend the creation date
+# rename (prepend the creation date)
 exiftool '-filename<$createdate %f.%le' -d '%Y-%m-%d %H.%M.%S%%-c' .
 
-# Append camera maker to the file name
+# rename (append camera 'make')
 # make sure beforehand that basename hasn't got any letters in it
 exiftool -ext jpg '-filename<%f ${make;}.%e' -if '${filename;s/\.\S+//} !~ /[[:alpha:]]/i' .
 
@@ -67,6 +66,9 @@ exiftool -if '(not )$iptc:keywords' -p '"$directory/$filename"' . 2>/dev/null
 
 # List tags in a specific group only
 exiftool -xmp:all my_pic.jpg
+
+# List all 'interesting' tags
+exiftool -S -G -a -'*keyword*' -subject -title -'*comment*' -make -model -createdate -datetimeoriginal .
 
 ## Change various metadata
 
