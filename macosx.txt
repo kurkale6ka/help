@@ -54,6 +54,7 @@ Notes:
 brew install tmux
 
 fzf: don't use brew
+https://github.com/junegunn/fzf/wiki/On-MacVim-with-iTerm2
 
 # nvim
 brew tap neovim/neovim
@@ -66,5 +67,3 @@ brew update && brew upgrade # as your normal user
 
 brew update
 brew reinstall --HEAD neovim
-
-Bashrc paths:
