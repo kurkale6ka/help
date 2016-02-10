@@ -56,10 +56,10 @@ exiftool -if '$filename =~ /With/' ...
 exiftool ... With*
 
 # Find file names with a specific tag
-exiftool -if '$iptc:keywords =~ /birthday/i' -p '"$filename": $iptc:keywords' .
+exiftool -if '($iptc:keywords && $iptc:keywords =~ /birthday/i) or ($xmp:subject && $xmp:subject =~ /birthday/i)' -p '"$filename"' . 2>/dev/null
 
-# List files with(out) a -keywords tag
-exiftool -if '(not )$iptc:keywords' -p '"$directory/$filename"' . 2>/dev/null
+# List files without 'tags'
+exiftool -if 'not $iptc:keywords and not $xmp:subject' -p '"$directory/$filename"' . 2>/dev/null
 
 # List tags in a specific group only
 exiftool -xmp:all my_pic.jpg
@@ -121,6 +121,7 @@ CREATE TABLE tags (
 CREATE INDEX _pic ON tags (pic);
 INIT
 
+# TODO: add $xmp:subject
 # Export all pictures with their keywords
 # ---------------------------------------
 cat << 'HEADER' > /tmp/pics
