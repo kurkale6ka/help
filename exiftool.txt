@@ -29,7 +29,7 @@ exiftool -sep ', ' -xmp:subject+='tag1, tag2' video.mp4
 # delete originals
 exiftool -delete_original! .
 
-# rename (creation date + camera 'make') then put into hierarchical folders
+# rename (creation date + camera 'make') then put into hierarchical folders (strftime format)
 exiftool '-filename<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' .
 
 ## Renaming/Moving
@@ -37,20 +37,17 @@ exiftool '-filename<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' .
 # rename using the creation date
 exiftool '-filename<createdate' -d '%Y-%m-%d %H.%M.%S%%-c.%%le' .
 
-# rename (prepend the creation date)
-exiftool '-filename<$createdate %f.%le' -d '%Y-%m-%d %H.%M.%S%%-c' .
-
-# rename (append camera 'make')
-# make sure beforehand that basename hasn't got any letters in it
-exiftool -ext jpg '-filename<%f ${make;}.%e' -if '${filename;s/\.\S+//} !~ /[[:alpha:]]/i' .
-
-# Move /bar/*.jpg into subdirectories based on createdate and a strftime format
-exiftool -ext jpg '-directory<createdate' -d '%Y/%B' /bar # yyyy/Month
-
-# Move + rename files to Dropbox format
+# rename files to Dropbox format + move
 #   %%-c if 2 images have the same name, add a number
 #   %%le is for lowercase extension
 exiftool '-filename<createdate' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c.%%le' .
+
+# prepend the creation date to the file name
+exiftool '-filename<$createdate %f.%le' -d '%Y-%m-%d %H.%M.%S%%-c' .
+
+# append the camera 'make' to the file name
+# make sure beforehand that basename hasn't got any letters in it
+exiftool -ext jpg '-filename<%f ${make;}.%e' -if '${filename;s/\.\S+//} !~ /[[:alpha:]]/i' .
 
 ## Filtering
 
@@ -72,7 +69,7 @@ exiftool -S -G -a -'*keyword*' -subject -title -'*comment*' -make -model -create
 
 ## Change various metadata
 
-# Always change these together
+# Always change these together (+ update the file name after)
 exiftool -createdate='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
 exiftool -datetimeoriginal='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
 
@@ -93,6 +90,21 @@ ll 20??/**/[^a-zA-Z]##.jpg(_original)#
 
 # Show files with different -createdate and -datetimeoriginal
 exiftool -r -p '"$directory/$filename": $createdate - $datetimeoriginal' -if '$createdate !~ $datetimeoriginal' . 2>/dev/null
+
+# Show filenames not matching -createdate
+for file in **/*(.)
+do
+   cdate="$(exiftool -p '$createdate' $file 2>/dev/null)"
+
+   fname=${file##*/}
+   fname=${fname:0:19}
+   fname=${fname//[-.]/:}
+
+   if [[ $fname != $cdate && -n $cdate ]]
+   then
+      echo "'$file' - $cdate"
+   fi
+done
 
 ## Mass tagging
 exiftool -if '$iptc:keywords !~ /christmas/i' -iptc:keywords+='christmas eve' 20??/**/20??-12-24*(.)
