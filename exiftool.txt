@@ -56,7 +56,7 @@ exiftool -if '$filename =~ /With/' ...
 exiftool ... With*
 
 # Find file names with a specific tag
-exiftool -if '($iptc:keywords && $iptc:keywords =~ /birthday/i) or ($xmp:subject && $xmp:subject =~ /birthday/i)' -p '"$filename"' . 2>/dev/null
+exiftool -if '($iptc:keywords && $iptc:keywords =~ /birthday/i) or ($xmp:subject && $xmp:subject =~ /birthday/i)' -p '"$directory/$filename"' . 2>/dev/null
 
 # List files without 'tags'
 exiftool -if 'not $iptc:keywords and not $xmp:subject' -p '"$directory/$filename"' . 2>/dev/null
@@ -81,15 +81,20 @@ exiftool -q -if '$iptc:keywords =~ /^@@@$/i' -p 'exiftool -sep ", " -iptc:keywor
 # Look for problems detected by Dropbox. Look for backups
 ll **/*(conflict*|_original|~)(D)
 
-# Print file names (within your years folders) with camera brands ('make') != *(samsung|apple)*
-for i in 20??/**/*(.); [[ ${i##*/} != *(#i)(samsung|apple)* ]] && echo $i
+# List 'incorrectly' named files
+ls -1 **/^????-??-??\ ??.??.??*.[^.]##(.)
+
+# Print files having camera 'make' != samsung|apple
+ls -1 **/^*(samsung|apple)*(.) # requires unsetopt case_glob
 
 # List files without camera brands in the name
-ll 20??/**/[^a-zA-Z]##.[^.]##
-ll 20??/**/[^a-zA-Z]##.jpg(_original)#
+ll **/[^a-zA-Z]##.[^.]##
 
 # Show files with different -createdate and -datetimeoriginal
 exiftool -r -p '"$directory/$filename": $createdate - $datetimeoriginal' -if '$createdate !~ $datetimeoriginal' . 2>/dev/null
+
+# Files without -createdate
+exiftool -r -if 'not $createdate' -p '"$directory/$filename"' . 2>/dev/null
 
 # Show filenames not matching -createdate
 for file in **/*(.)
@@ -107,10 +112,10 @@ do
 done
 
 ## Mass tagging
-exiftool -if '$iptc:keywords !~ /christmas/i' -iptc:keywords+='christmas eve' 20??/**/20??-12-24*(.)
-exiftool -if '$iptc:keywords !~ /christmas/i' -iptc:keywords+='christmas' 20??/**/20??-12-25*(.)
-exiftool -if '$iptc:keywords !~ /birthday/i' -sep ', ' -iptc:keywords+='mitko, birthday' 20??/October/*-10-19*(.)
-exiftool -if '$iptc:keywords !~ /birthday/i' -sep ', ' -iptc:keywords+='iva, birthday' 20??/May/*-05-30*(.)
+exiftool -if '$iptc:keywords !~ /christmas/i' -iptc:keywords+='christmas eve' **/[12]???-12-24*(.)
+exiftool -if '$iptc:keywords !~ /christmas/i' -iptc:keywords+='christmas' **/[12]???-12-25*(.)
+exiftool -if '$iptc:keywords !~ /birthday/i' -sep ', ' -iptc:keywords+='mitko, birthday' **/October/*-10-19*(.)
+exiftool -if '$iptc:keywords !~ /birthday/i' -sep ', ' -iptc:keywords+='iva, birthday' **/May/*-05-30*(.)
 
 ## Tags database
 sqlite3 ~/Dropbox/pics/tags.sqlite << 'INIT'
