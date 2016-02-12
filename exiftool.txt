@@ -30,6 +30,7 @@ exiftool -sep ', ' -xmp:subject+='tag1, tag2' video.mp4
 exiftool -delete_original! .
 
 # rename (creation date + camera 'make') then put into hierarchical folders (strftime format)
+exiftool '-testname<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' . # test only
 exiftool '-filename<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' .
 
 ## Renaming/Moving
@@ -41,6 +42,9 @@ exiftool '-filename<createdate' -d '%Y-%m-%d %H.%M.%S%%-c.%%le' .
 #   %%-c if 2 images have the same name, add a number
 #   %%le is for lowercase extension
 exiftool '-filename<createdate' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c.%%le' .
+
+# move only
+exiftool '-directory<createdate' -d '%Y/%B' .
 
 # prepend the creation date to the file name
 exiftool '-filename<$createdate %f.%le' -d '%Y-%m-%d %H.%M.%S%%-c' .
