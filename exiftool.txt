@@ -88,6 +88,9 @@ ll **/*(conflict*|_original|~)(D)
 # List 'incorrectly' named files
 ls -1 **/^????-??-??\ ??.??.??*.[^.]##(.)
 
+# Find non-media files
+ll **/^*.(jpg|jpe|png|avi|mov|mp4|mts)(D.)
+
 # Print files having camera 'make' != samsung|apple
 ls -1 **/^*(samsung|apple)*(.) # requires unsetopt case_glob
 
