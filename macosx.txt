@@ -1,5 +1,56 @@
                             Mac OS X for Linux users
 
+brew:
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+zsh:
+brew install zsh
+echo /usr/local/bin/zsh >> /etc/shells # as root (sudo su -)
+chsh -s /usr/local/bin/zsh
+
+GNU replacements for some BSD commands:
+https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
+
+PATH setup for the below: https://github.com/kurkale6ka/zsh/blob/master/.zshrc#L56-L66
+
+brew install coreutils # to get gls...
+brew install ed --default-names
+brew install findutils --with-default-names # to get glocate...
+brew install ag
+brew install ctags
+brew install tree
+brew install mariadb
+brew install gnu-sed --with-default-names
+brew install homebrew/dupes/grep --with-default-names
+brew install vim
+brew install tmux
+
+nvim:
+brew tap neovim/neovim
+brew install --HEAD neovim
+sudo easy_install pip
+pip2 install --user neovim # even root is not allowed to write to some locations!
+
+Updating formulas:
+brew update && brew upgrade # as your normal user
+brew reinstall --HEAD neovim
+
+fzf:
+Don't use brew
+https://github.com/junegunn/fzf/wiki/On-MacVim-with-iTerm2
+
+locate:
+* updatedb from findutils is different than its Linux counterpart. It doesn't use /etc/updatedb.conf. Run it like so:
+* updatedb --prunepaths='/afs /media /mnt /net /sfs /tmp /udev /var/cache /var/lock /var/run /var/spool /var/tmp /Recovered.Items /.DocumentRevisions-V100 /.MobileBackups /.Spotlight-V100 /.Trashes /.fseventsd /Groups /Shared /Shared.Items /private/tmp /private/var/cache /private/var/lock /private/var/run /private/var/spool /private/var/tmp /Applications /Library /System'
+
+  /.DocumentRevisions-V100 (equivalent of .git for Versions)
+  /.Spotlight-V100         (spotlight indexes)
+
+* Replace spaces with dots because of some oddity related to updatedb using regexes
+
+* cron jobs
+http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs
+
 iTerm2
 ------
 
@@ -16,54 +67,3 @@ Ctrl + Shift + ↓ - PageDown
 
 Custom layout:
 Window/Restore Window Arrangement
-
-Brew
-----
-
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-brew install zsh
-echo /usr/local/bin/zsh >> /etc/shells # as root
-chsh -s /usr/local/bin/zsh
-
-https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
-
-brew install coreutils # to get gls...
-brew install ed --default-names
-brew install findutils --with-default-names # to get glocate...
-brew install ag
-brew install ctags
-brew install tree
-brew install mariadb
-brew install gnu-sed --with-default-names
-brew install homebrew/dupes/grep --with-default-names
-brew install vim
-
-Cron jobs: (for updatedb)
-http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs
-
-Notes:
-* updatedb from findutils is different than its Linux counterpart. It doesn't use /etc/updatedb.conf. Run it like so:
-* updatedb --prunepaths='/afs /media /mnt /net /sfs /tmp /udev /var/cache /var/lock /var/run /var/spool /var/tmp /Recovered.Items /.DocumentRevisions-V100 /.MobileBackups /.Spotlight-V100 /.Trashes /.fseventsd /Groups /Shared /Shared.Items /private/tmp /private/var/cache /private/var/lock /private/var/run /private/var/spool /private/var/tmp /Applications /Library /System'
-
-  /.DocumentRevisions-V100 (equivalent of .git for Versions)
-  /.Spotlight-V100         (spotlight indexes)
-
-* Replace spaces with dots because of some oddity related to updatedb using regexes
-
-brew install tmux
-
-fzf: don't use brew
-https://github.com/junegunn/fzf/wiki/On-MacVim-with-iTerm2
-
-# nvim
-brew tap neovim/neovim
-brew install --HEAD neovim
-sudo easy_install pip
-pip2 install --user neovim # even root is not allowed to write to some locations!
-
-# Updating brew formulas
-brew update && brew upgrade # as your normal user
-
-brew update
-brew reinstall --HEAD neovim
