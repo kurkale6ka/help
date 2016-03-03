@@ -1,4 +1,7 @@
-                Indexing when using an encrypted home directory
+Indexing when using an encrypted home directory
+
+Because ~ is BIND mounted and of type ecryptfs so normal updatedb won't work unless:
+PRUNEFS-=ecryptfs and PRUNE_BIND_MOUNTS='no'
 
 /etc/zsh/zprofile
 export LOCATE_PATH=/home/user/var/mlocate.db
@@ -9,3 +12,7 @@ PRUNEPATHS = "... /home/.ecryptfs"
 Index your home files:
 updatedb -l 0 -o ~/var/mlocate.db -U ~
 TODO: run on a daily basis
+
+Tips
+
+locate / # all indexed files since absolute paths are recorded
