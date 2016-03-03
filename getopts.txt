@@ -1,3 +1,5 @@
+http://wiki.bash-hackers.org/howto/getopts_tutorial
+
 while getopts ':f:b:su' opt
                 \ \
                  \ -f expects an argument (available in $OPTARG)
