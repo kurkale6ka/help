@@ -31,3 +31,6 @@ Command Line:
 
 Print image dimensions:
 identify -format '%w x %h (width x height)\n' image.jpg
+
+Create tiles (a single image) from multiple images, keeping original sizes:
+montage -geometry +1+1 *.(jp|pn)g all.jpg
