@@ -1,0 +1,28 @@
+Benefits of encapsulation
+
+   public name
+
+   file1: obj.name = bla
+   file2: obj.name = hey
+   file3: obj.name = ole
+   file4: obj.name = wow
+
+Problem: now we also need to record the name in a db!
+
+Solution:
+
+   private name
+
+   def setName(self, name):
+      self.name = name
+      record name in db
+
+   file1: obj.setName(bla)
+   file2: obj.setName(hey)
+   file3: obj.setName(ole)
+   file4: obj.setName(wow)
+
+Conclusion:
+
+   By using a private name, we now only have to change the setter instead of
+   all the places where we were directly modifying the property!
