@@ -1,0 +1,31 @@
+Hiera
+
+Hiera is a key/value lookup tool for configuration data, built to make Puppet
+better and let you set node-specific data without repeating yourself.
+
+hiera.yaml:
+
+---
+:backends: yaml
+:yaml:
+  :datadir: "/etc/puppetlabs/code/environments/%{environment}/hieradata"
+:hierarchy:
+  - "nodes/%{trusted.certname}"
+  - "environment/%{server_facts.environment}"
+  - "virtual/%{::is_virtual}"
+  - common
+
+Example with a node name of web01.example.com:
+$trusted[certname] = web01.example.com
+$server_facts[environment] = production
+$::is_virtual = true
+
+hiera would check the following data sources, in order:
+
+/etc/puppetlabs/code/environments/%{environment}/hieradata/nodes/web01.example.com.yaml
+/etc/puppetlabs/code/environments/%{environment}/hieradata/environment/production.yaml
+/etc/puppetlabs/code/environments/%{environment}/hieradata/virtual/true.yaml
+/etc/puppetlabs/code/environments/%{environment}/hieradata/common.yaml
+
+In a normal (priority) lookup, Hiera will stop at the first data source with
+the requested data and return that value.
