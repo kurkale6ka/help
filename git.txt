@@ -113,6 +113,11 @@ only one
 cd $my_submodule && git pull # OR
 git -C my_submodule pull
 
+Cloning a Project with Submodules:
+Activate the submodules with:
+git submodule init
+git submodule update
+
 Rename:
 1. Delete the relevant section from the .gitmodules file
 2. git add .gitmodules
