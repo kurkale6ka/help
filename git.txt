@@ -95,6 +95,12 @@ Those create a tracking branch => git pull knows what server/branch to pull from
 Set current branch to track:
     git branch -u origin/serverfix
 
+Rename a branch
+---------------
+git branch -m new
+git push origin :old               # delete the remote branch
+git push --set-upstream origin new # push and track the new branch
+
 Submodules
 ----------
 Add
