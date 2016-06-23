@@ -10,22 +10,27 @@ hiera.yaml:
 :yaml:
   :datadir: "/etc/puppetlabs/code/environments/%{environment}/hieradata"
 :hierarchy:
-  - "nodes/%{trusted.certname}"
-  - "environment/%{server_facts.environment}"
+  - "nodes/%{::trusted.certname}"
+  - "nodes/%{::fqdn}"
   - "virtual/%{::is_virtual}"
   - common
 
 Example with a node name of web01.example.com:
-$trusted[certname] = web01.example.com
-$server_facts[environment] = production
+$trusted[certname] = web01.example
+agent facts fqdn = web01.example.com
+environment = production (set from ENC so not a fact)
 $::is_virtual = true
 
 hiera would check the following data sources, in order:
 
+/etc/puppetlabs/code/environments/%{environment}/hieradata/nodes/web01.example.yaml
 /etc/puppetlabs/code/environments/%{environment}/hieradata/nodes/web01.example.com.yaml
-/etc/puppetlabs/code/environments/%{environment}/hieradata/environment/production.yaml
 /etc/puppetlabs/code/environments/%{environment}/hieradata/virtual/true.yaml
 /etc/puppetlabs/code/environments/%{environment}/hieradata/common.yaml
 
 In a normal (priority) lookup, Hiera will stop at the first data source with
 the requested data and return that value.
+
+command line check:
+hiera key environment=production ::fqdn=localhost.local
+   -> value
