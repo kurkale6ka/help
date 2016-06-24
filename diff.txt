@@ -17,7 +17,7 @@ Unified format:
 - line: only present in old file
 + line: only present in new file
 
-Differencies:
+Differences:
 
 + This is an important        (2)
 + notice! It should           (2)
@@ -32,3 +32,7 @@ Differencies:
 Multiple files comparison:
 
 diff -uq --from-file file1 file2...filen
+
+Compare directories:
+
+diff -qr staging production
