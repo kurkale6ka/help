@@ -34,3 +34,7 @@ the requested data and return that value.
 command line check:
 hiera key environment=production ::fqdn=localhost.local
    -> value
+
+Debugging
+
+puppet master -d --codedir=/mnt/nas/puppet --compile localhost.local
