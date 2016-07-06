@@ -35,3 +35,6 @@ se nocp is hls ic scs inf nu sc report=0 dy+=lastline lz so=2 mouse=a nojs ai hi
         use instead of :g/patt/norm when patt on adjacent lines
 
 macro that updates every line in sequence - use one of the above
+
+# Open a file by only changing some part in its PATH
+:e%:p:s/development/integration/
