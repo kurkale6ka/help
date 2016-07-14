@@ -107,9 +107,12 @@ Add
 git submodule add git@github.com:tpope/vim-commentary.git bundle/vim-commentary
 
 Delete
-git submodule deinit bundle/nerdcommenter
-git rm bundle/nerdcommenter
-rm -rf .git/modules/bundle/nerdcommenter
+{
+module=""
+git submodule deinit bundle/"$module"
+git rm bundle/"$module"
+rm -rf .git/modules/bundle/"$module"
+}
 
 Update:
 all
