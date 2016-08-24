@@ -71,3 +71,6 @@ then come back to INPUT and traverse all rulles too ↓
 -A INPUT -j RH-Firewall-1-INPUT
 
 -A FORWARD -j RH-Firewall-1-INPUT
+
+Annexe:
+https://github.com/QueuingKoala/netfilter-samples/blob/master/rules-edge-router/iptables.rules
