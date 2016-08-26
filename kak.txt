@@ -1,0 +1,2 @@
+echo %sh{echo $kak_selections}
+echo %val{selections}
