@@ -1,2 +1,11 @@
+Print the value of an option
+:echo %opt{filetype}
+
+Two ways of displaying the same thing
 echo %sh{echo $kak_selections}
 echo %val{selections}
+
+status line
+unnamed0@[.......] -> clientname@[session id]
+
+"%val{bufname}[%opt{filetype}] %val{cursor_line}:%val{cursor_char_column}"
