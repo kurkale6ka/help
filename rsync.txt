@@ -1,6 +1,6 @@
 Filters
 -f '+ foo' include files and directories named foo
--f '- foo/' exclude directories named foo
+-f '- foo/' exclude directories named foo (but not files)
 -f '+ */' -f '+ *.vim' -f '- *' transfer vim files only
         \
          the / means directory objects
