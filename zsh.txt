@@ -78,6 +78,7 @@ A: string matching isn't globbing. Find docs about this
 Glob qualifiers:
                 print -l **/*(/)    # dirs only
                 print -l **/*(.)    # files only
+                print -l **/*(@,.)  # links or files
                 print -l **/*(L0)   # empty files
                 print -l **/*(Lk+3) # greater than 3 KB
                 print -l **/*(mh-1) # modified in the last hour
