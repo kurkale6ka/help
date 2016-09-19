@@ -9,3 +9,6 @@ status line
 unnamed0@[.......] -> clientname@[session id]
 
 "%val{bufname}[%opt{filetype}] %val{cursor_line}:%val{cursor_char_column}"
+
+:e -scratch *scratch* (or any name)
+creates a buffer that you can simply discard with :q without !
