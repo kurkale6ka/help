@@ -12,3 +12,48 @@ unnamed0@[.......] -> clientname@[session id]
 
 :e -scratch *scratch* (or any name)
 creates a buffer that you can simply discard with :q without !
+
+addhl group <name> <- container... => regex under will only match within that container
+
+...for subgroups:
+addhl -group <name> group <subname>
+                \
+                 if name is /, it references the shared highlighters group (windows on the same filetypes)
+                 addhl ref <name> (reference a shared highlighter in this window)
+
+...and highlighters:
+addhl -group <name>(/<subname>) highlighter
+
+                                this is a group name => thus we can add subregions:
+                                addhl -group <name>/<region_name>
+                               /
+addhl regions -default code <name> <region_name1> <opening1> <closing1> <recurse1>  \
+                         \         <region_name2> <opening2> <closing2> <recurse2>...
+                          +->      <code>: default region/group name when none matched
+
+                               ex: region_name { } { <- } closes only once all
+                                   the recurse { have been closed
+
+Ex file:
+#include <...         / code
+                      \
+func                  / reg 1
+                      \
+print                 / code
+                      \
+bla                   / reg 2
+                      \
+//                    ...
+
+
+:exec wwd
+selection moving, as if I did wwd myself
+:exec -draft wwd
+selection will stay where it is, but the next word will be deleted
+
+-itersel evaluates the commands for every selections individually, instead of
+all together in the same context. The main reason for that is to avoid selections
+getting merged when they overlap.
+So, if you have 3 selections, instead of applying the keys/commands as if you
+had 3 selections, it will apply the keys/commands 3 times, first time starting
+with first selection only, second time with second selection only, ...
