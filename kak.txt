@@ -57,3 +57,6 @@ getting merged when they overlap.
 So, if you have 3 selections, instead of applying the keys/commands as if you
 had 3 selections, it will apply the keys/commands 3 times, first time starting
 with first selection only, second time with second selection only, ...
+
+<tab>, <a-i> are key names unlike
+\n, \t which are character names
