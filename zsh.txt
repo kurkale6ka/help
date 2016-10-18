@@ -114,3 +114,7 @@ rm: cannot remove ‘*’: No such file or directory
 
 Open clean zsh with modified PATH:
 exec env PATH=/usr/local/bin/:$PATH zsh -f
+
+http://zsh.sourceforge.net/Doc/Release/Jobs-_0026-Signals.html
+A job being run in the background will suspend if it tries to read from the terminal. =>
+{ cmd1; cmd2;... cmdn; } </dev/null &
