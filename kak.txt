@@ -60,3 +60,15 @@ with first selection only, second time with second selection only, ...
 
 <tab>, <a-i> are key names unlike
 \n, \t which are character names
+
+* write the current buffer state in a temporary file
+* pass this file to your linter and capture the output
+* parse the linter output, and fill 2 options
+  - a line_flags option, used by a flag_lines
+highlighters to display a gutter
+  - an option storing the line -> diagnostic mapping,
+in whatever format you can easily parse afterwards
+clang-diagnositcs-next/clang-show-error-infos parse
+that second option to respectively jump to the next
+line on which there is a diagnositcs, and display an
+info box for the diagnostic on the current line
