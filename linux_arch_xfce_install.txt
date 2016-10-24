@@ -186,9 +186,9 @@ Palette:
 tango
 
 Modifications:
-cursor: #666666
-  text: #bebebe
-    bg: #262626 (html color grey15)
+cursor: #666666, rgb(102, 102, 102)
+  text: #bebebe, rgb(190, 190, 190)
+    bg: #262626 (html color grey15), rgb(38, 38, 38)
 
 # Orage
 Line 1: %a %d %b
