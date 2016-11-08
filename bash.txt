@@ -43,3 +43,7 @@ Misc
 ----
 
 parent shell PID: $$, current subshell: BASHPID
+
+shell:
+
+[ x"$var" = xyes ] && ... # the x at the front prevents a leading dash from being picked up as an option to test (-n, -z)
