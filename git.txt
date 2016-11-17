@@ -101,6 +101,11 @@ git branch -m new
 git push origin :old               # delete the remote branch
 git push --set-upstream origin new # push and track the new branch
 
+Make an existing Git branch track a remote branch
+-------------------------------------------------
+
+git branch -u origin/foo
+
 Submodules
 ----------
 Add
