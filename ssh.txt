@@ -81,3 +81,8 @@ eval "$(ssh-agent)"
 ssh-add [~/.ssh/id_rsa_git]
 OR
 eval "$(keychain --eval --agents ssh -Q --quiet id_rsa id_rsa_git)"
+
+Chain ssh invocations in case the user + key changes
+----------------------------------------------------
+
+ssh -t user1@server1 'ssh user2@server2'
