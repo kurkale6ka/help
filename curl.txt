@@ -1,0 +1,13 @@
+Send data via POST: -XPOST auto assumed
+curl -d@dat_file
+
+Send json object from STDIN
+curl -d@- -H"Content-Type:application/json" -Ksecret "https://api.github.com/repos/..." << TAG
+...
+TAG
+Note: -Ksecret introduces a config file:
+user login:password ## --user option without the --
+
+curl -XDELETE -ulogin:password "https://api.github.com/repos/.../git/tags/deployed"
+
+curl -I # get headers
