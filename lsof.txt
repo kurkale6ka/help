@@ -19,3 +19,7 @@ lsof -i -sTCP:LISTEN # netstat -nltp
 
 lsof -FR0 # list pids and ppids only separated by nulls (vs \n)
           # p12765R63987
+
+List open files that are completely unlinked. To free the space they take, kill
+the processes that hold to them.
+lsof +L1
