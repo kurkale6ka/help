@@ -1,3 +1,11 @@
+http://www.python-course.eu/course.php
+https://docs.python.org/3.5/howto/argparse.html
+
+variables are pointing to objects and objects can be of arbitrary data type,
+thus variables cannot have types associated with them
+
+''s vs ""s ?
+
 In interactive mode, the last printed expression is assigned to _
 
 print 'First line.\nSecond line.'
