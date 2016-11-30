@@ -4,7 +4,11 @@ https://docs.python.org/3.5/howto/argparse.html
 variables are pointing to objects and objects can be of arbitrary data type,
 thus variables cannot have types associated with them
 
-''s vs ""s ?
+Variable inside a string: "Hello $var" is not a thing.
+Use + concatenation or the format function:
+'hello {0}'.format(var)
+
+=> vars aren't expanded => ' and " have identical functionality
 
 In interactive mode, the last printed expression is assigned to _
 
