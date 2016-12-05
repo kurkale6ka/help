@@ -4,37 +4,58 @@ https://docs.python.org/3.5/howto/argparse.html
 variables are pointing to objects and objects can be of arbitrary data type,
 thus variables cannot have types associated with them
 
+x = 11, y = x => id(x) == id(y) (x is y)
+
 Variable inside a string: "Hello $var" is not a thing.
-Use + concatenation or the format function:
+Use '+' concatenation or the format function:
 'hello {0}'.format(var)
+
+The augmented assignment s += t is more optimized than s = s + t
 
 => vars aren't expanded => ' and " have identical functionality
 
 Strings are immutable
+A character is a string of size 1.
+
+s = "Hello World"
+s[0], s[-1], len(s)
+
+'=-'*3 => '=-=-=-'
+
+slicing: from subscript 2 to (exclusif) 4:
+"Hello World"[2:4] => 'll'
+
+print(r'First line.\nSecond line.'): raw string -> 'First line.\nSecond line.'
+
+print('''\
+Hello
+world''')
+
+Python code is translated into intermediate (byte) code, which has to be
+executed by a virtual machine, known as the PVM (.py -> .pyc)
+
+Python programs are structured by colons and indentation
+
+Boolean operators: or, and, not
 
 In interactive mode, the last printed expression is assigned to _
 
-print 'First line.\nSecond line.'
-print r'First line.\nSecond line.' -> First line.\nSecond line.
-print """\
+lists:      mutable, homogeneous     (iterating)
+            [2, 3, 5, 7, 11, 13, 17, 19]
+'-'.join(['S', 'o', 'l', 'e', 'i', 'l']) => 'S-o-l-e-i-l'
+element ∈ List?: 'b' in ['a','b','c','d','e']
+NB: the repetition operator '*' creates references when applied to lists =>
+    when changing a sublist, we are 'changing' all sublists
 
-string concatenation: +
+tuples:     immutable, heterogeneous (unpacking)
+            t = (1, 2, 'hey')
+tuples are immutable thus faster than lists and can also be used as dictionary keys
 
-sequences:
+sets:       unordered, unique        (membership, eliminating duplicate entries)
+            {'a', 'r', 'b', 'c', 'd'}
 
-   lists:      mutable, homogeneous     (iterating)
-               [2, 3, 5, 7, 11, 13, 17, 19]
-
-   tuples:     immutable, heterogeneous (unpacking)
-               t = (1, 2, 'hey')
-
-   sets:       unordered, unique        (membership, eliminating duplicate entries)
-               {'a', 'r', 'b', 'c', 'd'}
-
-   dictionary: unordered set of 'key: value' pairs
-               {'one': 1, 'two': 2}
-
-zip
+dictionary: unordered set of 'key: value' pairs
+            {'one': 1, 'two': 2}
 
 l1 = [1, 2, 3]
 l2 = [11, 22, 33]
