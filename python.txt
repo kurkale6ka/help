@@ -40,12 +40,21 @@ Boolean operators: or, and, not
 
 In interactive mode, the last printed expression is assigned to _
 
-lists:      mutable, homogeneous     (iterating)
-            [2, 3, 5, 7, 11, 13, 17, 19]
+Lists:
 '-'.join(['S', 'o', 'l', 'e', 'i', 'l']) => 'S-o-l-e-i-l'
+
 element ∈ List?: 'b' in ['a','b','c','d','e']
+
 NB: the repetition operator '*' creates references when applied to lists =>
     when changing a sublist, we are 'changing' all sublists
+
+lst = [2, 3, 5, 7, 11, 13, 17, 19]
+
+lst.append(23) -> returns None!
+lst.pop()      -> returns 23: equivalent to lst.pop(-1)
+lst.extend([29, 31])
+
+Note: methods that only modify a mutable structure return None
 
 tuples:     immutable, heterogeneous (unpacking)
             t = (1, 2, 'hey')
