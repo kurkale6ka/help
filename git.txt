@@ -113,10 +113,15 @@ git submodule add git@github.com:tpope/vim-commentary.git bundle/vim-commentary
 
 Delete
 {
-module=""
-git submodule deinit bundle/"$module"
-git rm bundle/"$module"
-rm -rf .git/modules/bundle/"$module"
+mods=()
+mods+=("")
+for m in "${mods[@]}"
+do
+   # rm -rf bundle/"$m"
+   git submodule deinit bundle/"$m"
+   git rm bundle/"$m"
+   rm -rf .git/modules/bundle/"$m"
+done
 }
 
 Update:
