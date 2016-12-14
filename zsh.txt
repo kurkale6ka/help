@@ -1,6 +1,7 @@
                                       zsh
 
 /etc/zshenv
+# As root
 # XDG configuration home
 if [[ -z $XDG_CONFIG_HOME ]]
 then
@@ -15,8 +16,15 @@ then
    export XDG_DATA_HOME=$HOME/.local/share
 fi
 
-As your day to day user:
-mkdir -p {$XDG_CONFIG_HOME,$XDG_DATA_HOME}/zsh
+# As your day to day user
+# Change your default shell to zsh
+chsh -s /bin/zsh
+
+# Re-log, then:
+if [[ -n $XDG_CONFIG_HOME && -n $XDG_DATA_HOME ]]
+then
+   mkdir -p {$XDG_CONFIG_HOME,$XDG_DATA_HOME}/zsh
+fi
 
 Right align and pad with :-: : :
 for i in qw qwer qwerty; echo ${(l:19::-:: :)i}
