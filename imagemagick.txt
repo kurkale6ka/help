@@ -34,3 +34,4 @@ identify -format '%w x %h (width x height)\n' image.jpg
 
 Create tiles (a single image) from multiple images, keeping original sizes:
 montage -geometry +1+1 *.(jp|pn)g all.jpg
+montage -geometry 333x333+1+1 *.jpg all.jpg # set all images to the same size
