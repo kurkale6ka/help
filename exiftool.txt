@@ -1,9 +1,11 @@
-# Options can't be grouped => -S -G but not -SG
+# Options can't be grouped => -G -S but not -GS
 #                               \  \
-#                                \  show groups
-#                                 show real tag names
+#                                \  show tag names (-veryShort)
+#                                 show groups (-groupNames)
+#    example output: [EXIF] ExifImageHeight: 2592
+#                     group tag
 #
-# Display the createdate tag using a different formatting:
+# Display the createdate tag using a different formatting (-printFormat):
 #    exiftool -p '${createdate;s/:/-/g}' my_pic.jpg # perl s///
 #
 # If you are unable to delete a cached tag in Shotwell:
@@ -15,32 +17,36 @@
 #
 # Tip: ignore minor errors/warnings with -m
 #
-# Question: how to avoid duplication when adding tags?
-#    after running the below 2 commands, -keywords will have a value of my_tag, my_tag
-#    exiftool -iptc:keywords+=my_tag my_pic
+# TODO: how to avoid duplication when adding tags?
+#    after running the below command 2 times, -keywords will have a value of my_tag, my_tag
 #    exiftool -iptc:keywords+=my_tag my_pic
 
 ## Manage pictures
 
-# add tags
+# 1. add tags
+# Do this first as you might be able to guess tags from file names
 exiftool -sep ', ' -iptc:keywords+='tag1, tag2' picture.jpg
 exiftool -sep ', ' -xmp:subject+='tag1, tag2' video.mp4
 
-# delete originals
-exiftool -delete_original! .
+exiftool -delete_original! . # delete originals without prompting
 
-# rename (creation date + camera 'make') then put into hierarchical folders (strftime format)
-exiftool '-testname<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' . # test only
+# 2. rename + move (because of the /s in -dateFormat)
+#   ex: 2016/February/'2016-02-01 19.10.39-2 Apple.jpg'
+#                   $createdate              $make.%le (camera 'make')
+#       %Y  /%B      / %Y  -%m-%d %H.%M.%S%%-c (strftime)
+#   %%-c add -number if 2 images have the same name
+#   %%le is for lowercase extension
 exiftool '-filename<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' .
 
-## Renaming/Moving
+# test renaming: the TestName tag is used for a dry-run file renaming
+exiftool '-testname<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' .
+
+## Renaming/Moving examples
 
 # rename using the creation date
 exiftool '-filename<createdate' -d '%Y-%m-%d %H.%M.%S%%-c.%%le' .
 
-# rename files to Dropbox format + move
-#   %%-c if 2 images have the same name, add a number
-#   %%le is for lowercase extension
+# rename files to Dropbox format
 exiftool '-filename<createdate' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c.%%le' .
 
 # move only
@@ -49,8 +55,7 @@ exiftool '-directory<createdate' -d '%Y/%B' .
 # prepend the creation date to the file name
 exiftool '-filename<$createdate %f.%le' -d '%Y-%m-%d %H.%M.%S%%-c' .
 
-# append the camera 'make' to the file name
-# make sure beforehand that basename hasn't got any letters in it
+# append the camera 'make' to the file name (check for already existing 'make')
 exiftool -ext jpg '-filename<%f ${make;}.%e' -if '${filename;s/\.\S+//} !~ /[[:alpha:]]/i' .
 
 ## Filtering
@@ -65,15 +70,15 @@ exiftool -if '($iptc:keywords && $iptc:keywords =~ /birthday/i) or ($xmp:subject
 # List files without 'tags'
 exiftool -if 'not $iptc:keywords and not $xmp:subject' -p '"$directory/$filename"' . 2>/dev/null
 
-# List tags in a specific group only
+# List all tags in a specific group (xmp). Same as -xmp:'*'
 exiftool -xmp:all my_pic.jpg
 
-# List all 'interesting' tags
+# List all 'interesting' tags (-a is to allow duplicate tags to be extracted)
 exiftool -S -G -a -'*keyword*' -subject -title -'*comment*' -make -model -createdate -datetimeoriginal .
 
 ## Change various metadata
 
-# Always change these together (+ update the file name after)
+# Fix wrong creation date (always change both tags + update the file name after)
 exiftool -createdate='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
 exiftool -datetimeoriginal='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
 
