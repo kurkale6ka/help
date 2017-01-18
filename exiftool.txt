@@ -24,31 +24,30 @@
 ## Manage pictures
 
 # 1. add tags
+
 # Do this first as you might be able to guess tags from file names
 exiftool -sep ', ' -iptc:keywords+='tag1, tag2' picture.jpg
 exiftool -sep ', ' -xmp:subject+='tag1, tag2' video.mp4
 
 exiftool -delete_original! . # delete originals without prompting
 
-# 2. rename + move (because of the /s in -dateFormat)
-#   ex: 2016/February/'2016-02-01 19.10.39-2 Apple.jpg'
-#                   $createdate              $make.%le (camera 'make')
-#       %Y  /%B      / %Y  -%m-%d %H.%M.%S%%-c (strftime)
-#   %%-c add -number if 2 images have the same name
-#   %%le is for lowercase extension
-exiftool '-filename<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' .
+# 2.0 test renaming + moving (because of the /s in -dateFormat)
+# the testname tag is used for a dry-run file renaming
 
-# test renaming: the TestName tag is used for a dry-run file renaming
-exiftool '-testname<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' .
+# ex: 2016/February/'2016-02-01 19.10.39-2 Apple.jpg'
+#                 $createdate              $make.%le (camera 'make')
+#     %Y  /%B      / %Y  -%m-%d %H.%M.%S%%-c (strftime)
+# %%-c add -number if 2 images have the same name
+# %%le is for lowercase extension
+exiftool '-testname<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' 2015*
+
+# rename videos to Dropbox format as they lack a 'make' tag
+exiftool -ext mp4 -ext 3gp '-testname<createdate' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c.%%le' . # -r to recurse
+
+# 2.1 rename
+# replace testname with filename in the above tests
 
 ## Renaming/Moving examples
-
-# rename using the creation date
-exiftool '-filename<createdate' -d '%Y-%m-%d %H.%M.%S%%-c.%%le' .
-
-# rename files to Dropbox format
-exiftool '-filename<createdate' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c.%%le' .
-
 # move only
 exiftool '-directory<createdate' -d '%Y/%B' .
 
