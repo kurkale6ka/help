@@ -24,6 +24,7 @@
 ## Manage pictures
 
 # 1. add tags
+# -----------
 
 # Do this first as you might be able to guess tags from file names
 exiftool -sep ', ' -iptc:keywords+='tag1, tag2' picture.jpg
@@ -32,7 +33,7 @@ exiftool -sep ', ' -xmp:subject+='tag1, tag2' video.mp4
 exiftool -delete_original! . # delete originals without prompting
 
 # 2.0 test renaming + moving (because of the /s in -dateFormat)
-# the testname tag is used for a dry-run file renaming
+# -------------------------------------------------------------
 
 # ex: 2016/February/'2016-02-01 19.10.39-2 Apple.jpg'
 #                 $createdate              $make.%le (camera 'make')
@@ -45,7 +46,10 @@ exiftool '-testname<$createdate ${make;}.%le' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c' 2
 exiftool -ext mp4 -ext 3gp '-testname<createdate' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-c.%%le' . # -r to recurse
 
 # 2.1 rename
+# ----------
+
 # replace testname with filename in the above tests
+# the testname tag is used for a dry-run file renaming
 
 ## Renaming/Moving examples
 # move only
