@@ -81,9 +81,12 @@ exiftool -S -G -a -'*keyword*' -subject -title -'*comment*' -make -model -create
 
 ## Change various metadata
 
-# Fix wrong creation date (always change both tags + update the file name after)
+# Fix wrong creation date
+# don't forget to apply to datetimeoriginal too + update the file name after!
 exiftool -createdate='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
-exiftool -datetimeoriginal='2007:07:21 07:29:59' '2007-05-27 07.29.59.jpg'
+
+# if datetimeoriginal is correct, use that to update createdate
+exiftool '-createdate<$datetimeoriginal' .
 
 # Change the keywords reusing the old ones
 exiftool -q -if '$iptc:keywords =~ /^@@@$/i' -p 'exiftool -sep ", " -iptc:keywords="$iptc:keywords" "$filename"' . 2>/dev/null | v -
