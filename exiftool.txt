@@ -51,6 +51,10 @@ exiftool -ext mp4 -ext 3gp '-testname<createdate' -d '%Y/%B/%Y-%m-%d %H.%M.%S%%-
 # replace testname with filename in the above tests
 # the testname tag is used for a dry-run file renaming
 
+# 3 sync
+# ------
+rsync -ain 2017 ../pics # within ~/Dropbox/Camera Uploads
+
 ## Renaming/Moving examples
 # move only
 exiftool '-directory<createdate' -d '%Y/%B' .
