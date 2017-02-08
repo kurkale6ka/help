@@ -28,6 +28,10 @@ git reset --hard
 git reset HEAD~
     undo previous commit (move branch) + unstage everything
 
+git rebase
+----------
+git rebase -i HEAD~5 # interactive
+
 git config
 ----------
 git config --global user.name 'Dimitar Dimitrov'
@@ -98,8 +102,8 @@ Set current branch to track:
 Rename a branch
 ---------------
 git branch -m new
-git push origin :old               # delete the remote branch
-git push --set-upstream origin new # push and track the new branch
+git push origin :old   # delete the remote branch
+git push -u origin new # push and track the new branch
 
 Make an existing Git branch track a remote branch
 -------------------------------------------------
