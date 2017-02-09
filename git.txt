@@ -32,6 +32,10 @@ git rebase
 ----------
 git rebase -i HEAD~5 # interactive
 
+git add
+-------
+git add -p # only add chosen hunks for this commit
+
 git config
 ----------
 git config --global user.name 'Dimitar Dimitrov'
