@@ -14,30 +14,44 @@ ps faxuwh
        \ *-- u: user-oriented format
         *- a: ! only yourself
 
-Formats:
---------
-u: (user oriented)
+Formats
+-------
+u: user oriented
 USER  PID  %CPU  %MEM  VSZ  RSS  TT  STAT  STARTED  TIME  COMMAND
 
-j: (bsd job ctrl)
+j: bsd job ctrl
 USER  PID  PPID  PGID  SESS  JOBC  STAT  TT  TIME  COMMAND
 
-l: (bsd long)
+l: bsd long
 UID  PID  PPID  CPU  PRI  NI  VSZ  RSS  WCHAN  STAT  TT  TIME  COMMAND
+
+s: signal
+UID  PID  PENDING  BLOCKED  IGNORED  CAUGHT  STAT  TTY  TIME  COMMAND
+
+v: virtual mem
+PID  STAT  TIME  SL  RE  PAGEIN  VSZ  RSS  LIM  TSIZ  %CPU  %MEM  COMMAND
+
+X: registers
+PID  STACKP  ESP  EIP  TMOUT  ALARM  STAT  TTY  TIME  COMMAND
 
 Custom:
 o pid,stat,euser,egroup,start_time,cmd
 
-s: (signal)
-UID  PID  PENDING  BLOCKED  IGNORED  CAUGHT  STAT  TTY  TIME  COMMAND
-
-v: (virtual mem)
-PID  STAT  TIME  SL  RE  PAGEIN  VSZ  RSS  LIM  TSIZ  %CPU  %MEM  COMMAND
-
-X: (registers)
-PID  STACKP  ESP  EIP  TMOUT  ALARM  STAT  TTY  TIME  COMMAND
-
-Less used options:
-------------------
+Less used options
+-----------------
 U httpd # userlist: id or name
 Z       # SELinux column
+
+Examples
+--------
+
+ps up 111408 # list for PID
+ps jp 111408
+ps lp 111408
+
+ps uU httpd # list for user
+ps jU httpd
+ps lU httpd
+
+# List parents of defunct processes
+ps ax oppid,cmd | grep [d]efunct | awk '{print $1}' | xargs ps up
