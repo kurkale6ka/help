@@ -86,3 +86,8 @@ Chain ssh invocations in case the user + key changes
 ----------------------------------------------------
 
 ssh -t user1@server1 'ssh user2@server2'
+
+Copy between 2 remote hosts without access between them
+-------------------------------------------------------
+
+scp -3 host1:/tmp/file host2:/tmp
