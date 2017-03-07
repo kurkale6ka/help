@@ -1,0 +1,12 @@
+                                       du
+
+# use
+du -axh -d1
+# vs
+du -sh * # as this omits dot files
+
+# Use find to avoid displaying .
+# bad idea! very slow! even when excluding /proc
+# --exclude is still needed with du for folders parents to .git ones
+# will display duplicates because du is recursive. ex: du /a /a/b /a/b/c
+find . -xdev -name .git -prune -o ! -path . -type d -printf '%P\0' | xargs -0 du -xh --exclude=.git | sort -hr | head -n20
