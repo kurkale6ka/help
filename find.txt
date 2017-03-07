@@ -1,3 +1,5 @@
+find [path] [conditions to prune] -prune -o [usual conditions] -print
+
 -name goo -prune without a -print, includes an explicit -print:
 only files or directories matching 'goo' are printed, but not descended, thus a
 second folder goo under the first one won't be printed
