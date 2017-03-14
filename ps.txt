@@ -4,35 +4,24 @@
 export PS_PERSONALITY=bsd
 export PS_FORMAT=pid,ppid,pgid,sid,tname,tpgid,stat,euser,egroup,start_time,cmd
 
-       .- f: ASCII art hierarchical forest
-      / .-- x: ! must have a tty
-     / / .--- w: wide output (ww for unlimited)
-    / / /
-ps faxuwh
-     \ \ \
-      \ \ *--- h: display headers (if PS_PERSONALITY)
-       \ *-- u: user-oriented format
-        *- a: ! only yourself
+       .- a: ! only yourself
+      /.-- x: ! must have a tty
+     //.--- u: user-oriented format
+    ///
+ps axufwh
+       \\\
+        \\*--- h: display headers (if PS_PERSONALITY)
+         \*-- w: wide output (ww for unlimited)
+          *- f: ASCII art hierarchical forest
 
 Formats
 -------
-u: user oriented
-USER  PID  %CPU  %MEM  VSZ  RSS  TT  STAT  STARTED  TIME  COMMAND
-
-j: bsd job ctrl
-USER  PID  PPID  PGID  SESS  JOBC  STAT  TT  TIME  COMMAND
-
-l: bsd long
-UID  PID  PPID  CPU  PRI  NI  VSZ  RSS  WCHAN  STAT  TT  TIME  COMMAND
-
-s: signal
-UID  PID  PENDING  BLOCKED  IGNORED  CAUGHT  STAT  TTY  TIME  COMMAND
-
-v: virtual mem
-PID  STAT  TIME  SL  RE  PAGEIN  VSZ  RSS  LIM  TSIZ  %CPU  %MEM  COMMAND
-
-X: registers
-PID  STACKP  ESP  EIP  TMOUT  ALARM  STAT  TTY  TIME  COMMAND
+u: user oriented | USER PID %CPU %MEM VSZ RSS TT STAT STARTED TIME COMMAND
+j: bsd job ctrl  | USER PID PPID PGID SESS JOBC STAT TT TIME COMMAND
+l: bsd long      | UID PID PPID CPU PRI NI VSZ RSS WCHAN STAT TT TIME COMMAND
+s: signal        | UID PID PENDING BLOCKED IGNORED CAUGHT STAT TTY TIME COMMAND
+v: virtual mem   | PID STAT TIME SL RE PAGEIN VSZ RSS LIM TSIZ %CPU %MEM COMMAND
+X: registers     | PID STACKP ESP EIP TMOUT ALARM STAT TTY TIME COMMAND
 
 Custom:
 o pid,stat,euser,egroup,start_time,cmd
