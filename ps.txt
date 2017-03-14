@@ -23,8 +23,7 @@ s: signal        | UID PID PENDING BLOCKED IGNORED CAUGHT STAT TTY TIME COMMAND
 v: virtual mem   | PID STAT TIME SL RE PAGEIN VSZ RSS LIM TSIZ %CPU %MEM COMMAND
 X: registers     | PID STACKP ESP EIP TMOUT ALARM STAT TTY TIME COMMAND
 
-Custom:
-o pid,stat,euser,egroup,start_time,cmd
+Custom: o pid,stat,euser,egroup,start_time,cmd
 
 Less used options
 -----------------
@@ -43,4 +42,4 @@ ps jU httpd
 ps lU httpd
 
 # List parents of defunct processes
-ps ax oppid,cmd | grep [d]efunct | awk '{print $1}' | xargs ps up
+ps ax o ppid,cmd | grep [d]efunct | awk '{print $1}' | xargs ps up
