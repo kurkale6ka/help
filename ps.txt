@@ -5,10 +5,10 @@ export PS_PERSONALITY=bsd
 export PS_FORMAT=pid,ppid,pgid,sid,tname,tpgid,stat,euser,egroup,start_time,cmd
 
        .- a: ! only yourself
-      /.-- x: ! must have a tty
-     //.--- u: user-oriented format
+      /.-- u: user-oriented format
+     //.--- x: ! must have a tty
     ///
-ps axufwh
+ps auxfwh
        \\\
         \\*--- h: display headers (if PS_PERSONALITY)
          \*-- w: wide output (ww for unlimited)
