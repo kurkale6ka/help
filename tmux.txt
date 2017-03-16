@@ -1,0 +1,2 @@
+# Remove annoying selected split
+select-pane -M
