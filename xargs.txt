@@ -1,12 +1,26 @@
-xargs    - execute command on arguments in bulk
-parallel - execute command on arguments in parallel (and in bulk with -X)
+                                 xargs/parallel
+
+xargs    - execute command on arguments in bulk     (and in parallel with -P0)
+parallel - execute command on arguments in parallel (and in bulk     with -X)
 
 Examples:
-printf '%s ' 1 2 3 4 | xargs -n2 (default command is echo)
-parallel echo ::: 1 2 3 4 # default command is bash not echo
 
+printf '%s ' 1 2 3 4 | xargs -n2 # default command is echo
+parallel echo ::: 1 2 3 4        # default command is bash
+
+## remove files from a source file
 parallel -X rm < file
-Or
-xargs rm < file # file with files to remove
+xargs rm < file # it's not very clear if -P0 will suppress the 'in bulk' behaviour
 
+## copy files
 find . -name '*.jpg' ! -path '*thumbs*' -print0 | parallel -0X cp -a {} ~/Pictures/iphoto_lib
+
+## replace while loop (+ do in parallel as a bonus)
+cli53 l | tail -n+2 | awk '{print $2}' | xargs -n1 -P0 ./cmd
+cli53 l | tail -n+2 | awk '{print $2}' | parallel      ./cmd
+
+# vs
+while read -r
+do
+   ./cmd "$REPLY"
+done < <(cli53 l | tail -n+2 | awk '{print $2}')
