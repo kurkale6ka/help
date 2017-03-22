@@ -23,7 +23,7 @@ s: signal        | UID PID PENDING BLOCKED IGNORED CAUGHT STAT TTY TIME COMMAND
 v: virtual mem   | PID STAT TIME SL RE PAGEIN VSZ RSS LIM TSIZ %CPU %MEM COMMAND
 X: registers     | PID STACKP ESP EIP TMOUT ALARM STAT TTY TIME COMMAND
 
-Custom: o pid=PROCESS_ID,stat,euser,egroup,start_time,cmd=COMMAND
+Custom: o pid=PROCESS_ID,stat,euser,egroup,start_time,cmd
                    \
                     *- new column name (no headers, use: ps ax o ppid=)
 
