@@ -1,0 +1,23 @@
+                                    Ansible
+
+ansible [all|ungrouped|qa|...] -m ping
+                               -a 'echo hi'
+
+/etc/ansible/hosts - inventory
+[qa]
+qa[1:5] ansible_user=mitko # host variable
+
+[qa:vars] # group variables
+
+[new_group:children]
+qa
+other_child
+
+Variables outside of the inventory in YAML files:
+/etc/ansible/group_vars/group1
+/etc/ansible/group_vars/group2
+/etc/ansible/host_vars/host1
+
+Also with subdirs:
+/etc/ansible/group_vars/group1/db_settings
+/etc/ansible/group_vars/group1/cluster_settings
