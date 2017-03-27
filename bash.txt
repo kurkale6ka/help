@@ -47,3 +47,8 @@ parent shell PID: $$, current subshell: BASHPID
 shell:
 
 [ x"$var" = xyes ] && ... # the x at the front prevents a leading dash from being picked up as an option to test (-n, -z)
+
+# Use PROMPT_COMMAND to aggregate users' history into a single file
+# /var/log/user-history.log                                  whoami | bash PID |         history 1        |  $?
+#                                                            oge    | [21118]: | 2013-09-09_10:46:34 su - | [1]
+export PROMPT_COMMAND='RETRN_VAL=$?; logger -p local6.debug "$LOGNAME [$$]: $(history 1 | command sed "s/^[ ]*[0-9]\+[ ]*//" ) [$RETRN_VAL]"; ...'
