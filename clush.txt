@@ -14,3 +14,12 @@ H
 wq
 ED
 CLUSH
+
+Groups patterns:
+/etc/clustershell/groups
+map:  perl -ne 'print "$1" if /\b$GROUP\b.*?:\s*(.+?)\s*(?:#.*)?$/ && !/^\s*#/' /etc/clustershell/groups
+list: perl -ne 'print "$1\n" if /^\s*(\S.*?):/ && !/^\s*#/' /etc/clustershell/groups
+
+/etc/ansible/hosts
+map: sed -n "/^\[$GROUP/,/^\[/p" /etc/ansible/hosts | grep '^[^[#;]' | sed 's/\([0-9]\+\):\([0-9]\+\)/\1-\2/' | tr '\n' ' '
+list: sed -n 's/^\[\(.\+\)\]/\1/p' /etc/ansible/hosts
