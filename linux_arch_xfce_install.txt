@@ -198,4 +198,4 @@ Tooltip: %A %d %B %Y
 gvim -u /home/"$USER"/.vimrc -U /home/"$USER"/.gvimrc -f %F
 
 # Git
-~/github/config/git.bash # run config script
+"$REPOS_BASE"/config/git.bash # run config script
