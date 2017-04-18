@@ -92,6 +92,9 @@ Glob qualifiers:
                 print -l **/*(mh-1) # modified in the last hour
                 print -l **/*(e:'[[ $REPLY != sometest ]]':) # estring
 
+                '-' must be followed by the wanted qualifiers.
+                Ex: -.,= means files + sockets and symlinks to those
+
 Modifiers:
 : inside a qualifier list => the rest is interpreted as a modifier
 
