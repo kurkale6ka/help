@@ -1,0 +1,4 @@
+Ignore files in completion/listings:
+* FIGNORE='~:.swp:.o' # <tab> completion in bash
+* ls -B to ignore backup files (~) in listings
+* :set wildignore+=*~,*.swp in Vim
