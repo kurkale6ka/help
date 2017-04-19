@@ -129,3 +129,6 @@ exec env PATH=/usr/local/bin/:$PATH zsh -f
 http://zsh.sourceforge.net/Doc/Release/Jobs-_0026-Signals.html
 A job being run in the background will suspend if it tries to read from the terminal. =>
 { cmd1; cmd2;... cmdn; } </dev/null &
+
+dash colors question:
+My list separator is #. After zstyle ':completion:*:options' list-colors '=(\# *)=32' ls -<tab> shows descriptions in green but ls --<tab> is unchanged...
