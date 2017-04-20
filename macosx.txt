@@ -11,18 +11,18 @@ chsh -s /usr/local/bin/zsh
 GNU replacements for some BSD commands:
 https://www.topbug.net/blog/2013/04/14/install-and-use-gnu-command-line-tools-in-mac-os-x/
 
-PATH setup for the below: https://github.com/kurkale6ka/zsh/blob/master/.zshrc#L56-L66
+PATH setup for the below: https://github.com/kurkale6ka/zsh/blob/master/.zshrc#L60-L74
 
 brew install coreutils # to get gls...
-brew install ed --default-names
+brew install ed --with-default-names # no g prefix
 brew install findutils --with-default-names # to get glocate...
 brew install ag
 brew install ctags
 brew install tree
 brew install mariadb
 brew install gnu-sed --with-default-names
-brew install homebrew/dupes/grep --with-default-names
-brew install vim
+brew install grep --with-default-names
+brew install vim --override-system-vi
 brew install tmux
 
 nvim:
