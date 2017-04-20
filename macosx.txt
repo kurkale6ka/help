@@ -24,7 +24,7 @@ brew install gnu-sed --with-default-names
 brew install grep --with-default-names
 brew install vim --override-system-vi
 brew install tmux
-brew install weechat --with-aspell --with-curl --with-python --with-perl --with-ruby --with-lua --with-guile
+brew install weechat --with-aspell --with-python --with-perl --with-ruby
 
 nvim:
 brew tap neovim/neovim
