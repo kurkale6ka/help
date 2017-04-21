@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 
-Green="$(tput setaf 2)"
- Blue="$(tput setaf 4)"
-Reset="$(tput sgr0)"
+Green="$(tput setaf 2 || tput AF 2)"
+ Blue="$(tput setaf 4 || tput AF 4)"
+Reset="$(tput sgr0 || tput me)"
 
 # %q - print the associated argument shell-quoted, reusable as input
 # %d - print the associated argument as signed decimal number
