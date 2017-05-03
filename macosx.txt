@@ -16,15 +16,8 @@ PATH setup for the below: https://github.com/kurkale6ka/zsh/blob/master/.zshrc#L
 brew install coreutils # to get gls...
 brew install ed --with-default-names # no g prefix
 brew install findutils --with-default-names # to get glocate...
-brew install ag
-brew install ctags
-brew install tree
-brew install mariadb
-brew install gnu-sed --with-default-names
-brew install grep --with-default-names
-brew install vim --with-override-system-vi
-brew install tmux
-brew install weechat --with-aspell --with-python --with-perl --with-ruby
+...
+https://github.com/kurkale6ka/scripts/blob/master/mkconfig
 
 nvim:
 brew tap neovim/neovim
