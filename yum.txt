@@ -3,3 +3,6 @@ Remove dependencies with yum:
 yum install rkhunter
 yum history list rkhunter
 yum history undo 304
+
+yum history
+yum info 304 # show details
