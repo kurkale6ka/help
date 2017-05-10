@@ -48,16 +48,19 @@ http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs
 iTerm2
 ------
 
+tmux ^←|→ not working:
+disable keyboard shortcuts: mission control/move left|right a space
+
 Shortcuts:
-       ⇧ ⌘ Enter - maximize window
             fn ← - Home
             fn → - End
-Ctrl + Shift + ↑ - PageUp
-Ctrl + Shift + ↓ - PageDown
          fn <bs> - del
            Esc . - Alt .
            alt 3 - #
            ⇧ ⌘ g - open location bar in Finder (so you can go to /usr/local say)
+Ctrl + Shift + ↑ - PageUp
+Ctrl + Shift + ↓ - PageDown
+       ⇧ ⌘ Enter - maximize window
 
 Custom layout:
 Window/Restore Window Arrangement
