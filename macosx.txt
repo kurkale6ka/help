@@ -51,6 +51,9 @@ iTerm2
 tmux ^←|→ not working:
 disable keyboard shortcuts: mission control/move left|right a space
 
+Extending selection in vim not working:
+Preferences/Pointer: add Ctrl to the right button single click
+
 Shortcuts:
             fn ← - Home
             fn → - End
