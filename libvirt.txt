@@ -25,3 +25,44 @@ session guests are currently rather limited because they will not have
 networking support). The goal is to make things support full
 virtualization under session URIs, once the kernel adds the support we
 need for networking.
+
+# uuid: globally unique identifier for the virtual machine, generated if omitted
+# acpi on/off? acpid would be needed (libvirt tips)
+# --os-variant is HIGHLY RECOMMENDED: osinfo-query os
+# full virtualization (--hvm) is the default
+# virsh desc domain
+# virsh list --title --all
+# virt-install --memory=?
+# virsh domdisplay
+# --disk vol=images_lvm/home,size=64,sparse=no,format=lvm2 \
+# --extra-args console=ttyS0,115200 \
+# --console pty,target_type=serial \
+#
+# fallocate -l64G cento7.img
+
+# virsh pool-define-as images_lvm logical - - /dev/sda2 cl /dev/cl
+# virsh pool-autostart images_lvm
+
+virt-install \
+--name xxx \
+--memory 4096 \
+--metadata title='xxx',description='xxx' \
+--events on_crash=restart,on_poweroff=destroy,on_reboot=restart \
+--vcpus 2 \
+--features acpi=off \
+--clock offset=utc \
+--location http://mirror.cov.ukservers.com/centos/7/os/x86_64/ \
+--os-variant centos7.0 \
+--boot hd \
+--disk /home/libvirt/images/centos7.img,sparse=no \
+--network bridge=virbr0 \
+--graphics vnc,port=5901,password=XXX \
+--hvm \
+--virt-type kvm \
+--dry-run
+
+Change virbr0 to br0 later with virsh edit your_domain + manually set the network via VNC
+
+VNC:
+command ssh -fNL 5901:127.0.0.1:5901 remote_host
+screen sharing: vnc://127.0.0.1:5901
