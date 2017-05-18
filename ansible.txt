@@ -111,3 +111,28 @@ ansible-playbook playbook.yml options
     yum: name=postgresql state=latest
   - name: ensure that postgresql is started
     service: name=postgresql state=started
+
+Roles:
+Roles are similar to modules autoloading in puppet
+Roles are just automation around ‘include’ directives
+
+ex: auto include roles/webservers/tasks/main.yml (equiv to init.pp in puppet land)
+    vs - include: tasks/foo.yml
+
+ex 2:
+---
+- hosts: webservers
+  roles:
+     - common
+     - webservers
+
+Autoload structure:
+roles/
+  webservers/
+    files/
+    templates/
+    tasks/
+    handlers/
+    vars/
+    defaults/
+    meta/
