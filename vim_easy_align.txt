@@ -1,0 +1,46 @@
+1. gaip
+
+2. Return key to select alignment mode (left, right, or center)
+
+3. N-th delimiter (default: 1)
+   - 2  Around the 2nd occurrences of delimiters
+   - *  Around all occurrences of delimiters
+   - -  Around the last occurrences of delimiters (-1)
+   - -2 Around the second to last occurrences of delimiters
+
+4. Predefined delimiter rule
+   <Space> : General alignment around whitespaces
+   =       : Operators containing equals sign ( =, ==, !=, +=, &&=, ...)
+   :       : Suitable for formatting JSON or YAML
+   .       : Multi-line method chaining
+   ,       : Multi-line method arguments
+   &       : LaTeX tables (matches & and \\)
+   #       : Ruby/Python comments
+   "       : Vim comments
+   |       : Table markdown
+   >       : Arrows (defined in $MYVIMRC)
+
+   Or regex delimiter with Ctrl+x or Ctrl+/
+
+Interactive mode:
+ CTRL-F | filter          | [gv]/.*/? (limit lines around which we align)
+ CTRL-I | indentation     | shallow, deep, none, keep
+ CTRL-L | left_margin     | number or string (margin before delimiter)
+ CTRL-R | right_margin    | number or string (margin after delimiter)
+ CTRL-D | delimiter_align | left, center, right (the way we want the delimiter aligned)
+ CTRL-A | align           | string: /[lrc]+\*{0,2}/
+ <Left> | stick_to_left   | { 'stick_to_left': 1, 'left_margin': 0 } (stick delimiter to the left, r_margin 0 to stick to the right)
+ <Down> | *_margin        | { 'left_margin': 0, 'right_margin': 0 } (no margins around delimiter)
+
+
+CTRL-A example with llr*
+
+aa = bb = cc = dd = ee
+a = b = c = d = e
+aaa = bbb = ccc = ddd = eee
+
+gaip * ^a llr* =
+
+aa  = bb  =  cc =  dd =  ee
+a   = b   =   c =   d =   e
+aaa = bbb = ccc = ddd = eee
