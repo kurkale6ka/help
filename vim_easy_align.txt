@@ -8,39 +8,60 @@
    - -  Around the last occurrences of delimiters (-1)
    - -2 Around the second to last occurrences of delimiters
 
-4. Predefined delimiter rule
-   <Space> : General alignment around whitespaces
-   =       : Operators containing equals sign ( =, ==, !=, +=, &&=, ...)
-   :       : Suitable for formatting JSON or YAML
-   .       : Multi-line method chaining
-   ,       : Multi-line method arguments
-   &       : LaTeX tables (matches & and \\)
-   #       : Ruby/Python comments
-   "       : Vim comments
-   |       : Table markdown
-   >       : Arrows (defined in $MYVIMRC)
+4. a) Predefined delimiter rule
 
-   Or regex delimiter with Ctrl+x or Ctrl+/
+   <space> : General alignment around whitespaces
+      =    : Operators containing equals sign ( =, ==, !=, +=, &&=, ...)
+      :    : Suitable for formatting JSON or YAML
+      .    : Multi-line method chaining
+      ,    : Multi-line method arguments
+      &    : LaTeX tables (matches & and \\)
+      #    : Ruby/Python comments
+      "    : Vim comments
+      |    : Table markdown
+      >    : Arrows (defined in $MYVIMRC)
+
+   b) Or regex delimiter with Ctrl-x or Ctrl-/
 
 Interactive mode:
- CTRL-F | filter          | [gv]/.*/? (limit lines around which we align)
- CTRL-I | indentation     | shallow, deep, none, keep
- CTRL-L | left_margin     | number or string (margin before delimiter)
- CTRL-R | right_margin    | number or string (margin after delimiter)
- CTRL-D | delimiter_align | left, center, right (the way we want the delimiter aligned)
- CTRL-A | align           | string: /[lrc]+\*{0,2}/
- <Left> | stick_to_left   | { 'stick_to_left': 1, 'left_margin': 0 } (stick delimiter to the left, r_margin 0 to stick to the right)
- <Down> | *_margin        | { 'left_margin': 0, 'right_margin': 0 } (no margins around delimiter)
+
+ Ctrl-f | filter          | [gv]/.*/? (limit lines around which we align)
+ Ctrl-i | indentation     | shallow, deep, none, keep
+ Ctrl-l | left_margin     | number or string (margin before delimiter)
+ Ctrl-r | right_margin    | number or string (margin after delimiter)
+ Ctrl-d | delimiter_align | left, center, right (the way we want the delimiter aligned)
+ Ctrl-a | align           | string: /[lrc]+\*{0,2}/
+ <left> | stick_to_left   | { 'stick_to_left': 1, 'left_margin': 0 }
+        | stick to right  | set right margin to 0 while left aligning
+ <down> | *_margin        | { 'left_margin': 0, 'right_margin': 0 } (no margins around delimiter)
 
 
-CTRL-A example with llr*
+Examples:
 
-aa = bb = cc = dd = ee
-a = b = c = d = e
-aaa = bbb = ccc = ddd = eee
+- Ctrl-a with llr*
 
-gaip * ^a llr* =
+  aa = bb = cc = dd = ee
+  a = b = c = d = e
+  aaa = bbb = ccc = ddd = eee
 
-aa  = bb  =  cc =  dd =  ee
-a   = b   =   c =   d =   e
-aaa = bbb = ccc = ddd = eee
+  gaip * Ctrl-a llr* =
+
+  aa  = bb  =  cc =  dd =  ee
+  a   = b   =   c =   d =   e
+  aaa = bbb = ccc = ddd = eee
+
+- Pyramid
+
+   aa bb
+    a b
+  aaa bbb
+
+  gaap ** <return> <space>
+  or
+  gaap Ctrl-a rl <space>
+
+   aa bb
+    a b
+  aaa bbb
+
+Note: if aligning doesn't work, :se ft&
