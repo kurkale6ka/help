@@ -5,6 +5,7 @@
 3. N-th delimiter (default: 1)
    - 2  Around the 2nd occurrences of delimiters
    - *  Around all occurrences of delimiters
+   - ** Left-right alternating alignment around all delimiters
    - -  Around the last occurrences of delimiters (-1)
    - -2 Around the second to last occurrences of delimiters
 
