@@ -1,0 +1,24 @@
+resolve name to IP
+
+port 53
+
+             zones
+       /      /     /
+bob.sales.example.com
+ |    |      |     +-- top-level domain (on root nameservers)
+ |    |      +-- subdomain of com
+ |    +-- subdomain of example
+ +-- resource record (RR) part of the sales.example.com domain
+
+Zones are defined in zone files on primary nameservers. They contain RRs such as bob.
+
+Authoritative nameservers answer to resource records that are part of their
+zones only. Recursive nameservers offer resolution services, but they are not
+authoritative for any zone (ie. they don't have direct answers).
+
+BIND
+* named: nameserver
+* rndc: admin utility
+* dig
+
+AWS: cli53
