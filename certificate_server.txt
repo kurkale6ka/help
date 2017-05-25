@@ -1,0 +1,44 @@
+                           server certificate change
+
+1. hostname -f must match the certificate's subject
+
+* NB: hostname    uses static info (ex: from /etc/sysconfig/network)
+      hostname -f uses DNS so you must be able to resolve the IP based on the static value.
+                  you will need to change bind/AWS/... zones
+
+* For info I used these change domain for bla from bad_example.com to example.com:
+  cli53 rd bad_example.com bla A
+  cli53 rc example.com 'bla 600 A 11.10.10.11'
+
+2. rsync your certificate, key and CA and amend in apache:
+   SSLCertificateFile
+   SSLCertificateKeyFile
+   SSLCACertificateFile # not sure this is actually needed
+
+3. test with:
+   /usr/local/opt/openssl/bin/openssl s_client -connect bla.example.com:443
+   depth=3 C = SE, O = AddTrust AB, OU = AddTrust External TTP Network, CN = AddTrust External CA Root
+   depth=2 C = GB, ST = Greater Manchester, L = Salford, O = COMODO CA Limited, CN = COMODO RSA Certification Authority
+   depth=1 C = GB, ST = Greater Manchester, L = Salford, O = COMODO CA Limited, CN = COMODO RSA Domain Validation Secure Server CA
+   depth=0 OU = Domain Control Validated, OU = PositiveSSL Wildcard, CN = *.example.com
+   verify return:1
+
+* ^ certificate chain from end user, trough intermediate certificates to root
+    certificate available in the trust store of your device
+
+* NB: On a Mac I've used /usr/local/opt/openssl/bin/openssl since
+      /usr/bin/openssl isn't aware of the correct location for the root certificates
+      and reports them as untrusted
+
+* there might still be a 'not fully secure' message from the browser but that
+  could be parts of the site such as images still being served over http. check in firefox
+
+Misc:
+
+# wildcard/star certificate
+openssl x509 -in example.com.crt -noout -subject
+subject= /OU=Domain Control Validated/OU=PositiveSSL Wildcard/CN=*.example.com
+
+# Issuer
+openssl x509 -in example.com.crt -noout -issuer
+issuer= /C=GB/ST=Greater Manchester/L=Salford/O=COMODO CA Limited/CN=COMODO RSA Domain Validation Secure Server CA
