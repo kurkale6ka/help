@@ -22,3 +22,11 @@ BIND
 * dig
 
 AWS: cli53
+
+The mechanism for name resolution is decided in:
+/etc/nsswitch.conf
+hosts files DNS
+        |    +-- use DNS servers declared in /etc/resolv.conf (often overwitten by NetworkManager or DHCP)
+        +-- /etc/hosts
+
+gotcha: the host command doesn't respect /etc/nsswitch.conf, thus not /etc/hosts either
