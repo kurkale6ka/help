@@ -234,7 +234,7 @@ The physical server should have as many NICs as served websites
 
 Name-Based Virtual Host:
 Apache looks for the hostname in the HTTP header, and depending on the
-hostname, it servers different websites. You need only one ip-address on the
+hostname, it serves different websites. You need only one ip-address on the
 physical server; but, you update the DNS with multiple website names pointing
 to the same ip-address.
 
