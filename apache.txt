@@ -221,10 +221,11 @@ Alias {{{1
 
 Alias /docs /var/web (server config, virtual host)
 http://www.example.com/docs/dir/file.html will be served from /var/web/dir/file.html
+                                                           vs /DocumentRoot/docs/dir/file.html
 
 This is to allow web access to parts of the filesystem that are not strictly
-underneath the DocumentRoot (or use symlinks in DocumentRoot but options in
-their parent directories must include FollowSymLinks)
+underneath the DocumentRoot.
+Alternative: use symlinks, but directory options must include FollowSymLinks
 
 Virtual Hosts {{{1
 
