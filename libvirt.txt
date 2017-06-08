@@ -28,7 +28,11 @@ need for networking.
 
 # uuid: globally unique identifier for the virtual machine, generated if omitted
 # acpi on/off? acpid would be needed (libvirt tips)
-# --os-variant is HIGHLY RECOMMENDED: osinfo-query os
+#
+# --os-variant is HIGHLY RECOMMENDED:
+# osinfo-query os
+# virt-install --os-variant=list # for older versions
+#
 # full virtualization (--hvm) is the default
 # virsh desc domain
 # virsh list --title --all
@@ -38,7 +42,7 @@ need for networking.
 # --extra-args console=ttyS0,115200 \
 # --console pty,target_type=serial \
 #
-# fallocate -l64G cento7.img
+# fallocate -l64G centos7.img
 
 # virsh pool-define-as images_lvm logical - - /dev/sda2 cl /dev/cl
 # virsh pool-autostart images_lvm
