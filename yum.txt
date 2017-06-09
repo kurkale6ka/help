@@ -5,4 +5,4 @@ yum history list rkhunter
 yum history undo 304
 
 yum history
-yum info 304 # show details
+yum history info 304 # show details
