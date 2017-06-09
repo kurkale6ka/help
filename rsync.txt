@@ -1,4 +1,12 @@
-Filters
+Usage:
+rsync src... dst
+        \
+         local or host:'file1 file2 ...'
+
+rsync -ain src  dst # copies src            to dst
+rsync -ain src/ dst # copies src's contents to dst
+
+Filters:
 -f '+ foo' include files and directories named foo
 -f '- foo/' exclude directories named foo (but not files)
 -f '+ */' -f '+ *.vim' -f '- *' transfer vim files only
@@ -62,9 +70,6 @@ Less common:
     bandwidth is not an issue for you but CPU is! (default for local)
 
 Examples:
-rsync -ain src  dst # copies src            to dst
-rsync -ain src/ dst # copies src's contents to dst
-
 rsync -ai --no-t --remove-source-files --ignore-existing 2012/ pics/2012
          \    \             \                   \
           \    \             \                   only transfer new files
