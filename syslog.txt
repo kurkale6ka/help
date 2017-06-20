@@ -1,0 +1,72 @@
+                                   syslog-ng
+
+Final means that anything that goes through that log path (past the filters and
+to the destination), will not go to any other log paths defined after it. Any
+other messages will be sent to the other log paths
+
+Basically it means we always want final unless we want duplicated logs.
+
+                                    rsyslog
+
+NB: the postfix log file is defined in syslog
+
+https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/s1-basic_configuration_of_rsyslog.html
+
+rule: filter action
+
+Filters:
+
+* FACILITY.PRIORITY (selector)
+  - mail.=crit -/var/log/maillog
+         |     +-- no sync after every write to the file
+         +-- only crit, not crit and higher
+
+* :PROPERTY, [!]COMPARE_OPERATION, "STRING"
+  - :msg, contains, "error"
+    :msg, !regex, "fatal .* error"
+
+* if EXPRESSION then ACTION else ACTION (rsyslog's RainerScript)
+
+Actions:
+
+- static path: /var/log/messages
+
+- dynamic path:
+  $template DynamicFile,"/var/log/test_logs/%timegenerated%-test.log"
+                                            +-- property (building block of a syslog message: rsyslog.conf)
+  *.* ?DynamicFile
+
+- remote path: @[(compression level z1-9)]HOST:[PORT]
+               +-- add a 2nd @ to use TCP
+               ex: *.* @@(z9)example.com:6514
+
+- output channel: primarily used to specify the maximum size a log file can grow to
+  $outchannel log_rotation, /var/log/test_log.log, 104857600, /home/joe/log_rotation_script
+  *.* :omfile:$log_rotation
+
+- program
+  *.* ^test-program;template # format message with template and pass it to test-program
+  # a syslog message has a default format that can be altered with $template
+
+- db
+  $ModLoad ompgsql
+  *.* :PLUGIN:DB_HOST,DB_NAME,DB_USER,DB_PASSWORD;[TEMPLATE]
+      +-- ompgsql
+
+- discard
+  cron.* ~ # discard any cron syslog messages
+
+Multiple actions example:
+kern.=crit user1     # send to user one
+& ^test-program;temp # ...
+& ~                  # ...
+
+New syntax:
+https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sec-using_the_new_configuration_format.html
+
+ruleset(name="remote-601") {
+    cron.* action(type="omfile" file="/var/log/remote-601-cron")
+    mail.* action(type="omfile" file="/var/log/remote-601-mail") # rule: filter action
+}
+
+input(type="imtcp" port="601" ruleset="remote-601");
