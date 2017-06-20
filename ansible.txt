@@ -116,15 +116,15 @@ Roles:
 Roles are similar to modules autoloading in puppet
 Roles are just automation around ‘include’ directives
 
-ex: auto include roles/webservers/tasks/main.yml (equiv to init.pp in puppet land)
+ex: auto include roles/*/tasks/main.yml (equiv to init.pp in puppet land)
     vs - include: tasks/foo.yml
 
 ex 2:
 ---
 - hosts: webservers
   roles:
-     - common
-     - webservers
+    - common
+    - webservers
 
 Autoload structure:
 roles/
