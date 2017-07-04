@@ -1,12 +1,23 @@
                                        du
 
-# use
-du -axh -d1
-# vs
-du -sh * # as this omits dot files
+Get usage summary
+
+# 1. we don't care about dot files:
+du -sh *
+du -sh /etc
+
+# 2. we care about dot files:
+- du -ah -d1
+  du -ah -max-depth 1 # on older systems
+- (shopt -s dotglob; du -sh *)
+
+extra:
+* sort -hr
+  ds -s * | sort -nr # on older systems
+* add -x if you don't want to cross filesystems
 
 # Use find to avoid displaying .
 # bad idea! very slow! even when excluding /proc
 # --exclude is still needed with du for folders parents to .git ones
-# will display duplicates because du is recursive. ex: du /a /a/b /a/b/c
+# will display duplicates because du is recursive. example: du /a /a/b /a/b/c
 find . -xdev -name .git -prune -o ! -path . -type d -printf '%P\0' | xargs -0 du -xh --exclude=.git | sort -hr | head -n20
