@@ -36,7 +36,7 @@ Archive mode -a:
 -p: preserve permissions
 -t: preserve modification times
 -g: preserve group
--o: preserve owner (super-user only)
+-o: preserve owner - remote super-user only (i.e. ssh as root)
 -D: --devices:  preserve device files (super-user only)
     --specials: preserve special files
 
