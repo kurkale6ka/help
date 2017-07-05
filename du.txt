@@ -6,7 +6,7 @@ Get usage summary
 du -sh *
 du -sh /etc
 
-# 2. we care about dot files:
+# 2. we care about dot files: (.git folders will be listed!)
 - du -ah -d1
   du -ah -max-depth 1 # on older systems
 - (shopt -s dotglob; du -sh *)
