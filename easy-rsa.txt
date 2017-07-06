@@ -1,0 +1,3 @@
+index.txt:
+The second column is the certificate expiration date in ASN1_TIME format.
+The entry '180301135738Z' means the certificate end date is 2018, March 01 13:57:38 GMT
