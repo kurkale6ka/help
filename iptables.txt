@@ -2,21 +2,14 @@
 
 Policy chains
 
-→ input
-    incoming connections
-
-⇒ forward
-    incoming connections going forward (connections to routers only)
-
-← output
-    outgoing connections
+→ INPUT:   incoming connections
+⇒ FORWARD: incoming connections going forward (connections to routers only)
+← OUTPUT:  outgoing connections
 
 NB: for ping to succeed it will need BOTH the input/output chains. Same for ssh...
 
-iptables -L -vn:
-policy chain default behavior - (policy ACCEPT)
-
-Change with:
+Policy chain default behavior - ACCEPT (check with iptables -nvL)
+change with:
 iptables --policy INPUT DROP
 iptables --policy OUTPUT DROP
 iptables --policy FORWARD DROP
