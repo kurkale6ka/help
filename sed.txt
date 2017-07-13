@@ -1,0 +1,29 @@
+sed -n '1!G;$!h;$p' myfile
+
+PS = pattern space
+HS = hold space
+
+1. read aa: N/A                     , copy to HS        , N/A
+2. read bb: append HS to the 2nd PS , copy 2nd PS to HS , N/A
+...
+5. read ee: append HS to the 5th PS , N/A               , print the last PS
+
+sed reads every line from myfile and puts it in the pattern space.
+it then acts on it, possibly adding more lines...
+addresses + commands apply on the pattern space, not on myfile.
+
+2p means print the 2nd pattern space
+it does NOT mean:
+- print the 2nd line from the file (bb in myfile)
+- print the 2nd line in the current pattern space (aa below)
+
+myfile        pattern space
+  aa -------------- aa
+  bb ----------- bb \  this is the 2nd pattern space (bb \n aa)
+  cc -------- cc aa /
+  dd ----- dd bb
+  ee -- ee cc aa
+        dd bb
+        cc aa
+        bb
+        aa
