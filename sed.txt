@@ -27,3 +27,14 @@ myfile        pattern space
         cc aa
         bb
         aa
+
+NB: d - delete the pattern space; IMMEDIATELY START NEXT CYCLE
+
+Example: only print paragraphs with 'Administration' in them
+
+sed -e '/./{H;$!d}' -e 'x;/Administration/!d' or
+sed -r '/^\s*$/!{H;$!d};x;/Administration/!d'
+           \
+            keep appending till you reach an empty line.
+            $!d restarts the cycle, that's why x;/Administration/!d is not executed
+            /pattern/d would delete the whole PS, not only the matching line within the PS
