@@ -6,12 +6,12 @@ rsync src... dst
 rsync -ain src  dst # copies src            to dst
 rsync -ain src/ dst # copies src's contents to dst
 
-Filters:
--f '+ foo' include files and directories named foo
--f '- foo/' exclude directories named foo (but not files)
--f '+ */' -f '+ *.vim' -f '- *' transfer vim files only
-        \
-         the / means directory objects
+Filters: (first match wins)
+-f'+ foo'  # include files and directories named foo
+-f'- foo/' # exclude directories named foo (but not files)
+-f'+ */' -f'+ *.vim' -f'- *' # transfer vim files only
+       \
+        the / means directory objects
 
 -f".- $HOME/.gitignore" -f':- .gitignore' -f'- .git'
              \                   \
@@ -20,15 +20,14 @@ Filters:
                the - is needed because the patterns don't start with -/+/...
                otherwise ". $HOME/.gitignore" would be enough
 
-after the following 2, the directory is included (first EXACT match wins???):
-+ colors/
-- colors/
+-f':e- .gitignore' # --delete isn't safe with :(with . yes); use :- and --delete-after
 
-after the following 2, the directory is excluded:
-+ colors/
-- *
+rsync -ain -f'+ /*/.bashrc' -f'- *' ~/github/bash dst:
+                \
+                 this is like a regex ^, it's not an absolute path. it means
+                 .bashrc in a subfolder of the transfer root (~/github/bash) so /*/.bashrc ~ /bash/.bashrc
 
-ex: rsync -ai -f '+ */' -f '- *' ~/foo /tmp # copy foo's directory structure to /tmp
+ex: rsync -ai -f'+ */' -f'- *' ~/foo /tmp # copy foo's directory structure to /tmp
 
 Archive mode -a:
 -r: recursive
