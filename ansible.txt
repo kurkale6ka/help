@@ -2,8 +2,8 @@
 
 ansible hosts -mmodule -aarguments options
                   \
-                   command by default
-                   use shell if you need |s and >s
+                   command (default)
+                   shell if you need |s and >s
 
 The command and shell modules are the only modules that just take a list of
 arguments and don’t use the key=value form.
@@ -40,14 +40,14 @@ ansible <hosts> -m setup
 
 YAML:
 ---
--  martin:
+- martin:
     name: Martin D'vloper # dictionary
     job: Developer
     skills:
       - python
       - perl
       - pascal
--  tabitha:
+- tabitha:
     name: Tabitha Bitumen
     job: Developer
     skills:               # a dictionary with a list value
