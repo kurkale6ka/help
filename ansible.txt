@@ -136,3 +136,12 @@ roles/
     vars/
     defaults/
     meta/
+
+~/.ansible.cfg:
+[defaults]
+forks = 50
+
+[ssh_connection]
+# ProxyCommand related:
+# fix the unreachable issue related to the sftp subsystem not being enabled
+scp_if_ssh = True
