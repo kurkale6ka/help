@@ -1,0 +1,41 @@
+1. Generate key pair
+--------------------
+gpg --gen-key
+   * length   : 2048
+   * validity : 1y
+   * comment  : nickname - work key
+
+2. Make key publicly visible
+----------------------------
+gpg --keyserver pgp.mit.edu --send-keys 48867B54
+gpg --keyserver pgp.mit.edu --search-keys kurkale6ka # or check online: http://pgp.mit.edu/pks/lookup?search=kurkale6ka&op=vindex
+
+3. Use a web of trust (as opposed to CA in PKI world)
+-----------------------------------------------------
+# Validate a key:
+# Your correspondent:
+gpg --fingerprint 160C6FA8
+
+# You:
+gpg --edit-key 160C6FA8
+gpg> fpr # to view its fingerprint
+gpg> sign # if fingerprints match
+gpg> check
+
+4. Setup Thunderbird / sparrow / mutt to use gpg
+------------------------------------------------
+
+Tips:
+-----
+
+# List key IDs on one's public keyring as used above
+gpg --list-keys
+
+# Encrypt a file with multiple recipients
+gpg -ae -r 48867B54 -r 160C6FA8 -o aliases.test.txt aliases.test
+
+# Manually export / import a key
+# This is achieved in one go with --send-keys / --search-keys
+* gpg -a -o pubkey.txt --export 'Dimitar Dimitrov'
+* send it to your correspondant
+* He can import it with: gpg --import pubkey.txt

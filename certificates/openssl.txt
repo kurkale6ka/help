@@ -1,0 +1,42 @@
+http://users.dcc.uchile.cl/~pcamacho/tutorial/crypto/openssl/openssl_intro.html#htoc6
+
+Key pair generation (gendsa if relevant)
+----------------------------------------
+openssl genrsa -out keys.pem 2048         # generate a public/private key pair
+openssl genrsa -out keys.pem -aes256 2048 # with passphrase
+
+Key pair processing
+-------------------
+openssl rsa -in keys.pem 2>/dev/null                # print the private key
+openssl rsa -in keys.pem -pubout 2>/dev/null        # print the public key
+openssl rsa -in keys.pem -text -noout               # print out the components of a key pair
+openssl rsa -in keys.pem -outform DER -out keys.der # convert from PEM to DER format
+openssl rsa -in keys.pem -out keys2.pem             # remove the pass phrase
+
+Certificate Signing Request OR Self signed certificate generation (see: PKCS#10)
+--------------------------------------------------------------------------------
+openssl req -new -nodes -keyout keys.pem -out host.csr              # new CSR with key pair generation (no passphrase) beforehand
+openssl req -new -x509 -days 1095 -key ca_keys.pem -out ca_cert.pem # new self signed certificate based on an existing key pair
+
+Certificate creation by the CA (Certificate Authority)
+------------------------------------------------------
+openssl ca -days 1095 -extensions v3_req -in host.csr -out host_cert.pem # create a valid digital certificate by signing a CSR
+
+Certificate display
+-------------------
+openssl x509 -in host_cert.pem                     # see certificate
+openssl x509 -in host_cert.pem -noout -dates       # check validity period
+openssl x509 -in host_cert.pem -noout -subject
+openssl x509 -in host_cert.pem -noout -fingerprint
+openssl x509 -in host_cert.pem -noout -pubkey
+openssl x509 -in host_cert.pem -noout -serial
+
+Notes:
+* -noout: no private key or x509 certificate output
+* -text: key pair components
+* pem: privacy enhanced email
+* man genrsa|rsa|req|ca|x509
+* openssl enc -aes-256-cbc -in plain.txt -out encrypted.bin
+* des < des3 < aes128 # data encryption standard < advanced encryption standard
+               aes192
+               aes256
