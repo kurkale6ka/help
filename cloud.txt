@@ -1,0 +1,14 @@
+OpenStack
+
+- Compute (Nova)
+  manage pools of computer resources. KVM, VMware, and Xen...
+
+- Networking (Neutron)
+
+- Block storage (Cinder)
+  block-level storage. Ceph, GlusterFS...
+
+- Identity (Keystone)
+  LDAP
+
+...

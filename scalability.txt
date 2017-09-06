@@ -1,0 +1,5 @@
+horizontally
+  add more computers/nodes
+
+vertically
+  add more CPU, RAM
