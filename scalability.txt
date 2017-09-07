@@ -1,5 +1,5 @@
-horizontally
+horizontally / out
   add more computers/nodes
 
-vertically
+vertically / in
   add more CPU, RAM
