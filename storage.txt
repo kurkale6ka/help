@@ -1,0 +1,9 @@
+                            Software Defined Storage
+
+SDS creates a storage pool from cheap hardware.
+
+- Unlike LVM it spans physical hosts.
+
+- Unlike monolithic SAN and NAS systems that tightly couple software and
+  hardware, SDS products enable users to upgrade the software separately from
+  the hardware.
