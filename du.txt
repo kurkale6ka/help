@@ -8,12 +8,12 @@ du -sh /etc
 
 # 2. we care about dot files: (.git folders will be listed!)
 - du -ah -d1
-  du -ah -max-depth 1 # on older systems
+  du -ah --max-depth 1 # on older systems
 - (shopt -s dotglob; du -sh *)
 
 extra:
-* sort -hr
-  ds -s * | sort -nr # on older systems
+* ds -sh * | sort -hr
+  ds -s  * | sort -nr # on older systems
 * add -x if you don't want to cross filesystems
 
 # Use find to avoid displaying .
