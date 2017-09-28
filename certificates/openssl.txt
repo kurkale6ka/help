@@ -13,10 +13,23 @@ openssl rsa -in keys.pem -text -noout               # print out the components o
 openssl rsa -in keys.pem -outform DER -out keys.der # convert from PEM to DER format
 openssl rsa -in keys.pem -out keys2.pem             # remove the pass phrase
 
-Certificate Signing Request OR Self signed certificate generation (see: PKCS#10)
---------------------------------------------------------------------------------
-openssl req -new -nodes -keyout keys.pem -out host.csr              # new CSR with key pair generation (no passphrase) beforehand
-openssl req -new -x509 -days 1095 -key ca_keys.pem -out ca_cert.pem # new self signed certificate based on an existing key pair
+CSR: Certificate Signing Request
+--------------------------------
+1. ssh to apache server, cd /etc/httpd/conf/certs
+
+1.a with key pair generation
+
+openssl req -nodes -newkey rsa:2048 -keyout myserver.key -out server.csr
+             +-- no DES passphrase
+
+1.b without key pair generation
+
+openssl req -new -key myserver.key -out server.csr
+openssl req -in server.csr -noout -subject # check
+
+Self signed certificate (see: PKCS#10)
+--------------------------------------
+openssl req -new -x509 -days 1095 -key ca_keys.pem -out ca_cert.pem
 
 Certificate creation by the CA (Certificate Authority)
 ------------------------------------------------------
