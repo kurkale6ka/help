@@ -1,20 +1,20 @@
                                        du
 
-Get usage summary
-
-# 1. we don't care about dot files:
-du -sh *
+# total
 du -sh /etc
 
-# 2. we care about dot files: (.git folders will be listed!)
-- du -ah -d1
-  du -ah --max-depth 1 # on older systems
-- (shopt -s dotglob; du -sh *)
+# non dot files/folders, no recursion
+du -sh * | sort -hr
+du -s * | sort -nr # on older systems
 
-extra:
-* ds -sh * | sort -hr
-  ds -s  * | sort -nr # on older systems
-* add -x if you don't want to cross filesystems
+# all files/folders, no recursion
+du -ah -d1
+du -ah -max-depth 1 # on older systems
+
+# folders only, recursion
+du -h
+
+note: add -x if you don't want to cross filesystems
 
 # Use find to avoid displaying .
 # bad idea! very slow! even when excluding /proc
