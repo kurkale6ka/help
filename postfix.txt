@@ -1,0 +1,22 @@
+                                    postfix
+
+## Local recipients
+# note: unknown local recipients won't receive mail
+
+# query lookup tables
+postmap -q dimitar.dimitrov local_recipients
+postmap -s local_recipients | grep dimitar
+
+postmap local_recipients # update/create
+
+## Aliases
+# query
+postalias -q qa.team aliases
+
+# update
+newaliases
+postalias aliases
+
+## Configuration
+# check non default settings
+postconf -n | grep
