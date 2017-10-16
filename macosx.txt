@@ -67,3 +67,5 @@ Ctrl + Shift + ↓ - PageDown
 
 Custom layout:
 Window/Restore Window Arrangement
+
+Finder: search - kind:image|movie|png...
