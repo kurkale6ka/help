@@ -26,4 +26,4 @@ list: sed -n 's/^\[\([^:]\+\)\]/\1/p' /etc/ansible/hosts
 # note: we will miss hosts that aren't members of any group
 
 # pg
-clush -bra 'ps faxww o pid,stat,euser,egroup,start_time,cmd | grep -iEB1 --color=always [m]emcahed'
+clush -bra 'ps faxww o pid,stat,euser,egroup,start_time,cmd | grep -iEB1 --color=always [m]emcached'
