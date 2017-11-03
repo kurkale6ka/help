@@ -92,16 +92,29 @@ Copy between 2 remote hosts without access between them
 
 scp -3 host1:/tmp/file host2:/tmp
 
-TCP port forwarding (local in this example):
-ssh -fN -L 3000:localhost:3000 gateway.host.com
-                     \
-                      refers to gateway iself, so: andromeda:3000 -> gateway:3000
-                                                   localhost
+TCP local port forwarding:
 
-ssh -fN -L 3000:imgur.com:3000 gateway.host.com
-our LAN policy prevents access tp imgur.com but our jumphost(gateway) can connect:
-andromeda:3000 -> gateway -> imgur.com:3000
+our LAN policy prevents access to imgur.com but our jumphost(gateway) can connect:
+
+my machine:3000 -> gateway -> imgur.com:3000
+ssh -fN -L 3000:imgur.com:3000 gateway # on my machine
+
+my machine:3000 -> gateway:3000
+ssh -fN -L 3000:localhost:3000 gateway # on my machine
+                    \
+                     gateway
+
+TCP remote port forwarding (reverse tunnel):
+
+ex: secure remote desktop (no firewall openings needed on my machine):
+the support person connects via vnc://gateway:5900. they might need local port
+forwarding on their side
+
+anyone connecting to the gateway on port 5900 will end up on port 5900 on my machine
+ssh -fN -R 5900:localhost:5900 gateway # on my machine
+                    \
+                     my machine
 
 or in ~/.ssh/config:
-host gateway.host.com
-   LocalForward 3000 imgur.com:3000 # use it with: ssh -fN gateway.host.com
+host gateway
+   LocalForward 3000 imgur.com:3000 # use it with: ssh -fN gateway
