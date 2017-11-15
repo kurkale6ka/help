@@ -1,2 +1,4 @@
 # Remove annoying selected split
 select-pane -M
+
+OR right click :-D

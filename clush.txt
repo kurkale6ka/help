@@ -27,3 +27,6 @@ list: sed -n 's/^\[\([^:]\+\)\]/\1/p' /etc/ansible/hosts
 
 # pg
 clush -bra 'ps faxww o pid,stat,euser,egroup,start_time,cmd | grep -iEB1 --color=always [m]emcached'
+
+# List nodes
+nodeset -ll @GROUP | sed -r 's/^@\S+\s//' | tr , '\n'
