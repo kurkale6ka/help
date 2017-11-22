@@ -25,7 +25,9 @@ openssl req -nodes -newkey rsa:2048 -keyout myserver.key -out server.csr
 1.b without key pair generation
 
 openssl req -new -key myserver.key -out server.csr
-openssl req -in server.csr -noout -subject # check
+
+# check the csr
+openssl req -in server.csr -noout -subject
 
 Self signed certificate (see: PKCS#10)
 --------------------------------------
