@@ -129,7 +129,7 @@ do
 
    if [[ $fname != $cdate && -n $cdate ]]
    then
-      echo "'$file' - $cdate"
+      echo "File name: '$file' - create date: $cdate"
    fi
 done
 
