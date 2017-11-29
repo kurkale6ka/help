@@ -1,3 +1,6 @@
+h H - Copy/append pattern space to hold space
+g G - Copy/append hold space to pattern space
+
 sed -n '1!G;$!h;$p' myfile
 
 PS = pattern space
