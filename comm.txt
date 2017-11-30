@@ -1,0 +1,8 @@
+# lines only in file1
+comm -23 <(sort file1) <(sort file2)
+
+# lines only in file2
+comm -13 <(sort file1) <(sort file2)
+
+# lines common to both files
+comm -12 <(sort file1) <(sort file2)
