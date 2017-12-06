@@ -1,0 +1,9 @@
+Sender Policy Framework
+
+Allow 3rd party to send emails on our behalf:
+
+mydomain.com
+TXT - "v=spf1 ip4:mxserver1 ip4:... include:spf.3rdparty.com -all"
+
+NB: the replies come back to our mail servers so we also need to create mail
+    accounts for 3rd party.
