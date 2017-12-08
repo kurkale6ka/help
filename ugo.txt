@@ -1,0 +1,3 @@
+               base permissions   umask 022
+ 421 421 421 | File / Directory | File / Directory
+-rwx rwx rwx | 666    777       | 644    755
