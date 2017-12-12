@@ -1,3 +1,19 @@
+Manual examples:
+
+%Ea:ar      # right align around :
+%Ea\ arl    # align right then left affecting the first 2 spaces only - pyramids!
+%Ea\ arl**  # same as above but repeat: rl rl ...
+%Ea**\ arl  # same as above
+%Ea\ arl*   # align right then always left
+%Ea*\ arl   # same as above
+%Ea,iu1     # align around , ignoring unmatched lines
+%Ea*|       # align around all |s, not the 1st one only
+%Ea*|<l0r2  # align around all |s, stick delimiter to the left with 0 margin before it and 2 after
+%Ea*/=\+/dr # align around regexes with delimiters right aligned
+
+NB: regarding the arl** and arl* examples above, the meaning of */** is
+    different than when not using a (see point 3. below)
+
 1. gaip
 
 2. Return key to select alignment mode (left, right, or center)
@@ -36,7 +52,6 @@ Interactive mode:
         | stick to right  | set right margin to 0 while left aligning
  <down> | *_margin        | { 'left_margin': 0, 'right_margin': 0 } (no margins around delimiter)
 
-
 Examples:
 
 - Ctrl-a with llr*
@@ -53,8 +68,8 @@ Examples:
 
 - Pyramid
 
-   aa bb
-    a b
+  aa bb
+  a b
   aaa bbb
 
   gaap ** <return> <space>
