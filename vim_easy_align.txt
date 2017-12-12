@@ -1,7 +1,7 @@
 Manual examples:
 
 %Ea:ar      # right align around :
-%Ea\ arl    # align right then left affecting the first 2 spaces only - pyramids!
+%Ea\ arl    # align right then left affecting the first 2 spaces only - pyramid!
 %Ea\ arl**  # same as above but repeat: rl rl ...
 %Ea**\ arl  # same as above
 %Ea\ arl*   # align right then always left
