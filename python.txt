@@ -92,3 +92,7 @@ Decorators:
 @click.option('--ifname', help='The wireless interface name')
  click.option will return a function (a callable) which will be the decorator's name
 @function
+
+Modifying a list while looping: non
+To avoid side effects, it's best to work on a copy by using the slicing operator:
+for i in list[:]:
