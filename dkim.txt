@@ -1,0 +1,11 @@
+Mail server:
+generate keys with opendkim-genkey
+publish public key in DNS
+
+configure opendkim/postfix
+
+sign emails with private key
+
+Clients:
+receivers are now able to check emails integrity by using the public key found
+in the DNS record of the sender.
