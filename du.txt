@@ -4,7 +4,7 @@
 du -sh /etc
 
 # non dot files/folders, no recursion
-du -sh * | sort -hr
+du -sh * | sort -hr | grep G
 du -s * | sort -nr # on older systems
 
 # all files/folders, no recursion
