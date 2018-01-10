@@ -1,8 +1,30 @@
+x is needed everywhere!
+we must be able to traverse (cd) the whole path
+
+Example:
+
+% namei -l /etc/yum/vars/test
+dr-xr-xr-[x] root  root  /
+drwxr-xr-[x] root  root  etc/
+drwxr-xr-[x] root  root  yum/
+drwxr-xr-[x] root  root  vars/
+drwxr-xr-[x] mitko mitko test/
+
+here mitko would be able to:
+touch /etc/yum/vars/test/bla
+
+because only the final (leaf) permissions count as long as x is everywhere.
+
+NB: no w on any of the intermediary folders is needed by that user!
+
+Annexe
+
+  u   g   o    base permissions   umask 022
+ 421 421 421 | File / Directory | File / Directory
+-rwx rwx rwx | 666    777       | 644    755
+
 dir: rwx
       \\\
        \\*- cd + use
         \*-- create stuff (requires x)
          *--- ll
-
-to use (read, exe, write...) a file we need x on ALL parent dirs
-it's different for modifying a dir; w is only needed on the actual dir being changed
