@@ -1,0 +1,19 @@
+# compress
+xz -v -T0 file -> file.xz
+    |  +- use as many threads as cores
+    +- show progress
+
+# decompress
+unxz file.xz
+xz -d file.xz
+
+# list info
+xz -l file.xz
+
+# compress a folder
+tar cvf etc.tar /etc/ && xz -v -T0 etc.tar # etc.tar.xz
+tar cJvf etc.txz /etc/
+
+# misc
+xzcat
+xzgrep
