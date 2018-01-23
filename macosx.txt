@@ -69,3 +69,10 @@ Custom layout:
 Window/Restore Window Arrangement
 
 Finder: search - kind:image|movie|png...
+
+Become root:
+1. su - admin # ask ops for password
+sudo su - will only work if you have admin access thus you are in the sudoers file
+
+2. sudo su -
+su - won't work as the root pass isn't known/setup by default
