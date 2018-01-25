@@ -1,0 +1,13 @@
+Filters:
+
+- Fixed issues
+(assignee = currentUser() OR assignee was currentUser() OR assignee changed from currentUser()) AND (resolution = Fixed OR status = Closed) ORDER BY updated DESC
+
+- Open issues
+assignee = currentUser() AND resolution = Unresolved ORDER BY updated DESC
+
+- Reported issues
+reporter = currentUser() ORDER BY updated DESC
+
+- This week
+(assignee = currentUser() OR assignee was currentUser() OR assignee changed from currentUser()) AND (created >= startOfWeek() OR updated >= startOfWeek() OR resolved >= startOfWeek()) ORDER BY updated DESC
