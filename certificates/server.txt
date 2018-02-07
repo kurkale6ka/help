@@ -26,6 +26,8 @@
 test.chn:
 /usr/local/opt/openssl/bin/openssl s_client -showcerts -connect www.example.com:443 </dev/null 2>/dev/null | sed -n '/-----BEGIN/,/-----END/p' > /tmp/test.chn
 
+cat .crt .ca.crt > .chn
+
 * ^ certificate chain from end user, trough intermediate certificates to root
     certificate available in the trust store of your device
 
