@@ -1,0 +1,22 @@
+% cat list
+a
+aa
+b
+bb
+c
+cc
+
+# serial
+% paste -s list
+a       aa      b       bb      c       cc
+
+# Delimit 1st el with :, 2nd with \n, loop
+% paste -s -d':\n' list
+a:aa
+b:bb
+c:cc
+
+% paste - - < list
+a       aa
+b       bb
+c       cc

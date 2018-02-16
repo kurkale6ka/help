@@ -1,0 +1,3 @@
+svn log --xml authorized_keys | xml2
+svn log --xml authorized_keys | xpath '//date/text() | //msg/text()' 2>&1 | sed 's/--\s*NODE\s*--/\r/' | dos2unix | sed '/^$/d' | tail -n+2 | paste - - | sed 's/T[[:digit:]]\{2\}.*Z//'
+echo 'cat //date/text() | //msg/text()' | xmllint --shell <(svn log --xml authorized_keys)
