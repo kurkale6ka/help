@@ -7,4 +7,4 @@ svn log --xml authorized_keys | xpath '//date/text() | //msg/text()' 2>&1 | sed 
 # echo {} was causing quotes problems because $msg contained 's
 # solution: bash -c '...' $0 $1 $2 ...
 #           echo "$1" -> messages with quotes properly quoted
-svn log --xml authorized_keys2 | xpath '//date/text() | //msg/text()' 2>&1 | sed 's/--\s*NODE\s*--/\r/' | dos2unix | sed '/^$/d' | tail -n+2 | paste - - | tr '\n' '\0' | xargs -0 -I{} bash -c 'echo "$1" | { read dte msg; echo "$(date +"%d %b %Y" -d"$dte")  $msg"; }' - {}
+svn log --xml authorized_keys2 | xpath '//date/text() | //msg/text()' 2>&1 | sed 's/--\s*NODE\s*--/\r/' | dos2unix | sed '/^$/d' | tail -n+2 | paste - - | tr '\n' '\0' | xargs -0 -I{} bash -c 'echo "$1" | { read dte msg; echo "$(date +"%d %b %Y" -d"$dte"), $msg"; }' - {}
