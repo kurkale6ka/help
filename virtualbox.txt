@@ -1,0 +1,6 @@
+- NAT adapter for internet access
+  ifup ifcfg-enp0s3 + enable at boot!
+
+- host only adapter for ssh to vm:
+  Global Tools / Host Network Adapter / add vboxnet0
+  use static address: 192.168.56.101
