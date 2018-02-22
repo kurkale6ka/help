@@ -70,7 +70,11 @@ Window/Restore Window Arrangement
 
 Finder: search - kind:image|movie|png...
 
+cmd + click on URL opens empty new window:
+problem: browser's been updated but not relaunched
+
 Become root:
+------------
 1. su - admin # ask ops for password
 sudo su - will only work if you have admin access thus you are in the sudoers file
 
