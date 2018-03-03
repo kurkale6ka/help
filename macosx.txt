@@ -80,3 +80,6 @@ sudo su - will only work if you have admin access thus you are in the sudoers fi
 
 2. sudo su -
 su - won't work as the root pass isn't known/setup by default
+
+Expand Google Chrome Horizontally and Vertically:
+Alt+Shift and click the green button (alt alone expands vertically only)
