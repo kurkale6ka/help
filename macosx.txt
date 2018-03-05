@@ -45,8 +45,8 @@ locate:
 * cron jobs
 http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs
 
-iTerm2
-------
+iTerm2:
+-------
 
 tmux ^←|→ not working:
 disable keyboard shortcuts: mission control/move left|right a space
@@ -68,7 +68,10 @@ Ctrl + Shift + ↓ - PageDown
 Custom layout:
 Window/Restore Window Arrangement
 
-Finder: search - kind:image|movie|png...
+Finder:
+-------
+search - kind:image|movie|png...
+space bar to preview images in a slideshow
 
 cmd + click on URL opens empty new window:
 problem: browser's been updated but not relaunched
