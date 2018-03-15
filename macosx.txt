@@ -86,3 +86,6 @@ su - won't work as the root pass isn't known/setup by default
 
 Expand Google Chrome Horizontally and Vertically:
 Alt+Shift and click the green button (alt alone expands vertically only)
+
+Change terminal hostname:
+sudo scutil --set HostName aldebaran.taurus
