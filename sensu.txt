@@ -1,0 +1,12 @@
+sensu client on remote host:
+  checks:
+    is nginx running?
+
+sensu server processes events:
+  exe handlers
+
+sensu services only communicate with the message bus: RabbitMQ
+
+2 check execution schedulers:
+  - sensu server schedules and publishes check execution requests to subscribed clients
+  - sensu client (monitoring agent) schedules and executes a “standalone” check
