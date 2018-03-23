@@ -1,0 +1,6 @@
+- Reuse the same tcp connection for HTTP traffic
+- "Connection: Keep-Alive" vs "connection: close" http header
+- httpd.conf: KeepAlive On
+
+NB: keepalived is not keepalive!
+    It's a loadbalancing linux daemon similar to relayd
