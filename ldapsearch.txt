@@ -1,0 +1,7 @@
+ldapsearch -x -D 'cn=Manager' -W -b 'dc=example,dc=com' dn
+
+ldapsearch -x -LLL '(|(uid=flname)(cn=flname)(memberUid=flname))' dn
+
+(&(filter)(filter)(filter)...)
+(|(filter)(filter)(filter)...)
+(!(filter))
