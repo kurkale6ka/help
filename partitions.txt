@@ -1,3 +1,16 @@
+/     20GiB
+/boot  1GiB EFI System Partition (ESP)
+
+linuxswap:
+< 4GiB RAM - twice the swap
+> 4GiB RAM - same swap
+
+LVM pv:
+/var  25G
+/home remaining
+
+--------------------------------------
+
 lvcreate -L25gib -nvar lv
 lvcreate -l100%FREE -nhome lv
 
