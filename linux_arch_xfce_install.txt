@@ -6,8 +6,6 @@ https://wiki.archlinux.org/index.php/beginners%27_guide#Installation
 
 loadkeys uk # /usr/share/kbd/keymaps/
 systemctl start gpm
-# Mount a usb drive including this help
-mkdir /tmp/help && mount /dev/sdd1 /tmp/help
 
 3. Partitioning of a 500GB hard drive {{{1
 
@@ -16,10 +14,10 @@ fdisk/gdisk /dev/"$disk"
 
 (d)elete all partitions
 
-* boot: /dev/sd_1: (n)ew, (p)rimary, +512M, (t)ype ef00, (a) bootable
-* swap: /dev/sd_2: (n)ew, (p)rimary, +6G  , (t)ype 8200  # ~ double of RAM
-* root: /dev/sd_3: (n)ew, (p)rimary, +40G                # includes /usr
-*  LVM: /dev/sd_4: (n)ew, (p)rimary,        (t)ype 8e00
+* boot: /dev/sd_1: (n)ew, (p)rimary, +1G, (t)ype ef00, (a) bootable
+* swap: /dev/sd_2: (n)ew, (p)rimary, +6G, (t)ype 8200
+* root: /dev/sd_3: (n)ew, (p)rimary, +20G
+*  LVM: /dev/sd_4: (n)ew, (p)rimary,      (t)ype 8e00
 
 (p)rint, (w)rite
 
@@ -41,7 +39,7 @@ Note: (p)rimary and (a) are not relevant with gdisk
 
 * pvcreate /dev/"$disk"4
   vgcreate vdisk /dev/"$disk"4
-  vol() { lvcreate -L"$1"G vdisk -n"$2" && mkfs.ext4 /dev/vdisk/"$2"; }
+  vol() { lvcreate -L"$1"G -n"$2" vdisk && mkfs.ext4 /dev/vdisk/"$2"; }
   vol 210 home
   vol 11 var
   vol 3 opt
