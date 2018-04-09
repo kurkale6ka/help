@@ -1,5 +1,6 @@
 /     20GiB
 /boot  1GiB EFI System Partition (ESP)
+            +- Extensible Firmware Interface
 
 linuxswap:
 < 4GiB RAM - twice the swap
@@ -21,7 +22,7 @@ lvextend -L+2gib /dev/lv/lv-var /dev/sda4
 
 resize2fs /dev/lv/lv-var
 
-# scan
-pvs
-vgs
-lvs
+# scans
+pvs - physical volumes
+vgs - volume groups
+lvs - logical volumes
