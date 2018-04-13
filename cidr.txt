@@ -2,6 +2,7 @@ http://www.softpanorama.org/Net/Internet_layer/subnetting_and_cidr.shtml
 
 Private networks
 
-A:    10.0.0.0 – 10.255.255.255
-B:  172.16.0.0 – 172.31.255.255
-C: 192.168.0.0 – 192.168.255.255
+          net            min           max              count
+A:    10.0.0.0/8  –    10.0.0.1 - 10.255.255.254  (16 777 214 hosts)
+B:  172.16.0.0/12 –  172.16.0.1 - 172.31.255.254  ( 1 048 574 hosts)
+C: 192.168.0.0/16 – 192.168.0.1 - 192.168.255.254 (    65 534 hosts)
