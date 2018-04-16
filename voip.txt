@@ -1,0 +1,10 @@
+soft phone ~ voip server - INTERNET - voip server ~ soft phone
+           |             |
+        analogue      digital
+
+
+2 options:
+- local PBX (Private Branch Exchange)
+- cloud telephony provider (hosted voip)
+
+reserve number with PSTN (Public switched telephone network) so our PBX gets contacted

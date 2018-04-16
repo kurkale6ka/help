@@ -1,0 +1,5 @@
+shutdown -r +5 'The system will be rebooted in 5 minutes!'
+
+shutdown -r now
+shutdown -r +0
+reboot
