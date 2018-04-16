@@ -45,3 +45,6 @@ ps lU httpd
 
 # List parents of defunct processes
 ps ax o ppid,cmd | grep [d]efunct | awk '{print $1}' | xargs ps up
+
+NB: iptables processes cannot be seen with ps as iptables is kernel based!
+    use iptables -nvL instead.
