@@ -145,3 +145,6 @@ forks = 50
 # ProxyCommand related:
 # fix the unreachable issue related to the sftp subsystem not being enabled
 scp_if_ssh = True
+
+jinja2 filter test:
+ansible localhost -m debug -a "msg={{ 'hello.world'|replace('.world','') }}"
