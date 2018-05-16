@@ -6,6 +6,8 @@ other messages will be sent to the other log paths
 
 Basically it means we always want final unless we want duplicated logs.
 
+final is ~ or stop in rsyslog lingo
+
                                     rsyslog
 
 NB: the postfix log file is defined in syslog
