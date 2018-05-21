@@ -4,7 +4,7 @@ Get help with ?
 
 T.  - tag all messages
 ;W  - apply to tagged messages (;), clear a status flag (W)
-^T. - unrag all (.) messages
+^T. - untag all (.) messages
 
 So:
 T.;WN^T. - mark all messages as read
