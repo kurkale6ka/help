@@ -1,0 +1,8 @@
+pf:
+filter
+
+CARP:
+define loadbalanced VIPs
+
+relayd:
+NAT (+port redirection) and loadbalance to internal IPs
