@@ -1,17 +1,28 @@
-# Logrotate
+- logrotate is triggered by cron, usually from /etc/cron.daily/logrotate:
 
-- logrotate is triggered by cron, usually from `/etc/cron.daily/logrotate`:
-  ```sh
   #!/bin/sh
   /usr/sbin/logrotate /etc/logrotate.conf
   ...
-  ```
 
-- logrotate then applies configurations from `/etc/logrotate.conf` and `/etc/logrotate.d/*`
+- logrotate then applies configurations:
+  /etc/logrotate.conf
+  /etc/logrotate.d/...
 
-- _**Test with**_: `logrotate -df my_logrotate.conf` - **d** for debug, **f** for file
+- test with:
+  logrotate -df /etc/logrotate.d/...
+             |+-- force
+             +-- debug
 
-- _**copytruncate vs create**_:
+  NB: options specified in /etc/logrotate.conf won't be read! Any missing
+      ones in /etc/logrotate.d/... must be copied over.
+
+  Notes:
+  * make sure cron daemon is running
+  * check:
+    /var/log/cron
+    /var/lib/logrotate.status
+
+- copytruncate vs create:
   copytruncate should be used with services like apache that keep files open
   continuously. Such services won't notice the file has been renamed (ex:
   error.log -> error.log.1.gz) and will keep writing to the old file descriptor
@@ -23,8 +34,8 @@
   descriptors (the newly created error.log).
 
 - The size option ignores the hourly, daily, weekly or monthly time options.
-  Make sure logrotate runs often enough though! From `/etc/cron.hourly` for
+  Make sure logrotate runs often enough though! From /etc/cron.hourly for
   instance.
 
-- logrotate wrongly sets up `$HOME` to `/` so you are screwed if you use
-  `$HOME` in your init scripts
+- logrotate wrongly sets up $HOME to / so you are screwed if you use
+  $HOME in your init scripts
