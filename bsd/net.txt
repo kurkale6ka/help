@@ -1,8 +1,19 @@
-pf:
+pf
+--
+
 filter
 
-CARP:
-define loadbalanced VIPs
+CARP - Common Address Redundancy Protocol
+-----------------------------------------
 
-relayd:
+create a group of redundant firewalls (failover):
+
+Allow multiple hosts on the same network segment to share a virtual/floating
+IP. This is not loadbalanced. One host (the master) only is active and
+broadcasts it's status to all hosts in the redundancy group. If it fails, a
+backup host from the group takes over.
+
+relayd
+------
+
 NAT (+port redirection) and loadbalance to internal IPs
