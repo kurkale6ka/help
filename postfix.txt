@@ -1,22 +1,40 @@
                                     postfix
 
-## Local recipients
-# note: unknown local recipients won't receive mail
+Makefile for Berkeley DB files:
+https://github.com/kurkale6ka/scripts/blob/master/mail/makefile.db.sh
 
-# query lookup tables
-postmap -q dimitar.dimitrov local_recipients
-postmap -s local_recipients | grep dimitar
+Forwarding:
+mynetworks -> anywhere
+ strangers -> relay_domains
 
-postmap local_recipients # update/create
+local_recipients:
+for local(8) delivery, all mydestination domains are equal, with one shared namespace.
+fname.lname(@domain not needed) ok
 
-## Aliases
-# query
-postalias -q qa.team aliases
+supported lookup tables:
+postconf -m
 
-# update
-newaliases
-postalias aliases
+Show current configuration:
+postconf -nf mydestination
+postconf -xf alias_maps
 
-## Configuration
-# check non default settings
-postconf -n | grep
+if empty (^), the default value can be found with:
+postconf -df mydestination
+
+Address rewriting:
+         cleanup(8)                                   local(8)
+canonical (envelope + headers)    -    queues    -    aliases
+  virtual (envelope)
+
+NB: in transport_maps we can overwrite the local transport with something else
+    so aliases will not be reached.
+
+Maintenance:
+postfix reload # main.cf + master.cf
+postfix check  # permissions
+
+Misc:
+postconf -d mail_version
+mailq # see all queues
+postcat -q ID
+qshape deferred # queue shape
