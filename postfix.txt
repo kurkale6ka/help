@@ -22,16 +22,30 @@ if empty (^), the default value can be found with:
 postconf -df mydestination
 
 Address rewriting:
-         cleanup(8)                                   local(8)
+          cleanup(8)                                  local(8)
 canonical (envelope + headers)    -    queues    -    aliases
   virtual (envelope)
 
 NB: in transport_maps we can overwrite the local transport with something else
     so aliases will not be reached.
 
+virtual aliasing solves one problem:
+it allows each domain to have its own info mail address
+
+/etc/postfix/virtual:
+info@example.com joe
+
+/etc/postfix/aliases:
+info: info
+
 Maintenance:
 postfix reload # main.cf + master.cf
 postfix check  # permissions
+
+Monitoring:
+http://www.postfix.org/DEBUG_README.html
+# postfix/smtpd[22222]: fatal:
+tail -n10000 /var/log/maillog | egrep 'postfix/[^[:space:]]+\[[[:digit:]]+\]: (error|fatal|panic):'
 
 Misc:
 postconf -d mail_version
