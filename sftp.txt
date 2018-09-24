@@ -1,0 +1,14 @@
+useradd -mN -gwordpress -s /sbin/nologin -c'sftp only user' user1
+
+Install key in ~user1/.ssh/authorized_keys
+                       \   +-- mode 600
+                        +-- mode 700
+
+Match User user1,user2
+ForceCommand internal-sftp
+PasswordAuthentication no
+ChrootDirectory /srv/ # root:root owned
+PermitTunnel no
+AllowAgentForwarding no
+AllowTcpForwarding no
+X11Forwarding no
