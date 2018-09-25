@@ -118,3 +118,10 @@ ssh -fN -R 5900:localhost:5900 gateway # on my machine
 or in ~/.ssh/config:
 host gateway
    LocalForward 3000 imgur.com:3000 # use it with: ssh -fN gateway
+
+Mac OS:
+/usr/bin/ssh-add -K ~/.ssh/id_rsa # store in keychain
+/usr/bin/ssh-add -A               # add from keychain (similar to ssh-add)
+Host *
+   AddKeysToAgent yes
+   UseKeychain yes
