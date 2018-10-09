@@ -11,6 +11,14 @@ local_recipients:
 for local(8) delivery, all mydestination domains are equal, with one shared namespace.
 fname.lname(@domain not needed) ok
 
+virtual_alias_maps:
+Tables will be searched in the specified order until a match is found. Yes but:
+
+VIRTUAL(5):
+user@domain address, address, ... <- 1st this form is tried against all tables
+user address, address, ...        <- then this one
+@domain address, address, ...     <- and finally this one
+
 supported lookup tables:
 postconf -m
 
