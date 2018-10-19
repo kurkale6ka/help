@@ -72,3 +72,7 @@ ruleset(name="remote-601") {
 }
 
 input(type="imtcp" port="601" ruleset="remote-601");
+
+Prevent syslog from reading journal's database, use imuxsock vs imjournal:
+https://rsyslog.readthedocs.io/en/latest/configuration/modules/imjournal.html
+https://www.rsyslog.com/doc/v8-stable/configuration/modules/imuxsock.html#syssock-use
