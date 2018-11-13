@@ -76,3 +76,24 @@ input(type="imtcp" port="601" ruleset="remote-601");
 Prevent syslog from reading journal's database, use imuxsock vs imjournal:
 https://rsyslog.readthedocs.io/en/latest/configuration/modules/imjournal.html
 https://www.rsyslog.com/doc/v8-stable/configuration/modules/imuxsock.html#syssock-use
+
+Logging on CentOS 7:
+- apps send log messages to /dev/log
+- journald forwards copies of those messages to /run/systemd/journal/syslog
+- rsyslog listens on that new socket...
+
+Potential problems:
+- missing /run/systemd/journal/syslog socket, probably destroyed during rsyslog restart
+  solution: systemctl restart systemd-journald.socket
+            systemctl restart rsyslog
+
+- messages not being forwarded to the new socket even though this forwarding is supposed to happen automatically
+  solution: explicitly set ForwardToSyslog=yes in /etc/systemd/journald.conf, then
+            systemctl restart systemd-journald
+
+Tests:
+% logger -p local0.info hello
+% lsof /run/systemd/journal/syslog /dev/log
+systemd   ... /dev/log
+rsyslogd  ... /run/systemd/journal/syslog
+systemd-j ... /dev/log
