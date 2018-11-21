@@ -1,0 +1,9 @@
+gpg --(full-)gen-key
+
+gpg -k # list keys
+gpg -K # list private keys
+
+# share the key
+gpg -a --export <any part of the ID>
+      \
+       if 'armor' not given it's exported in binary vs ascii
