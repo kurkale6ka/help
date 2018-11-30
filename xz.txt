@@ -1,7 +1,9 @@
 # compress
-xz -v -T0 file -> file.xz
+xz -v -T0 file
     |  +- use as many threads as cores
     +- show progress
+
+xz -cv -T0 file > /debug/file.xz # output to a different partition
 
 # decompress
 unxz file.xz
