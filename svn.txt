@@ -1,0 +1,14 @@
+Resolve conflicts
+
+filename
+  First postpone, then edit this file. It has markers for .mine, .r1 & .r2
+  Run 'svn resolved filename' when done
+
+filename.mine
+  My changes. Before the 'svn up'
+
+filename.rOLDREV
+  The file as it was before my changes (in filename.mine)
+
+filename.rNEWREV
+  HEAD of repository. Received after 'svn up'
