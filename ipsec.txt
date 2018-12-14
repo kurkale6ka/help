@@ -1,0 +1,11 @@
+Site to Site VPN
+
+                   local           VPN tunnel          remote
+       VPN domain - Security gateway ====== Security gateway - VPN domain
+       1.2.3.4          1.2.3.1                 5.6.7.1           5.6.7.8
+
+/etc/ipsec.conf:
+ike esp from { 1.2.3.4 } to { 5.6.7.8 } local 1.2.3.1 peer 5.6.7.1
+
+Notes:
+- the VPN/encryption domain could be a single IP or a whole net (ex: London offices)
