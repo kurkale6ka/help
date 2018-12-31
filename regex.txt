@@ -1,10 +1,10 @@
                                    Regex
 
               .- a single char
-             / .-- a string of any length
-            / /
-    Globs: ? * [...]                                  bash,    find
-POSIX BRE: . * [...] ^ $ \{,\} \(\) \1               (s)ed,    grep
+             /  .- a string of length 0 or more
+            /  /
+    Globs: ?  * [..]                                  bash,    find
+POSIX BRE: . .* [..] ^ $ \{,\} \(\) \1               (s)ed,    grep
   GNU BRE: --------------------------- \? \+ \|      (s)ed,    grep
   GNU ERE: ------------------------------------ no \ (s)ed -r, grep -E, awk
            \w \W \s \S \b \B \< \>
