@@ -14,7 +14,7 @@ xz -l file.xz
 
 # compress a folder
 tar cvf etc.tar /etc/ && xz -v -T0 etc.tar # etc.tar.xz
-tar cJvf etc.txz /etc/
+tar Jcvf etc.txz /etc/
 
 # misc
 xzcat
