@@ -65,10 +65,6 @@ server0
 server1
   - AllowAgentForwarding in sshd_config
 
-ssh-agent tests/tasks:
-echo "$SSH_AUTH_SOCK"
-ssh-add -l
-
 ~/.ssh/config note:
 for ProxyCommand to work an appropriate ssh setup is needed
 (like Agent Forwarding or private key on the Proxying host)
@@ -77,10 +73,7 @@ Annexe:
 http://www.unixwiz.net/techtips/ssh-agent-forwarding.html
 
 Initial requirements:
-eval "$(ssh-agent)"
-ssh-add [~/.ssh/id_rsa_git]
-OR
-eval "$(keychain --eval --agents ssh -Q --quiet id_rsa id_rsa_git)"
+ssh key held by the local agent
 
 Chain ssh invocations in case the user + key changes
 ----------------------------------------------------
@@ -91,33 +84,6 @@ Copy between 2 remote hosts without access between them
 -------------------------------------------------------
 
 scp -3 host1:/tmp/file host2:/tmp
-
-TCP local port forwarding:
-
-our LAN policy prevents access to imgur.com but our jumphost(gateway) can connect:
-
-my machine:3000 -> gateway -> imgur.com:3000
-ssh -fN -L 3000:imgur.com:3000 gateway # on my machine
-
-my machine:3000 -> gateway:3000
-ssh -fN -L 3000:localhost:3000 gateway # on my machine
-                    \
-                     gateway
-
-TCP remote port forwarding (reverse tunnel):
-
-ex: secure remote desktop (no firewall openings needed on my machine):
-the support person connects via vnc://gateway:5900. they might need local port
-forwarding on their side
-
-anyone connecting to the gateway on port 5900 will end up on port 5900 on my machine
-ssh -fN -R 5900:localhost:5900 gateway # on my machine
-                    \
-                     my machine
-
-or in ~/.ssh/config:
-host gateway
-   LocalForward 3000 imgur.com:3000 # use it with: ssh -fN gateway
 
 Mac OS:
 /usr/bin/ssh-add -K ~/.ssh/id_rsa # store in keychain

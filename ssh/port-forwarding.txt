@@ -1,0 +1,41 @@
+                              TCP Port forwarding
+
+Local
+-----
+ssh -fNL [localhost:]port:remotehost:port gateway
+     |+- do not execute a remote command
+     +- go to background before command execution
+
+example:
+our LAN policy prevents access to imgur.com but our jumphost(gateway) can connect:
+
+# locally
+ssh -fNL 3000:imgur.com:3000 gateway # localhost:3000 -> gateway -> imgur.com:3000
+ssh -fNL 3000:localhost:3000 gateway # localhost:3000 -> gateway:3000
+                  \
+                   gateway
+
+ask for port 3000 locally, get port 3000 on the remote
+
+in ~/.ssh/config:
+host gateway
+   LocalForward 3000 imgur.com:3000 # use it with: ssh -fN gateway
+
+Remote (reverse tunnel), aka secure remote desktop
+--------------------------------------------------
+In the following example, the support person connects via vnc://gateway:5900,
+they might need local port forwarding on their side
+
+# setup by user on their host (no firewall openings needed)
+ssh -fNR 5900:localhost:5900 gateway # locally
+                  \
+                   user (the implied localhost before 5900 is the gateway!)
+
+ask for port 5900 on the gateway, get port 5900 on the user machine
+
+Dynamic
+-------
+In order to tunnel all traffic (so all ports) dynamic forwarding must be used:
+
+ssh -D4567 remote (gateway or host itself) # -fN ?
+local -> SOCKS v5 (ff proxy setup localhost:4567) -> remote
