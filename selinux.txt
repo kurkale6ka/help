@@ -1,5 +1,17 @@
                  Mandatory Access Control confined environment
 
+https://wiki.gentoo.org/wiki/SELinux/Quick_introduction
+
+SELinux is a security subsystem inside the Linux kernel. It uses Linux Security Modules.
+if DAC check forbids an activity, then SELinux is not even consulted.
+
+context or label:
+user_u:user_r:user_t:sensitivity
+                \
+                 type or domain
+
+...
+
 ps Z:
 every process is assigned a security context or label which defines the rights
 and privileges of the process
