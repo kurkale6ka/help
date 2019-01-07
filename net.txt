@@ -1,0 +1,16 @@
+OSI
+
+2. link layer: frame  host   A - MAC addresses - frame  host   B
+3. inet layer: packet router A - IP  addresses - packet router B
+4. transport layer: TCP
+5. app layer: SSH, HTTP, ...
+
+|o|o| - console (serial) port
+
+uplink port, switch, router
+
+A route has host scope when it leads to the local host.
+A route has link scope when it leads to the local network.
+A route has universe scope when it leads to addresses more than one hop away.
+
+managed switches support VLANs
