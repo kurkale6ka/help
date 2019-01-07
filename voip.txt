@@ -8,3 +8,7 @@ soft phone ~ voip server - INTERNET - voip server ~ soft phone
 - cloud telephony provider (hosted voip)
 
 reserve number with PSTN (Public switched telephone network) so our PBX gets contacted
+
+PBX
+IP PBX
+hosted PBX
