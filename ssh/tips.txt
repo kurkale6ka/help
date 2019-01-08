@@ -1,0 +1,9 @@
+Chain ssh invocations:
+ssh -t user1@server1 'ssh user2@server2'
+
+Mac OS:
+/usr/bin/ssh-add -K ~/.ssh/id_rsa # store in keychain
+/usr/bin/ssh-add -A               # add from keychain
+Host *
+   AddKeysToAgent yes
+   UseKeychain yes
