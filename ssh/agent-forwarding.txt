@@ -1,15 +1,15 @@
                               SSH Agent Forwarding
            http://www.unixwiz.net/techtips/ssh-agent-forwarding.html
 
-Ordinary Password Authentication
---------------------------------
+Password authentication
+-----------------------
 password required for every connection
 
 --> user
 <-- PASSWORD
 --> password (/etc/passwd)
 
-Public Key Access
+Public Key access
 -----------------
 passphrase required for every connection
 
@@ -17,7 +17,7 @@ passphrase required for every connection
 <-- KEY CHALLENGE (after looking in ~user/.ssh/authorized_keys)
 --> key response (after unlocking id_rsa with the passphrase)
 
-Public Key Access with Agent support (local key holder)
+Public Key access with Agent support (local key holder)
 -------------------------------------------------------
 passphrase required only once and used for all connections
 
@@ -28,7 +28,7 @@ passphrase required only once and used for all connections
       (after unlocking id_rsa with the passphrase)
 --> key response
 
-Public Key Access with Agent Forwarding (localhost -> server1 -> server2)
+Public Key access with Agent Forwarding (localhost -> server1 -> server2)
 -------------------------------------------------------------------------
 passphrase required only once and used for all connections, plus allow sshing
 from remote destinations by forwarding the key challenge to the initial local server
