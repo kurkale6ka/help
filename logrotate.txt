@@ -1,28 +1,28 @@
 - logrotate is triggered by cron, usually from /etc/cron.daily/logrotate:
 
   #!/bin/sh
-  /usr/sbin/logrotate /etc/logrotate.conf
+  /usr/sbin/logrotate /etc/logrotate.conf # main config
   ...
+  include /etc/logrotate.d # extra configs
 
-- logrotate then applies configurations:
-  /etc/logrotate.conf
-  /etc/logrotate.d/...
+- debugging:
 
-- test with:
   logrotate -df /etc/logrotate.d/...
              |+-- force
-             +-- debug
+             +-- debug (dry run with implied -v)
 
-  NB: options specified in /etc/logrotate.conf won't be read! Any missing
-      ones in /etc/logrotate.d/... must be copied over.
+  NB: options specified in /etc/logrotate.conf won't be read! We would need to
+      run our test with logrotate -df /etc/logrotate.conf for that. Any missing
+      options in /etc/logrotate.d/... must be copied over for the test.
 
-  Notes:
-  * make sure cron daemon is running
+  notes:
+  * make sure crond is running and there aren't duplicate instances
   * check:
     /var/log/cron
     /var/lib/logrotate.status
 
 - copytruncate vs create:
+
   copytruncate should be used with services like apache that keep files open
   continuously. Such services won't notice the file has been renamed (ex:
   error.log -> error.log.1.gz) and will keep writing to the old file descriptor
@@ -33,9 +33,22 @@
   point using copytruncate since when the service starts it will open new file
   descriptors (the newly created error.log).
 
-- The size option ignores the hourly, daily, weekly or monthly time options.
-  Make sure logrotate runs often enough though! From /etc/cron.hourly for
-  instance.
+- rotating on size:
+
+  minsize: size and time (ex: 10M + daily)
+    * DANGER: even if size is reached before time, no rotation.
+
+  maxsize: size or time
+    * sub optimal: even if size isn't reached at time, rotation.
+
+  size: size
+    * DANGER: time is ignored but make sure logrotate runs often enough or size could
+      grow above it's threshold.
+
+  possible solution for 'minsize' and 'size'
+  ------------------------------------------
+  add a script in /etc/cron.hourly:
+  /usr/sbin/logrotate -s /var/lib/logrotate.status /opt/graphite/conf/logrotate-carbon.conf
 
 - logrotate wrongly sets up $HOME to / so you are screwed if you use
   $HOME in your init scripts
