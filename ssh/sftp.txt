@@ -1,4 +1,6 @@
-useradd -mN -gwordpress -s /sbin/nologin -c'sftp only user' user1
+useradd -mN -gwordpress -s /sbin/nologin -c'sftp only account' user1
+         |+-- no user group
+         +-- create home
 
 Install key in ~user1/.ssh/authorized_keys
                        \   +-- mode 600
