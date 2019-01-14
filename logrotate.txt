@@ -50,5 +50,12 @@
   add a script in /etc/cron.hourly:
   /usr/sbin/logrotate -s /var/lib/logrotate.status /opt/graphite/conf/logrotate-carbon.conf
 
+  When using dateext, if size grows above threshold, rotation will be skipped
+  till the next day with an error message reading that file /var/log/----.Y-m-d
+  already exists. dateformat must be used in that case:
+
+  dateext
+  dateformat .%Y-%m-%d_%H-%s
+
 - logrotate wrongly sets up $HOME to / so you are screwed if you use
   $HOME in your init scripts
