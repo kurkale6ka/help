@@ -14,3 +14,21 @@ A route has link scope when it leads to the local network.
 A route has universe scope when it leads to addresses more than one hop away.
 
 managed switches support VLANs
+
+Routing
+
+The kernel takes care of routing automagically, this can be checked with route
+-n... auto flag. The only time we need explicit routing is when it isn't
+obvious.
+
+Two ports being on the same NIC, doesn't mean that the 2 associated nets will
+auto communicate. If the ports are on the same net yes, if on different nets,
+IP forwarding is enabled and there is an allowing firewall rule then yes, else
+not.
+
+Notes:
+* the admin decides what nets they will be on when configuring
+  /etc/sysconfig/network-scripts/ifcfg-...
+
+* Once IP forwarding is enabled, all nets can communicate thus you need proper
+  firewall rules to prevent this
