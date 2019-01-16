@@ -4,7 +4,7 @@ Local
 -----
 ssh -fNL [localhost:]port:remotehost:port gateway
      |+- do not execute a remote command
-     +- go to background before command execution
+     +- go to background (exiting the terminal won't close the tunnel)
 
 example:
 our LAN policy prevents access to imgur.com but our jumphost(gateway) can connect:
@@ -12,14 +12,16 @@ our LAN policy prevents access to imgur.com but our jumphost(gateway) can connec
 # locally
 ssh -fNL 3000:imgur.com:3000 gateway # localhost:3000 -> gateway -> imgur.com:3000
 ssh -fNL 3000:localhost:3000 gateway # localhost:3000 -> gateway:3000
-                  \
-                   gateway
+                   \___________/
 
 ask for port 3000 locally, get port 3000 on the remote
 
 in ~/.ssh/config:
 host gateway
    LocalForward 3000 imgur.com:3000 # use it with: ssh -fN gateway
+
+use non privileged ports locally:
+ssh -fNL 1443:localhost:443 gateway
 
 Remote (reverse tunnel), aka secure remote desktop
 --------------------------------------------------
@@ -35,7 +37,19 @@ ask for port 5900 on the gateway, get port 5900 on the user machine
 
 Dynamic
 -------
-In order to tunnel all traffic (so all ports) dynamic forwarding must be used:
+Forward all ports: "a poor man's VPN"
 
-ssh -D4567 remote (gateway or host itself) # -fN ?
-local -> SOCKS v5 (ff proxy setup localhost:4567) -> remote
+ssh -fND 4567 gateway # <- the ssh process BECOMES the socks server.
+
+ff request -> (proxy via the local socks server) -> (tunnel to) gateway
+                \
+                 point to it with - localhost:4567
+                 blank all other proxy fields!
+
+It's as if our requests were originating from the gateway.
+Connect via https://gateway (or any IP accessible from the gateway)
+        NOT https://localhost:4567
+
+why not use ssh -L?
+If you need to access https://company.com, https://company.com:1234 and other
+ports, you would need to setup as many local tunnels vs a single dynamic one.
