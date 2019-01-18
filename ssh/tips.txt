@@ -1,9 +1,22 @@
 Chain ssh invocations:
 ssh -t user1@server1 'ssh user2@server2'
 
-Mac OS:
+Mac OS
+
 /usr/bin/ssh-add -K ~/.ssh/id_rsa # store in keychain
 /usr/bin/ssh-add -A               # add from keychain
 Host *
    AddKeysToAgent yes
    UseKeychain yes
+
+Fingerprints
+
+ssh-add -l
+ssh-keygen -lf ~/.ssh/id_rsa
+ssh-keygen -Emd5 -lf ~/.ssh/id_rsa
+
+4096 SHA256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ~/.ssh/id_rsa (RSA)
+4096 MD5:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc ~/.ssh/id_rsa (RSA)
+
+location on servers:
+/etc/ssh # HostKey in sshd_config
