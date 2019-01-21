@@ -21,7 +21,9 @@ host gateway
    LocalForward 3000 imgur.com:3000 # use it with: ssh -fN gateway
 
 use non privileged ports locally:
-ssh -fNL 1443:localhost:443 gateway
+ssh -fNL 1443:10.1.0.200:443 gateway
+
+Connect via https://localhost:1443
 
 Remote (reverse tunnel), aka secure remote desktop
 --------------------------------------------------
