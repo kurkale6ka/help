@@ -1,9 +1,20 @@
+# generate
 gpg --(full-)gen-key
 
-gpg -k # list keys
-gpg -K # list private keys
+# list
+gpg -k # pub
+gpg -K # private
 
-# share the key
-gpg -a --export <any part of the ID>
+# share
+gpg -a --export <ID>
       \
-       if 'armor' not given it's exported in binary vs ascii
+       if 'armor' not given it's exported in binary vs ASCII
+
+# import
+gpg --import ~/Downloads/key
+
+# encrypt with multiple public keys
+gpg -e -r me -r recipient1 /tmp/secret
+
+# decrypt
+gpg -d /tmp/secret.gpg
