@@ -1,0 +1,37 @@
+         ALL (ALL)  ALL
+%group hosts=(user) commands
+%group hosts=(user) NOPASSWD: commands
+   \     \      \
+    \     \      run as
+     \     10.0.0.10
+      allowed users
+
+Examples:
+---------
+
+1.
+
+%monitoring 10.0.0.10=(sensu) NOPASSWD: ALL
+
+users in the monitoring group and connecting from 10.0.0.10 can run
+passwordless any command user sensu has permissions to run:
+
+sudo -usensu check_space
+
+2.
+
+User_Alias ADMINS     = user1, user2
+Host_Alias WEBSERVERS = www1, www2, www3
+Cmnd_Alias PROCESSES  = /usr/bin/nice, /bin/kill, /usr/bin/renice
+
+ADMINS WEBSERVERS=(ALL) PROCESSES
+
+In this example ADMINS is not a Linux group, it's just a list of users
+
+sudo /bin/kill 1024
+
+Misc:
+-----
+
+# mins before asking for password again
+Defaults:user timestamp_timeout=510
