@@ -1,10 +1,9 @@
-         ALL (ALL)  ALL
-%group hosts=(user) commands
-%group hosts=(user) NOPASSWD: commands
-   \     \      \
-    \     \      run as
-     \     10.0.0.10
-      allowed users
+        ALL (ALL) ALL
+users hosts=(usr)           commands
+users hosts=(usr) NOPASSWD: commands
+     \         \
+      \         run as
+       allowed users
 
 Examples:
 ---------
