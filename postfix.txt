@@ -46,6 +46,9 @@ info@example.com joe
 /etc/postfix/aliases:
 info: info
 
+Certificates:
+smtpd_tls_cert_file = # the .chn is actually expected as there is no smtpd_tls_ca_file
+
 Maintenance:
 postfix reload # main.cf + master.cf
 postfix check  # permissions
