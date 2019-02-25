@@ -1,0 +1,29 @@
+read about ap management network
+
+Create a VLAN:
+assign the same PVID, Port VLAN ID, to a bunch of ports
+
+A trunk port can carry traffic for all VLANs. For this to work frames must be tagged with their VLAN id. Normal ports are called access ports
+
+fw - vlan port: tag frame with pvid
+ap - trunk port: tag frame with pvid (as defined in the wlans setup on the ap)
+
+can trunk ports be part of a vlan?
+
+T, U, F meaning on Dell 2834 switch
+
+U - untagged, ie: non trunk port
+T - tagged, ie: trunk port
+F - forbidden...
+
+Define VLAN10:
+
+        1 2 3 4 . . . 22 23 24
+Static  U U U U       T  T  T
+Current U U U U       T  T  T
+   \
+    static or saved value vs current temporarily changed value but not persisted?
+
+NB: we have to define both the untagged and the tagged ports
+
+LAG???

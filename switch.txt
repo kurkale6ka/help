@@ -1,0 +1,23 @@
+Dell
+
+port notation:
+
+Te1/0/1
+| | | +- port
+| | +- row
+| +- switch
++- speed
+
+stack 3 switches:
+
+           Te1/0/2
+           |
+switch1: ロロロロ- only 1 row of SFP+ ports, so Tex/0/x
+          \
+switch2: ロロロロ
+          \
+switch3: ロロロロ
+         |
+         Te3/0/1
+
+   final step: connect Te1/0/2 with Te3/0/1
