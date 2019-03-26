@@ -1,5 +1,19 @@
                                     iptables
 
+Extensions
+
+-m module
+ load this module
+
+example:
+-m tcp
+ brings --sport and --dport
+
+note:
+-p module -m module is redundant,
+-p module will auto load module IF an option from the module is used
+ex: -p tcp --dport 22 is enough
+
 Policy chains
 
 → INPUT:   incoming connections
