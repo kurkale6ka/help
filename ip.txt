@@ -5,7 +5,7 @@ ip -4 a | ifconfig -a
 ip link set eth0 up | ifconfig eth0 up
 ifup eth0
 
-# Set IP...
+# IP
 ip a add 192.168.0.77/24 dev eth0 | ifconfig eth0 192.168.0.77 [up]
                          \                                     \
                           broadcast ...                         netmask ... broadcast ...
@@ -13,8 +13,10 @@ ip a add 192.168.0.77/24 dev eth0 | ifconfig eth0 192.168.0.77 [up]
                                     ifconfig eth0 netmask ...
                                     ifconfig eth0 broadcast ...
 
-# ...secondary (alias)
-ifconfig eth0:0 192.168.0.77 netmask 255.255.255.0 up
+# Alias
+ifconfig eth0:0 192.168.0.77/24 up
+ifconfig eth0:0 down
+
 ip a add 192.168.0.77/24 dev eth0:0
 ip a add 192.168.0.77/24 dev eth0 label eth0:0
 
