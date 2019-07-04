@@ -9,3 +9,12 @@ ike esp from { 1.2.3.4 } to { 5.6.7.8 } local 1.2.3.1 peer 5.6.7.1
 
 Notes:
 - the VPN/encryption domain could be a single IP or a whole net (ex: London offices)
+
+Example:
+ike esp from { ... } to { ... } local ... peer ... \
+  main  auth hmac-sha1 enc aes-256 group modp1024 lifetime 8640 \ # <- phase 1 mode and cryptographic transforms
+  quick auth hmac-sha1 enc aes-256 group modp1024 lifetime 3600 \ # <- phase 2 cryptographic transforms
+  psk "XXXXXXXXXXXXX"
+
+- modp1024: DH group 2 (dh2)
+- For phase 2, Perfect Forward Secrecy (PFS) is enabled unless group none is specified
