@@ -1,18 +1,40 @@
 Apache
 ------
 
+configuration files:
+* httpd.conf
+*   -> Include directives
+* .htaccess (if no access to httpd.conf)
+
+configuration:
+<section>
+  directives
+</section>
+
+http://www.example.com/work/ - serve index.html
+                      |
+                      +- DocumentRoot (/var/www/html)
+
+Virtual hosts:
+
+1. multiple hosts resolve to the same IP, both vhost sections match, differentiate on servername
+   www.example.com -> <VirtualHost *:80> ServerName www.example.com
+   hi.travel.com   -> <VirtualHost *:80> ServerName hi.travel.com
+
+2. with ssl, not using sni, the Host header isn't available for matching against a ServerName. In that case we could set the Host header for further processing
+   www.example.com -> <VirtualHost 1.1.1.1:443> RequestHeader set Host www.example.com
+   hi.travel.com   -> <VirtualHost 2.2.2.2:443> RequestHeader set Host hi.travel.com
+
+Location:
+<Location "/private">  -> match /private, /private/, /private/text, ...
+<Location "/private/"> -> match           /private/, /private/text, ...
+
 Modules {{{1
 
 Modules can be statically compiled into the httpd binary when the server is
 built. Alternatively, modules can be compiled as Dynamic Shared Objects (DSOs)
 that exist separately from the main httpd binary file. You must use a
 LoadModule directive in httpd.conf to tell Apache to activate a module.
-
-Note: use the following substitute command in Vim to disable most unneeded modules
-
-clush -aB 'grep -hr "Proxy\|\[.*P.*\]" /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/ /etc/httpd/vhosts.d/ | grep -vE "^\s*#"'
-
-:s/\v^\ze\s*LoadModule\s+%(include|dav.*|%(user)?dir|version|usertrack|logio|speling|ext_filter|expires|deflate|actions|proxy_balancer|%(disk_|mem_|file_)*cache|%(authnz_)?ldap|authz_%(groupfile|dbm|default)|auth_%(basic|digest)|authn_.*)_module/#/c
 
 Options {{{1
 
