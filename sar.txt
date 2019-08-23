@@ -1,0 +1,14 @@
+By default sar displays CPU statistics for the current day
+
+sar -1 -r -s 16:45:00 -e 18:55:00 [interval [count]]
+      \  RAM
+       yesterday
+
+sar -m TEMP 0
+             displays the average statistics for the time since the system was started
+
+sar 5 4
+     \ nb of times
+      interval in seconds
+
+data is stored in /var/log/sa/sa..
