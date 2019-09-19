@@ -1,0 +1,14 @@
+Create:
+diff -uw > ssh.patch
+
+Apply: (while in a parent folder of sftp)
+
+--- sftp/bla.pub
++++ sftp/bla.pub
+
+patch -p0 < ssh.patch
+
+--- /a/b/c/sftp/bla.pub
++++ /a/b/c/sftp/bla.pub
+
+patch -p4 < ssh.patch # remove 4 leading /s
