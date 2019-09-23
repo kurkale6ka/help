@@ -1,13 +1,3 @@
-                                      Sort
-Vim
----
-                  .- do a numeric sort
-                 /
-:sort! /\d\+$/ rn
-      \         \
-       \         *-- sort on the pattern (or after if no r)
-        *- reverse
-
 GNU
 ---
              .- sort on the 3rd field
@@ -17,3 +7,12 @@ sort -t: -k3 -rn
        \       \
         \       *-- reverse
          *- separator for -k
+
+Vim
+---
+                  .- do a numeric sort
+                 /
+:sort! /\d\+$/ rn
+      \         \
+       \         *-- sort on the pattern (or after if no r)
+        *- reverse
