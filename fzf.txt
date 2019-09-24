@@ -1,0 +1,18 @@
+% vim ^t
+% vim [pattern]**<tab> # not **/<tab>
+% vim $(fzf)
+
+% fzf # same as FZF_DEFAULT_COMMAND | fzf
+                 \
+                  find . -type f ! -name '.*' -print
+
+Inside vim, use :FZF or :Files, :VF will use locate first...
+
+zsh's vf will also prefer locate
+
+Options:
+   FZF_DEFAULT_COMMAND / FZF_DEFAULT_OPTS
+    FZF_CTRL_T_COMMAND / FZF_CTRL_T_OPTS
+                         FZF_CTRL_R_OPTS
+     FZF_ALT_C_COMMAND / FZF_ALT_C_OPTS
+FZF_COMPLETION_TRIGGER / FZF_COMPLETION_OPTS # for **
