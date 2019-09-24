@@ -1,0 +1,5 @@
+cat file from line 4 to $
+tail -n+4 file # mnemo: don't change the tail
+
+cat file from line 1 to $-4
+head -n-4 file # mnemo: don't change the head
