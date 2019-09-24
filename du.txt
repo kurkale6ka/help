@@ -6,6 +6,9 @@ du -ah -d1 -t100m | sort -hr
        \   --max-depth 1 # for older versions
         include files
 
+# pretty output
+du -ah -d1 -t100m | sort -hr | tail -n+2 | sed 's:\./::'
+
 # versions without -h (human readable)
 du -d1 | sort -nr
 
