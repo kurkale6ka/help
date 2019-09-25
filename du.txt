@@ -3,9 +3,8 @@ du -h -d1 | sort -hr
 # long, pretty
 du -ah0 -t100m -d1 | sort -hrz | while read -r -d '' size node; do echo -n "$size "; ls -d --color "${node#./}"; done
      \    \
-      \    \
-       \    min 100M
-        include files
+      \    min 100M
+       include files
 
 note: remove/increase -d1 in order to descend into directories
 
@@ -19,8 +18,6 @@ du --max-depth 1 | sort -nr
 
 # long
 du -a --max-depth 1 | sort -nr | head | while read -r size node; do echo -n "$size "; ls -d --color "${node#./}"; done
-
-note: remove/increase --max-depth in order to descend into directories
 
 ## old way
 du -sh * | sort -hr | head
