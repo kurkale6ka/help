@@ -1,21 +1,24 @@
 du -h -d1 | sort -hr
 
-# long, pretty output
+# long, pretty
 du -ah -d1 -t100m | sort -hr | tail -n+2 | sed 's:\./::'
      \   \   \
       \   \   min 100M
        \   --max-depth 1 # for older versions
         include files
 
-# versions without -h (human readable)
-du -d1 | sort -nr
-
 # total
 du -sh /etc
      \
       same as -d0
 
-# old way
+## versions without -h / -d
+du --max-depth 1 | sort -nr
+
+# long
+du -a --max-depth 1 | sort -nr | tail -n+2 | head | sed 's:\./::'
+
+## old way
 du -sh * | sort -hr | head
         \
          .folders won't be found!
