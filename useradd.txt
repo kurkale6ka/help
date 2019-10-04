@@ -1,0 +1,24 @@
+Add / Remove user
+-----------------
+
+useradd -m -Ggroups -s/bin/bash -cComment
+          \
+           `-> create home dir
+
+userdel -r
+          \
+           `-> remove home + mail spool
+
+Add to / Remove from group
+--------------------------
+
+gpasswd -a user group
+gpasswd -d user group
+
+Modify
+------
+
+usermod -a -Ggroups user
+
+# todo: check about /etc/shadow, mv home, ...
+usermod -l new-login login

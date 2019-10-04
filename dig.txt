@@ -1,0 +1,18 @@
+Short
+# try 'Long' if failing
+dig +short +answer
+dig +short +answer +authority
+
+Long
+dig +noall +answer
+dig +noall +answer +authority # add auth if querying -t ns
+
+Longer
+dig +noadditional +nocmd +noquestion +nostats
+
+NB:
+dig, host and nslookup
+won't consult /etc/hosts as they query name servers only.
+
+to check if nsswitch resolution is working:
+getent hosts my-site
