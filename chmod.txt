@@ -1,3 +1,6 @@
+File exe bit: X
+---------------
+
 chmod -R o=X /folder
 
 * d........x set x on all dirs
@@ -8,3 +11,8 @@ chmod -R o=X /folder
 
 Ex: make sure no file has x for others but all dirs do
 chmod -R o-x,o=X /folder
+
+Make others same as group
+-------------------------
+
+chmod o=g /folder
