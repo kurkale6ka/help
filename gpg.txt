@@ -18,3 +18,6 @@ gpg -e -r me -r recipient1 /tmp/secret
 
 # decrypt
 gpg -d /tmp/secret.gpg
+
+If no command is supplied, gpg tries to be helpful:
+gpg: WARNING: no command supplied. Trying to guess what you mean ...
