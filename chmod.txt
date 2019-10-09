@@ -1,0 +1,10 @@
+chmod -R o=X /folder
+
+* d........x set x on all dirs
+* f..x..x--x set x on exe files
+      \  \
+       `--`--> at least 1 x bit already on
+  f......--- else: same as o=
+
+Ex: make sure no file has x for others but all dirs do
+chmod -R o-x,o=X /folder
