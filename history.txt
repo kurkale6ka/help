@@ -1,0 +1,47 @@
+fc -... old=new start end
+
+   id  command
+   --  -------
+    1  ssh jumphost
+    2  echo $PATH
+-4) 3  ls
+    4  vim
+    5  exec zsh
+-1) 6  cal -------> latest
+
+Lines from the beginning get discarded after reaching HISTSIZE (in RAM)
+but ids aren't renumbered
+
+# fix last command
+fc
+fc -1
+
+# list recent
+fc -l
+fc -l -16
+history
+
+# list all
+history 1
+
+# list from 3 to 6
+fc -l  3
+fc -l  3  6
+fc -l  3 -1
+fc -l -4
+fc -l -4 -1
+
+# reexecute 3
+!3
+fc -e- 3
+
+# execute 2 without editing (- editor),
+# globally replace a string beforehand
+fc -e- HOME=PATH 2
+^old^new^:G
+^old^new # single
+
+# bash only
+fc -s old=new 2
+!!:gs/old/new
+!!:s/old/new
