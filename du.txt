@@ -1,22 +1,24 @@
-du -h -d1 | sort -hr
-
-# long, pretty
-du -ah0 -t100m -d1 | sort -hrz | while read -r -d '' size node; do echo -n "$size "; ls -d --color "${node#./}"; done
-     \    \
-      \    min 100M
+du -ah -t100m -d1 | sort -hr
+     \   \
+      \   min 100M
        include files
 
-note: remove/increase -d1 in order to descend into directories
+# pretty
+du -ah0 -t100m -d1 | sort -hrz | while read -r -d '' size node; do echo -n "$size "; ls -d --color "${node#./}"; done
+
+notes:
+* remove/increase -d1 in order to descend into directories
+* --exclude pattern
 
 # total
 du -sh /etc
      \
       same as -d0
 
-## versions without -h / -d
-du --max-depth 1 | sort -nr
+## old versions
+du -a --max-depth 1 | sort -nr
 
-# long
+# pretty
 du -a --max-depth 1 | sort -nr | head | while read -r size node; do echo -n "$size "; ls -d --color "${node#./}"; done
 
 ## old way
