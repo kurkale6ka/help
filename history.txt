@@ -1,7 +1,7 @@
 fc -... old=new start end
 
    id  command
-   --  -------
+   ==  =======
     1  ssh jumphost
     2  echo $PATH
 -4) 3  ls
@@ -17,9 +17,9 @@ fc
 fc -1
 
 # list recent
+history
 fc -l
 fc -l -16
-history
 
 # list all
 history 1
@@ -30,6 +30,11 @@ fc -l  3  6
 fc -l  3 -1
 fc -l -4
 fc -l -4 -1
+
+# reexecute previous
+!!
+r
+fc -e-
 
 # reexecute 3
 !3
