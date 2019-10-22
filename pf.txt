@@ -1,5 +1,0 @@
-Packets are evaluated against all (unless using 'quick') filter rules, the last
-one winning. Unmatched packets pass by default.
-
-Simplified filter rule syntax:
-pass/block, in/out, [log|quick], on eth0, inet(6), proto tcp, from A port 22, to B port 22, flags, state

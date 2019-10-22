@@ -1,0 +1,13 @@
+Version:
+
+$ cd .../tomcat
+
+$ bin/version.sh
+
+or
+
+$ java -cp lib/catalina.jar org.apache.catalina.util.ServerInfo
+
+Extra checks:
+
+$ java -version
