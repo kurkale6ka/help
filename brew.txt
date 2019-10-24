@@ -1,0 +1,15 @@
+$ brew search
+$ brew info
+$ brew ls
+
+Remove including dependencies
+$ brew rmtree
+
+Free space
+$ brew cleanup
+
+Diagnose problems
+$ brew doctor
+
+Fix issues
+$ brew update-reset
