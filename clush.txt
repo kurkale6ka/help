@@ -1,19 +1,9 @@
-                                     Clush
+List nodes
+nodeset -ll @xx | sed -r 's/^@\S+\s//' | tr , '\n'
 
-Insert the contents of /tmp/insert after line matching Pattern (case sensitive)
--------------------------------------------------------------------------------
-
-* Copy the file accross:
-clush -B -w NODES --copy /tmp/insert # copy to /tmp by default (--dest to change)
-
-* Modify /file/to/change:
-clush -B -wNODES << 'CLUSH'
-ed -s /file/to/change << 'ED'
-H
-/Pattern/r /tmp/insert
-wq
-ED
-CLUSH
+Copy a local file to remote hosts
+# default dest is /tmp
+$ clush -brw@xx -c ~/login.css --dest /home/user
 
 Groups patterns:
 /etc/clustershell/groups
@@ -24,9 +14,3 @@ list: perl -ne 'print "$1\n" if /^\s*(\S.*?):/ && !/^\s*#/' /etc/clustershell/gr
 map: sed -n "/^\[$GROUP/,/^\[/p" /etc/ansible/hosts | grep '^[^[#;]' | sed 's/\([0-9]\+\):\([0-9]\+\)/\1-\2/' | tr '\n' ' '
 list: sed -n 's/^\[\([^:]\+\)\]/\1/p' /etc/ansible/hosts
 # note: we will miss hosts that aren't members of any group
-
-# pg
-clush -bra 'ps faxww o pid,stat,euser,egroup,start_time,cmd | grep -iEB1 --color=always [m]emcached'
-
-# List nodes
-nodeset -ll @GROUP | sed -r 's/^@\S+\s//' | tr , '\n'
