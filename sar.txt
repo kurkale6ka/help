@@ -7,8 +7,7 @@ sar 5 4
 sar -1 -r -s 16:45:00 -e 18:55:00
       \  RAM
        yesterday
+       -f /var/log/sa/sa26 for a specific day
 
 sar -m TEMP 0
              average temperature stats since boot
-
-data is stored in /var/log/sa/sa..
