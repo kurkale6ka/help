@@ -1,13 +1,15 @@
-Short
-# try 'Long' if failing
-dig +short +answer
-dig +short +answer +authority
+Short (try 'long' if failing)
+=====
+dig +short
+dig +short +authority
 
 Long
+====
 dig +noall +answer
-dig +noall +answer +authority # add auth if querying -t ns
+dig +noall +answer +authority # if querying -t ns
 
-Longer
+Longest
+=======
 dig +noadditional +nocmd +noquestion +nostats
 
 NB:
