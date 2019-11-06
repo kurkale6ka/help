@@ -1,0 +1,13 @@
+dmesg -H
+dmesg -Hx
+dmesg -HP -lerr
+
+dmesg -eL # if no -H
+
+-H time + delta, color, pager # human
+-e time + delta
+-L color
+-P no pager
+-l warn,err # restrict to levels
+-x show facility:level
+-u userspace

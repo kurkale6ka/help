@@ -1,0 +1,8 @@
+login history
+
+last -n10
+
+last user
+last reboot
+
+lastb # last bad
