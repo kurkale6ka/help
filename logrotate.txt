@@ -21,6 +21,15 @@
     /var/log/cron
     /var/lib/logrotate.status
 
+- syntax:
+
+  /var/log/httpd/access.log
+  /var/log/httpd/error.log
+  {
+    rotate 5
+    ...
+  }
+
 - copytruncate vs create:
 
   copytruncate should be used with services like apache that keep files open
