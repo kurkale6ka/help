@@ -6,6 +6,8 @@ Arrays: []
   * .[] - get all
   * .[0]
 
+.foo | .[] is the same as .foo[]
+
 Objects: {}
 
   * .foo.bar <=> .foo | .bar
