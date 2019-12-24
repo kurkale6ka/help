@@ -1,0 +1,35 @@
+Scalars
+
+my $thing; # if not mine, it's global
+
+Arrays
+
+@items = ('string', $scalar, 12);
+
+number of elements
+if (@items < 5) { ... }
+
+Hashes
+
+%items = ('key1', 'val1', 'key2', 'val2');
+%items = (
+   key1 => 'val1',
+   key2 => 'val2'
+);
+
+References
+
+make
+$ref = \$@%named-variable;
+$ref = [anonymous array];
+$ref = {anonymous hash};
+
+use
+      @array: @{$ref}
+       %hash: %{$ref}
+   $array[3]: ${$ref}[3]     or $ref->[3]*
+$hash{'key'}: ${$ref}{'key'} or $ref->{'key'}
+
+*between 2 subscripts, -> is optional:
+@array = ([...], [...], [...]);
+${$array[1]}[2] <=> $array[1]->[2] <=> $array[1][2] (3rd elem from 2nd array)
