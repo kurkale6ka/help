@@ -9,6 +9,9 @@ Arrays
 number of elements
 if (@items < 5) { ... }
 
+slice
+@items[1..$#items] # all bar 1st
+
 Hashes
 
 %items = ('key1', 'val1', 'key2', 'val2');
@@ -16,6 +19,8 @@ Hashes
    key1 => 'val1',
    key2 => 'val2'
 );
+
+while (my ($key, $val) = each %items)
 
 References
 
@@ -33,3 +38,7 @@ $hash{'key'}: ${$ref}{'key'} or $ref->{'key'}
 *between 2 subscripts, -> is optional:
 @array = ([...], [...], [...]);
 ${$array[1]}[2] <=> $array[1]->[2] <=> $array[1][2] (3rd elem from 2nd array)
+
+File test operators
+
+if -d glob '~' # test if dir
