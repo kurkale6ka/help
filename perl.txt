@@ -1,16 +1,21 @@
 Scalars
 
-my $thing; # if not mine, it's global
+multiple assignements
+my ($a, $b, $c) = @array;
 
 Arrays
 
 @items = ('string', $scalar, 12);
+@items = qw/one two three/;
 
 number of elements
 if (@items < 5) { ... }
 
 slice
 @items[1..$#items] # all bar 1st
+
+@upper_case = map uc, @items;
+@list = grep 'o', @items;
 
 Hashes
 
@@ -20,7 +25,7 @@ Hashes
    key2 => 'val2'
 );
 
-while (my ($key, $val) = each %items)
+while my ($key, $val) = each %items
 
 References
 
@@ -29,16 +34,27 @@ $ref = \$@%named-variable;
 $ref = [anonymous array];
 $ref = {anonymous hash};
 
-use
-      @array: @{$ref}
-       %hash: %{$ref}
-   $array[3]: ${$ref}[3]     or $ref->[3]*
-$hash{'key'}: ${$ref}{'key'} or $ref->{'key'}
+use {$href} anywhere array/hash would be used ({}s are optional)
+      @array: @$ref
+       %hash: %$ref
+   $array[3]: $$ref[3]     or $ref->[3]*
+$hash{'key'}: $$ref{'key'} or $ref->{'key'}
 
 *between 2 subscripts, -> is optional:
-@array = ([...], [...], [...]);
-${$array[1]}[2] <=> $array[1]->[2] <=> $array[1][2] (3rd elem from 2nd array)
+@array = ([...], [..x], [...]);
+$$array[1][2] <=> $array[1]->[2] <=> $array[1][2]
 
 File test operators
 
 if -d glob '~' # test if dir
+
+Scope
+
+my - lexical scope
+our - same but alias for package var so can be accessed from outside
+local - change separator (IFS: $/)
+
+Regex
+
+assign $1 group
+my $number = $count =~ /(\d+)/;
