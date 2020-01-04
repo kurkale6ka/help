@@ -1,27 +1,28 @@
 Scalars
 
-multiple assignements
-my ($a, $b, $c) = @array;
+my ($a, $b, $c) = @array; # multiple assignements
 
 Arrays
 
 @items = ('string', $scalar, 12);
 @items = qw/one two three/;
 
-number of elements
-if (@items < 5) { ... }
+@items # number of elements
 
-slice
-@items[1..$#items] # all bar 1st
+@items[1..$#items] # slice: all bar 1st
 
-@upper_case = map uc, @items;
-@list = grep 'o', @items;
+@upper_case = map uc, @items; # change a list
+@list = grep '[-_]', @items; # filter a list
+
+shift, pop # remove elements
+unshift, push # add elements
 
 Hashes
 
 %items = ('key1', 'val1', 'key2', 'val2');
+
 %items = (
-   key1 => 'val1',
+   key1 => 'val1', # keys auto quoted (same for $items{key1})
    key2 => 'val2'
 );
 
@@ -30,7 +31,7 @@ while my ($key, $val) = each %items
 References
 
 make
-$ref = \$@%named-variable;
+$ref = \$@%named_variable;
 $ref = [anonymous array];
 $ref = {anonymous hash};
 
@@ -43,6 +44,7 @@ $hash{'key'}: $$ref{'key'} or $ref->{'key'}
 *between 2 subscripts, -> is optional:
 @array = ([...], [..x], [...]);
 $$array[1][2] <=> $array[1]->[2] <=> $array[1][2]
+                                 ... $hash{}{}
 
 File test operators
 
@@ -58,3 +60,20 @@ Regex
 
 assign $1 group
 my $number = $count =~ /(\d+)/;
+
+//g - progressive matching
+
+Subroutines
+
+&test {
+# args in @_
+wantarray ? @res : $res;
+}
+
+open with 3 args '-|', ... to avoid shell param expansion
+
+printf "I've got %d camel%s", $ARGV[0], $ARGV[0] == 1 ? '' : 's';
+
+Are glob, <*...> safe for word splitting?
+
+__END__
