@@ -58,8 +58,19 @@ local - change separator (IFS: $/)
 
 Regex
 
-assign $1 group
-my $number = $count =~ /(\d+)/;
+s/(\d+)_(\1)_00/$1.$1.$1/; # 11_11_00 -> 11.11.11
+
+$_ = qq/hello\nalien\nworld\n/
+s/^.+$/---/m;  # multilines: match ^ and $ many times
+s/lo.+wo/@@/s; # pretend $msg is a single line => . matches anything, including \ns
+
+/o - check $var in pattern only once since we know it's not going to change
+
+pre - $`, match - $&, post - $'
+
+captures in list context
+my ($ext) = $file =~ /\.(\w{3})/;
+my @numbers = $version =~ /\d+/g;
 
 //g - progressive matching
 
