@@ -85,6 +85,10 @@ open with 3 args '-|', ... to avoid shell param expansion
 
 printf "I've got %d camel%s", $ARGV[0], $ARGV[0] == 1 ? '' : 's';
 
-Are glob, <*...> safe for word splitting?
+Notes
+
+glob, <*> is safe for word splitting,
+it's arguments only split on whitespace, not the returned files!
+solutions: <"">, glob '""'
 
 __END__
