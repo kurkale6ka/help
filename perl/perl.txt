@@ -17,6 +17,9 @@ Arrays
 shift, pop # remove elements
 unshift, push # add elements
 
+print @items   # $, - print's field separator; $\ is the record separator only printed after print's last argument
+print "@items" # $" - list separator for interpolation
+
 Hashes
 
 %items = ('key1', 'val1', 'key2', 'val2');
@@ -73,6 +76,11 @@ my ($ext) = $file =~ /\.(\w{3})/;
 my @numbers = $version =~ /\d+/g;
 
 //g - progressive matching
+
+Variables
+
+local $/; # slurp file mode
+local $/ = ''; # paragraph mode
 
 Subroutines
 
