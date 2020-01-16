@@ -104,4 +104,16 @@ it's arguments only split on whitespace, not the returned files!
 solutions: <"">, glob '""'
 
 note about open, system, ... with more args in order to avoid invoking the shell
+
+Returns
+
+chomp
+grep
+map
+...
+
+sed vs perl
+sed -ri 's/#(max_locks_per_transaction) = [0-9]+/\1 = 128/' postgresql.conf
+perl -i -pe 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
+
 __END__
