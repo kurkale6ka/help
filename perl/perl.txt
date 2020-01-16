@@ -20,6 +20,10 @@ unshift, push # add elements
 print @items   # $, - print's field separator; $\ is the record separator only printed after print's last argument
 print "@items" # $" - list separator for interpolation
 
+# merge 2 arrays and keep elements unique
+my %merged = map { $_, 1 } @allowed, @users; # create (key:$_, val:1) list for each item
+my @unique = keys %merged;
+
 Hashes
 
 %items = ('key1', 'val1', 'key2', 'val2');
@@ -99,4 +103,5 @@ glob, <*> is safe for word splitting,
 it's arguments only split on whitespace, not the returned files!
 solutions: <"">, glob '""'
 
+note about open, system, ... with more args in order to avoid invoking the shell
 __END__
