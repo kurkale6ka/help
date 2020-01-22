@@ -1,3 +1,62 @@
+Connect over serial cable:
+
+minicom -s # setup
+
+                   +- serial
+minicom -D /dev/ttyS0 -b 9600 -8 # 8? 9600? check settings...
+     cu -l /dev/cua01 -s 9600    # BSD
+
+escape: ~. # cu only?
+
+# run these 2 before most commands
+enable # en?
+conf
+
+show:
+
+show running-config # run?
+show interface status
+show interfaces configuration
+show interfaces port-channel 1
+show ip interface
+show vlan
+
+assign IP:
+
+interface vlan 1
+ip addr 10.1.1.110 /24
+
+set password:
+
+username <user> password <password> privilege 15
+enable password <password> # enable root pass
+
+configure Static LAG Port Channel:
+
+interface range gi1/0/1-4 # range optional?
+channel-group 1 mode on # creates port-channel 1 (ports grouped under 1) as static LAG (mode on)
+end
+
+set ports to stack mode:
+
+stack
+stack-port tengigabitethernet 1/0/1 stack
+stack-port tengigabitethernet 1/0/2 stack
+end
+
+define vlans:
+
+interface range gi1/0/4,gi1/0/12-16
+switchport mode access
+switchport access vlan 4
+exit
+
+save:
+copy running-config startup-config
+
+end vs exit?
+Te - tengigabitethernet?
+
 Dell
 
 port notation:
@@ -20,4 +79,4 @@ switch3: ロロロロ
          |
          Te3/0/1
 
-   final step: connect Te1/0/2 with Te3/0/1
+final step: connect Te1/0/2 with Te3/0/1
