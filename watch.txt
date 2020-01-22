@@ -1,0 +1,5 @@
+         1s intervall (default: 2s)
+        /
+watch -n1 -d command
+            \
+             highlight diffs
