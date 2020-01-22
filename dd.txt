@@ -1,0 +1,11 @@
+show progress
+
+# native
+dd if=/dev/urandom of=/dev/null bs=4M status=progress
+
+# pv
+dd if=/dev/urandom | pv -s 2G | dd of=/dev/null bs=4M
+
+# signal
+watch pkill -USR1 ^dd
+            -INFO for BSD systems
