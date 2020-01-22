@@ -39,3 +39,14 @@ route -n
 In the Destination column, 0.0.0.0 (default) matches all IPv4 addresses
 In the Gateway     column, 0.0.0.0 (*)       indicates that there is no gateway
                                              and the packet should not be routed (sent locally?)
+
+Link Aggregation aka LAG,
+aka bond/team (NIC), bundle, trunk, EtherChannel, Port Channel...
+
+Multiple physical links are combined into one logical link. Benefits:
+* Increased throughput: traffic load balanced between links
+* Redundancy: can survive the loss of links/devices
+
+                                               +-- --+
+ex: switches linked by more than 1 cable => sw +-- --+ sw
+                                               +-- --+
