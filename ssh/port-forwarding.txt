@@ -25,17 +25,20 @@ ssh -fNL 1443:10.1.0.200:443 gateway
 
 Connect via https://localhost:1443
 
-Remote (reverse tunnel), aka secure remote desktop
---------------------------------------------------
-In the following example, the support person connects via vnc://gateway:5900,
-they might need local port forwarding on their side
+Secure remote (reverse tunnel) desktop assistance
+-------------------------------------------------
 
-# setup by user on their host (no firewall openings needed)
-ssh -fNR 5900:localhost:5900 gateway # locally
-                  \
-                   user (the implied localhost before 5900 is the gateway!)
+     gateway  localhost
+        |         |
+ssh -fNR 5901:localhost:5900 gateway # user, no firewall openings needed
+ssh -fNL 5900:localhost:5901 gateway # support
+        |         |
+    localhost  gateway
 
-ask for port 5900 on the gateway, get port 5900 on the user machine
+# support
+# ask for port 5900 on the gateway, get port 5900 on the user machine
+Screen Sharing - localhost:5900 # Darwin
+vncviewer -SecurityTypes ??? localhost:5900 # Linux
 
 Dynamic
 -------
