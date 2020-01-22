@@ -12,3 +12,9 @@ filename.rOLDREV
 
 filename.rNEWREV
   HEAD of repository. Received after 'svn up'
+
+> local unversioned, incoming dir add upon update
+
+with this kind of conflicts,
+svn revert -R
+will be needed, in addition to any other steps
