@@ -46,8 +46,8 @@ $ref = [anonymous array];
 $ref = {anonymous hash};
 
 use {$href} anywhere array/hash would be used ({}s are optional)
-      @array: @$ref
-       %hash: %$ref
+      @array: @$ref        or $ref->@*
+       %hash: %$ref        or $ref->%*
    $array[3]: $$ref[3]     or $ref->[3]*
 $hash{'key'}: $$ref{'key'} or $ref->{'key'}
 
@@ -138,5 +138,11 @@ sprintf is like printf but returns the string vs outputing on STDOUT
 sed vs perl
 sed -ri 's/#(max_locks_per_transaction) = [0-9]+/\1 = 128/' postgresql.conf
 perl -i -pe 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
+
+perl vs awk
+print from $3 to end
+perl -anE 'say "@F[2..$#F]"' file
+
+BEGIN, END
 
 __END__
