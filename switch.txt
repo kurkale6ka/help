@@ -1,10 +1,14 @@
 Connect over serial cable:
 
-minicom -s # setup
+minicom -D /dev/ttyS0 -b 9600 -s # then disable flow control
+                    \           \
+                     \           +- setup
+                      +- serial
 
-                   +- serial
-minicom -D /dev/ttyS0 -b 9600 -8 # 8? 9600? check settings...
-     cu -l /dev/cua01 -s 9600    # BSD
+After setup, you are back on the main screen and nothing happens... unless you press enter!
+
+# BSD
+cu -l /dev/cua01 -s 9600
 
 escape: ~. # cu only?
 
