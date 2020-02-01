@@ -143,6 +143,9 @@ perl vs awk
 print from $3 to end
 perl -anE 'say "@F[2..$#F]"' file
 
+namei -l /path/to/file
+perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
+
 BEGIN, END
 
 __END__
