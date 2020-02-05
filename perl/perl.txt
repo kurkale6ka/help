@@ -42,7 +42,7 @@ References
 
 make
 $ref = \$@%named_variable;
-$ref = [anonymous array];
+$ref = [anonymous array]; # same brackets as for accessing elements
 $ref = {anonymous hash};
 
 use {$href} anywhere array/hash would be used ({}s are optional)
