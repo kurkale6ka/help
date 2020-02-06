@@ -108,8 +108,6 @@ Subroutines
 wantarray ? @res : $res;
 }
 
-open with 3 args '-|', ... to avoid shell param expansion
-
 printf "I've got %d camel%s", $ARGV[0], $ARGV[0] == 1 ? '' : 's';
 
 Notes
@@ -118,7 +116,11 @@ glob, <*> is safe for word splitting,
 it's arguments only split on whitespace, not the returned files!
 solutions: <"">, glob '""'
 
-note about open, system, ... with more args in order to avoid invoking the shell
+Use open/system/... with 3 args '-|', ... to:
+- be protected against clobbering, code exe, ... (>, |, ... in $filename)
+- avoid spawning a shell
+
+Do not use -X file tests because of race conditions
 
 Returns
 
