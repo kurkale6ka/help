@@ -24,7 +24,11 @@ print @items   # $, - print's field separator; $\ is the record separator only p
 print "@items" # $" - list separator for interpolation
 
 # merge 2 arrays and keep elements unique
-my %merged = map { $_, 1 } @allowed, @users; # create (key:$_, val:1) list for each item
+1. my @unique = uniq(@array1, @array2); # use List::Util qw(uniq);
+2. my @merged{@array1, @array2} = ();
+3. my %merged = map { $_, 1 } @array1, @rray2; # create (key:$_, val:1) list for each item
+
+# 2. and 3. need this
 my @unique = keys %merged;
 
 Hashes
