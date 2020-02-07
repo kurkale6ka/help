@@ -4,6 +4,7 @@ du -ah -t100m -d1 | sort -hr
        include files
 
 # pretty
+du -ah0 -t100m -d1 | sort -hrz | perl -0ane 's:./:: for @F; print "$F[0] "; system "ls -d --color $F[1]"'
 du -ah0 -t100m -d1 | sort -hrz | while read -r -d '' size node; do echo -n "$size "; ls -d --color "${node#./}"; done
 
 notes:
