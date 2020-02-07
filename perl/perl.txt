@@ -50,12 +50,12 @@ $ref = [anonymous array]; # same brackets as for accessing elements
 $ref = {anonymous hash};
 
 use {$href} anywhere array/hash would be used ({}s are optional)
-      @array: @$ref        or $ref->@*
-       %hash: %$ref        or $ref->%*
-   $array[3]: $$ref[3]     or $ref->[3]*
-$hash{'key'}: $$ref{'key'} or $ref->{'key'}
+    @array: @$ref      or $ref->@*
+     %hash: %$ref      or $ref->%*
+ $array[3]: $$ref[3]   or $ref->[3] (note)
+$hash{key}: $$ref{key} or $ref->{key}
 
-*between 2 subscripts, -> is optional:
+(note) between 2 subscripts, -> is optional:
 @array = ([...], [..x], [...]);
 $$array[1][2] <=> $array[1]->[2] <=> $array[1][2]
                                  ... $hash{}{}

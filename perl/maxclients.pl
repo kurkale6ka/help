@@ -4,6 +4,7 @@
 
 use strict;
 use warnings;
+use feature qw/say/;
 
 my $fh;
 
@@ -15,7 +16,7 @@ for my $file (`fd -tf -E'*~' '^httpd\.conf'`)
    {
       next if 1 .. /worker\.c/;
       next unless /^maxclients\s+(.+)/i;
-      print "$file: $1\n";
+      say "$file: $1";
       last;
    }
    close $fh;

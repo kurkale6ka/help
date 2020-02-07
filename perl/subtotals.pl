@@ -1,14 +1,25 @@
 #! /usr/bin/env perl
 
+use strict;
+use warnings;
+
+# hash of hashes:
+#
+# apples
+#   +- blue => 3
+#   +- red  => 1
+
+my %db;
+
 while (<DATA>)
 {
-   ($col1, $col2) = split;
+   my ($col1, $col2) = split;
    $db{$col1}{$col2}++;
 }
 
-while (($key, $val) = each %db)
+while (my ($key, $val_ref) = each %db)
 {
-   while (($key2, $val2) = each %$val)
+   while (my ($key2, $val2) = each %$val_ref)
    {
       printf "%8s: %d %s\n", $key, $val2, $key2;
    }
