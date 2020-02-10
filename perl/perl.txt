@@ -72,26 +72,26 @@ local - change separator (IFS: $/)
 
 Regex
 
-# zero-width assertions don't consume chars
-# => both apply (AND) right after hello (followed by number but not 123)
-hello(?=\d)(?!123)
+zero-width assertions don't consume chars => they are ANDed
+hello(?=\d)(?!123) # followed by a number AND not followed by 123
 
 Possessive quantifiers
 no backtracking ~ don't give up characters
 
 A++ is syntactic sugar for atomic group notation: (?>A+)
 
-Example:
+example:
 "abcd =~ "[^"]+"
 after matching "abcd, it's clear that no backtracking will change the fact that
 a final " cannot be matched. Thus, in order to speedup failure, the pattern is
 better rewritten as "[^"]++"
 
-Notes:
+notes:
 * "abcd" =~ "[^"]++" still matches.
 * the optimizer would've automatically turned the regex possessive in this simple case.
 
-s/(\d+)_(\1)_00/$1.$1.$1/; # 11_11_00 -> 11.11.11
+backreferences
+s/(\d+).\1/...$1/ # \1 and $1 represent the actual match, not \d+
 
 # s///ms
 $_ = qq/hello\nalien\nworld\n/
