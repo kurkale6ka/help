@@ -76,10 +76,20 @@ Regex
 # => both apply (AND) right after hello (followed by number but not 123)
 hello(?=\d)(?!123)
 
-# no backtracking (atomic) group
-# => don't retry after a quantified pattern (*, +, {n,m}) fails
-# => useful optimization when we know in advance that all following combinations will fail
-(?> ... )
+Possessive quantifiers
+no backtracking ~ don't give up characters
+
+A++ is syntactic sugar for atomic group notation: (?>A+)
+
+Example:
+"abcd =~ "[^"]+"
+after matching "abcd, it's clear that no backtracking will change the fact that
+a final " cannot be matched. Thus, in order to speedup failure, the pattern is
+better rewritten as "[^"]++"
+
+Notes:
+* "abcd" =~ "[^"]++" still matches.
+* the optimizer would've automatically turned the regex possessive in this simple case.
 
 s/(\d+)_(\1)_00/$1.$1.$1/; # 11_11_00 -> 11.11.11
 
