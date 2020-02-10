@@ -1,3 +1,7 @@
-      wall [-n] [message]
-write user [ttyname]
-      mesg [y|n]: controls the access to your terminal by others (bar root)
+write <user> [tty]
+
+wall         [-n] [message]
+             change banner to "Remote broadcast message"
+
+mesg         [y|n]
+             controls the access to your terminal by others (bar root)
