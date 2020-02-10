@@ -112,8 +112,8 @@ grep /pattern/, @array # match in list
 
 Variables
 
-local $/; # slurp file mode
-local $/ = ''; # paragraph mode
+local $/; # slurp file mode     # perl -0777
+local $/ = ''; # paragraph mode # perl -00
 
 Subroutines
 
