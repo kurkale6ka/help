@@ -1,0 +1,5 @@
+only splits on a single character, use perl or awk instead:
+
+% echo $'Feb  9 2020\nFeb 14 2020' | cut -d' ' -f3-
+9 2020
+2020
