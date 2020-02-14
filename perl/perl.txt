@@ -149,19 +149,34 @@ Functions
 print 'Found a ', pos($i), "at\n";
 printf "Found a %d at\n", pos($i);
 
-sprintf is like printf but returns the string vs outputing on STDOUT
+sprintf is like printf but a string is returned instead of printed,
+it can then be passed to functions such as 'say' which lack formatting capabilities.
 
 sed vs perl
 sed -ri 's/#(max_locks_per_transaction) = [0-9]+/\1 = 128/' postgresql.conf
-perl -i -pe 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
+perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
 
 perl vs awk
 print from $3 to end
-perl -anE 'say "@F[2..$#F]"' file
+perl -laE 'say "@F[2..$#F]"' file # -a implies -n; -F implies -an
 
 namei -l /path/to/file
 perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
 
 BEGIN, END
+
+# s//$1/
+# without /e -> "" interpolation
+#    with /e -> normal code:
+#               $1 gets 'interpolated' by the first /e,
+#               it's value (4 + 3) gets evaluated by the second /e!
+$add = 4 + 3;
+$_ = 'Sum: $add';
+s/(\$\w+)/$1/ee;
+
+Traps
+
+always chomp with:
+``, system, open, <STDIN>, perl -[np] (use -l)
 
 __END__
