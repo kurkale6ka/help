@@ -1,37 +1,37 @@
-statement -> code;
-expression -> $var = code; # code that returns a value
+ statement -> code
+expression -> code that returns a value
 
-Scalars
+=head1 Arrays
 
-my ($a, $b, $c) = @array; # multiple assignements
+@items = qw/one two three/; # quote words into a list ('', '', ...)
 
-Arrays
-
-@items = ('string', $scalar, 12);
-@items = qw/one two three/;
-
-@items # number of elements
+if (@items > ...) # number of elements
 
 @items[1..$#items] # slice: all bar 1st
 
-@upper_case = map uc, @items; # change a list
-@list = grep '[-_]', @items; # filter a list
+          my $a = @array; # last to $a in scalar context, see coma operator
+        my ($a) = @array; #  1st to $a in list   context
+my ($a, $b, $c) = @array; # multiple assignements
 
-shift, pop # remove elements
-unshift, push # add elements
+  shift, pop  # shorten by 1 element which is then returned
+unshift, push # add elements and report how many
+
+ map expr, @items; # modify - comprehension
+grep expr, @items; # filter - like @list =~ /match/ but check ~~ for this
 
 print @items   # $, - print's field separator; $\ is the record separator only printed after print's last argument
 print "@items" # $" - list separator for interpolation
 
-# merge 2 arrays and keep elements unique
+merge 2 arrays and keep elements unique
+
 1. my @unique = uniq(@array1, @array2); # use List::Util qw(uniq);
 2. my @merged{@array1, @array2} = ();
 3. my %merged = map { $_, 1 } @array1, @rray2; # create (key:$_, val:1) list for each item
 
-# 2. and 3. need this
+2. and 3. need this:
 my @unique = keys %merged;
 
-Hashes
+=head1 Hashes
 
 %items = ('key1', 'val1', 'key2', 'val2');
 
@@ -42,7 +42,7 @@ Hashes
 
 while my ($key, $val) = each %items
 
-References
+=head1 References
 
 make
 $ref = \$@%named_variable;
@@ -60,17 +60,23 @@ $hash{key}: $$ref{key} or $ref->{key}
 $$array[1][2] <=> $array[1]->[2] <=> $array[1][2]
                                  ... $hash{}{}
 
-File test operators
-
-if -d glob '~' # test if dir
-
-Scope
+=head1 Scope
 
 my - lexical scope
 our - same but alias for package var so can be accessed from outside
-local - change separator (IFS: $/)
+local - local copy of a global variable
 
-Regex
+ex: input record separator aka IFS
+local $/;      # slurp file mode, perl -0777
+local $/ = ''; # paragraph mode,  perl -00
+
+environment
+      private  public (parent environment inherited by children)
+perl: my $var, $ENV{var}
+bash:     var, export var - set: see all
+                            env: see public only
+
+=head1 Regex
 
 zero-width assertions don't consume chars => they are ANDed
 hello(?=\d)(?!123) # followed by a number AND not followed by 123
@@ -100,31 +106,75 @@ s/lo.+wo/@@/s; # pretend $msg is a single line => . matches anything, including 
 
 /o - check $var in pattern only once since we know it's not going to change
 
-pre - $`, match - $&, post - $'
+  pre - $`
+match - $&
+ post - $'
 
 captures in list context
 my ($ext) = $file =~ /\.(\w{3})/;
-my @numbers = $version =~ /\d+/g;
+my @numbers = $version =~ /\d+/g; # progressive matching
 
-//g - progressive matching
+=head1 Subroutines
 
-grep /pattern/, @array # match in list
-
-Variables
-
-local $/; # slurp file mode     # perl -0777
-local $/ = ''; # paragraph mode # perl -00
-
-Subroutines
-
-&test {
-# args in @_
+sub get {
+my $var = shift;
+# or my ($var1, $var2) = @_;
 wantarray ? @res : $res;
 }
 
+ternary operator
 printf "I've got %d camel%s", $ARGV[0], $ARGV[0] == 1 ? '' : 's';
 
-Notes
+printf is sometimes more readable
+print 'Found a ', pos($i), "at\n";
+printf "Found a %d at\n", pos($i);
+
+sprintf is like printf but a string is returned instead of printed,
+it can then be passed to functions such as 'say' which lack formatting capabilities.
+
+s//$1/
+# without /e -> "" interpolation
+#    with /e -> normal code:
+#               $1 gets 'interpolated' by the first /e,
+#               it's value (4 + 3) gets evaluated by the second /e!
+$add = 4 + 3;
+$_ = 'Sum: $add';
+s/(\$\w+)/$1/ee;
+
+TODO: pack, unpack
+
+return values
+
+s/// - number of substitutions
+chomp - number of chars
+grep - list
+map - list
+if (my $var = ...) - lvalue, not boolean
+
+=head1 Perlrun
+
+-a implies -n
+-F implies -an
+
+perl -p: read every line -- process -- print every line
+perl -n: read every line -- process
+                            & explicitly print when we need
+
+one liners
+
+search and replace
+perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
+
+print from $3 to end
+perl -laE 'say "@F[2..$#F]"' file
+
+namei -l
+perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
+
+=head1 Traps
+
+always chomp with:
+``, system, open, <STDIN>, perl -l[np]
 
 glob, <*> is safe for word splitting,
 it's arguments only split on whitespace, not the returned files!
@@ -134,49 +184,42 @@ Use open/system/... with 3 args '-|', ... to:
 - be protected against clobbering, code exe, ... (>, |, ... in $filename)
 - avoid spawning a shell
 
+die "exception"; # without a newline, the script line number is appended
+
+if (`lsof ...`)
+vs
+if (system('lsof', ...) == 0)
+because lsof +D folder sets $? to 1 always
+
 Do not use -X file tests because of race conditions
 
-Returns
+=head1 Documentation
 
-chomp
-grep
-map
-...
+perldoc perl
+perldoc perldoc
+perldoc perlop
+perldoc -f split
+perldoc perlrun # command line options
+perldoc -f -x # file test operators
 
-Functions
+Perl Training Australia - Perl Tips
+http://perltraining.com.au/tips/
 
-# sometimes printf is more readable
-print 'Found a ', pos($i), "at\n";
-printf "Found a %d at\n", pos($i);
+=head1 End of the program
 
-sprintf is like printf but a string is returned instead of printed,
-it can then be passed to functions such as 'say' which lack formatting capabilities.
+__END__ or __DATA__
 
-sed vs perl
-sed -ri 's/#(max_locks_per_transaction) = [0-9]+/\1 = 128/' postgresql.conf
-perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
+* POD
+* comments
+* data that we want to process with while (<DATA>)
 
-perl vs awk
-print from $3 to end
-perl -laE 'say "@F[2..$#F]"' file # -a implies -n; -F implies -an
+=head1 TODO
 
-namei -l /path/to/file
-perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
+compiling: BEGIN, END
 
-BEGIN, END
+if -t ?
 
-# s//$1/
-# without /e -> "" interpolation
-#    with /e -> normal code:
-#               $1 gets 'interpolated' by the first /e,
-#               it's value (4 + 3) gets evaluated by the second /e!
-$add = 4 + 3;
-$_ = 'Sum: $add';
-s/(\$\w+)/$1/ee;
+next if /^#/ or /^$/; #     next if (/^#/ or /^$/)
+                      # or (next if /^#/) or /^$/ ?
 
-Traps
-
-always chomp with:
-``, system, open, <STDIN>, perl -[np] (use -l)
-
-__END__
+# vim: ft=pod fde=getline(v\:lnum)=~'^='?'>'.1\:'='
