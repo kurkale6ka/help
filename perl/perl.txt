@@ -253,6 +253,3 @@ TODO
 compiling: BEGIN, END
 
 if -t ?
-
-next if /^#/ or /^$/; #     next if (/^#/ or /^$/)
-                      # or (next if /^#/) or /^$/ ?
