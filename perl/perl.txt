@@ -48,21 +48,22 @@ while my ($key, $val) = each %items
 
 References
 
-make
 $ref = \$@%named_variable;
 $ref = [anonymous array]; # same brackets as for accessing elements
 $ref = {anonymous hash};
 
-use {$href} anywhere array/hash would be used ({}s are optional)
-    @array: @$ref      or $ref->@*
-     %hash: %$ref      or $ref->%*
- $array[3]: $$ref[3]   or $ref->[3] (note)
-$hash{key}: $$ref{key} or $ref->{key}
+                use {$ref} anywhere an array/hash would be used ({}s are optional)
+               /
+     %hash | %$ref      | $ref->%*
+    @array | @$ref      | $ref->@*
+$hash{key} | $$ref{key} | $ref->{key}
+ $array[3] | $$ref[3]   | $ref->[3]
+                              /
+                 otional between 2 subscripts:
 
-(note) between 2 subscripts, -> is optional:
-@array = ([...], [..x], [...]);
-$$array[1][2] <=> $array[1]->[2] <=> $array[1][2]
-                                 ... $hash{}{}
+([...], [..x], [...]) - $$array[1][2]  <=>
+                        $array[1]->[2] <=>
+                        $array[1][2]       {}{} for hashes
 
 Scope
 
