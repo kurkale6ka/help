@@ -1,7 +1,11 @@
  statement -> code
 expression -> code that returns a value
 
-=head1 Arrays
+Arrays
+
+, creates lists. () is only necessary if precedence is ambiguous.
+=> (fat coma) is the same as ,
+foreach is the same as for
 
 @items = qw/one two three/; # quote words into a list ('', '', ...)
 
@@ -31,7 +35,7 @@ merge 2 arrays and keep elements unique
 2. and 3. need this:
 my @unique = keys %merged;
 
-=head1 Hashes
+Hashes
 
 %items = ('key1', 'val1', 'key2', 'val2');
 
@@ -42,7 +46,7 @@ my @unique = keys %merged;
 
 while my ($key, $val) = each %items
 
-=head1 References
+References
 
 make
 $ref = \$@%named_variable;
@@ -60,7 +64,7 @@ $hash{key}: $$ref{key} or $ref->{key}
 $$array[1][2] <=> $array[1]->[2] <=> $array[1][2]
                                  ... $hash{}{}
 
-=head1 Scope
+Scope
 
 my - lexical scope
 our - same but alias for package var so can be accessed from outside
@@ -76,7 +80,7 @@ perl: my $var, $ENV{var}
 bash:     var, export var - set: see all
                             env: see public only
 
-=head1 Regex
+Regex
 
 zero-width assertions don't consume chars => they are ANDed
 hello(?=\d)(?!123) # followed by a number AND not followed by 123
@@ -114,7 +118,7 @@ captures in list context
 my ($ext) = $file =~ /\.(\w{3})/;
 my @numbers = $version =~ /\d+/g; # progressive matching
 
-=head1 Subroutines
+Subroutines
 
 sub get {
 my $var = shift;
@@ -141,8 +145,6 @@ $add = 4 + 3;
 $_ = 'Sum: $add';
 s/(\$\w+)/$1/ee;
 
-TODO: pack, unpack
-
 return values
 
 s/// - number of substitutions
@@ -151,7 +153,7 @@ grep - list
 map - list
 if (my $var = ...) - lvalue, not boolean
 
-=head1 Perlrun
+Perlrun
 
 -a implies -n
 -F implies -an
@@ -159,6 +161,16 @@ if (my $var = ...) - lvalue, not boolean
 perl -p: read every line -- process -- print every line
 perl -n: read every line -- process
                             & explicitly print when we need
+
+Precedence
+
+or, and are the same as
+||, &&  but with lower precedence
+
+Errors
+
+try, catch is:
+eval BLOCK, if ($@) BLOCK
 
 one liners
 
@@ -171,7 +183,10 @@ perl -laE 'say "@F[2..$#F]"' file
 namei -l
 perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
 
-=head1 Traps
+disk usage pretty report
+du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
+
+Traps
 
 always chomp with:
 ``, system, open, <STDIN>, perl -l[np]
@@ -192,8 +207,13 @@ if (system('lsof', ...) == 0)
 because lsof +D folder sets $? to 1 always
 
 Do not use -X file tests because of race conditions
+ex: just use `cat $file` vs `cat $file` if -f $file;
 
-=head1 Documentation
+each and //g return bool so use while vs for:
+while (each %hash)
+while (//g)
+
+Documentation
 
 perldoc perl
 perldoc perldoc
@@ -205,7 +225,18 @@ perldoc -f -x # file test operators
 Perl Training Australia - Perl Tips
 http://perltraining.com.au/tips/
 
-=head1 End of the program
+Modules
+
+use strict;
+use warnings;
+use feature qw/say/;
+use Getopt::Long;
+use File::Basename qw/basename/;
+use File::Path qw/make_path/;
+use Term::ANSIColor qw/:constants/;
+use List::Util qw/any/;
+
+End of the program
 
 __END__ or __DATA__
 
@@ -213,7 +244,7 @@ __END__ or __DATA__
 * comments
 * data that we want to process with while (<DATA>)
 
-=head1 TODO
+TODO
 
 compiling: BEGIN, END
 
@@ -221,5 +252,3 @@ if -t ?
 
 next if /^#/ or /^$/; #     next if (/^#/ or /^$/)
                       # or (next if /^#/) or /^$/ ?
-
-# vim: ft=pod fde=getline(v\:lnum)=~'^='?'>'.1\:'='
