@@ -9,3 +9,12 @@ dd if=/dev/urandom | pv -s 2G | dd of=/dev/null bs=4M
 # signal
 watch pkill -USR1 ^dd
             -INFO for BSD systems
+
+dd can be run from Linux itself as it allows for self destruction (unlike
+OpenBSD). Once in memory, if not interrupted it will write the whole HD. Of
+course when finished, there will be no OS files and most likely it’ll kernel
+panic.
+
+What shred does extra is random data but you can also create some ‘randoms’
+with openssl or take from urandom (but it’s slower) or from random which is
+even slower.
