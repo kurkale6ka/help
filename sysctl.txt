@@ -1,0 +1,15 @@
+The 'default' subtree affects all new interfaces. Assigning a value to a
+configuration key beneath default will not affect existing interfaces but acts
+as a template for new interfaces.
+The highest value set in either the interface specific subtree or the 'all'
+subtree will be the effective setting.
+
+Here we want 0 on reverse path filtering for p1p1 so 'all' needs to be 0 else
+it would overwrite p1p1's value:
+
+% sysctl -w 'net.ipv4.conf.all.rp_filter=0' # temp: put in /etc/sysctl.conf for persistence
+% sysctl -ar '\.rp_filter'
+
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.all.rp_filter = 0
+net.ipv4.conf.p1p1.rp_filter = 0
