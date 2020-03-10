@@ -1,1 +1,5 @@
-check calls: -r + core show channels
+cli:
+asterisk -r # connect to asterisk
+
+check calls:
+core show channels
