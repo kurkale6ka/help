@@ -1,0 +1,7 @@
+# unix -> std
+date -d@1584057600 +%d-%b-%Y
+
+# std  -> unix
+date +%s -d'13 Mar 2020'
+
+date +%Y
