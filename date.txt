@@ -1,7 +1,7 @@
-# unix -> std
+# epoch -> std
 date -d@1584057600 +%d-%b-%Y
 
-# std  -> unix
+# std  -> epoch - seconds since UNIX epoch: 1 Jan 1970 UTC
 date +%s -d'13 Mar 2020'
 
 date +%Y
