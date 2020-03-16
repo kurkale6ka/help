@@ -1,28 +1,30 @@
-du -ah -t100m -d1 | sort -hr
-     \   \
-      \   min 100M
+Use
+du -ah -d1
+
+instead of
+du -sh *
+        \
+         .files/folders would be missed!
+
+du -ah -d1 -t100m | sort -hr
+     \       \
+      \       min 100M
        include files
 
 # pretty
-du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
-du -ah0 -t100m -d1 | sort -hrz | while read -r -d '' size node; do echo -n "$size "; ls -d --color "${node#./}"; done
+du -ah0 -d1 -t100m | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
 
 notes:
 * remove/increase -d1 in order to descend into directories
-* --exclude pattern
+* skip files/folders with --exclude
 
 # total
 du -sh /etc
      \
       same as -d0
 
-## old versions
+## old versions of du/sort
 du -a --max-depth 1 | sort -nr
 
 # pretty
-du -a --max-depth 1 | sort -nr | head | while read -r size node; do echo -n "$size "; ls -d --color "${node#./}"; done
-
-## old way
-du -sh * | sort -hr | head
-        \
-         .folders won't be found!
+du -a --max-depth 1 | sort -nr | head | perl -ane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
