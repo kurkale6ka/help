@@ -137,6 +137,10 @@ printf "Found a %d at\n", pos($i);
 sprintf is like printf but a string is returned instead of printed,
 it can then be passed to functions such as 'say' which lack formatting capabilities.
 
+date with format
+strftime '%d-%b-%Y_%Hh%M:%S', localtime; # POSIX module
+$now->strftime($format);                 # Time::Piece->new
+
 s//$1/
 # without /e -> "" interpolation
 #    with /e -> normal code:
@@ -217,6 +221,8 @@ each and //g return boolean so use while vs for:
 while (each %hash)
 while (//g)
 
+use @backups[0 .. $#backups - 3] vs @backups[0 .. -3] because '..' counts up only
+
 Documentation
 
 perldoc perl
@@ -254,3 +260,5 @@ TODO
 compiling: BEGIN, END
 
 if -t ?
+
+# vi: ft=pod
