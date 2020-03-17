@@ -1,12 +1,6 @@
                                       Time
                                       ====
 
-Conversions
------------
-
-date -d@      # unix -> std
-date -d'' +%s # std  -> unix
-
 Regexes
 -------
 
