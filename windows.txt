@@ -1,0 +1,27 @@
+Licenses
+
+OEM - original equipment manufacturer:
+Linked to your computer, cannot be transfered in case of hardware failure.
+Your product activation key is recorded on the motherboard, it won't be
+required when you reinstall windows on the same pc.
+
+Full retail version:
+Can be transfered (not copied) to another computer.
+To be used on a SINGLE pc only at any given time.
+
+Boot
+
+Create bootable USB 2 (not 3) drive using Rufus from a Windows pc!
+For old computer/BIOS choose MBR/ntfs during the .iso copy phase.
+
+BIOS settings:
+- legacy boot
+- no secure or fast boot (can be disabled by setting admin pass)
+
+In order to choose between Home and Pro versions, a file named ei.cfg must be
+present in the Sources folder of your bootable media with these contents:
+
+[Channel]
+_Default
+[VL]
+0
