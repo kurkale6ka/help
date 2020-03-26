@@ -1,0 +1,33 @@
+The legacy MBR partition scheme allows 4 "primary" partitions at most. To
+bypass this limitation, one of the partitions must be "extended" instead of
+"primary" so it can contain several "logical" partitions.
+
+Windows is unable to boot from logical partitions.
+
+The newer partition scheme, GPT, doesn't have such a restriction, and does not
+need to use extended/logical partitions.
+
+parted -l
+parted /dev/sdb mklabel gpt
+parted /dev/sdb mkpart primary xfs 0% 100%
+parted /dev/sdb set 1 lvm on
+
+or
+
+parted /dev/sdb
+print
+mklabel
+...
+quit
+
+pvcreate /dev/sdb1
+vgcreate vg /dev/sdb1
+lvcreate -l100%FREE -nlv vg
+
+ll /dev/mapper
+vg-lv -> ../dm-2
+
+mkfs.xfs -L data /dev/mapper/vg-lv
+
+fstab
+LABEL=data /data xfs defaults 0 0
