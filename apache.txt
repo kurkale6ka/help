@@ -29,6 +29,9 @@ Location:
 <Location "/private">  -> match /private, /private/, /private/text, ...
 <Location "/private/"> -> match           /private/, /private/text, ...
 
+In <Directory>, rewrite rules match against a relative path, the dir one + slash being stripped, so use:
+RewriteRule "^$" "/moodle" # vs / -> /moodle
+
 Modules {{{1
 
 Modules can be statically compiled into the httpd binary when the server is
