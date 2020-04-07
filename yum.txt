@@ -1,17 +1,18 @@
-$ yum install rkhunter
-
 History manipulations
+---------------------
 
-$ yum history
-$ yum history list rkhunter
-$ yum history info 304
-$ yum history undo 304 # remove installed packages & dependencies
+yum history
+yum history list (pattern or id)
+yum history info id
+yum history undo id
 
 List available versions (apt-cache policy)
+------------------------------------------
 
-$ yum list erlang
-$ yum list --showduplicates erlang
+yum list erlang
+yum list --showduplicates erlang
 
-What provides ... (rpm -qf =...)
+Which package provides a given command (rpm -qf =...)
+-----------------------------------------------------
 
-$ yum provides nc # -> nmap-ncat
+yum provides nc
