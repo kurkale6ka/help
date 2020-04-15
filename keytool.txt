@@ -1,0 +1,8 @@
+keytool -genkey -keyalg rsa -keysize 2048 -alias ALIAS -keystore Data.jks
+
+keytool -list -keystore Data.jks
+
+keytool -export -alias ALIAS -file ALIAS.pub -keystore Data.jks
+keytool -import -file ALIAS.pub -alias ALIAS -keystore Data.jks
+
+keytool -delete -alias ALIAS -keystore Data.jks
