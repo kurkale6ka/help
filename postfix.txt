@@ -47,6 +47,12 @@ info@example.com joe
 info: info
 
 Certificates:
+Domain validity in mail world is established using DKIM and SPF vs CA.
+So if our DKIM/SPF checks pass, clients will be safe and they will accept our self signed certificate.
+
+smtpd_tls_security_level = may # for incoming emails, encrypt with our cert if client wants it
+ smtp_tls_security_level = may # for outgoing emails, encrypt with remote cert if available
+
 smtpd_tls_cert_file = # the .chn is actually expected as there is no smtpd_tls_ca_file
 
 Maintenance:
