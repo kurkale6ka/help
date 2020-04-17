@@ -1,0 +1,5 @@
+say %capitals
+say keys %capitals
+say %capitals.keys
+.say for keys %capitals
+for keys %capitals {.say}
