@@ -34,3 +34,6 @@ Misc:
 
 # mins before asking for password again
 Defaults:user timestamp_timeout=510
+
+Run as user:
+sudo -u<...> bash -c '...'
