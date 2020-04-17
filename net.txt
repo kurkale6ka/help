@@ -51,4 +51,15 @@ Multiple physical links are combined into one logical link. Benefits:
 ex: switches linked by more than 1 cable => sw +-- --+ sw
                                                +-- --+
 
+Firewall
+
 Multi homed means that our firewalls are connected to several ISPs for high availability
+
+A connection in one direction creates a state and all packets going in the
+other direction will belong to this connection.
+
+ex: for an incoming connection there is no need to create outgoing nat rules.
+    it's only necessary if we initiate the connection.
+
+  Linux: source NAT and destination NAT
+OpenBSD: NAT and redirection
