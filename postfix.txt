@@ -19,16 +19,6 @@ user@domain address, address, ... <- 1st this form is tried against all tables
 user address, address, ...        <- then this one
 @domain address, address, ...     <- and finally this one
 
-supported lookup tables:
-postconf -m
-
-Show current configuration:
-postconf -nf mydestination
-postconf -xf alias_maps
-
-if empty (^), the default value can be found with:
-postconf -df mydestination
-
 Address rewriting:
           cleanup(8)                                  local(8)
 canonical (envelope + headers)    -    queues    -    aliases
@@ -55,17 +45,25 @@ smtpd_tls_security_level = may # for incoming emails, encrypt with our cert if c
 
 smtpd_tls_cert_file = # the .chn is actually expected as there is no smtpd_tls_ca_file
 
-Maintenance:
-postfix reload # main.cf + master.cf
-postfix check  # permissions
-
 Monitoring:
 http://www.postfix.org/DEBUG_README.html
 # postfix/smtpd[22222]: fatal:
 tail -n10000 /var/log/maillog | egrep 'postfix/[^[:space:]]+\[[[:digit:]]+\]: (error|fatal|panic):'
 
-Misc:
-postconf -d mail_version
+Queues:
 mailq # see all queues
 postcat -q ID
 qshape deferred # queue shape
+
+Commands:
+postconf -m # supported lookup tables
+postconf -xf alias_maps # expand value
+postconf -nf alias_maps # changed value
+postconf -df alias_maps # default value
+postconf -d mail_version
+postmap transport # create transport.db
+postalias aliases # postmap works too
+postmap -s # show all
+postmap -q key # show key
+postfix reload # main.cf + master.cf
+postfix check  # permissions
