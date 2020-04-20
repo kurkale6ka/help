@@ -1,0 +1,14 @@
+nmcli
+
+g[eneral]    - status | hostname | permissions | logging
+n[etworking] - [on | off | connectivity]
+r[adio]      - all | wifi | wwan
+c[onnection] - show | up | down | add | modify | clone | edit | delete | monitor | reload | load | import | export
+d[evice]     - status | show | set | connect | reapply | modify | disconnect | delete | monitor | wifi | lldp
+a[gent]      - secret | polkit | all
+m[onitor] - prints a line whenever a change occurs in NetworkManager
+
+nmcli d h # get help on device command
+nmcli g (st)
+nmcli d (st) # interfaces status
+nmcli c (st)
