@@ -260,5 +260,3 @@ TODO
 compiling: BEGIN, END
 
 if -t ?
-
-# vi: ft=pod
