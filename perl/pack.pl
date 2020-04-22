@@ -5,8 +5,8 @@
 
 use strict;
 use warnings;
-use POSIX qw(strftime);
-use feature qw(say);
+use feature 'say';
+use POSIX 'strftime';
 
 my $tot_income;
 my $tot_expend;

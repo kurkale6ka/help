@@ -4,14 +4,12 @@
 
 use strict;
 use warnings;
-use feature qw/say/;
+use feature 'say';
 
-my $fh;
-
-for my $file (`fd -tf -E'*~' '^httpd\.conf'`)
+foreach my $file (`fd -tf -E'*~' '^httpd\.conf'`)
 {
    chomp $file;
-   open $fh, $file;
+   open (my $fh, $file);
    while (<$fh>)
    {
       next if 1 .. /worker\.c/;
