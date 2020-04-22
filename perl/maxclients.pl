@@ -1,6 +1,9 @@
 #! /usr/bin/env perl
 
 # List files in which a given pattern occurs after another pattern
+#
+# Ex:
+# in httpd.conf find MaxClients when occuring after worker.c
 
 use strict;
 use warnings;
