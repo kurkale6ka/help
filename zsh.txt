@@ -116,3 +116,7 @@ A job being run in the background will suspend if it tries to read from the term
 
 dash colors question:
 My list separator is #. After zstyle ':completion:*:options' list-colors '=(\# *)=32' ls -<tab> shows descriptions in green but ls --<tab> is unchanged...
+
+zsh compinit: insecure directories and files, run compaudit for list
+compaudit | xargs chmod g-w
+compaudit | xargs chown root
