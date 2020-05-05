@@ -1,4 +1,12 @@
-# Remove annoying selected split
-select-pane -M
+Remove annoying selected split
 
-OR right click :-D
+select-pane -M
+or
+right click
+
+If ; is unescaped or outside of ''s
+then it separates 'bind' from the next command
+else it separates 'bind's commands
+
+bind r source-file ~/.tmux.conf\; display-message "Config reloaded..."
+bind r 'source-file ~/.tmux.conf; display-message "Config reloaded..."'
