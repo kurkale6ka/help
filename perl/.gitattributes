@@ -1,1 +1,1 @@
-perl.pod linguist-language=Text
+*.pod linguist-language=Text
