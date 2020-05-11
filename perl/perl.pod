@@ -1,7 +1,7 @@
  statement -> code
 expression -> code that returns a value
 
-Arrays
+=head1 Arrays
 
 , creates lists. () is only necessary if precedence is ambiguous.
 => (fat coma) is the same as ,
@@ -26,7 +26,7 @@ grep expr, @items; # filter - like @list =~ /match/ but check ~~ for this
 print @items   # $, - print's field separator; $\ is the record separator only printed after print's last argument
 print "@items" # $" - list separator for interpolation
 
-merge 2 arrays and keep elements unique
+=head2 merge 2 arrays and keep elements unique
 
 1. my @unique = uniq(@array1, @array2); # use List::Util qw(uniq);
 2. my @merged{@array1, @array2} = ();
@@ -35,7 +35,7 @@ merge 2 arrays and keep elements unique
 2. and 3. need this:
 my @unique = keys %merged;
 
-Hashes
+=head1 Hashes
 
 %items = ('key1', 'val1', 'key2', 'val2');
 
@@ -46,7 +46,7 @@ Hashes
 
 while my ($key, $val) = each %items
 
-References
+=head1 References
 
 $ref = \$@%named_variable;
 $ref = [anonymous array]; # same brackets as for accessing elements
@@ -65,7 +65,7 @@ $hash{key} | $$ref{key} | $ref->{key}
                          $array[1]->[2] <=>
                          $array[1][2]       {}{} for hashes
 
-Scope
+=head1 Scope
 
    my - lexical scope
   our - same but alias for package var so can be accessed from outside
@@ -81,25 +81,10 @@ perl: my $var, $ENV{var}
 bash:     var, export var - set: see all
                             env: see public only
 
-Regex
+=head1 Regex
 
 zero-width assertions don't consume chars => they are ANDed
 hello(?=\d)(?!123) # followed by a number AND not followed by 123
-
-possessive quantifiers
-no backtracking ~ don't give up characters
-
-A++ is syntactic sugar for atomic group notation: (?>A+)
-
-example:
-"abcd =~ "[^"]+"
-after matching "abcd, it's clear that no backtracking will change the fact that
-a final " cannot be matched. Thus, in order to speedup failure, the pattern is
-better rewritten as "[^"]++"
-
-notes:
-* "abcd" =~ "[^"]++" still matches.
-* the optimizer would've automatically turned the regex possessive in this simple case.
 
 backreferences
 s/(\d+).\1/...$1/ # \1 and $1 represent the actual match, not \d+
@@ -119,7 +104,22 @@ captures in list context
 my ($ext) = $file =~ /\.(\w{3})/;
 my @numbers = $version =~ /\d+/g; # progressive matching
 
-Subroutines
+=head2 possessive quantifiers
+no backtracking ~ don't give up characters
+
+A++ is syntactic sugar for atomic group notation: (?>A+)
+
+example:
+"abcd =~ "[^"]+"
+after matching "abcd, it's clear that no backtracking will change the fact that
+a final " cannot be matched. Thus, in order to speedup failure, the pattern is
+better rewritten as "[^"]++"
+
+notes:
+* "abcd" =~ "[^"]++" still matches.
+* the optimizer would've automatically turned the regex possessive in this simple case.
+
+=head1 Subroutines
 
 sub get {
 my $var = shift;
@@ -150,7 +150,7 @@ $add = 4 + 3;
 $_ = 'Sum: $add';
 s/(\$\w+)/$1/ee;
 
-return values
+=head2 return values
 
               s/// - number of substitutions
              chomp - number of chars
@@ -161,7 +161,7 @@ if (my $var = ...) - lvalue, not boolean
         shift, pop - element
      unshift, push - number of elements
 
-Perlrun
+=head1 Command line
 
 -a implies -n
 -F implies -an
@@ -170,7 +170,7 @@ perl -p: read every line -- process -- print every line
 perl -n: read every line -- process
                             & explicitly print when we need
 
-one liners
+=head2 one liners
 
 search and replace
 perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
@@ -184,17 +184,17 @@ perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"
 disk usage pretty report
 du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
 
-Precedence
+=head1 Precedence
 
 or, and are the same as
 ||, &&  but with lower precedence
 
-Errors
+=head1 Errors
 
 try, catch is:
 eval BLOCK, if ($@) BLOCK
 
-Traps
+=head1 Traps
 
 always chomp with:
 ``, system, open, <STDIN>, perl -l[np]
@@ -223,7 +223,7 @@ while (//g)
 
 use @backups[0 .. $#backups - 3] vs @backups[0 .. -3] because '..' counts up only
 
-Documentation
+=head1 Documentation
 
 perldoc perl
 perldoc perldoc
@@ -236,18 +236,18 @@ perldoc -f -x # file test operators
 Perl Training Australia - Perl Tips
 http://perltraining.com.au/tips/
 
-Modules
+=head1 Modules
 
 use strict;
 use warnings;
-use feature qw/say/;
-use Getopt::Long;
-use File::Basename qw/basename/;
-use File::Path qw/make_path/;
-use Term::ANSIColor qw/:constants/;
-use List::Util qw/any/;
+use feature 'say';
+use Getopt::Long 'GetOptions';
+use File::Basename 'basename';
+use File::Path 'make_path';
+use Term::ANSIColor ':constants';
+use List::Util 'any';
 
-End of the program
+=head1 End of the program
 
 __END__ or __DATA__
 
