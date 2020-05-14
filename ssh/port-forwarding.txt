@@ -31,14 +31,17 @@ Secure remote (reverse tunnel) desktop assistance
      gateway  localhost
         |         |
 ssh -fNR 5901:localhost:5900 gateway # user, no firewall openings needed
-ssh -fNL 5900:localhost:5901 gateway # support
+ssh -fNL 5902:localhost:5901 gateway # support (5902 was used vs 5900 to avoid interference with a local VNC server)
         |         |
     localhost  gateway
 
-# support
-# ask for port 5900 on the gateway, get port 5900 on the user machine
-Screen Sharing - localhost:5900 # Darwin
-vncviewer -SecurityTypes ??? localhost:5900 # Linux
+# then support can connect via:
+            Screen Sharing - localhost:5902 # Darwin
+vncviewer -SecurityTypes ??? localhost:5902 # Linux
+
+# ^ ask for port 5902 locally, get port 5900 on the user machine.
+# a VNC server must listen on port 5900 on the user machine,
+# 'Screen Sharing' listens on that port by default.
 
 Dynamic
 -------
