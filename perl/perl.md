@@ -37,9 +37,11 @@ print "@items" # $" - list separator for interpolation
 
 ## merge two arrays and keep elements unique
 
-1. `my @unique = uniq(@array1, @array2); # use List::Util 'uniq'`
-2. `my @merged{@array1, @array2} = ();`
-3. `my %merged = map { $_, 1 } @array1, @rray2; # create (key:$_, val:1) list for each item`
+```perl
+my @unique = uniq(@array1, @array2);        # 1. use List::Util 'uniq'
+my @merged{@array1, @array2} = ();          # 2.
+my %merged = map { $_, 1 } @array1, @rray2; # 3. create (key:$_, val:1) list for each item
+```
 
 2. and 3. need this:
 ```perl
@@ -106,7 +108,7 @@ bash:     var, export var - set: see all
 
 # Regex
 
-zero-width assertions don't consume chars => they are *AND*ed
+zero-width assertions don't consume chars => they are **AND**ed
 ```perl
 hello(?=\d)(?!123) # followed by a number AND not followed by 123
 ```
@@ -116,7 +118,7 @@ hello(?=\d)(?!123) # followed by a number AND not followed by 123
 s/(\d+).\1/...$1/; # \1 and $1 represent the actual match, not \d+
 ```
 
-## `s///ms`
+## match multilines and newlines in `s///ms`
 ```perl
 $_ = qq/hello\nalien\nworld\n/;
 s/^.+$/---/m;  # multilines: match ^ and $ many times
@@ -157,9 +159,9 @@ _notes_:
 
 ```perl
 sub get {
-my $var = shift;
-# or my ($var1, $var2) = @_;
-wantarray ? @res : $res;
+   my $var = shift;
+   # or my ($var1, $var2) = @_;
+   wantarray ? @res : $res;
 }
 ```
 
@@ -183,17 +185,17 @@ strftime '%d-%b-%Y_%Hh%M:%S', localtime; # POSIX module
 $now->strftime($format);                 # Time::Piece->new
 ```
 
-## `s//$1/`
+## evaluation in `s//$1/`
+```perl
+$add = 4 + 3;
+$_ = 'Sum: $add';
+s/(\$\w+)/$1/ee;
+```
 ```
 without /e -> "" interpolation
    with /e -> normal code:
               $1 gets 'interpolated' by the first /e,
               it's value (4 + 3) gets evaluated by the second /e!
-```
-```perl
-$add = 4 + 3;
-$_ = 'Sum: $add';
-s/(\$\w+)/$1/ee;
 ```
 
 ## return values
@@ -241,16 +243,17 @@ perl -n: read every line -- process
 
 # Errors
 
-```
 try, catch is:
-eval BLOCK, if ($@) BLOCK
+```
+eval BLOCK
+if ($@) BLOCK
 ```
 
 # Traps
 
 always chomp with:  
 ```
-`` (backticks), system, open, <STDIN>, perl -l[np]
+`backticks`, system, open, <STDIN>, perl -l[np]
 ```
 
 `glob`, `<*>` is safe for word splitting,  
@@ -283,7 +286,7 @@ use `@backups[0 .. $#backups - 3]` vs `@backups[0 .. -3]` because '`..`' counts 
 
 # Documentation
 
-```
+```perl
 perldoc perl
 perldoc perldoc
 perldoc perlop
