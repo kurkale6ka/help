@@ -1,9 +1,12 @@
+# Statement / expression
+
  statement -> code
 expression -> code that returns a value
 
-=head1 Arrays
+# Arrays
 
 , creates lists. () is only necessary if precedence is ambiguous.
+
 => (fat coma) is the same as ,
       foreach is the same as for
 
@@ -13,9 +16,11 @@ if (@items > ...) # number of elements
 
 @items[1..$#items] # slice: all bar 1st
 
+```perl
           my $a = @array; # last to $a in scalar context, see coma operator
         my ($a) = @array; #  1st to $a in list   context
 my ($a, $b, $c) = @array; # multiple assignements
+```
 
   shift, pop  # shorten by 1 element which is then returned
 unshift, push # add elements and report how many
@@ -26,7 +31,7 @@ grep expr, @items; # filter - like @list =~ /match/ but check ~~ for this
 print @items   # $, - print's field separator; $\ is the record separator only printed after print's last argument
 print "@items" # $" - list separator for interpolation
 
-=head2 merge 2 arrays and keep elements unique
+## merge 2 arrays and keep elements unique
 
 1. my @unique = uniq(@array1, @array2); # use List::Util qw(uniq);
 2. my @merged{@array1, @array2} = ();
@@ -35,7 +40,7 @@ print "@items" # $" - list separator for interpolation
 2. and 3. need this:
 my @unique = keys %merged;
 
-=head1 Hashes
+# Hashes
 
 %items = ('key1', 'val1', 'key2', 'val2');
 
@@ -46,7 +51,7 @@ my @unique = keys %merged;
 
 while my ($key, $val) = each %items
 
-=head1 References
+# References
 
 $ref = \$@%named_variable;
 $ref = [anonymous array]; # same brackets as for accessing elements
@@ -65,7 +70,7 @@ $hash{key} | $$ref{key} | $ref->{key}
                          $array[1]->[2] <=>
                          $array[1][2]       {}{} for hashes
 
-=head1 Scope
+# Scope
 
    my - lexical scope
   our - same but alias for package var so can be accessed from outside
@@ -81,7 +86,7 @@ perl: my $var, $ENV{var}
 bash:     var, export var - set: see all
                             env: see public only
 
-=head1 Regex
+# Regex
 
 zero-width assertions don't consume chars => they are ANDed
 hello(?=\d)(?!123) # followed by a number AND not followed by 123
@@ -104,7 +109,7 @@ captures in list context
 my ($ext) = $file =~ /\.(\w{3})/;
 my @numbers = $version =~ /\d+/g; # progressive matching
 
-=head2 possessive quantifiers
+## possessive quantifiers
 no backtracking ~ don't give up characters
 
 A++ is syntactic sugar for atomic group notation: (?>A+)
@@ -119,7 +124,7 @@ notes:
 * "abcd" =~ "[^"]++" still matches.
 * the optimizer would've automatically turned the regex possessive in this simple case.
 
-=head1 Subroutines
+# Subroutines
 
 sub get {
 my $var = shift;
@@ -150,7 +155,7 @@ $add = 4 + 3;
 $_ = 'Sum: $add';
 s/(\$\w+)/$1/ee;
 
-=head2 return values
+## return values
 
               s/// - number of substitutions
              chomp - number of chars
@@ -161,7 +166,7 @@ if (my $var = ...) - lvalue, not boolean
         shift, pop - element
      unshift, push - number of elements
 
-=head1 Command line
+# Command line
 
 -a implies -n
 -F implies -an
@@ -170,7 +175,7 @@ perl -p: read every line -- process -- print every line
 perl -n: read every line -- process
                             & explicitly print when we need
 
-=head2 one liners
+## one liners
 
 search and replace
 perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
@@ -184,17 +189,17 @@ perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"
 disk usage pretty report
 du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
 
-=head1 Precedence
+# Precedence
 
 or, and are the same as
 ||, &&  but with lower precedence
 
-=head1 Errors
+# Errors
 
 try, catch is:
 eval BLOCK, if ($@) BLOCK
 
-=head1 Traps
+# Traps
 
 always chomp with:
 ``, system, open, <STDIN>, perl -l[np]
@@ -223,7 +228,7 @@ while (//g)
 
 use @backups[0 .. $#backups - 3] vs @backups[0 .. -3] because '..' counts up only
 
-=head1 Documentation
+# Documentation
 
 perldoc perl
 perldoc perldoc
@@ -236,7 +241,7 @@ perldoc -f -x # file test operators
 Perl Training Australia - Perl Tips
 http://perltraining.com.au/tips/
 
-=head1 Modules
+# Modules
 
 use strict;
 use warnings;
@@ -247,7 +252,7 @@ use File::Path 'make_path';
 use Term::ANSIColor ':constants';
 use List::Util 'any';
 
-=head1 End of the program
+# End of the program
 
 __END__ or __DATA__
 
