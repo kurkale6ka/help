@@ -65,8 +65,8 @@ my @unique = keys %merged;
 
 ```perl
 $ref = \$named_variable; # also \@, \%
-$ref = [anonymous_array]; # same brackets as for accessing elements
-$ref = {anonymous_hash};
+$ref = [qw/anonymous array/]; # mnemo: []s access array elements
+$ref = {anonymous => 'hash'}; #        {}s access hash elements
 ```
 
 ```
@@ -177,7 +177,7 @@ printf "Found a %d at\n", pos($i);
 ```
 
 ## sprintf is like printf but a string is returned instead of printed
-it can then be passed to functions such as '`say`' which lack formatting capabilities.
+it can then be passed to functions such as `say` which lack formatting capabilities.
 
 ## date with format
 ```perl
@@ -229,7 +229,7 @@ perl -n: read every line -- process
 % perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
 ```
 
-### print from $3 to end
+### print from field $3 to last one
 ```perl
 % perl -laE 'say "@F[2..$#F]"' file
 ```
@@ -252,14 +252,14 @@ perl -n: read every line -- process
 # Errors
 
 try, catch is:
-```
+```perl
 eval BLOCK
 if ($@) BLOCK
 ```
 
 # Traps
 
-always chomp with: ```backticks`, system, open, <STDIN>, perl -l[np]``
+always chomp with: ``system, `backticks`, open, <STDIN>, perl -l[np]``
 
 ---
 
@@ -267,27 +267,45 @@ always chomp with: ```backticks`, system, open, <STDIN>, perl -l[np]``
 it's arguments only split on whitespace, not the returned files!  
 solutions: `<"">`, `glob '""'`
 
+---
+
 use `open`, `system`, ... with 3 args `'-|', ...` to:
 - be protected against clobbering, code exe, ... (`>`, `|`, ... in `$filename`)
 - avoid spawning a shell
+
+---
 
 ```perl
 die "exception"; # without a newline, the script line number is appended
 ```
 
+---
+
 ``if (`lsof ...`)``  
 vs  
 `if (system('lsof', ...) == 0)`  
-because `lsof +D folder` sets `$?` to 1 always
+because  
+`% lsof +D folder` sets `$?` to 1 always
+
+---
 
 do not use `-X` file tests because of race conditions  
-ex: just use `````cat $file````` vs ```cat $file` if -f $file;``
+ex: just use
+```perl
+`cat $file`
+vs
+`cat $file` if -f $file;
+```
+
+---
 
 `each` and `//g` return boolean so use `while` vs `for`:  
 ```perl
 while (each %hash)
 while (//g)
 ```
+
+---
 
 use `@backups[0 .. $#backups - 3]` vs `@backups[0 .. -3]` because `..` counts up only
 
