@@ -43,7 +43,7 @@ my @merged{@array1, @array2} = ();          # 2.
 my %merged = map { $_, 1 } @array1, @rray2; # 3. create (key:$_, val:1) list for each item
 ```
 
-2. and 3. need this:
+methods 2. and 3. need this:
 ```perl
 my @unique = keys %merged;
 ```
@@ -58,7 +58,7 @@ my @unique = keys %merged;
    key2 => 'val2'
 );
 
-while my ($key, $val) = each %items
+... while my ($key, $val) = each %items;
 ```
 
 # References
@@ -170,13 +170,13 @@ sub get {
 printf "I've got %d camel%s", $ARGV[0], $ARGV[0] == 1 ? '' : 's';
 ```
 
-## printf is sometimes more readable
+## printf is sometimes more readable than print
 ```perl
 print 'Found a ', pos($i), "at\n";
 printf "Found a %d at\n", pos($i);
 ```
 
-## sprintf is like printf but a string is returned instead of printed,
+## sprintf is like printf but a string is returned instead of printed
 it can then be passed to functions such as '`say`' which lack formatting capabilities.
 
 ## date with format
@@ -231,7 +231,9 @@ perl -n: read every line -- process
 `perl -laE 'say "@F[2..$#F]"' file`
 
 ### namei -l
-``perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file``
+```perl
+$ perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
+```
 
 ### disk usage pretty report
 ``du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'``
@@ -251,11 +253,8 @@ if ($@) BLOCK
 
 # Traps
 
-always chomp with:  
-```
-`backticks`, system, open, <STDIN>, perl -l[np]
-```
-
+always chomp with: ```backticks`, system, open, <STDIN>, perl -l[np]``
+---
 `glob`, `<*>` is safe for word splitting,  
 it's arguments only split on whitespace, not the returned files!  
 solutions: `<"">`, `glob '""'`
@@ -296,8 +295,7 @@ perldoc -f split
 perldoc -f -x # file test operators
 ```
 
-Perl Training Australia - Perl Tips  
-http://perltraining.com.au/tips/
+Perl Training Australia - Perl Tips: http://perltraining.com.au/tips
 
 # Modules
 
