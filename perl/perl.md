@@ -146,24 +146,24 @@ zero-width assertions don't consume chars => they are **AND**ed
 hello(?=\d)(?!123) # followed by a number AND not followed by 123
 ```
 
-## backreferences
-```perl
-s/(\d+).\1/...$1/; # \1 and $1 represent the actual match, not \d+
-```
-
-## match multilines and newlines in s///ms <a name="reg_newlines"></a>
-```perl
-$_ = qq/hello\nalien\nworld\n/;
-s/^.+$/---/m;  # multilines: match ^ and $ many times
-s/lo.+wo/@@/s; # pretend $msg is a single line => . matches anything, including \ns
-```
-
-`/o` - check `$var` in pattern only once since we know it's not going to change
+`/$var/o` - check `$var` only once since we know it's not going to change
 
 ```
   pre - $`
 match - $&
  post - $'
+```
+
+## backreferences
+```perl
+s/(\d+).\1/...$1/; # \1 and $1 represent the actual match, not \d+
+```
+
+## multilines and newlines in s///ms <a name="reg_newlines"></a>
+```perl
+$_ = qq/hello\nalien\nworld\n/;
+s/^.+$/---/m;  # multilines: match ^ and $ many times
+s/lo.+wo/@@/s; # pretend $msg is a single line => . matches anything, including \ns
 ```
 
 ## captures in list context <a name="reg_captures"></a>
