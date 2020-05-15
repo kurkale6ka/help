@@ -1,34 +1,34 @@
 * [Statement, expression](#statement)
 * [Arrays](#Arrays)
-    * [merge two arrays and keep elements unique](#arrays_merge)
+    * [merge two arrays and keep elements unique](#arr_merge)
 * [Hashes](#Hashes)
-* [References]()
-* [Scope]()
-    * [environment variables]()
-* [Regex]()
-    * [backreferences]()
-    * [match multilines and newlines in s///ms]()
-    * [captures in list context]()
-    * [possessive quantifiers]()
-* [Subroutines]()
-    * [ternary operator - cond ? true : false]()
-    * [printf is sometimes more readable than print]()
-    * [sprintf is like printf but a string is returned instead of printed]()
-    * [date with format]()
-    * [evaluation in s//$1/]()
-    * [return values]()
-* [Command line]()
-    * [one liners]()
-        * [search and replace]()
-        * [print from field $3 to last]()
-        * [namei -l]()
-        * [disk usage pretty]()
-* [Precedence]()
-* [Errors]()
-* [Traps]()
-* [Documentation]()
-* [Modules]()
-* [End of the program]()
+* [References](#References)
+* [Scope](#Scope)
+    * [environment variables](#scope_env)
+* [Regex](#Regex)
+    * [backreferences](#backreferences)
+    * [match multilines and newlines in s///ms](#reg_newlines)
+    * [captures in list context](#reg_captures)
+    * [possessive quantifiers](#reg_possessive)
+* [Subroutines](#Subroutines)
+    * [ternary operator - cond ? true : false](#sub_ternary)
+    * [printf is sometimes more readable than print](#sub_printf)
+    * [sprintf is like printf but a string is returned instead of printed](#sub_sprintf)
+    * [date with format](#sub_date)
+    * [evaluation in s//$1/](#sub_s_eval)
+    * [return values](#sub_return)
+* [Command line](#cmd_line)
+    * [one liners](#one_l)
+        * [search and replace](#one_l_replace)
+        * [print from field $3 to last](#one_l_fields)
+        * [namei -l](#one_l_namei)
+        * [disk usage pretty](#one_l_du)
+* [Precedence](#Precedence)
+* [Errors](#Errors)
+* [Traps](#Traps)
+* [Documentation](#Documentation)
+* [Modules](#Modules)
+* [End of the program](#end)
 
 # Statement, expression <a name="statement"></a>
 
@@ -67,7 +67,7 @@ print @items   # $, - print's field separator; $\ is the record separator only p
 print "@items" # $" - list separator for interpolation
 ```
 
-## merge two arrays and keep elements unique <a name="arrays_merge"></a>
+## merge two arrays and keep elements unique <a name="arr_merge"></a>
 
 ```perl
 my @unique = uniq(@array1, @array2);        # 1. use List::Util 'uniq';
@@ -130,7 +130,7 @@ local $/;      # slurp file mode, perl -0777
 local $/ = ''; # paragraph mode,  perl -00
 ```
 
-## environment variables
+## environment variables <a name="scope_env"></a>
 ```
          private | public (inherited by children)
       -----------+--------------
@@ -151,7 +151,7 @@ hello(?=\d)(?!123) # followed by a number AND not followed by 123
 s/(\d+).\1/...$1/; # \1 and $1 represent the actual match, not \d+
 ```
 
-## match multilines and newlines in s///ms
+## match multilines and newlines in s///ms <a name="reg_newlines"></a>
 ```perl
 $_ = qq/hello\nalien\nworld\n/;
 s/^.+$/---/m;  # multilines: match ^ and $ many times
@@ -166,13 +166,13 @@ match - $&
  post - $'
 ```
 
-## captures in list context
+## captures in list context <a name="reg_captures"></a>
 ```perl
 my ($ext) = $file =~ /\.(\w{3})/;
 my @numbers = $version =~ /\d+/g; # progressive matching
 ```
 
-## possessive quantifiers
+## possessive quantifiers <a name="reg_possessive"></a>
 no backtracking <=> don't give up characters
 
 `A++` is syntactic sugar for atomic group notation: `(?>A+)`
@@ -196,27 +196,27 @@ sub get {
 }
 ```
 
-## ternary operator - cond ? true : false
+## ternary operator - cond ? true : false <a name="sub_ternary"></a>
 ```perl
 printf "I've got %d camel%s", $ARGV[0], $ARGV[0] == 1 ? '' : 's';
 ```
 
-## printf is sometimes more readable than print
+## printf is sometimes more readable than print <a name="sub_printf"></a>
 ```perl
 print 'Found a ', pos($i), "at\n";
 printf "Found a %d at\n", pos($i);
 ```
 
-## sprintf is like printf but a string is returned instead of printed
+## sprintf is like printf but a string is returned instead of printed <a name="sub_sprintf"></a>
 it can then be passed to functions such as `say` which lack formatting capabilities.
 
-## date with format
+## date with format <a name="sub_date"></a>
 ```perl
 strftime '%d-%b-%Y_%Hh%M:%S', localtime; # POSIX module
 $now->strftime($format);                 # Time::Piece->new
 ```
 
-## evaluation in s//$1/
+## evaluation in s//$1/ <a name="sub_s_eval"></a>
 ```perl
 $add = 4 + 3;
 $_ = 'Sum: $add';
@@ -229,7 +229,7 @@ without /e -> "" interpolation
               it's value (4 + 3) gets evaluated by the second /e!
 ```
 
-## return values
+## return values <a name="sub_return"></a>
 
 ```perl
               s/// - number of substitutions
@@ -242,7 +242,7 @@ if (my $var = ...) - lvalue, not boolean
      unshift, push - number of elements
 ```
 
-# Command line
+# Command line <a name="cmd_line"></a>
 
 ```
 -a implies -n
@@ -252,24 +252,24 @@ perl -p: read every line -- process -- print every line
 perl -n: read every line -- process -- print only when we need + say so
 ```
 
-## one liners
+## one liners <a name="one_l"></a>
 
-### search and replace
+### search and replace <a name="one_l_replace"></a>
 ```perl
 % perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
 ```
 
-### print from field $3 to last
+### print from field $3 to last <a name="one_l_fields"></a>
 ```perl
 % perl -laE 'say "@F[2..$#F]"' file
 ```
 
-### namei -l
+### namei -l <a name="one_l_namei"></a>
 ```perl
 % perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
 ```
 
-### disk usage pretty
+### disk usage pretty <a name="one_l_du"></a>
 ```perl
 % du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
 ```
@@ -375,7 +375,7 @@ use Term::ANSIColor ':constants';
 use List::Util 'any';
 ```
 
-# End of the program
+# End of the program <a name="end"></a>
 
 `__END__` or `__DATA__`
 
