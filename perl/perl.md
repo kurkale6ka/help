@@ -158,8 +158,7 @@ _notes_:
 
 ```perl
 sub get {
-   my $var = shift;
-   # or my ($var1, $var2) = @_;
+   my $var = shift; # or my ($var1, $var2) = @_;
    wantarray ? @res : $res;
 }
 ```
@@ -251,7 +250,7 @@ perl -n: read every line -- process -- print only when we need + say so
 
 try, catch is:
 ```perl
-eval BLOCK
+   eval BLOCK
 if ($@) BLOCK
 ```
 
