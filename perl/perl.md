@@ -1,26 +1,29 @@
 # Statement / expression
 
+```
  statement -> code
 expression -> code that returns a value
+```
 
 # Arrays
 
-, creates lists. () is only necessary if precedence is ambiguous.
+`,` creates lists. `()` is only necessary if precedence is ambiguous.
 
+```
 => (fat coma) is the same as ,
       foreach is the same as for
+```
 
+```perl
 @items = qw/one two three/; # quote words into a list ('', '', ...)
 
 if (@items > ...) # number of elements
 
 @items[1..$#items] # slice: all bar 1st
 
-```perl
           my $a = @array; # last to $a in scalar context, see coma operator
         my ($a) = @array; #  1st to $a in list   context
 my ($a, $b, $c) = @array; # multiple assignements
-```
 
   shift, pop  # shorten by 1 element which is then returned
 unshift, push # add elements and report how many
@@ -30,6 +33,7 @@ grep expr, @items; # filter - like @list =~ /match/ but check ~~ for this
 
 print @items   # $, - print's field separator; $\ is the record separator only printed after print's last argument
 print "@items" # $" - list separator for interpolation
+```
 
 ## merge 2 arrays and keep elements unique
 
