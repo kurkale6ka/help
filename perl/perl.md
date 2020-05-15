@@ -225,18 +225,24 @@ perl -n: read every line -- process
 ## one liners
 
 ### search and replace
-`perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf`
+```perl
+% perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
+```
 
 ### print from $3 to end
-`perl -laE 'say "@F[2..$#F]"' file`
+```perl
+% perl -laE 'say "@F[2..$#F]"' file
+```
 
 ### namei -l
 ```perl
-$ perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
+% perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
 ```
 
 ### disk usage pretty report
-``du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'``
+```perl
+% du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
+```
 
 # Precedence
 
@@ -254,7 +260,9 @@ if ($@) BLOCK
 # Traps
 
 always chomp with: ```backticks`, system, open, <STDIN>, perl -l[np]``
+
 ---
+
 `glob`, `<*>` is safe for word splitting,  
 it's arguments only split on whitespace, not the returned files!  
 solutions: `<"">`, `glob '""'`
@@ -281,7 +289,7 @@ while (each %hash)
 while (//g)
 ```
 
-use `@backups[0 .. $#backups - 3]` vs `@backups[0 .. -3]` because '`..`' counts up only
+use `@backups[0 .. $#backups - 3]` vs `@backups[0 .. -3]` because `..` counts up only
 
 # Documentation
 
@@ -295,7 +303,7 @@ perldoc -f split
 perldoc -f -x # file test operators
 ```
 
-Perl Training Australia - Perl Tips: http://perltraining.com.au/tips
+[Perl Training Australia - Perl Tips](http://perltraining.com.au/tips)
 
 # Modules
 
@@ -317,9 +325,3 @@ use List::Util 'any';
 * POD
 * comments
 * data that we want to process with while (`<DATA>`)
-
-TODO
-
-compiling: BEGIN, END
-
-if -t ?
