@@ -1,4 +1,4 @@
-# Statement, Expression
+# Statement, expression
 
 ```
  statement -> code
@@ -35,7 +35,7 @@ print @items   # $, - print's field separator; $\ is the record separator only p
 print "@items" # $" - list separator for interpolation
 ```
 
-## merge 2 arrays and keep elements unique
+## merge two arrays and keep elements unique
 
 1. `my @unique = uniq(@array1, @array2); # use List::Util 'uniq'`
 2. `my @merged{@array1, @array2} = ();`
@@ -62,9 +62,9 @@ while my ($key, $val) = each %items
 # References
 
 ```perl
-$ref = \$@%named_variable;
-$ref = [anonymous array]; # same brackets as for accessing elements
-$ref = {anonymous hash};
+$ref = \$named_variable; # also \@, \%
+$ref = [anonymous_array]; # same brackets as for accessing elements
+$ref = {anonymous_hash};
 ```
 
 ```
@@ -106,11 +106,11 @@ bash:     var, export var - set: see all
 
 # Regex
 
-zero-width assertions don't consume chars => they are *AND*ed
-hello(?=\d)(?!123) # followed by a number AND not followed by 123
+zero-width assertions don't consume chars => they are *AND*ed  
+`hello(?=\d)(?!123) # followed by a number AND not followed by 123`
 
 ## backreferences
-s/(\d+).\1/...$1/ # \1 and $1 represent the actual match, not \d+
+`s/(\d+).\1/...$1/ # \1 and $1 represent the actual match, not \d+`
 
 ## s///ms
 ```perl
@@ -134,17 +134,17 @@ my @numbers = $version =~ /\d+/g; # progressive matching
 ```
 
 ## possessive quantifiers
-no backtracking ~ don't give up characters
+no backtracking <=> don't give up characters
 
 `A++` is syntactic sugar for atomic group notation: `(?>A+)`
 
-example:
-`"abcd =~ "[^"]+"`
-after matching "abcd, it's clear that no backtracking will change the fact that
-a final " cannot be matched. Thus, in order to speedup failure, the pattern is
-better rewritten as `"[^"]++"`
+_example_:
+`"abcd =~ "[^"]+"`  
+after matching `"abcd`, it's clear that no backtracking will change the fact that  
+a final `"` cannot be matched. Thus, in order to speedup failure, the pattern is  
+better rewritten as `"[^"]++"`  
 
-notes:
+_notes_:
 * `"abcd" =~ "[^"]++"` still matches.
 * the optimizer would've automatically turned the regex possessive in this simple case.
 
@@ -159,18 +159,24 @@ wantarray ? @res : $res;
 ```
 
 ## ternary operator
+```perl
 printf "I've got %d camel%s", $ARGV[0], $ARGV[0] == 1 ? '' : 's';
+```
 
 ## printf is sometimes more readable
+```perl
 print 'Found a ', pos($i), "at\n";
 printf "Found a %d at\n", pos($i);
+```
 
 ## sprintf is like printf but a string is returned instead of printed,
-it can then be passed to functions such as 'say' which lack formatting capabilities.
+it can then be passed to functions such as '`say`' which lack formatting capabilities.
 
 ## date with format
+```perl
 strftime '%d-%b-%Y_%Hh%M:%S', localtime; # POSIX module
 $now->strftime($format);                 # Time::Piece->new
+```
 
 ## s//$1/
 ```
@@ -212,57 +218,63 @@ perl -n: read every line -- process
 ## one liners
 
 ### search and replace
-perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
+`perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf`
 
 ### print from $3 to end
-perl -laE 'say "@F[2..$#F]"' file
+`perl -laE 'say "@F[2..$#F]"' file`
 
 ### namei -l
-perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
+``perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file``
 
 ### disk usage pretty report
-du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
+``du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'``
 
 # Precedence
 
-```
-or, and are the same as
-||, &&  but with lower precedence
-```
+`or`, `and` are the same as  
+`||`, `&&` but with lower precedence
 
 # Errors
 
+```
 try, catch is:
 eval BLOCK, if ($@) BLOCK
+```
 
 # Traps
 
-always chomp with:
-``, system, open, <STDIN>, perl -l[np]
+always chomp with:  
+```
+`` (backticks), system, open, <STDIN>, perl -l[np]
+```
 
-glob, <*> is safe for word splitting,
-it's arguments only split on whitespace, not the returned files!
-solutions: <"">, glob '""'
+`glob`, `<*>` is safe for word splitting,  
+it's arguments only split on whitespace, not the returned files!  
+solutions: `<"">`, `glob '""'`
 
-use open/system/... with 3 args '-|', ... to:
-- be protected against clobbering, code exe, ... (>, |, ... in $filename)
+use `open`, `system`, ... with 3 args `'-|', ...` to:
+- be protected against clobbering, code exe, ... (`>`, `|`, ... in `$filename`)
 - avoid spawning a shell
 
+```perl
 die "exception"; # without a newline, the script line number is appended
+```
 
-if (`lsof ...`)
-vs
-if (system('lsof', ...) == 0)
-because lsof +D folder sets $? to 1 always
+``if (`lsof ...`)``  
+vs  
+`if (system('lsof', ...) == 0)`  
+because `lsof +D folder` sets `$?` to 1 always
 
-do not use -X file tests because of race conditions
-ex: just use `cat $file` vs `cat $file` if -f $file;
+do not use `-X` file tests because of race conditions  
+ex: just use `````cat $file````` vs ```cat $file` if -f $file;``
 
-each and //g return boolean so use while vs for:
+`each` and `//g` return boolean so use `while` vs `for`:  
+```perl
 while (each %hash)
 while (//g)
+```
 
-use @backups[0 .. $#backups - 3] vs @backups[0 .. -3] because '..' counts up only
+use `@backups[0 .. $#backups - 3]` vs `@backups[0 .. -3]` because '`..`' counts up only
 
 # Documentation
 
@@ -276,8 +288,8 @@ perldoc -f split
 perldoc -f -x # file test operators
 ```
 
-Perl Training Australia - Perl Tips
-[http://perltraining.com.au/tips/]
+Perl Training Australia - Perl Tips  
+http://perltraining.com.au/tips/
 
 # Modules
 
