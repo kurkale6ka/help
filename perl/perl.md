@@ -38,7 +38,7 @@ print "@items" # $" - list separator for interpolation
 ## merge two arrays and keep elements unique
 
 ```perl
-my @unique = uniq(@array1, @array2);        # 1. use List::Util 'uniq'
+my @unique = uniq(@array1, @array2);        # 1. use List::Util 'uniq';
 my @merged{@array1, @array2} = ();          # 2.
 my %merged = map { $_, 1 } @array1, @rray2; # 3. create (key:$_, val:1) list for each item
 ```
@@ -163,7 +163,7 @@ sub get {
 }
 ```
 
-## ternary operator
+## ternary operator - cond ? true : false
 ```perl
 printf "I've got %d camel%s", $ARGV[0], $ARGV[0] == 1 ? '' : 's';
 ```
