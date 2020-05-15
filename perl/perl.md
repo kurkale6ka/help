@@ -118,7 +118,7 @@ hello(?=\d)(?!123) # followed by a number AND not followed by 123
 s/(\d+).\1/...$1/; # \1 and $1 represent the actual match, not \d+
 ```
 
-## match multilines and newlines in `s///ms`
+## match multilines and newlines in s///ms
 ```perl
 $_ = qq/hello\nalien\nworld\n/;
 s/^.+$/---/m;  # multilines: match ^ and $ many times
@@ -185,7 +185,7 @@ strftime '%d-%b-%Y_%Hh%M:%S', localtime; # POSIX module
 $now->strftime($format);                 # Time::Piece->new
 ```
 
-## evaluation in `s//$1/`
+## evaluation in s//$1/
 ```perl
 $add = 4 + 3;
 $_ = 'Sum: $add';
@@ -200,7 +200,7 @@ without /e -> "" interpolation
 
 ## return values
 
-```
+```perl
               s/// - number of substitutions
              chomp - number of chars
               grep - list
