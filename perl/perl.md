@@ -144,8 +144,7 @@ no backtracking <=> don't give up characters
 
 `A++` is syntactic sugar for atomic group notation: `(?>A+)`
 
-_example_:
-
+_example_:  
 `"abcd =~ "[^"]+"`  
 after matching `"abcd`, it's clear that no backtracking will change the fact that  
 a final `"` cannot be matched. Thus, in order to speedup failure, the pattern is  
@@ -291,6 +290,7 @@ because
 ---
 
 do not use `-X` file tests because of race conditions  
+
 _example_: just use
 ```perl
 `cat $file`
@@ -308,7 +308,13 @@ while (//g)
 
 ---
 
-use `@backups[0 .. $#backups - 3]` vs `@backups[0 .. -3]` because `..` counts up only
+use
+```perl
+@backups[0 .. $#backups - 3]
+vs
+@backups[0 .. -3]
+```
+because `..` counts up only
 
 # Documentation
 
