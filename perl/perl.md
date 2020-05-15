@@ -1,4 +1,36 @@
-# Statement, expression
+* [Statement, expression](#statement)
+* [Arrays](#Arrays)
+ * [merge two arrays and keep elements unique]
+* [Hashes]
+* [References]
+* [Scope]
+ * [environment variables]
+* [Regex]
+ * [backreferences]
+ * [match multilines and newlines in s///ms]
+ * [captures in list context]
+ * [possessive quantifiers]
+* [Subroutines]
+ * [ternary operator - cond ? true : false]
+ * [printf is sometimes more readable than print]
+ * [sprintf is like printf but a string is returned instead of printed]
+ * [date with format]
+ * [evaluation in s//$1/]
+ * [return values]
+* [Command line]
+ * [one liners]
+  * [search and replace]
+  * [print from field $3 to last]
+  * [namei -l]
+  * [disk usage pretty]
+* [Precedence]
+* [Errors]
+* [Traps]
+* [Documentation]
+* [Modules]
+* [End of the program]
+
+# Statement, expression <a name="statement"></a>
 
 ```
  statement -> code
