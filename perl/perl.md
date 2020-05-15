@@ -98,12 +98,12 @@ local $/;      # slurp file mode, perl -0777
 local $/ = ''; # paragraph mode,  perl -00
 ```
 
-## environment
+## environment variables
 ```
-      private | public     => inherited by children
+      private | public     -> inherited by children
       --------+-----------
-perl: my $var | $ENV{var}
-bash:     var | export var => % env # see public
+Perl: my $var | $ENV{var}
+Bash:     var | export var -> % env # see public
                               % set # see all
 ```
 
