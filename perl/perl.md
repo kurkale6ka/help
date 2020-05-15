@@ -100,10 +100,11 @@ local $/ = ''; # paragraph mode,  perl -00
 
 ## environment
 ```
-      private  public (parent environment inherited by children)
-perl: my $var, $ENV{var}
-bash:     var, export var - set: see all
-                            env: see public only
+      private | public     => inherited by children
+      --------+-----------
+perl: my $var | $ENV{var}
+bash:     var | export var => % env # see public
+                              % set # see all
 ```
 
 # Regex
