@@ -92,7 +92,7 @@ $hash{key} | $$ref{key} | $ref->{key}
 local - local copy of a global variable
 ```
 
-ex: input record separator aka IFS
+_example_: input record separator aka IFS
 ```perl
 local $/;      # slurp file mode, perl -0777
 local $/ = ''; # paragraph mode,  perl -00
@@ -228,7 +228,7 @@ perl -n: read every line -- process -- print only when we need + say so
 % perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
 ```
 
-### print from field $3 to last one
+### print from field $3 to last
 ```perl
 % perl -laE 'say "@F[2..$#F]"' file
 ```
@@ -238,7 +238,7 @@ perl -n: read every line -- process -- print only when we need + say so
 % perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
 ```
 
-### disk usage pretty report
+### disk usage pretty
 ```perl
 % du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
 ```
@@ -291,7 +291,7 @@ because
 ---
 
 do not use `-X` file tests because of race conditions  
-ex: just use
+_example_: just use
 ```perl
 `cat $file`
 vs
@@ -343,4 +343,4 @@ use List::Util 'any';
 
 * POD
 * _comments_
-* data that we want to process with while (`<DATA>`)
+* data that we want to process with `while (<DATA>)`
