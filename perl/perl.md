@@ -58,7 +58,7 @@ my @unique = keys %merged;
    key2 => 'val2'
 );
 
-... while my ($key, $val) = each %items;
+while (my ($key, $val) = each %items)
 ```
 
 # References
@@ -100,11 +100,11 @@ local $/ = ''; # paragraph mode,  perl -00
 
 ## environment variables
 ```
-      private | public     -> inherited by children
-      --------+-----------
-Perl: my $var | $ENV{var}
-Bash:     var | export var -> % env # see public
-                              % set # see all
+         private | public (inherited by children)
+      -----------+--------------
+Perl: my $EDITOR | $ENV{EDITOR}
+Bash:     EDITOR | export EDITOR -> $ env # see public
+                                    $ set # see all
 ```
 
 # Regex
