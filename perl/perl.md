@@ -23,7 +23,7 @@ if (@items > ...) # number of elements
 
           my $a = @array; # last to $a in scalar context, see coma operator
         my ($a) = @array; #  1st to $a in list   context
-my ($a, $b, $c) = @array; # multiple assignements
+my ($a, $b, $c) = @array; # multiple assignments
 
   shift, pop  # shorten by 1 element which is then returned
 unshift, push # add elements and report how many
@@ -77,7 +77,7 @@ $ref = {anonymous => 'hash'}; #        {}s access hash elements
 $hash{key} | $$ref{key} | $ref->{key}
  $array[3] | $$ref[3]   | $ref->[3]
                               /
-                 otional between 2 subscripts:
+                 optional between 2 subscripts:
 
 ([...], [..x], [...]) - $$array[1][2]   <=>
                          $array[1]->[2] <=>
