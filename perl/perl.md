@@ -106,13 +106,17 @@ bash:     var, export var - set: see all
 
 # Regex
 
-zero-width assertions don't consume chars => they are *AND*ed  
-`hello(?=\d)(?!123) # followed by a number AND not followed by 123`
+zero-width assertions don't consume chars => they are *AND*ed
+```perl
+hello(?=\d)(?!123) # followed by a number AND not followed by 123
+```
 
 ## backreferences
-`s/(\d+).\1/...$1/ # \1 and $1 represent the actual match, not \d+`
+```perl
+s/(\d+).\1/...$1/; # \1 and $1 represent the actual match, not \d+
+```
 
-## s///ms
+## `s///ms`
 ```perl
 $_ = qq/hello\nalien\nworld\n/;
 s/^.+$/---/m;  # multilines: match ^ and $ many times
@@ -139,6 +143,7 @@ no backtracking <=> don't give up characters
 `A++` is syntactic sugar for atomic group notation: `(?>A+)`
 
 _example_:
+
 `"abcd =~ "[^"]+"`  
 after matching `"abcd`, it's clear that no backtracking will change the fact that  
 a final `"` cannot be matched. Thus, in order to speedup failure, the pattern is  
@@ -178,7 +183,7 @@ strftime '%d-%b-%Y_%Hh%M:%S', localtime; # POSIX module
 $now->strftime($format);                 # Time::Piece->new
 ```
 
-## s//$1/
+## `s//$1/`
 ```
 without /e -> "" interpolation
    with /e -> normal code:
