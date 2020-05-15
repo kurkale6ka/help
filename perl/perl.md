@@ -64,7 +64,7 @@ my @unique = keys %merged;
 # References
 
 ```perl
-$ref = \$named_variable; # also \@, \%
+$ref = \$named_variable;      # also \@, \%
 $ref = [qw/anonymous array/]; # mnemo: []s access array elements
 $ref = {anonymous => 'hash'}; #        {}s access hash elements
 ```
@@ -218,8 +218,7 @@ if (my $var = ...) - lvalue, not boolean
 -F implies -an
 
 perl -p: read every line -- process -- print every line
-perl -n: read every line -- process
-                            & explicitly print when we need
+perl -n: read every line -- process -- print only when we need + say so
 ```
 
 ## one liners
@@ -259,7 +258,7 @@ if ($@) BLOCK
 
 # Traps
 
-always chomp with: ``system, `backticks`, open, <STDIN>, perl -l[np]``
+always `chomp` after: `system`, backticks, `open`, `<STDIN>`, `perl -l[np]`
 
 ---
 
@@ -281,11 +280,13 @@ die "exception"; # without a newline, the script line number is appended
 
 ---
 
-``if (`lsof ...`)``  
-vs  
-`if (system('lsof', ...) == 0)`  
+```perl
+if (`lsof ...`)
+vs
+if (system('lsof', ...) == 0)
+```
 because  
-`% lsof +D folder` sets `$?` to 1 always
+`% lsof +D folder` always sets `$?` to 1
 
 ---
 
@@ -299,7 +300,7 @@ vs
 
 ---
 
-`each` and `//g` return boolean so use `while` vs `for`:  
+`each` and `//g` return boolean so use `while` instead of `for`:  
 ```perl
 while (each %hash)
 while (//g)
@@ -341,5 +342,5 @@ use List::Util 'any';
 `__END__` or `__DATA__`
 
 * POD
-* comments
+* _comments_
 * data that we want to process with while (`<DATA>`)
