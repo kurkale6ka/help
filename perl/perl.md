@@ -1,4 +1,4 @@
-# Statement / expression
+# Statement, Expression
 
 ```
  statement -> code
@@ -37,15 +37,18 @@ print "@items" # $" - list separator for interpolation
 
 ## merge 2 arrays and keep elements unique
 
-1. my @unique = uniq(@array1, @array2); # use List::Util qw(uniq);
-2. my @merged{@array1, @array2} = ();
-3. my %merged = map { $_, 1 } @array1, @rray2; # create (key:$_, val:1) list for each item
+1. `my @unique = uniq(@array1, @array2); # use List::Util 'uniq'`
+2. `my @merged{@array1, @array2} = ();`
+3. `my %merged = map { $_, 1 } @array1, @rray2; # create (key:$_, val:1) list for each item`
 
 2. and 3. need this:
+```perl
 my @unique = keys %merged;
+```
 
 # Hashes
 
+```perl
 %items = ('key1', 'val1', 'key2', 'val2');
 
 %items = (
@@ -54,13 +57,17 @@ my @unique = keys %merged;
 );
 
 while my ($key, $val) = each %items
+```
 
 # References
 
+```perl
 $ref = \$@%named_variable;
 $ref = [anonymous array]; # same brackets as for accessing elements
 $ref = {anonymous hash};
+```
 
+```
                 use {$ref} anywhere an array/hash would be used ({}s are optional)
                /
      %hash | %$ref      | $ref->%*
@@ -73,94 +80,114 @@ $hash{key} | $$ref{key} | $ref->{key}
 ([...], [..x], [...]) - $$array[1][2]   <=>
                          $array[1]->[2] <=>
                          $array[1][2]       {}{} for hashes
+```
 
 # Scope
 
+```
    my - lexical scope
   our - same but alias for package var so can be accessed from outside
 local - local copy of a global variable
+```
 
 ex: input record separator aka IFS
+```perl
 local $/;      # slurp file mode, perl -0777
 local $/ = ''; # paragraph mode,  perl -00
+```
 
-environment
+## environment
+```
       private  public (parent environment inherited by children)
 perl: my $var, $ENV{var}
 bash:     var, export var - set: see all
                             env: see public only
+```
 
 # Regex
 
-zero-width assertions don't consume chars => they are ANDed
+zero-width assertions don't consume chars => they are *AND*ed
 hello(?=\d)(?!123) # followed by a number AND not followed by 123
 
-backreferences
+## backreferences
 s/(\d+).\1/...$1/ # \1 and $1 represent the actual match, not \d+
 
-s///ms
-$_ = qq/hello\nalien\nworld\n/
+## s///ms
+```perl
+$_ = qq/hello\nalien\nworld\n/;
 s/^.+$/---/m;  # multilines: match ^ and $ many times
 s/lo.+wo/@@/s; # pretend $msg is a single line => . matches anything, including \ns
+```
 
-/o - check $var in pattern only once since we know it's not going to change
+`/o` - check `$var` in pattern only once since we know it's not going to change
 
+```
   pre - $`
 match - $&
  post - $'
+```
 
-captures in list context
+## captures in list context
+```perl
 my ($ext) = $file =~ /\.(\w{3})/;
 my @numbers = $version =~ /\d+/g; # progressive matching
+```
 
 ## possessive quantifiers
 no backtracking ~ don't give up characters
 
-A++ is syntactic sugar for atomic group notation: (?>A+)
+`A++` is syntactic sugar for atomic group notation: `(?>A+)`
 
 example:
-"abcd =~ "[^"]+"
+`"abcd =~ "[^"]+"`
 after matching "abcd, it's clear that no backtracking will change the fact that
 a final " cannot be matched. Thus, in order to speedup failure, the pattern is
-better rewritten as "[^"]++"
+better rewritten as `"[^"]++"`
 
 notes:
-* "abcd" =~ "[^"]++" still matches.
+* `"abcd" =~ "[^"]++"` still matches.
 * the optimizer would've automatically turned the regex possessive in this simple case.
 
 # Subroutines
 
+```perl
 sub get {
 my $var = shift;
 # or my ($var1, $var2) = @_;
 wantarray ? @res : $res;
 }
+```
 
-ternary operator
+## ternary operator
 printf "I've got %d camel%s", $ARGV[0], $ARGV[0] == 1 ? '' : 's';
 
-printf is sometimes more readable
+## printf is sometimes more readable
 print 'Found a ', pos($i), "at\n";
 printf "Found a %d at\n", pos($i);
 
-sprintf is like printf but a string is returned instead of printed,
+## sprintf is like printf but a string is returned instead of printed,
 it can then be passed to functions such as 'say' which lack formatting capabilities.
 
-date with format
+## date with format
 strftime '%d-%b-%Y_%Hh%M:%S', localtime; # POSIX module
 $now->strftime($format);                 # Time::Piece->new
 
-s//$1/
-# without /e -> "" interpolation
-#    with /e -> normal code:
-#               $1 gets 'interpolated' by the first /e,
-#               it's value (4 + 3) gets evaluated by the second /e!
+## s//$1/
+```
+without /e -> "" interpolation
+   with /e -> normal code:
+              $1 gets 'interpolated' by the first /e,
+              it's value (4 + 3) gets evaluated by the second /e!
+```
+```perl
 $add = 4 + 3;
 $_ = 'Sum: $add';
 s/(\$\w+)/$1/ee;
+```
 
 ## return values
 
+```
               s/// - number of substitutions
              chomp - number of chars
               grep - list
@@ -169,34 +196,39 @@ if (my $var = ...) - lvalue, not boolean
    each %hash, //g - boolean
         shift, pop - element
      unshift, push - number of elements
+```
 
 # Command line
 
+```
 -a implies -n
 -F implies -an
 
 perl -p: read every line -- process -- print every line
 perl -n: read every line -- process
                             & explicitly print when we need
+```
 
 ## one liners
 
-search and replace
+### search and replace
 perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
 
-print from $3 to end
+### print from $3 to end
 perl -laE 'say "@F[2..$#F]"' file
 
-namei -l
+### namei -l
 perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
 
-disk usage pretty report
+### disk usage pretty report
 du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
 
 # Precedence
 
+```
 or, and are the same as
 ||, &&  but with lower precedence
+```
 
 # Errors
 
@@ -234,6 +266,7 @@ use @backups[0 .. $#backups - 3] vs @backups[0 .. -3] because '..' counts up onl
 
 # Documentation
 
+```
 perldoc perl
 perldoc perldoc
 perldoc perlop
@@ -241,12 +274,14 @@ perldoc perlrun # command line options
 perldoc File::Basename
 perldoc -f split
 perldoc -f -x # file test operators
+```
 
 Perl Training Australia - Perl Tips
-http://perltraining.com.au/tips/
+[http://perltraining.com.au/tips/]
 
 # Modules
 
+```perl
 use strict;
 use warnings;
 use feature 'say';
@@ -255,14 +290,15 @@ use File::Basename 'basename';
 use File::Path 'make_path';
 use Term::ANSIColor ':constants';
 use List::Util 'any';
+```
 
 # End of the program
 
-__END__ or __DATA__
+`__END__` or `__DATA__`
 
 * POD
 * comments
-* data that we want to process with while (<DATA>)
+* data that we want to process with while (`<DATA>`)
 
 TODO
 
