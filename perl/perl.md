@@ -96,7 +96,7 @@ while (my ($key, $val) = each %items)
 # References
 
 ```perl
-$ref = \$named_variable;      # also \@, \%
+$ref = \$named_variable;      # \@, \%
 $ref = [qw/anonymous array/]; # mnemo: []s access array elements
 $ref = {anonymous => 'hash'}; #        {}s access hash elements
 ```
