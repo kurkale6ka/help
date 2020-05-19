@@ -62,7 +62,7 @@ print "\n";
 
 # Write quotes in octal
 say GREEN, q/# \047 is the octal value of '/;
-say $BLUE, q/echo $'\047Quotes\047\n'/, RESET;
+say $BLUE, q/printf '\047Quotes\047\n'/, RESET;
 
 say "\047Quotes\047\n";
 
