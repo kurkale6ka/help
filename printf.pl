@@ -8,7 +8,7 @@ use Term::ANSIColor qw/:constants color/;
 
 my $BLUE = color('ansi69');
 
-# figlet -f smslant printf
+# figlet -f smslant
 say << 'HEADER';
              _      __  ___
    ___  ____(_)__  / /_/ _/
