@@ -1,0 +1,20 @@
+c - command-line
+grub>
+
+List vars
+set
+
+List files
+ls
+ls (hd0)
+ls (hd0)/
+ls -l (hd0)/
+
+(hd0,0) - 1st drive, 1st partition
+
+echo $root
+
+help search
+
+pager=1
+cat /boot/grub/grub.cfg
