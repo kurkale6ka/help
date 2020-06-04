@@ -1,22 +1,18 @@
 # Hunks are read from STDIN or a patch file
 
-## patch a file named `orig`
+## patch a file named 'orig'
 
 ```sh
 # STDIN
-# orig can be omitted if it can be deduced from within the hunks
-patch orig < orig.patch
-patch orig
+# orig can be omitted if the name can be deduced from within the hunks
+patch [orig] < orig.patch
+patch [orig]
    paste on STDIN
 ^d
 
 # Patch file
-patch orig orig.patch
+patch orig orig.patch # patch a single file
 patch -i orig.patch
-
-# WRONG
-# trying to patch orig.patch from STDIN
-patch orig.patch
 ```
 
 # Paths in hunks must correspond to real files
