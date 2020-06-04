@@ -20,6 +20,9 @@
 # TODO: how to avoid duplication when adding tags?
 #    after running the below command 2 times, -keywords will have a value of my_tag, my_tag
 #    exiftool -iptc:keywords+=my_tag my_pic
+#
+# ${make;} # implicit tr/// to remove weird characters
+# $createdate# <- data in computer batch mode, not human readable
 
 ## Manage pictures
 
