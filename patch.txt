@@ -1,14 +1,28 @@
-Create:
-diff -uw > ssh.patch
+Patches are read from STDIN unless called with 2 arguments or -i
 
-Apply: (while in a parent folder of sftp)
+patch file orig:
 
---- sftp/bla.pub
-+++ sftp/bla.pub
+patch       < orig.patch # if orig can be deduced from within orig.patch
+patch orig  < orig.patch
+patch orig -i orig.patch
+patch orig
+   paste on STDIN
+^d
+patch orig orig.patch
 
-patch -p0 < ssh.patch
+patch orig.patch # WRONG: trying to patch orig.patch from STDIN
 
---- /a/b/c/sftp/bla.pub
-+++ /a/b/c/sftp/bla.pub
+Paths in hunks must correspond to real files
 
-patch -p4 < ssh.patch # remove 4 leading /s
+--- /home/user/project.pl
++++ /home/user/project.pl
+
+# if user is unknown locally, remove /home/user by removing 3 leading /s
+patch -p3 < project.patch
+
+Create a patch
+
+diff -u orig new > orig.patch
+
+    git diff > orig.patch
+svn di -x -u > orig.patch
