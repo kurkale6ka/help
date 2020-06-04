@@ -1,0 +1,6 @@
+Use make install (in /usr/local)
+vs sudo make install
+
+Avoid making local installs into system directories. The system directories eg
+/usr, are reserved for the package manager (yum, apt, ...)
+so it's best to leave things pristine
