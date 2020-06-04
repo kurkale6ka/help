@@ -1,17 +1,22 @@
-# Patches are read from STDIN unless called with 2 arguments or -i
+# Hunks are read from STDIN or a patch file
 
-## patch file orig:
+## patch a file named `orig`
 
 ```sh
-patch       < orig.patch # if orig can be deduced from within orig.patch
-patch orig  < orig.patch
-patch orig -i orig.patch
+# STDIN
+# orig can be omitted if it can be deduced from within the hunks
+patch orig < orig.patch
 patch orig
    paste on STDIN
 ^d
-patch orig orig.patch
 
-patch orig.patch # WRONG: trying to patch orig.patch from STDIN
+# Patch file
+patch orig orig.patch
+patch -i orig.patch
+
+# WRONG
+# trying to patch orig.patch from STDIN
+patch orig.patch
 ```
 
 # Paths in hunks must correspond to real files
@@ -21,7 +26,7 @@ patch orig.patch # WRONG: trying to patch orig.patch from STDIN
 +++ /home/user/project.pl
 ```
 ```sh
-# if user is unknown locally, remove /home/user by removing 3 leading /s
+# if user is unknown locally, remove /home/user by stripping 3 leading /s
 patch -p3 < project.patch
 ```
 
