@@ -31,7 +31,7 @@ openssl req -new -key myserver.key -out server.csr
 
 Self signed certificate (see: PKCS#10)
 --------------------------------------
-openssl req -new -x509 -days 1095 -key ca_keys.pem -out ca_cert.pem -subj '/C=GB/S=State/L=London/O=Company/OU=IT/CN=FQDN/E=@'
+openssl req -new -x509 -days 1095 -key ca_keys.pem -out ca_cert.pem -subj '/C=GB/ST=State/L=London/O=Company/OU=IT/CN=FQDN/emailAddress=@'
 
 Certificate creation by the CA (Certificate Authority)
 ------------------------------------------------------
