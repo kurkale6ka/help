@@ -24,7 +24,7 @@
         * [namei -l](#one_l_namei)
         * [disk usage pretty](#one_l_du)
 * [Precedence](#Precedence)
-* [Errors](#Errors)
+* [Exceptions](#Exceptions)
 * [Traps](#Traps)
 * [Documentation](#Documentation)
 * [Modules](#Modules)
@@ -279,11 +279,11 @@ perl -n: read every line -- process -- print only when we need + say so
 `or`, `and` are the same as  
 `||`, `&&` but with lower precedence
 
-# Errors
+# Exceptions
 
 try, catch is:
 ```perl
-   eval BLOCK
+   eval BLOCK;
 if ($@) BLOCK
 ```
 
