@@ -197,7 +197,8 @@ _notes_:
 # Subroutines
 
 ```perl
-sub get {
+# takes a scalar, and a 2nd optional one
+sub get ($;$) {
    my $var = shift; # or my ($var1, $var2) = @_;
    wantarray ? @res : $res;
 }
