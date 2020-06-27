@@ -166,6 +166,12 @@ s/^.+$/---/m;  # multilines: match ^ and $ many times
 s/lo.+wo/@@/s; # pretend $msg is a single line => . matches anything, including \ns
 ```
 
+## lookaround
+```perl
+(?<= ... ) --- (?= ... )
+(?<! ... ) --- (?! ... )
+```
+
 ## captures in list context <a name="reg_captures"></a>
 ```perl
 my ($ext) = $file =~ /\.(\w{3})/;
