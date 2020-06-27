@@ -7,8 +7,9 @@
     * [environment variables](#scope_env)
 * [Regex](#Regex)
     * [backreferences](#backreferences)
-    * [match multilines and newlines in s///ms](#reg_newlines)
     * [captures in list context](#reg_captures)
+    * [lookaround](#lookaround)
+    * [match multilines and newlines in s///ms](#reg_newlines)
     * [possessive quantifiers](#reg_possessive)
 * [Subroutines](#Subroutines)
     * [ternary operator - cond ? true : false](#sub_ternary)
@@ -159,11 +160,10 @@ match - $&
 s/(\d+).\1/...$1/; # \1 and $1 represent the actual match, not \d+
 ```
 
-## multilines and newlines in s///ms <a name="reg_newlines"></a>
+## captures in list context <a name="reg_captures"></a>
 ```perl
-$_ = qq/hello\nalien\nworld\n/;
-s/^.+$/---/m;  # multilines: match ^ and $ many times
-s/lo.+wo/@@/s; # pretend $msg is a single line => . matches anything, including \ns
+my ($ext) = $file =~ /\.(\w{3})/;
+my @numbers = $version =~ /\d+/g; # progressive matching
 ```
 
 ## lookaround
@@ -172,10 +172,11 @@ s/lo.+wo/@@/s; # pretend $msg is a single line => . matches anything, including 
 (?<! ... ) --- (?! ... )
 ```
 
-## captures in list context <a name="reg_captures"></a>
+## multilines and newlines in s///ms <a name="reg_newlines"></a>
 ```perl
-my ($ext) = $file =~ /\.(\w{3})/;
-my @numbers = $version =~ /\d+/g; # progressive matching
+$_ = qq/hello\nalien\nworld\n/;
+s/^.+$/---/m;  # multilines: match ^ and $ many times
+s/lo.+wo/@@/s; # pretend $msg is a single line => . matches anything, including \ns
 ```
 
 ## possessive quantifiers <a name="reg_possessive"></a>
