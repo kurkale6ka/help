@@ -52,3 +52,9 @@ shell:
 # /var/log/user-history.log                                  whoami | bash PID |         history 1        |  $?
 #                                                            oge    | [21118]: | 2013-09-09_10:46:34 su - | [1]
 export PROMPT_COMMAND='RETRN_VAL=$?; logger -p local6.debug "$LOGNAME [$$]: $(history 1 | command sed "s/^[ ]*[0-9]\+[ ]*//" ) [$RETRN_VAL]"; ...'
+
+source aka .
+tells Bash to read the commands in myscript and run them in the current shell
+environment. Since the commands are run in the current shell, they can change
+the current shell's variables, working directory, open file descriptors,
+functions, etc.
