@@ -3,10 +3,13 @@ target: prerequisites
 <tab>recipe # uses prerequisites to make the target
 
 $@: $<
+	@echo compiling...
 	${CC} ...
 
        .PHONY := all clean # not actual files, run regardless of mtime
 .DEFAULT_GOAL := the 1st target, often called 'all'
+
+-include Makefile # '-' for no errors
 
 Example
 
