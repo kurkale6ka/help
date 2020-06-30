@@ -19,6 +19,7 @@
     * [evaluation in s//$1/](#sub_s_eval)
     * [return values](#sub_return)
 * [Command line](#cmd_line)
+    * [use a module](#use_module)
     * [one liners](#one_l)
         * [search and replace](#one_l_replace)
         * [print from field $3 to last](#one_l_fields)
@@ -252,12 +253,18 @@ if (my $var = ...) - lvalue, not boolean
 
 # Command line <a name="cmd_line"></a>
 
-```
+```perl
 -a implies -n
 -F implies -an
 
 perl -p: read every line -- process -- print every line
 perl -n: read every line -- process -- print only when we need + say so
+```
+
+## use a module <a name="use_module"></a>
+```sh
+perl -M'Term::ANSIColor ":constants"' -E 'say YELLOW.Hello'
+perl -MTerm::ANSIColor=:constants -E 'say YELLOW.Hello'
 ```
 
 ## one liners <a name="one_l"></a>
