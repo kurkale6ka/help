@@ -262,7 +262,7 @@ perl -n: read every line -- process -- print only when we need + say so
 ```
 
 ## use a module <a name="use_module"></a>
-```sh
+```perl
 perl -M'Term::ANSIColor ":constants"' -E 'say YELLOW.Hello'
 perl -MTerm::ANSIColor=:constants -E 'say YELLOW.Hello'
 ```
