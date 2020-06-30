@@ -34,7 +34,7 @@
 
 # Statement, expression <a name="statement"></a>
 
-```
+```perl
  statement -> code
 expression -> code that returns a value
 ```
