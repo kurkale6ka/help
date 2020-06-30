@@ -43,7 +43,7 @@ expression -> code that returns a value
 
 `,` creates lists. `()` is only necessary if precedence is ambiguous.
 
-```
+```perl
 => (fat coma) is the same as ,
       foreach is the same as for
 ```
@@ -103,7 +103,7 @@ $ref = [qw/anonymous array/]; # mnemo: []s access array elements
 $ref = {anonymous => 'hash'}; #        {}s access hash elements
 ```
 
-```
+```perl
                 use {$ref} anywhere an array/hash would be used ({}s are optional)
                /
      %hash | %$ref      | $ref->%*
@@ -120,7 +120,7 @@ $hash{key} | $$ref{key} | $ref->{key}
 
 # Scope
 
-```
+```perl
    my - lexical scope
   our - same but alias for package var so can be accessed from outside
 local - local copy of a global variable
@@ -133,7 +133,7 @@ local $/ = ''; # paragraph mode,  perl -00
 ```
 
 ## environment variables <a name="scope_env"></a>
-```
+```perl
          private | public (inherited by children)
       -----------+--------------
 Perl: my $EDITOR | $ENV{EDITOR}
@@ -150,7 +150,7 @@ hello(?=\d)(?!123) # followed by a number AND not followed by 123
 
 `/$var/o` - check `$var` only once since we know it's not going to change
 
-```
+```perl
   pre - $`
 match - $&
  post - $'
@@ -231,7 +231,7 @@ $add = 4 + 3;
 $_ = 'Sum: $add';
 s/(\$\w+)/$1/ee;
 ```
-```
+```perl
 without /e -> "" interpolation
    with /e -> normal code:
               $1 gets 'interpolated' by the first /e,
