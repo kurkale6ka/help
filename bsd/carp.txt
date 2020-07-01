@@ -1,6 +1,8 @@
 Common Address Redundancy Protocol
 ----------------------------------
 
+similar to VRRP and Cisco's HSRP
+
 create a group of redundant firewalls (failover):
 
 Allow multiple hosts on the same network segment to share a virtual/floating
