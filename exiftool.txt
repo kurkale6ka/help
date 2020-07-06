@@ -1,7 +1,7 @@
 Options can't be grouped since they would form a valid tag name
 -G -S but not -GS
 
-Output tag with custom formatting (-printFormat)
+Output tag with custom formatting
 exiftool -p '${createdate;s/:/-/g}' my_pic.jpg
 
 Delete a cached tag in Shotwell
@@ -29,6 +29,7 @@ Delete originals without prompting
 exiftool -delete_original! .
 
 Renaming
+see 'RENAMING EXAMPLES' in 'man exiftool'
 
 Append the camera 'make' to the file name (check for already existing 'make')
 exiftool -ext jpg '-filename<%f ${make;}.%e' -if '${filename;s/\.\S+//} !~ /[[:alpha:]]/i' .
