@@ -1,18 +1,26 @@
 # Hunks are read from STDIN or a patch file
 
-## patch a file named 'orig'
+## Patch one or many files
 
+The filename can be omitted if it can be deduced from within the hunks.
+It must be omitted when patching multiple files.
+
+These 3 commands are equivalent:
 ```sh
-# STDIN
-# orig can be omitted if the name can be deduced from within the hunks
-patch [orig] < orig.patch
-patch [orig]
+patch [pf.conf] -i pf.patch # --input
+```
+```sh
+patch [pf.conf] < pf.patch
+```
+```sh
+patch [pf.conf]
    paste on STDIN
 ^d
+```
 
-# Patch file
-patch orig orig.patch # patch a single file
-patch -i orig.patch
+## Patch a single file
+```sh
+patch pf.conf pf.patch
 ```
 
 # Paths in hunks must correspond to real files
