@@ -5,12 +5,13 @@
 The filename can be omitted if it can be deduced from within the hunks.  
 It must be omitted when patching multiple files.
 
-These 3 commands are equivalent:
-
-`patch [pf.conf] -i pf.patch # --input`
-
-`patch [pf.conf] < pf.patch`
-
+_These 3 commands are equivalent:_
+```sh
+patch [pf.conf] -i pf.patch # --input
+```
+```sh
+patch [pf.conf] < pf.patch
+```
 ```sh
 patch [pf.conf]
    paste on STDIN
