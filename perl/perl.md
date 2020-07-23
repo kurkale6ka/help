@@ -16,6 +16,7 @@
     * [printf is sometimes more readable than print](#sub_printf)
     * [sprintf is like printf but a string is returned instead of printed](#sub_sprintf)
     * [date with format](#sub_date)
+    * [pack](pack.pl)
     * [evaluation in s//$1/](#sub_s_eval)
     * [return values](#sub_return)
 * [Command line](#cmd_line)
@@ -224,6 +225,9 @@ it can then be passed to functions such as `say` which lack formatting capabilit
 strftime '%d-%b-%Y_%Hh%M:%S', localtime; # POSIX module
 $now->strftime($format);                 # Time::Piece->new
 ```
+
+## pack
+[pack](pack.pl)
 
 ## evaluation in s//$1/ <a name="sub_s_eval"></a>
 ```perl
