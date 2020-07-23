@@ -1,0 +1,33 @@
+/etc/security/limits.conf
+
+who          type          what         value
+usr,@grp,* | soft,hard,- | core,nproc | unlimited,infinity,-1
+              \         \               0
+               \         both
+                default that can be adjusted, unlike hard
+
+example:
+* hard core 0 # core dump size limited to 0 for everyone
+
+/proc/PID/limits
+
+# grep '^Limit\|core' /proc/$(pgrep -f Rocket)/limits
+Limit               Soft Limit  Hard Limit  Units
+Max core file size  0           unlimited   bytes
+
+prlimit:
+get/set process resource limits.
+use if a process shouldn't be restarted.
+
+prlimit -pPID -cunlimited
+
+core dump:
+core memory (RAM) dump of a program
+
+location of core dumps: (default /proc/PID/cwd/)
+sysctl kernel.core_pattern
+
+ulimit:
+manage current shell resources
+
+NB: check setuid
