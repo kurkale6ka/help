@@ -9,6 +9,9 @@ usr,@grp,* | soft,hard,- | core,nproc | unlimited,infinity,-1
 example:
 * hard core 0 # core dump size limited to 0 for everyone
 
+you might need to allow setuid processes to dump cores:
+sysctl -w fs.suid_dumpable = 1
+
 /proc/PID/limits
 
 # grep '^Limit\|core' /proc/$(pgrep -f Rocket)/limits
@@ -29,5 +32,3 @@ sysctl kernel.core_pattern
 
 ulimit:
 manage current shell resources
-
-NB: check setuid
