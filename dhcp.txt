@@ -1,0 +1,13 @@
+Static lease:
+
+/etc/dhcp/dhcpd.conf
+
+subnet 192.168.11.0 netmask 255.255.255.0 {
+}
+
+host pearl {
+   hardware ethernet c4:ee:69:bc:60:a6;
+   fixed-address 192.168.11.232;
+}
+
+subnet is just needed so dhcpd knows what interface to listen on
