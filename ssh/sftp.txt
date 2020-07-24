@@ -6,11 +6,19 @@ Install key in ~user1/.ssh/authorized_keys
                        \   +-- mode 600
                         +-- mode 700
 
-Match User user1,user2
-ForceCommand internal-sftp
-PasswordAuthentication no
-ChrootDirectory /srv/ # root:root owned
-PermitTunnel no
-AllowAgentForwarding no
-AllowTcpForwarding no
-X11Forwarding no
+                             all users followed by the exception list
+                            /
+Match Group marketing User *,!user1,!user2
+  ForceCommand internal-sftp -d /reports # auto cd
+  PasswordAuthentication no
+  ChrootDirectory /srv/
+  PermitTunnel no
+  AllowAgentForwarding no
+  AllowTcpForwarding no
+  X11Forwarding no
+
+the chroot must be root owned (0:0) and writeable by root only.
+
+A 2nd Match doesn't reset parameters enabled by the 1st one. Also,
+ForceCommand internal-sftp in the 1st match is what rules even if
+ForceCommand internal-sftp none is set in a following match
