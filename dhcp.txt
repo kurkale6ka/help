@@ -2,12 +2,17 @@ Static lease:
 
 /etc/dhcp/dhcpd.conf
 
-subnet 192.168.11.0 netmask 255.255.255.0 {
+subnet 192.168.77.0 netmask 255.255.255.0 {
 }
 
 host pearl {
    hardware ethernet c4:ee:69:bc:60:a6;
-   fixed-address 192.168.11.232;
+   fixed-address 192.168.77.232;
+   option routers 192.168.77.1;
+   max-lease-time 120;
+   default-lease-time 120;
 }
 
+Notes:
 subnet is just needed so dhcpd knows what interface to listen on
+the lease duration has been decreased to 2min from the default 12h
