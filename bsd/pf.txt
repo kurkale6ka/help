@@ -26,3 +26,11 @@ Filter
 
 # Firewall with several external NICs, gateways to different ISPs
 pass in on ext-nic from any to 10.0.0.40 port 443 reply-to (ext-nic gw2) # route back trough gw2
+
+test config:
+pfctl -nf /etc/pf.conf
+
+show rules:
+pfctl -sr
+
+pfctl -Tshow -t{table_name}

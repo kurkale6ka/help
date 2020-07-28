@@ -1,1 +1,9 @@
 NAT (+port redirection) and loadbalance to internal IPs
+
+test config:
+relayd -nf /etc/relayd.conf
+
+start:
+rcctl start relayd
+
+relayctl show summary
