@@ -2,15 +2,18 @@ Static lease:
 
 /etc/dhcp/dhcpd.conf
 
+default-lease-time 120;
+max-lease-time 120;
+
+option domain-name-servers 1.1.1.1, 8.8.8.8;
+option routers 192.168.77.1;
+
 subnet 192.168.77.0 netmask 255.255.255.0 {
 }
 
 host pearl {
    hardware ethernet c4:ee:69:bc:60:a6;
    fixed-address 192.168.77.232;
-   option routers 192.168.77.1;
-   max-lease-time 120;
-   default-lease-time 120;
 }
 
 Notes:
