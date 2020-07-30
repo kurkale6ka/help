@@ -280,12 +280,12 @@ perl -MTerm::ANSIColor=:constants -E 'say YELLOW.Hello'
 
 ### print from field $3 to last <a name="one_l_fields"></a>
 ```perl
-% perl -laE 'say "@F[2..$#F]"' file
+% perl -lae 'print "@F[2..$#F]"' /my/file
 ```
 
 ### namei -l <a name="one_l_namei"></a>
 ```perl
-% perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /path/to/file
+% perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /my/file
 ```
 
 ### disk usage pretty <a name="one_l_du"></a>
