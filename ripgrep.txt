@@ -1,0 +1,11 @@
+-s :        case
+-i : ignore case
+-S :  smart case
+
+-g'!.git'
+
+--no-heading
+-I: no filenames
+-N: no line numbers
+
+--hidden
