@@ -24,6 +24,7 @@
     * [one liners](#one_l)
         * [search and replace](#one_l_replace)
         * [print from field $3 to last](#one_l_fields)
+        * [regex based sort](#one_l_sort)
         * [namei -l](#one_l_namei)
         * [disk usage pretty](#one_l_du)
 * [Precedence](#Precedence)
@@ -281,6 +282,11 @@ perl -MTerm::ANSIColor=:constants -E 'say YELLOW.Hello'
 ### print from field $3 to last <a name="one_l_fields"></a>
 ```perl
 % perl -lae 'print "@F[2..$#F]"' /my/file
+```
+
+### regex based sort <a name="one_l_sort"></a>
+```perl
+perl -e 'print for sort {($aa, $bb) = map {m:(\d+)C/:} $a, $b; $aa<=>$bb} <>' /my/file
 ```
 
 ### namei -l <a name="one_l_namei"></a>
