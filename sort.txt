@@ -1,18 +1,18 @@
 GNU
 ---
-             .- sort on the 3rd field
-            /    .-- do a numeric sort
-           /    /
-sort -t: -k3 -rn
-       \       \
-        \       *-- reverse
+             .- from 3rd field 2nd char to 4th field 1st char
+            /        .-- numeric
+           /        /
+sort -t: -k3.2,4 -rn
+       \           \
+        \           *-- reverse
          *- separator for -k
 
 Vim
 ---
-                  .- do a numeric sort
+                  .- numeric
                  /
 :sort! /\d\+$/ rn
       \         \
-       \         *-- sort on the pattern (or after if no r)
+       \         *-- on pattern (or after if no r)
         *- reverse
