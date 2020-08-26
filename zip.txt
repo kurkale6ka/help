@@ -1,0 +1,4 @@
+zip    ts.zip t*      : add
+zip -d ts.zip tee.txt : remove
+
+unzip -l ts.zip : list
