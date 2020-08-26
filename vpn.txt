@@ -1,0 +1,18 @@
+As root:
+
+cd /etc/openvpn
+
+wget https://downloads.nordcdn.com/configs/archives/servers/ovpn.zip
+unzip ovpn.zip
+
+cd /etc/openvpn/ovpn_udp/
+
+# choose a server
+https://nordvpn.com/servers/tools/
+
+openvpn --auth-user-pass [pass-file] /etc/openvpn/ovpn_udp/us298.nordvpn.com.udp.ovpn
+                              |
+                            login
+                           password
+                               \
+                                My services / NordVPN / Service credentials
