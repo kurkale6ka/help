@@ -7,12 +7,11 @@ unzip ovpn.zip
 
 cd /etc/openvpn/ovpn_udp/
 
-# choose a server
+Choose a server
 https://nordvpn.com/servers/tools/
 
-openvpn --auth-user-pass [pass-file] /etc/openvpn/ovpn_udp/us298.nordvpn.com.udp.ovpn
-                              |
-                            login
-                           password
-                               \
-                                My services / NordVPN / Service credentials
+openvpn --config /etc/openvpn/ovpn_udp/us298.nordvpn.com.udp.ovpn --auth-user-pass [pass-file]
+
+[pass-file]
+login
+password (My services / NordVPN / Service credentials)
