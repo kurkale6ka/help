@@ -1,0 +1,5 @@
+tar zxvf archive.tgz          : extract
+tar zcvf archive.tgz archive/ : create
+tar  tvf archive.tgz          : view
+
+replace z with J for .txz
