@@ -7,3 +7,5 @@ start:
 rcctl start relayd
 
 relayctl show summary
+
+relayd LBs, then pf passes...
