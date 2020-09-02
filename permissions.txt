@@ -1,3 +1,13 @@
+  u   g   o    base permissions   umask 022
+ 421 421 421 | File / Directory | File / Directory
+-rwx rwx rwx | 666    777       | 644    755
+
+dir: rwx
+      \\\
+       \\*- cd + use
+        \*-- create stuff (requires x)
+         *--- ll
+
 x is needed everywhere!
 we must be able to traverse (cd) the whole path
 
@@ -17,14 +27,25 @@ because only the final (leaf) permissions count as long as x is everywhere.
 
 NB: no w on any of the intermediary folders is needed by that user!
 
-Annexe
+Special bits
 
-  u   g   o    base permissions   umask 022
- 421 421 421 | File / Directory | File / Directory
--rwx rwx rwx | 666    777       | 644    755
+  suid
+setuid: allow users to run a program as the owner
+        -rwsr-xr-x root root /usr/bin/sudo
 
-dir: rwx
-      \\\
-       \\*- cd + use
-        \*-- create stuff (requires x)
-         *--- ll
+setgid: allow users to run a program as the group
+        -rwxr-sr-x root crontab /usr/bin/crontab
+
+        directory with setgid:
+        new files will inherit the directory's group
+
+sticky bit:
+when set on a directory, files inside can only be removed by their owners
+
+ 421
+ ||+ sticky (t)
+ |+ setgid (s if x also set, else S)
+ + setuid (s)
+
+ex: chmod 2755 is equivalent to
+    chmod g+s
