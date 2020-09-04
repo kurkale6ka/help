@@ -1,11 +1,13 @@
--s :        case
+-s :        case - default
 -i : ignore case
 -S :  smart case
 
--g'!.git'
+man gitignore
+     -g '!.git'  : exclude
+--iglob 'foo/**' : search foo, case insensitively
 
---no-heading
--I: no filenames
--N: no line numbers
+--no-heading : single heading-filename for grouping results
+-I : no filenames
+-N : no line numbers
 
 --hidden
