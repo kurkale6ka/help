@@ -42,7 +42,7 @@
                   place O/X between the 2 other faces
 
    ⇒     ⇐                                ⇐     ⇒
-   ·  ⟳  ·  ⟳  ⇓··  ⟲  ⇑·· (7)            ·  ⟲  ·  ⟲  ⇑··  ⟳  ⇓·· (7)
+   ·  ⟳  ·  ⟳  ⇓··  ⟲  ⇑·· (7)            ·  ⟲  ·  ⟲  ··⇓  ⟳  ··⇑ (7)
    ·     ·                                ·     ·
 
 3. Bottom corners
@@ -198,11 +198,11 @@
 
    bottom corners colors:
         ⇐       ⇐       ⇐  ⇐       ⇐  ⇐
-   ··⇑  ·  ··⇓  ·  ··⇑  ·  ·  ··⇓  ·  ·  (10) clockwise
+   ··⇑  ·  ··⇓  ·  ··⇑  ·  ·  ··⇓  ·  ·  (10) R. clockwise
         ·       ·       ·  ·       ·  ·
 
         ⇒       ⇒       ⇒  ⇒       ⇒  ⇒
-   ⇑··  ·  ⇓··  ·  ⇑··  ·  ·  ⇓··  ·  ·  (10) anti clockwise
+   ⇑··  ·  ⇓··  ·  ⇑··  ·  ·  ⇓··  ·  ·  (10) L. anti clockwise
         ·       ·       ·  ·       ·  ·
 
    bottom edges positions:
