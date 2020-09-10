@@ -1,0 +1,17 @@
+systemctl cat ...
+systemctl show ...
+systemctl is-(active|enabled|failed) [pattern]
+systemctl list-units [--all] [pattern]
+systemctl edit -l (or --full) ...
+
+systemctl daemon-reload
+
+              add explanations
+             /
+journalctl -xe -u <unit>
+              \
+               jump to end
+
+Man
+systemd.directives
+systemd.service
