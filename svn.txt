@@ -18,3 +18,5 @@ filename.rNEWREV
 with this kind of conflicts,
 svn revert -R
 will be needed, in addition to any other steps
+
+svn cat https://your-server/path/to/file@rev
