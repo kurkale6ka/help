@@ -11,4 +11,4 @@ m[onitor] - prints a line whenever a change occurs in NetworkManager
 nmcli d h # get help on device command
 nmcli g (st)
 nmcli d (st) # interfaces status
-nmcli c (st)
+nmcli c (show)
