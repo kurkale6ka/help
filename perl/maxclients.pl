@@ -9,10 +9,12 @@ use strict;
 use warnings;
 use feature 'say';
 
-foreach my $file (`fd -tf -E'*~' '^httpd\.conf'`)
+open my $find, '-|', qw/fd -tf -E*~ ^httpd\.conf/ or die "$!\n";
+
+while (my $file = <$find>)
 {
    chomp $file;
-   open (my $fh, $file);
+   open (my $fh, $file) or die "$!\n";
    while (<$fh>)
    {
       next if 1 .. /worker\.c/;
