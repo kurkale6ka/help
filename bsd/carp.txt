@@ -1,6 +1,14 @@
 Common Address Redundancy Protocol
 ----------------------------------
 
+  common address: CARP, VRRP
+     @  |  /
+      \ | /
+ reverse proxy: relayd, nginx
+      / | \
+     @  @  @
+web 1   2   3 servers
+
 similar to VRRP and Cisco's HSRP
 
 create a group of redundant firewalls (failover):
