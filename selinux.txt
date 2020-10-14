@@ -2,8 +2,8 @@ https://wiki.gentoo.org/wiki/SELinux/Quick_introduction
 
 SELinux: Mandatory Access Control
 
-With MAC, the permissions are not governed by the owner of the resource,
-instead, they are imposed by the administrator.
+With MAC, the permissions are not governed by the owner of the resource
+(ex: give r access to others), instead, they are imposed by the administrator.
 
 If regular permissions (DAC) disallow an activity, SELinux is not even consulted
 
