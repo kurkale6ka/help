@@ -1,56 +1,43 @@
-                 Mandatory Access Control confined environment
-
 https://wiki.gentoo.org/wiki/SELinux/Quick_introduction
 
-SELinux is a security subsystem inside the Linux kernel. It uses Linux Security Modules.
-if DAC check forbids an activity, then SELinux is not even consulted.
+SELinux: Mandatory Access Control
 
-context or label:
-user_u:user_r:user_t:sensitivity
-                \
-                 type or domain
+With MAC, the permissions are not governed by the owner of the resource,
+instead, they are imposed by the administrator.
 
-...
+If regular permissions (DAC) disallow an activity, SELinux is not even consulted
 
-ps Z:
-every process is assigned a security context or label which defines the rights
-and privileges of the process
+In SELinux, everything has a context (label):
 
-security context: system_u:system_r:auditd_t
-                                       \
-                                     domain
+..._u:..._r:..._t:sensitivity
+    |     |     |
+    |     |     +-- type (domain)
+    |     +-- role
+    +-- user
 
-type enforcement:
-allow <domain> <type>:<class> { <permissions> };
+All fields are used to decide access.
+Most of the rules however are made for the type only.
 
-ex:
+Policy rules:
 allow auditd_t auditd_log_t:file { write };
-         \              \
-    process type  file target of type log
 
 sesearch --allow --source auditd_t --target auditd_log_t --class file --perm write
 
-Extended attributes:
-   * ls -lZ /var/log/audit/audit.log # or getfattr -m security.selinux -d /var/log/audit/audit.log
-      \ ... auditd_log_t
-
-Domains are types assigned to running processes
-
 Possible logging locations:
-   /var/log/avc.log
-   /var/log/audit... # lines with avc
+/var/log/avc.log
+/var/log/audit... # lines with avc
 
-Check for hidden cosmetic denials:
-seinfo --stats | grep audit
-Auditallow: 1 Dontaudit: 5341
+search logs:
+ausearch -m avc -ts today # access vector cache since today
 
-Rebuild the SELinux policy:
-semodule --disable_dontaudit --build # semodule --build (to revert)
+AVC denial:
+msg=audit(1363289005.532:184) # when: date -d@1363289005.532
+denied { read } for pid=29199 comm="Vim" # denied for command Vim with PID ...
+name="passwd" ino=30 # trying to read file 'passwd' (inode 30)
+scontext = staff_u:staff_r:..._t # Vim
+tcontext = system_u:object_r:sysfs_t tclass=file # passwd
 
-Also:
-ausearch -m avc --start recent # denials in the last 10 min
-or
-sealert -l 84e0b04d-d0ad-4347-8317-22e74f6cd020 # as reported by setroubleshoot
-
-Query file context definitions:
-semanage fcontext -l | grep auditd_log_t
+Ex:
+httpd_t not allowed to write to a etc_t location
+Solutions:
+restorecon or change context or relabel whole system ...
