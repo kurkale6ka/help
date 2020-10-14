@@ -16,3 +16,6 @@ Options:
                          FZF_CTRL_R_OPTS
      FZF_ALT_C_COMMAND / FZF_ALT_C_OPTS
 FZF_COMPLETION_TRIGGER / FZF_COMPLETION_OPTS # for **
+
+-1, automatically select the only match
+-0, exit immediately when there's no match
