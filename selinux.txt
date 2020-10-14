@@ -16,14 +16,16 @@ In SELinux, everything has a context (label):
     +-- user
 
 All fields are used to decide access.
-Most of the rules however are made for the type only.
+Most rules however are made for the type only.
+
+ex: httpd_t not allowed to write to etc_t locations
 
 Policy rules:
 allow auditd_t auditd_log_t:file { write };
 
 sesearch --allow --source auditd_t --target auditd_log_t --class file --perm write
 
-Possible logging locations:
+Logging locations:
 /var/log/avc.log
 /var/log/audit... # lines with avc
 
@@ -38,9 +40,6 @@ scontext = staff_u:staff_r:..._t # Vim
 tcontext = system_u:object_r:sysfs_t tclass=file # passwd
 
 find /sys -xdev -inum 30
-
-Ex:
-httpd_t not allowed to write to a etc_t location
 
 Troubleshooting:
 sestatus
