@@ -33,11 +33,18 @@ ausearch -m avc -ts today # access vector cache since today
 AVC denial:
 msg=audit(1363289005.532:184) # when: date -d@1363289005.532
 denied { read } for pid=29199 comm="Vim" # denied for command Vim with PID ...
-name="passwd" ino=30 # trying to read file 'passwd' (inode 30)
+name="passwd" dev="sysfs" ino=30 # trying to read file 'passwd' (inode 30)
 scontext = staff_u:staff_r:..._t # Vim
 tcontext = system_u:object_r:sysfs_t tclass=file # passwd
 
+find /sys -xdev -inum 30
+
 Ex:
 httpd_t not allowed to write to a etc_t location
-Solutions:
-restorecon or change context or relabel whole system ...
+
+Troubleshooting:
+sestatus
+setenforce 0
+restorecon
+change context
+touch /.autorelabel + reboot
