@@ -11,7 +11,7 @@ In SELinux, everything has a context (label):
 
 ..._u:..._r:..._t:sensitivity
     |     |     |
-    |     |     +-- type (domain)
+    |     |     +-- type (file, domain for process)
     |     +-- role
     +-- user
 
