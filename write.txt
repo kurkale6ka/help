@@ -1,7 +1,7 @@
 write <user> [tty]
 
-wall         [-n] [message]
-             change banner to "Remote broadcast message"
+Send a message (as arg or on STDIN) to all users
+wall [message]
 
-mesg         [y|n]
-             controls the access to your terminal by others (bar root)
+Control access to your terminal by others
+mesg [y|n]
