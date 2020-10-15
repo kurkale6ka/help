@@ -20,6 +20,12 @@ Most rules however are made for the type only.
 
 ex: httpd_t not allowed to write to etc_t locations
 
+Note:
+a process will get it's domain from the type corresponding to the exe file,
+or it will inherit it's parent's domain?
+
+NB: a process running in an unconfined_t domain, won't heed rules!
+
 Policy rules:
 allow auditd_t auditd_log_t:file { write };
 
