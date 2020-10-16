@@ -27,6 +27,7 @@
         * [regex based sort](#one_l_sort)
         * [namei -l](#one_l_namei)
         * [disk usage pretty](#one_l_du)
+        * [find files older than a day](#one_l_find)
 * [Precedence](#Precedence)
 * [Exceptions](#Exceptions)
 * [Traps](#Traps)
@@ -297,6 +298,11 @@ perl -e 'print for sort {($aa, $bb) = map {m:(\d+)C/:} $a, $b; $aa<=>$bb} <>' /m
 ### disk usage pretty <a name="one_l_du"></a>
 ```perl
 % du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
+```
+
+### find files older than a day <a name="one_l_find"></a>
+```perl
+perl -E 'for(<*>){say if-M>1}'
 ```
 
 # Precedence
