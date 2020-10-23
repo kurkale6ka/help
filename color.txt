@@ -1,0 +1,29 @@
+ANSI color escape sequences
+
+ Esc[ Value ; Value ; Value m
+\033[---m
+
+Emphasis:
+--------
+00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
+
+Foreground:
+----------
+30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
+
+Background:
+----------
+40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+
+Example: 01   ; 32    ; 40
+         Bold   Green   Black
+         em     fg      bg
+
+ANSI escape sequences graphics mode:
+
+256 color escape codes:
+   38;5;colorN for fg
+   48;5;colorN for bg
+
+LS_COLORS:
+eval "$(dircolors /path/to/.dir_colors)"
