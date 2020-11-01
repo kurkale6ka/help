@@ -178,7 +178,7 @@ my @numbers = $version =~ /\d+/g; # progressive matching
 
 ## multilines and newlines in s///ms <a name="reg_newlines"></a>
 ```perl
-$_ = qq/hello\nalien\nworld\n/;
+$_ = qq/hello\nalien\nworld\n/; # ^ and $ positions: hello$\n^alien$\n^world, beware of $\ or $. which are special variables!
 s/^.+$/---/m;  # multilines: match ^ and $ many times
 s/lo.+wo/@@/s; # pretend $msg is a single line => . matches anything, including \ns
 ```
