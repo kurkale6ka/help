@@ -63,6 +63,3 @@ function! easy#PipeRange(includepat) range
    let lines = map(range(top, bot), 'getline(v:val)')
 
 endfunction
-
-delete extra plugin:
-rsvim -ain --delete-excluded ~/github/vim/plugged remote:dimitar/vim
