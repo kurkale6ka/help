@@ -5,6 +5,8 @@ parallel echo < file # cat file | parallel echo
 parallel -afile echo
 parallel -a- echo < file
 
+parallel --xargs echo ::: fit as many args as possible
+
 parallel echo ::: A B ::: D E
 A D
 A E
@@ -22,6 +24,15 @@ parallel echo {.}  ::: A/B.C -> A/B   # rm ext,        also: {1.}  and: {=1 s///
 parallel echo {/}  ::: A/B.C ->   B.C # rm path,       also: {1/}
 parallel echo {//} ::: A/B.C -> A     # keep path,     also: {1//}
 parallel echo {/.} ::: A/B.C ->   B   # rm ext & path, also: {1/.}
+
+--plus
+
+      A/B  C
+ {} = {.}.{+.} # the 'plus' variant is the opposite of {.}
+
+{..} and {...} # remove 2/3 extensions
+
+     {%string} # remove str from end # see bash counterparts
 
 Positional replacement strings
 
