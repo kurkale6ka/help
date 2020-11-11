@@ -1,0 +1,50 @@
+parallel echo ::: arg1 arg2 arg3
+
+parallel echo :::: file
+parallel echo < file # cat file | parallel echo
+parallel -afile echo
+parallel -a- echo < file
+
+parallel echo ::: A B ::: D E
+A D
+A E
+B D
+B E
+
+parallel echo ::: A B C :::+ D E F # parallel --link echo ::: A B C ::: D E F
+A D
+B E
+C F
+
+Replacement strings
+
+parallel echo {.}  ::: A/B.C -> A/B   # rm ext,        also: {1.}  and: {=1 s/// =}
+parallel echo {/}  ::: A/B.C ->   B.C # rm path,       also: {1/}
+parallel echo {//} ::: A/B.C -> A     # keep path,     also: {1//}
+parallel echo {/.} ::: A/B.C ->   B   # rm ext & path, also: {1/.}
+
+Positional replacement strings
+
+parallel echo {1} and {2} ::: A B ::: C D
+A and C
+A and D
+B and C
+B and D
+
+Perl expression replacement string
+
+parallel echo '{= s/\.gz$//; s/\.tar$// =}' ::: foo.tar.gz -> foo
+parallel echo '{= skip if /3/ =}' ::: {1..5}
+
+args are inside @arg, so '{= ... $arg[0] ... =}'
+
+'{= $_=Q($_) =}' # shell quote
+
+Arg delim
+find ... -print0 | parallel -0 echo # -d'\0' vs \n
+
+Skip empty lines
+--no-run-if-empty to
+
+No cmd (implies bash) => treat args as cmds
+parallel ::: ls 'echo hi' pwd
