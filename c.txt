@@ -1,0 +1,7 @@
+Arrays
+
+name is the addr of the first elem
+this addr is immutable, unlike pointers
+
+name <=> &name[0]
+name[n] <=> *(name + n); // dereference the addr pointed by name + n
