@@ -51,6 +51,10 @@ args are inside @arg, so '{= ... $arg[0] ... =}'
 
 '{= $_=Q($_) =}' # shell quote
 
+SSH
+
+parallel --nonall --tag -S host1,host2 uname -a
+
 Util
 
 --tag: prefix output with the arguments
