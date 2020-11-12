@@ -18,12 +18,12 @@ A D
 B E
 C F
 
-Replacement strings
+Replacement strings (-I to change {})
 
-parallel echo {.}  ::: A/B.C -> A/B   # rm ext,        also: {1.}  and: {=1 s/// =}
-parallel echo {/}  ::: A/B.C ->   B.C # rm path,       also: {1/}
-parallel echo {//} ::: A/B.C -> A     # keep path,     also: {1//}
-parallel echo {/.} ::: A/B.C ->   B   # rm ext & path, also: {1/.}
+parallel echo {.}  ::: A/B.C -> A/B   # rm ext,                 also: {1.}  and: {=1 s/// =}
+parallel echo {/}  ::: A/B.C ->   B.C # rm path   (basename),   also: {1/}
+parallel echo {//} ::: A/B.C -> A     # keep path (parent dir), also: {1//}
+parallel echo {/.} ::: A/B.C ->   B   # rm ext & path,          also: {1/.}
 
 --plus
 
@@ -51,11 +51,19 @@ args are inside @arg, so '{= ... $arg[0] ... =}'
 
 '{= $_=Q($_) =}' # shell quote
 
-Arg delim
-find ... -print0 | parallel -0 echo # -d'\0' vs \n
+Util
 
-Skip empty lines
---no-run-if-empty to
+--tag: prefix output with the arguments
+
+   parallel --tagstring {/}: echo ::: A B
+   A:      A
+   B:      B
+
+-d: arg delim
+
+   find ... -print0 | parallel -0 echo # short for -d'\0'
+
+--no-run-if-empty: skip empty lines
 
 No cmd (implies bash) => treat args as cmds
 parallel ::: ls 'echo hi' pwd
