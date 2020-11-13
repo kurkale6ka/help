@@ -9,9 +9,13 @@ parallel echo ::: args... ::: args...
 parallel echo :::: file1 file2
 parallel -afile1 -afile2 echo
 
+STDIN
+
 cmd | parallel echo
 cat file | parallel echo :::: - file2 ::: arg1 arg2
 parallel --xargs rm < file # safe on wordsplitting
+
+Combinations
 
 parallel echo ::: A B ::: D E
 A D
@@ -57,11 +61,7 @@ args are inside @arg, so '{= ... $arg[0] ... =}'
 
 '{= $_=Q($_) =}' # shell quote
 
-SSH
-
-parallel --nonall --tag -S host1,host2 uname -a
-
-Util
+Other options
 
 --tag: prefix output with the arguments
 
@@ -71,18 +71,18 @@ B:      B
 
 --xargs, -m, -X: process args in bulk
 
-parallel -X echo hello_{} ::: a b c ::: c d f
-hello_a hello_c hello_a hello_d hello_a hello_f
-hello_b hello_c hello_b hello_d hello_b hello_f
-hello_c hello_c hello_c hello_d hello_c hello_f
+parallel --xargs echo hello_{} ::: a b c ::: c d f
+hello_a c a d a f b c b d b f c c c d c f
 
 parallel -m echo hello_{} ::: a b c ::: c d f
 hello_a c a d a f
 hello_b c b d b f
 hello_c c c d c f
 
-parallel --xargs echo hello_{} ::: a b c ::: c d f
-hello_a c a d a f b c b d b f c c c d c f
+parallel -X echo hello_{} ::: a b c ::: c d f
+hello_a hello_c hello_a hello_d hello_a hello_f
+hello_b hello_c hello_b hello_d hello_b hello_f
+hello_c hello_c hello_c hello_d hello_c hello_f
 
 -d: arg delim
 
@@ -90,5 +90,11 @@ find ... -print0 | parallel -0 echo # short for -d'\0'
 
 --no-run-if-empty: skip empty lines
 
+Notes
+
 No cmd (implies bash) => treat args as cmds
 parallel ::: ls 'echo hi' pwd
+
+SSH
+
+parallel --nonall --tag -S host1,host2 uname -a
