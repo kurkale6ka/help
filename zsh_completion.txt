@@ -1,5 +1,7 @@
 https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.org
 
+don't forget to run compinit after any changes!
+
 _arguments
 
 (- :)-h forbids any options (-) or arguments (:) after -h
