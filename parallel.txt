@@ -1,11 +1,17 @@
+Single input source
+
 parallel echo ::: arg1 arg2 arg3
-
 parallel echo :::: file
-parallel echo < file # cat file | parallel echo
-parallel -afile echo
-parallel -a- echo < file
 
-parallel --xargs echo ::: fit as many args as possible
+Multiple input sources
+
+parallel echo ::: args... ::: args...
+parallel echo :::: file1 file2
+parallel -afile1 -afile2 echo
+
+cmd | parallel echo
+cat file | parallel echo :::: - file2 ::: arg1 arg2
+parallel --xargs rm < file # safe on wordsplitting
 
 parallel echo ::: A B ::: D E
 A D
@@ -13,7 +19,7 @@ A E
 B D
 B E
 
-parallel echo ::: A B C :::+ D E F # parallel --link echo ::: A B C ::: D E F
+parallel echo ::: A B C :::+ D E F # or use --link
 A D
 B E
 C F
@@ -59,13 +65,28 @@ Util
 
 --tag: prefix output with the arguments
 
-   parallel --tagstring {/}: echo ::: A B
-   A:      A
-   B:      B
+parallel --tagstring {/}: echo ::: A B
+A:      A
+B:      B
+
+--xargs, -m, -X: process args in bulk
+
+parallel -X echo hello_{} ::: a b c ::: c d f
+hello_a hello_c hello_a hello_d hello_a hello_f
+hello_b hello_c hello_b hello_d hello_b hello_f
+hello_c hello_c hello_c hello_d hello_c hello_f
+
+parallel -m echo hello_{} ::: a b c ::: c d f
+hello_a c a d a f
+hello_b c b d b f
+hello_c c c d c f
+
+parallel --xargs echo hello_{} ::: a b c ::: c d f
+hello_a c a d a f b c b d b f c c c d c f
 
 -d: arg delim
 
-   find ... -print0 | parallel -0 echo # short for -d'\0'
+find ... -print0 | parallel -0 echo # short for -d'\0'
 
 --no-run-if-empty: skip empty lines
 
