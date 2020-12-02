@@ -1,0 +1,12 @@
+Server
+
+graphite needs metrics
+|_ carbon listens for them
+
+Client
+
+- statsd
+- sensu
+- ...
+
+  send the metrics
