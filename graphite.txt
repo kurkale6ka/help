@@ -10,3 +10,8 @@ Client
 - ...
 
   send the metrics
+
+Visualize with Graphite-Web or with alternatives via the Graphite API:
+
+- Grafana
+- ...
