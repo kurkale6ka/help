@@ -276,9 +276,9 @@ perl -MTerm::ANSIColor=:constants -E 'say YELLOW.Hello'
 
 ## one liners <a name="one_l"></a>
 
-### search and replace <a name="one_l_replace"></a>
+### search and replace in multiple files in parallel <a name="one_l_replace"></a>
 ```perl
-% perl -pi -e 's/#(max_locks_per_transaction) = \d+/$1 = 128/' postgresql.conf
+% rg -il mem | parallel perl -i -pe 's/mem/Memory/ig'
 ```
 
 ### print from field $3 to last <a name="one_l_fields"></a>
