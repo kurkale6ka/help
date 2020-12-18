@@ -22,7 +22,7 @@
 * [Command line](#cmd_line)
     * [use a module](#use_module)
     * [one liners](#one_l)
-        * [search and replace](#one_l_replace)
+        * [search and replace in multiple files in parallel](#one_l_replace)
         * [print from field $3 to last](#one_l_fields)
         * [regex based sort](#one_l_sort)
         * [namei -l](#one_l_namei)
