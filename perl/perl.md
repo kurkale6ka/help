@@ -278,7 +278,7 @@ perl -MTerm::ANSIColor=:constants -E 'say YELLOW.Hello'
 
 ### search and replace in multiple files in parallel <a name="one_l_replace"></a>
 ```perl
-% rg -il mem | parallel perl -i -pe 's/mem/Memory/ig'
+% rg -il mem | parallel -q perl -i -pe 's/mem/Memory/ig'
 ```
 
 ### print from field $3 to last <a name="one_l_fields"></a>
