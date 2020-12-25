@@ -20,3 +20,7 @@ ssh-keygen -Emd5 -lf ~/.ssh/id_rsa
 
 location on servers:
 /etc/ssh # HostKey in sshd_config
+
+Convert from OPENSSH PRIVATE KEY to RSA/PEM PRIVATE KEY:
+- backup id_rsa
+- ssh-keygen -m pem -f id_rsa
