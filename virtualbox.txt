@@ -1,3 +1,25 @@
+# Install guest additions for:
+
+* full screen
+* copy/paste
+* host only adapter
+
+mount then run from vm, click on CD in file explorer...
+
+# Enable ssh with default NAT mode:
+
+VM net settings/advanced/port forwarding
+
+host           guest
+127.0.0.1 2222 10.0.2.15 22
+
+~/.ssh/config
+HostName 127.0.0.1
+Port 2222
+User <vm-user>
+
+# Other
+
 - NAT adapter for internet access
   ifup ifcfg-enp0s3 + enable at boot!
 
