@@ -7,3 +7,19 @@ SDS creates a storage pool from cheap hardware.
 - Unlike monolithic SAN and NAS systems that tightly couple software and
   hardware, SDS products enable users to upgrade the software separately from
   the hardware.
+
+iscsi - scsi block over TCP
+
+db
+iSCSI initiator
+| | | | multipath
+iSCSI target
+SAN
+
+dm multipath
+
+dmsetup ls
+lsblk
+
+multipath -t : list configs per vendor
+perl -ne 'print "Device: $& wwid: ", `/usr/lib/udev/scsi_id -p0x83 -d/dev/$& --whitelist` if /sd.+$/' /proc/partitions
