@@ -131,8 +131,9 @@ local - local copy of a global variable
 
 _example_: input record separator aka IFS
 ```perl
-local $/;      # slurp file mode, perl -0777
-local $/ = ''; # paragraph mode,  perl -00
+local $/ = "\0"; # read null separated records
+local $/;        # slurp file mode
+local $/ = '';   # paragraph mode
 ```
 
 ## environment variables <a name="scope_env"></a>
@@ -261,11 +262,14 @@ if (my $var = ...) - lvalue, not boolean
 # Command line <a name="cmd_line"></a>
 
 ```perl
+perl -p: read every line -- process -- print every line
+perl -n: read every line -- process -- print only when we need + say so
+
 -a implies -n
 -F implies -an
 
-perl -p: read every line -- process -- print every line
-perl -n: read every line -- process -- print only when we need + say so
+perl -0777 # slurp file mode: use print $1 in this case else the whole file gets output!
+perl -00   # paragraph mode
 ```
 
 ## use a module <a name="use_module"></a>
