@@ -2,7 +2,7 @@ History manipulations
 ---------------------
 
 yum history
-yum history list (pattern or id)
+yum history list|package-list|summary ('*pattern*' or id)
 yum history info id
 yum history undo id
 
