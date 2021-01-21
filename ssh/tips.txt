@@ -1,13 +1,4 @@
-Chain ssh invocations:
-ssh -t user1@server1 'ssh user2@server2'
-
-Mac OS
-
-/usr/bin/ssh-add -K ~/.ssh/id_rsa # store in keychain
-/usr/bin/ssh-add -A               # add from keychain
-Host *
-   AddKeysToAgent yes
-   UseKeychain yes
+ssh-keygen -trsa -b4096 -Cuser@domain
 
 Fingerprints
 
@@ -24,3 +15,14 @@ location on servers:
 Convert from OPENSSH PRIVATE KEY to RSA/PEM PRIVATE KEY:
 - backup id_rsa
 - ssh-keygen -m pem -f id_rsa
+
+Chain ssh invocations:
+ssh -t user1@server1 'ssh user2@server2'
+
+Mac OS
+
+/usr/bin/ssh-add -K ~/.ssh/id_rsa # store in keychain
+/usr/bin/ssh-add -A               # add from keychain
+Host *
+   AddKeysToAgent yes
+   UseKeychain yes
