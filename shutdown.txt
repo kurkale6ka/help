@@ -1,34 +1,36 @@
 Stop all CPU functions (kill all?), keep powered on
 ---------------------------------------------------
-
 halt
 halt -p
 halt --reboot
 
 Power off
 ---------
-
 poweroff
 poweroff --halt
 poweroff --reboot
 
 Reboot
 ------
-
 reboot
 reboot -p
 reboot --halt
 
 Schedule power down
 -------------------
-
 shutdown -P, --poweroff (or -h)
 shutdown -H, --halt
 shutdown -r, --reboot
 
 examples:
-
 shutdown -h now
 shutdown -r +5 'The system will be rebooted in 5 minutes!'
 shutdown -r now
 shutdown -r +0
+
+Warm boot:
+   no interruption of power.
+
+Cold boot (aka 'hard reset' or 'power drain'):
+   poweroff; hold the power button (unplugged) to drain residual power,
+   plug back in and boot up with 'clean' power.
