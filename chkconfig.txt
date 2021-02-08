@@ -1,0 +1,4 @@
+chkconfig --list mysqld
+
+# chkconfig --level 2345 mysqld on
+chkconfig mysqld on
