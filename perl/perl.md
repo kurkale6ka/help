@@ -29,6 +29,7 @@
         * [disk usage pretty](#one_l_du)
         * [find files older than a day](#one_l_find)
 * [Precedence](#Precedence)
+* [Unicode](#Unicode)
 * [Exceptions](#Exceptions)
 * [Traps](#Traps)
 * [Documentation](#Documentation)
@@ -314,6 +315,13 @@ perl -E 'for(<*>){say if-M>1}'
 
 `or`, `and` are the same as  
 `||`, `&&` but with lower precedence
+
+# Unicode
+```perl
+use utf8;                           # write Unicode characters in your source code
+use Encode 'decode';                # process @ARGV in utf8 (perl -CA can also be used)
+use open qw/:std :encoding(UTF-8)/; # Unicode with IO filehandles, e.g `say '零'`
+```
 
 # Exceptions
 
