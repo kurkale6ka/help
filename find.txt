@@ -1,6 +1,10 @@
-find /usr -perm -o=r -print
-find . ! -user dimitar -print
-find /tmp -mtime +30 -print
+# + means 'in bulk', {} must precede it
+find . -name '*.gz' -exec rm {} +
+find . -name '*.gz' -delete
+
+find /usr -perm -o=r -print   # permissions
+find . ! -user dimitar -print # user
+find /tmp -mtime +30 -print   # modification time
 
 Exclude stuff
 
