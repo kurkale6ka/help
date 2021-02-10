@@ -16,6 +16,9 @@ gpg --import ~/Downloads/key
 # encrypt with multiple public keys
 gpg -e -r me -r recipient1 /tmp/secret
 
+# encrypt with passphrase
+gpg -c --cipher-algo AES256 file.zip
+
 # decrypt
 gpg -d /tmp/secret.gpg
 
