@@ -9,21 +9,19 @@ use Term::ANSIColor qw/:constants color/;
 my $BLUE = color('ansi69');
 
 # figlet -f smslant
-say << 'HEADER';
+say << '';
              _      __  ___
    ___  ____(_)__  / /_/ _/
   / _ \/ __/ / _ \/ __/ _/
  / .__/_/ /_/_//_/\__/_/
 /_/
-HEADER
 
 # text used in the examples
-my @lorem = (
-   'In addition to the standard',
-   'format specifications',
-   'described in printf(1)',
-   'and printf(3)'
-);
+my @lorem = split /\n/, << '';
+In addition to the standard
+format specifications
+described in printf(1)
+and printf(3)
 
 select STDOUT;
 
@@ -73,8 +71,7 @@ say $BLUE, q/printf '%*s\n' 31 'Asus z87-pro'/, RESET;
 printf "%31s\n\n", 'Asus z87-pro';
 
 # Formats
-print << 'FORMATS';
+print << '';
 %q - print the associated argument shell-quoted, reusable as input
 %d - print the associated argument as signed decimal number
 %s - interprets the associated argument literally as string
-FORMATS
