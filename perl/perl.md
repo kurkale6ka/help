@@ -28,6 +28,7 @@
         * [namei -l](#one_l_namei)
         * [disk usage pretty](#one_l_du)
         * [find files older than a day](#one_l_find)
+        * [PerlIO: convert from dos/cyrillic to unix/utf8](#perlio)
 * [Precedence](#Precedence)
 * [Unicode](#Unicode)
 * [Exceptions](#Exceptions)
@@ -309,6 +310,11 @@ perl -e 'print for sort {($aa, $bb) = map {m:(\d+)C/:} $a, $b; $aa<=>$bb} <>' /m
 ### find files older than a day <a name="one_l_find"></a>
 ```perl
 perl -E 'for(<*>){say if-M>1}'
+```
+
+### PerlIO: convert from dos/cyrillic to unix/utf8 <a name="perlio"></a>
+```perl
+perl -Mopen=':std,IN,crlf:encoding(cp1251),OUT,unix:encoding(utf8)' -lpe '' star_wars.sub > star_wars.srt
 ```
 
 # Precedence
