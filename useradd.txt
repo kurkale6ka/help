@@ -1,13 +1,13 @@
 Add / Remove user
 -----------------
 
-useradd -m -Ggroups -s/bin/bash -cComment <login>
+useradd -m -Ggroups -cComment LOGIN
           \
-           `-> create home dir
+           create home
 
-userdel -r <login>
+userdel -r LOGIN
           \
-           `-> remove home + mail spool
+           remove home + mail spool
 
 Add to / Remove from group
 --------------------------

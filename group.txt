@@ -1,2 +1,0 @@
-usermod -a -G groups user
-gpasswd -a user group
