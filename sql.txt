@@ -47,6 +47,9 @@ Note 1: A transaction will never be complete unless each individual operation
 
 Note 2: Transactions can't be used on ALTER, DROP, RENAME, TRUNCATE...
 
+Use backticks to escape special characters such as a dash:
+drop database `wp-database`;
+
 SQLite
 ======
 
