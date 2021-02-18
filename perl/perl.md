@@ -175,6 +175,7 @@ my @numbers = $version =~ /\d+/g; # progressive matching
 
 ## lookaround
 ```perl
+        \K
 (?<= ... ) --- (?= ... )
 (?<! ... ) --- (?! ... )
 ```
@@ -277,7 +278,7 @@ perl -00   # paragraph mode
 ## use a module <a name="use_module"></a>
 ```perl
 perl -M'Term::ANSIColor ":constants"' -E 'say YELLOW.Hello'
-perl -MTerm::ANSIColor=:constants -E 'say YELLOW.Hello'
+perl -mTerm::ANSIColor=:constants -E 'say YELLOW.Hello'
 ```
 
 ## one liners <a name="one_l"></a>
