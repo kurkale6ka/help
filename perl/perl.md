@@ -46,6 +46,7 @@ use v5.10 # say, state
 use v5.16 # fc
 use v5.20 # postderef
 use v5.22 # non-capturing groupings regex modifier /n
+use v5.26 # indented <<~ heredoc
 use v5.32 # chained comparisons for operators
 ```
 
