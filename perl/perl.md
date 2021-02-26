@@ -433,9 +433,7 @@ perldoc -f -x # file test operators
 # Modules
 
 ```perl
-use strict;
 use warnings;
-use feature 'say';
 use Getopt::Long 'GetOptions';
 use File::Basename 'basename';
 use File::Path 'make_path';
