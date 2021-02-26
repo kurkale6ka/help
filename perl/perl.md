@@ -1,3 +1,4 @@
+* [use](#use)
 * [Statement, expression](#statement)
 * [Arrays](#Arrays)
     * [merge two arrays and keep elements unique](#arr_merge)
@@ -36,6 +37,17 @@
 * [Documentation](#Documentation)
 * [Modules](#Modules)
 * [End of the program](#end)
+
+# use
+
+```perl
+use v.... # use strict + enables version features
+use v5.10 # say, state
+use v5.16 # fc
+use v5.20 # postderef
+use v5.22 # non-capturing groupings regex modifier /n
+use v5.32 # chained comparisons for operators
+```
 
 # Statement, expression <a name="statement"></a>
 
