@@ -162,7 +162,7 @@ Bash:     EDITOR | export EDITOR -> $ env # see public
 
 # Regex
 
-[Perl regex REPL](scripts/rrepl.pl)
+[Perl regex REPL](https://github.com/kurkale6ka/scripts/blob/master/rrepl.pl)
 
 zero-width assertions don't consume chars => they are **AND**ed
 ```perl
@@ -416,7 +416,7 @@ because `..` counts up only
 
 # Documentation
 
-[Easier access to Perl help topics](scripts/man.pl)
+[Easier access to Perl help topics](https://github.com/kurkale6ka/scripts/blob/master/man.pl)
 
 ```perl
 perldoc perl
