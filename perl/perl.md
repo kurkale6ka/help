@@ -162,6 +162,8 @@ Bash:     EDITOR | export EDITOR -> $ env # see public
 
 # Regex
 
+[Perl regex REPL](scripts/rrepl.pl)
+
 zero-width assertions don't consume chars => they are **AND**ed
 ```perl
 hello(?=\d)(?!123) # followed by a number AND not followed by 123
@@ -413,6 +415,8 @@ vs
 because `..` counts up only
 
 # Documentation
+
+[Easier access to Perl help topics](scripts/man.pl)
 
 ```perl
 perldoc perl
