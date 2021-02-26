@@ -1,4 +1,5 @@
-Sender Policy Framework
+                           Sender Policy Framework
+policy (aka SPF record) defining mail servers authorized to send from a domain
 
 Allow 3rd party to send emails on our behalf:
 
