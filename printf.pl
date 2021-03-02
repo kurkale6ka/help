@@ -6,7 +6,7 @@ use feature 'say';
 use List::Util 'pairs';
 use Term::ANSIColor qw/:constants color/;
 
-my $BLUE = color('ansi69');
+my $BLUE = color 'ansi69';
 
 # figlet -f smslant
 say << '';
