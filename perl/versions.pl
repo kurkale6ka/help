@@ -7,7 +7,7 @@ use strict;
 use warnings;
 use feature 'say';
 
-my @release = (0, 0, 0);
+my @release = (0) x 3;
 
 RELEASE: while (<DATA>)
 {
