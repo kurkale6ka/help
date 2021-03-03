@@ -84,7 +84,7 @@ splice @items,  1, -1            # remove   middle   : one                five |
 splice @items, -2,               # remove       end  : one two three           | ~pop
 splice @items,  1,  3, qw/2 3 4/ # remove & REPLACE  : one 2   3     4    five |
 splice @items,  2,  0, qw/2 3/   # remove 0 (INSERT) : one two three four five |
-                                                              '- 2 3
+                                 #                            '- 2 3
 
 shift, unshift, pop and push # special cases of splice
 
