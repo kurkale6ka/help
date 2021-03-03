@@ -1,6 +1,6 @@
 * [use](#use)
 * [Statement, expression](#statement)
-* [Arrays](#Arrays)
+* [Arrays and Lists](#arrays_lists)
     * [merge two arrays and keep elements unique](#arr_merge)
 * [Hashes](#Hashes)
 * [References](#References)
@@ -59,7 +59,7 @@ use v5.32 # chained comparisons
 expression -> code that returns a value
 ```
 
-# Arrays and Lists
+# Arrays and Lists <a name="arrays_lists"></a>
 
 `,` creates lists. `()` is only necessary if precedence is ambiguous.
 
@@ -79,12 +79,12 @@ if (@items > ...) # number of elements
         my ($a) = @array; #  1st to $a in list   context
 my ($a, $b, $c) = @array; # multiple assignments
 
-remove beginning  : splice @items,  0,  2            #         three four five | ~shift
-remove   middle   : splice @items,  1, -1            # one                five |
-remove       end  : splice @items, -2,               # one two three           | ~pop
-remove & REPLACE  : splice @items,  1,  3, qw/2 3 4/ # one 2   3     4    five |
-remove 0 (INSERT) : splice @items,  2,  0, qw/2 3/   # one two three four five |
-                                                            '- 2 3
+splice @items,  0,  2            # remove beginning  :         three four five | ~shift
+splice @items,  1, -1            # remove   middle   : one                five |
+splice @items, -2,               # remove       end  : one two three           | ~pop
+splice @items,  1,  3, qw/2 3 4/ # remove & REPLACE  : one 2   3     4    five |
+splice @items,  2,  0, qw/2 3/   # remove 0 (INSERT) : one two three four five |
+                                                              '- 2 3
 
 shift, unshift, pop and push # special cases of splice
 
