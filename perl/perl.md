@@ -111,7 +111,7 @@ my @unique = keys %merged;
 # Hashes
 
 ```perl
-%items = ('key1', 'val1', 'key2', 'val2');
+%items = @pairs;
 
 %items = (
    key1 => 'val1', # keys auto quoted (same for $items{key1})
