@@ -69,27 +69,27 @@ expression -> code that returns a value
 ```
 
 ```perl
-@items = qw/one two three four five/; # quote words into a list ('', '', ...)
+@items = qw/one two three four five/ # quote words into a list ('', '', ...)
 
-if (@items > ...) # number of elements
+if (@items) # number of elements
 
 @items[1..$#items] # slice: all bar 1st
 
-          my $a = @array; # last to $a in scalar context, see coma operator
-        my ($a) = @array; #  1st to $a in list   context
-my ($a, $b, $c) = @array; # multiple assignments
+          my $a = @array # last to $a in scalar context, see coma operator
+        my ($a) = @array #  1st to $a in list   context
+my ($a, $b, $c) = @array # multiple assignments
 
 splice @items,  0,  2            # remove beginning  :         three four five | ~shift
 splice @items,  1, -1            # remove   middle   : one                five |
-splice @items, -2,               # remove       end  : one two three           | ~pop
+splice @items, -2                # remove       end  : one two three           | ~pop
 splice @items,  1,  3, qw/2 3 4/ # remove & REPLACE  : one 2   3     4    five |
 splice @items,  2,  0, qw/2 3/   # remove 0 (INSERT) : one two three four five |
-                                 #                            '- 2 3
+#                                                             '- 2 3
 
 shift, unshift, pop and push # special cases of splice
 
- map expr, @items; # modify - comprehension
-grep expr, @items; # filter - like @list =~ /match/ but check ~~ for this
+ map expr, @items # modify - comprehension
+grep expr, @items # filter - like @list =~ /match/ but check ~~ for this
 
 print @items   # $, - print's field separator; $\ is the record separator only printed after print's last argument
 print "@items" # $" - list separator for interpolation
