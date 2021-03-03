@@ -22,4 +22,4 @@ dmsetup ls
 lsblk
 
 multipath -t : list configs per vendor
-perl -ne 'print "Device: $& wwid: ", `/usr/lib/udev/scsi_id -p0x83 -d/dev/$& --whitelist` if /sd.+$/' /proc/partitions
+perl -ne 'print "$& wwid: ", `/lib/udev/scsi_id -p0x83 -d/dev/$& --whitelist` if /sd.$/' /proc/partitions
