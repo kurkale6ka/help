@@ -59,7 +59,7 @@ use v5.32 # chained comparisons
 expression -> code that returns a value
 ```
 
-# Arrays
+# Arrays and Lists
 
 `,` creates lists. `()` is only necessary if precedence is ambiguous.
 
@@ -69,7 +69,7 @@ expression -> code that returns a value
 ```
 
 ```perl
-@items = qw/one two three/; # quote words into a list ('', '', ...)
+@items = qw/one two three four five/; # quote words into a list ('', '', ...)
 
 if (@items > ...) # number of elements
 
@@ -79,8 +79,14 @@ if (@items > ...) # number of elements
         my ($a) = @array; #  1st to $a in list   context
 my ($a, $b, $c) = @array; # multiple assignments
 
-  shift, pop  # shorten by 1 element which is then returned
-unshift, push # add elements and report how many
+remove beginning  : splice @items,  0,  2            #         three four five | ~shift
+remove   middle   : splice @items,  1, -1            # one                five |
+remove       end  : splice @items, -2,               # one two three           | ~pop
+remove & REPLACE  : splice @items,  1,  3, qw/2 3 4/ # one 2   3     4    five |
+remove 0 (INSERT) : splice @items,  2,  0, qw/2 3/   # one two three four five |
+                                                            '- 2 3
+
+shift, unshift, pop and push # special cases of splice
 
  map expr, @items; # modify - comprehension
 grep expr, @items; # filter - like @list =~ /match/ but check ~~ for this
