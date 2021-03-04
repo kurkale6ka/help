@@ -41,7 +41,7 @@
 # use
 
 ```perl
-use v.... # use strict + enables version features
+use v5.xx # implicit strict + version xx features
 use v5.10 # say, state, //
 use v5.12 # ...
 use v5.14 # s///r
