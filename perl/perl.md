@@ -435,8 +435,8 @@ perldoc -f split
 perldoc -f -x # file test operators
 ```
 
-[Perl Training Australia - Perl Tips](http://perltraining.com.au/tips)
-[Learn Perl in about 2 hours 30 minutes](https://qntm.org/perl_en)
+* [Perl Training Australia - Perl Tips](http://perltraining.com.au/tips)
+* [Learn Perl in about 2 hours 30 minutes](https://qntm.org/perl_en)
 
 # Modules
 
