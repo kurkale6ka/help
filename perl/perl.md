@@ -41,9 +41,8 @@
 # use
 
 ```perl
-use v5.xx # implicit strict + version xx features
 use v5.10 # say, state, //
-use v5.12 # ...
+use v5.12 # use strict, ...
 use v5.14 # s///r
 use v5.16 # fc
 use v5.20 # postderef
@@ -442,6 +441,7 @@ perldoc -f -x # file test operators
 
 ```perl
 use warnings;
+use diagnostics;
 use Getopt::Long 'GetOptions';
 use File::Basename 'basename';
 use File::Path 'make_path';
