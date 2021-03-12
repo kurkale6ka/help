@@ -20,3 +20,9 @@ backup host from the group takes over.
 
 Change master role to backup:
 ifconfig -g carp carpdemote 50
+
+Down:
+ifconfig carp0 destroy
+
+Up:
+sh /etc/netstart carp0
