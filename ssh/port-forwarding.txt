@@ -19,6 +19,11 @@ IP:2222:localhost:22 remote # IP connecting to remote:2222 are forwarded        
 
 also needed: AllowTcpForwarding
 
+NB: in the above examples, 2222 gets forwarded to 22 (ssh). When setting up the
+    tunnel on my pc, I need the correct user in order to connect to remote but
+    then It's just TCP forwarding. so ssh -p2222 anyuser@remote would work if
+    setup correctly; the tunnel is just 'saying': 2222 -> 22 allowed
+
 ssh -fNL
      |+- do not execute a remote command
      +- go to background (exiting the terminal won't close the tunnel)
