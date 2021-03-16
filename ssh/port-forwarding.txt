@@ -1,12 +1,29 @@
                               TCP Port forwarding
 
-Local
------
-ssh -fNL [localhost:]port:remotehost:port gateway
+Local forwarding
+----------------
+access outside proxying via gateway
+
+             8080:remote:80 gateway # ANYONE connecting to my pc:8080 are forwarded to remote via gateway (4 hops)
+   localhost:8080:remote:80 gateway #          services on my pc:8080 are forwarded to remote via gateway
+localhost:8080:localhost:80 gateway #          services on my pc:8080 are forwarded to            gateway
+
+Remote forwarding: my pc is the gateway
+---------------------------------------
+access intranet from outside via my pc (LAN backdoor)
+
+      2222:beyond:22 remote #        ANYONE on remote:2222 are forwarded beyond via my pc, GatewayPorts yes             on remote (4 hops)
+   2222:localhost:22 remote #        ANYONE on remote:2222 are forwarded         to my pc, GatewayPorts yes             on remote
+   2222:localhost:22 remote #      services on remote:2222 are forwarded         to my pc                                         (default)
+IP:2222:localhost:22 remote # IP connecting to remote:2222 are forwarded         to my pc, GatewayPorts clientspecified on remote
+
+also needed: AllowTcpForwarding
+
+ssh -fNL
      |+- do not execute a remote command
      +- go to background (exiting the terminal won't close the tunnel)
 
-example:
+local forwarding example:
 our LAN policy prevents access to imgur.com but our jumphost(gateway) can connect:
 
 # locally
