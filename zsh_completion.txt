@@ -2,6 +2,9 @@ https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.o
 
 don't forget to run compinit after any changes!
 
+debug with:
+bindkey '^xh' _complete_help # show tags in current context
+
 _arguments
 
 (- :)-h forbids any options (-) or arguments (:) after -h
