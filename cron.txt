@@ -1,11 +1,11 @@
-                                    Crontab
+                          Crontab
 
 SHELL = /bin/bash
 
  *      *      *      *      *
-0-59 | 0-23 | 1-31 | 1-12 | 1-6 | user /path/to/command
-Min    Hour   Day    Month  Mon-Sat
-                            Sun: 0,7
+0-59 | 0-23 | 1-31 | 1-12 | 1-6     | user /path/to/command
+Min    Hour   Day    Month  Mon-Sat     \
+                            Sun: 0,7     system crontab only
 
 - %s are newlines and need to be escaped:
   % -> \%
@@ -20,7 +20,8 @@ Min    Hour   Day    Month  Mon-Sat
 
 - Make sure there is a new line after the last cron command
 
-anacron:
+Anacron
+-------
 nb-days | delay after start | job-identifier | command
  |         |                   |
  |         |                   name for the job’s timestamp file (ex: /var/spool/anacron/fstrim.daily)
