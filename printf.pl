@@ -1,8 +1,7 @@
 #! /usr/bin/env perl
 
-use strict;
+use v5.12;
 use warnings;
-use feature 'say';
 use List::Util 'pairs';
 use Term::ANSIColor qw/:constants color/;
 

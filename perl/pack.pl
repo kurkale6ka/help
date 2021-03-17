@@ -3,9 +3,8 @@
 # example from:
 # https://perldoc.perl.org/perlpacktut.html
 
-use strict;
+use v5.12;
 use warnings;
-use feature 'say';
 use POSIX 'strftime';
 
 my $tot_income;

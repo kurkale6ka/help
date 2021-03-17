@@ -3,9 +3,8 @@
 # Find max release
 # by comparing maj, min and patch components in versions
 
-use strict;
+use v5.12;
 use warnings;
-use feature 'say';
 
 my @release = (0) x 3;
 

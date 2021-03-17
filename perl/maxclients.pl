@@ -5,13 +5,12 @@
 # Ex:
 # in httpd.conf find MaxClients when occuring after worker.c
 
-use strict;
+use v5.12;
 use warnings;
-use feature 'say';
 
-open my $find, '-|', qw/fd -tf -E*~ ^httpd\.conf/ or die "$!\n";
+open my $FIND, '-|', qw/fd -tf -E*~ ^httpd\.conf/ or die "$!\n";
 
-while (my $file = <$find>)
+while (my $file = <$FIND>)
 {
    chomp $file;
    open (my $fh, $file) or die "$!\n";
