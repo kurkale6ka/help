@@ -49,13 +49,8 @@ Connect via https://localhost:1443
 
 Secure remote (reverse tunnel) desktop assistance
 -------------------------------------------------
-
-     gateway  localhost
-        |         |
 ssh -fNR 5901:localhost:5900 gateway # user, no firewall openings needed
 ssh -fNL 5902:localhost:5901 gateway # support (5902 was used vs 5900 to avoid interference with a local VNC server)
-        |         |
-    localhost  gateway
 
 # then support can connect via:
             Screen Sharing - localhost:5902 # Darwin
