@@ -1,4 +1,4 @@
-shred -v /dev/sdX
+shred -v --random-source=/dev/urandom -n1 /dev/sdX
 
 - whole disk
-- 3 passes with pseudo-random data
+- default is -n3 (3 passes) but 1 is enough for large disks
