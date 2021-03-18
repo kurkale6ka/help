@@ -1,0 +1,4 @@
+shred -v /dev/sdX
+
+- whole disk
+- 3 passes with pseudo-random data
