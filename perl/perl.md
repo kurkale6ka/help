@@ -41,7 +41,7 @@
 # use
 
 ```perl
-use v5.10 # say, state, //
+use v5.10 # say, state, -r -w, //
 use v5.12 # use strict, ...
 use v5.14 # s///r
 use v5.16 # fc
