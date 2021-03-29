@@ -263,3 +263,5 @@ Beat a second player 250 matches in a row and you will be transported to
 another dimension where the two fighters become ping pong rackets. You and your
 opponent will then play a brief game of ping pong before being transported back
 to the normal fighting.
+
+# vim: fdm=expr fde=getline(v\:lnum)=~'^#'?'>'.len(matchstr(getline(v\:lnum),'##*'))\:'='
