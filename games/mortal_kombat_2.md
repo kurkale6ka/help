@@ -1,5 +1,6 @@
 # Baraka
 
+```
    Blade Swipe: Back               + High Punch
    Blade Spark: Down + Back        + High Punch
       Shredder: Back + Back + Back + Low Punch
@@ -10,9 +11,11 @@ Stage Fatality: Forward + Forward + Down           + High Kick (close)
 
     Friendship: Hold Block, Up + Forward + Forward + High Kick
       Babality: Forward + Forward + Forward + High Kick (anywhere)
+```
 
 # Jax
 
+```
    Gotcha Grab: Forward + Forward + Low Punch
     Wave Punch: Back + Down + Forward + High Kick
   Back Breaker: Block (in the air next to opponent)
@@ -25,9 +28,11 @@ Stage Fatality: Hold Block, Up + Up + Up + Low Kick (close)
 
     Friendship: Hold Block, Down + Down + Up + Up + Low Kick
       Babality: Hold Block, Down + Up + Down + Up + Low Kick (anywhere)
+```
 
 # Johnny Cage
 
+```
         High Fireball: Forward + Down + Back + High Punch
          Low Fireball: Forward + Down + Back + Low Punch
           Shadow Kick: Back + Forward + Low kick
@@ -40,9 +45,11 @@ Decapitating Uppercut: Forward + Forward + Down + Up (close)
 
            Friendship: Down + Down + Down + Down + High Kick (anywhere)
              Babality: Back + Back + Back + High Kick (anywhere)
+```
 
 # Kitana
 
+```
        Fan Swipe: Back              + High Punch
         Fan Lift: Back + Back       + High Punch
        Fan Throw: Forward + Forward + High and Low Punch
@@ -54,9 +61,11 @@ Fan Decapitation: Block + Block + Block + Block + High Kick (close)
 
       Friendship: Hold Block, Down + Down + Down + Up + Low Kick (anywhere)
         Babality: Down + Down + Down + Low Kick (anywhere)
+```
 
 # Kung Lao
 
+```
         Dive Kick: Up + Down + High Kick
 Spinning Tackdown: Up + Up   + Low Kick (Tap Low Kick to keep spinning)
          Teleport: Down + Up
@@ -68,9 +77,11 @@ Spinning Tackdown: Up + Up   + Low Kick (Tap Low Kick to keep spinning)
 
        Friendship: Back + Back + Back + Down + High Kick (anywhere)
          Babality: Back + Back + Forward + Forward + High Kick (anywhere)
+```
 
 # Liu Kang
 
+```
          Fireball: Forward + Forward + High Punch
      Air Fireball: Forward + Forward + High Punch (while jumping)
      Low Fireball: Forward + Forward + Low Punch
@@ -83,9 +94,11 @@ Spinning Uppercut: Hold Block + 360 on D-Pad (away fullscreen)
 
        Friendship: Forward + Back + Back + Back + Low Kick (sweeping distance)
          Babality: Down + Down + Forward + Back + Low Kick (sweeping distance)
+```
 
 # Mileena
 
+```
  Teleport Kick: Forward + Forward + Low Kick
    Ground Roll: Back + Back + Down + High Kick
      Sai Throw: Hold High Punch for 3 seconds and release
@@ -96,9 +109,11 @@ Stage Fatality: Forward + Down + Forward + Low Kick (close)
 
     Friendship: Hold Block, Down + Down + Down + Up + High Kick
       Babality: Down + Down + Down + High Kick (anywhere)
+```
 
 # Raiden
 
+```
    Lightning Blast: Down + Forward + Low Punch
 Flying Thunderbolt: Back + Back + Forward (can also be done in air)
           Teleport: Down + Up
@@ -110,9 +125,11 @@ Uppercut Explosion: Hold High Punch for 8 seconds, Release (close)
 
         Friendship: Down + Back + Forward + High Kick (anywhere)
           Babality: Hold Block, Down + Down + Up + High Kick (anywhere)
+```
 
 # Reptile
 
+```
      Acid Spit: Forward + Forward + High Punch
     Force ball: Back + Back + Back + High And Low Punch
          Slide: Back + Back + High and Low Kick
@@ -124,9 +141,11 @@ Stage Fatality: Down + Forward + Forward + Block (while close)
 
     Friendship: Back + Back + Down + Low Kick (anywhere)
       Babality: Down + Back + Back + Low Kick
+```
 
 # Scorpion
 
+```
          Spear: Back + Back + Low Punch
      Air Throw: Block (in the air next to opponent)
       Teleport: Down + Back + High Punch
@@ -138,9 +157,11 @@ Stage Fatality: Down + Forward + Forward + Block (while close)
 
     Friendship: Back + Back + Down + High Kick (anywhere)
       Babality: Down + Back + Back + High Kick (anywhere)
+```
 
 # Shang Tsung
 
+```
          Liu Kang: Back + Forward + Forward + Block
          Kung Lao: Back + Down + Back + High Kick
          Sub-Zero: Forward + Down + Forward + High Punch
@@ -164,9 +185,11 @@ Flaming Skull (3): Back + Back + Forward + Forward + High Punch
 
        Friendship: Back + Back + Down + Forward + High Kick (anywhere)
          Babality: Back + Forward + Down + High Kick (anywhere)
+```
 
 # Sub-Zero
 
+```
      Ice Blast: Down + Forward + Low Punch
     Ground Ice: Down + Back + Low Kick
          Slide: Back + Back + High and Low Kick
@@ -177,52 +200,64 @@ Stage Fatality: Down + Forward + Forward + Block (while close)
 
     Friendship: Back + Back + Down + High Kick (anywhere)
       Babality: Down + Back + Back + High Kick (anywhere)
+```
 
 # Cheat
 
 ## Jade
-can only be fought against when a player wins one round during the match before
-the "Question Mark" during the main single player game using only Low Kick
-inputs (No blocks, High Punch, Low Lunch, or High Kick).
+Fight
 
-Fight Jade
-To fight Jade, make your way to the match before the question mark in the main single game. Defeat your opponent using only the Low Kick button and directional buttons, no other attacks except for Low Kick
+Make your way to the match before the question mark in the main single game.
+Defeat your opponent using only the Low Kick button and directional buttons, no
+other attacks except for Low Kick
+
+Win one round during the match before the "Question Mark" during the main
+single player game using only Low Kick inputs (No blocks, High Punch, Low
+Punch, or High Kick).
 
 ## Noob Saibot
-can only be fought against when a player wins 25 versus matches in a row.
-
-Fight Noob Saibot
-To fight Noob Saibot the Faceless, win 25 matches in a row and you'll see the message, "Incredible winning streak! A new warrior awaits you." After he kicks the stuffing out of you, you can try another 25 in a row and give him another shot
+Fight
+Can only be fought against when a player wins 25 versus matches in a row.
 
 ## Smoke
-can only be fought against when a player executes an uppercut attack on an
-opponent in the Red Portal Stage, and then presses Down + Start when Dan
-"Toasty" Forden pops out on the bottom of the screen.
+Fight
+On the red portal stage, keep doing upper cuts until Dan "Toasty" Forden (the
+guy who always says toasty) comes out. Then very quickly, press Down + Start
 
-Play as Smoke
-To play as Smoke, you must have a Game Genie. Attach Mortal Kombat 2 to the Game Genie and enter the password: B4MT-BE76. Start the game,then switch to Controller two. Choose your character, and when you go into battle you will be Smoke.
-
-Fight Smoke
-On the red portal stage, keep doing upper cuts until Dan "Toasty" Forden (the guy who always says toasty) comes out. Then very quickly, press Down + Start
+Play
+You must have a Game Genie. Attach Mortal Kombat 2 to the Game Genie and enter
+the password: B4MT-BE76. Start the game,then switch to Controller two. Choose
+your character, and when you go into battle you will be Smoke.
 
 ## Test Mode
 Go to the options menu and move down to done, then press:
 Left, Down, Left, Right, Down, Right, Left, Left, Right, Right
 
 ## Debug Code
-go to the START/OPTIONS screen and select the option menu. Put the cursor on "Done!!" and press code Left, Down, Left, Right, Down, Right, Left, Left, Right, Right.
+Go to the START/OPTIONS screen and select the option menu. Put the cursor on
+"Done!!" and press code Left, Down, Left, Right, Down, Right, Left, Left,
+Right, Right.
 
 ## Warp to Shao Kahn
-At the Options menu, press A, B, C, C, C, B, B, A, A, A, A. When Shao Kahn appears, quickly press B to go to the final stage.
+At the Options menu, press A, B, C, C, C, B, B, A, A, A, A.
+When Shao Kahn appears, quickly press B to go to the final stage.
 
 ## Acid Bath
-When the screen says "Finish Him!", hold Low Punch + Low Kick, press and hold Down, then press High Punch
+When the screen says "Finish Him!",
+hold Low Punch + Low Kick, press and hold Down, then press High Punch
 
 ## Fergality
-To do a fergality, enter Test Mode, then change the background to 6 and enable the "Ooh Nasty" option. Next choose Rayden as your character and finish your opponent with Away, Away, Away, Block.
+To do a fergality, enter Test Mode, then change the background to 6 and enable
+the "Ooh Nasty" option. Next choose Rayden as your character and finish your
+opponent with Away, Away, Away, Block.
 
 ## Pizza Man
-Activate Test Mode (see below) and choose NO DAMAGE TO PLAYER 1. Then enter the contest with Shang Tsung. When the guy who says "Toasty" comes out he will resemble a pizza like creature.
+Activate Test Mode (see below) and choose NO DAMAGE TO PLAYER 1. Then enter the
+contest with Shang Tsung. When the guy who says "Toasty" comes out he will
+resemble a pizza like creature.
 
 ## Ping Pong
-Beat a second player 250 matches in a row and you will be transported to another dimension where the two fighters become ping pong rackets. You and your opponent will then play a brief game of ping pong before being transported back to the normal fighting.
+Beat a second player 250 matches in a row and you will be transported to
+another dimension where the two fighters become ping pong rackets. You and your
+opponent will then play a brief game of ping pong before being transported back
+to the normal fighting.
