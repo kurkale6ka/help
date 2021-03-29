@@ -220,6 +220,10 @@ Fight
 
 Win 25 versus matches in a row
 
+## Shao Kahn
+At the Options menu, press `A, B, C, C, C, B, B, A, A, A, A`
+When Shao Kahn appears, quickly press B to go to the final stage.
+
 ## Smoke
 Fight
 
@@ -232,17 +236,13 @@ You must have a Game Genie. Attach Mortal Kombat 2 to the Game Genie and enter
 the password: B4MT-BE76. Start the game,then switch to Controller two. Choose
 your character, and when you go into battle you will be Smoke.
 
-## Shao Kahn
-At the Options menu, press `A, B, C, C, C, B, B, A, A, A, A`
-When Shao Kahn appears, quickly press B to go to the final stage.
+## Debug Code
+Go to the START/OPTIONS screen and select the option menu. Put the cursor on
+"Done!!" and press code `Left, Down, Left, Right, Down, Right, Left, Left, Right, Right`
 
 ## Test Mode
 Go to the options menu and move down to done, then press:
 `Left, Down, Left, Right, Down, Right, Left, Left, Right, Right`
-
-## Debug Code
-Go to the START/OPTIONS screen and select the option menu. Put the cursor on
-"Done!!" and press code `Left, Down, Left, Right, Down, Right, Left, Left, Right, Right`
 
 ## Acid Bath
 When the screen says "Finish Him!",
@@ -253,15 +253,15 @@ To do a fergality, enter Test Mode, then change the background to 6 and enable
 the "Ooh Nasty" option. Next choose Rayden as your character and finish your
 opponent with Away, Away, Away, Block.
 
-## Pizza Man
-Activate Test Mode (see below) and choose NO DAMAGE TO PLAYER 1. Then enter the
-contest with Shang Tsung. When the guy who says "Toasty" comes out he will
-resemble a pizza like creature.
-
 ## Ping Pong
 Beat a second player 250 matches in a row and you will be transported to
 another dimension where the two fighters become ping pong rackets. You and your
 opponent will then play a brief game of ping pong before being transported back
 to the normal fighting.
+
+## Pizza Man
+Activate Test Mode (see below) and choose NO DAMAGE TO PLAYER 1. Then enter the
+contest with Shang Tsung. When the guy who says "Toasty" comes out he will
+resemble a pizza like creature.
 
 # vim: fdm=expr fde=getline(v\:lnum)=~'^#'?'>'.len(matchstr(getline(v\:lnum),'##*'))\:'='
