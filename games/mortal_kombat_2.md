@@ -217,29 +217,31 @@ Punch, or High Kick).
 
 ## Noob Saibot
 Fight
+
 Can only be fought against when a player wins 25 versus matches in a row.
 
 ## Smoke
 Fight
+
 On the red portal stage, keep doing upper cuts until Dan "Toasty" Forden (the
 guy who always says toasty) comes out. Then very quickly, press Down + Start
 
 Play
+
 You must have a Game Genie. Attach Mortal Kombat 2 to the Game Genie and enter
 the password: B4MT-BE76. Start the game,then switch to Controller two. Choose
 your character, and when you go into battle you will be Smoke.
 
 ## Test Mode
 Go to the options menu and move down to done, then press:
-Left, Down, Left, Right, Down, Right, Left, Left, Right, Right
+`Left, Down, Left, Right, Down, Right, Left, Left, Right, Right`
 
 ## Debug Code
 Go to the START/OPTIONS screen and select the option menu. Put the cursor on
-"Done!!" and press code Left, Down, Left, Right, Down, Right, Left, Left,
-Right, Right.
+"Done!!" and press code `Left, Down, Left, Right, Down, Right, Left, Left, Right, Right`
 
 ## Warp to Shao Kahn
-At the Options menu, press A, B, C, C, C, B, B, A, A, A, A.
+At the Options menu, press `A, B, C, C, C, B, B, A, A, A, A`
 When Shao Kahn appears, quickly press B to go to the final stage.
 
 ## Acid Bath
