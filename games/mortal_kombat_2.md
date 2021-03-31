@@ -132,7 +132,7 @@ Uppercut Explosion: Hold High Punch for 8 seconds, Release (close)
 ```
      Acid Spit: Forward + Forward + High Punch
     Force ball: Back + Back + Back + High And Low Punch
-         Slide: Back + Back + High and Low Kick
+         Slide: Back + Low Punch + Low Kick + Block
   Invisibility: Hold Block, Up + Up + Down + High Punch (release Block)
 
    Tongue Lash: Back + Back + Down + Low Punch (fullscreen)
