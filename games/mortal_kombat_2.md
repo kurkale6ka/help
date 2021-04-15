@@ -165,19 +165,19 @@ Stage Fatality: Down + Forward + Forward + Block (while close)
          Kung Lao: Back + Down + Back + High Kick
          Sub-Zero: Forward + Down + Forward + High Punch
          Scorpion: Up + Up
-          Reptile: Up + Down + High Punch
+          Reptile: Up + Down + High Punch (block before up but release before HP)
            Raiden: Down + Back + Forward + Low Kick
-              Jax: Down + Back + Forward + High Kick
+              Jax: Down + Forward + Back + High Kick
       Johnny Cage: Back + Back + Down + Low Punch
            Kitana: Block + Block + Block
-          Milenna: Hold Low Punch for 3 seconds then release
+          Milenna: High Punch for 3 seconds
            Baraka: Down + Down + Low Kick
 
 Flaming Skull (1): Back + Back                     + High Punch
 Flaming Skull (2): Back + Back + Forward           + High Punch
 Flaming Skull (3): Back + Back + Forward + Forward + High Punch
 
-        Inner Ear: Hold High Kick for 3 seconds then release (close)
+        Inner Ear: High Kick for 3 seconds (close)
        Soul Steal: Hold Block + Up + Down + Up + Low Kick (close)
     Kintaro Morph: Hold Hold Low Punch for 30 seconds during match
    Stage Fatality: Hold Block + Down + Down + Up + Down (while close)
@@ -191,7 +191,7 @@ Flaming Skull (3): Back + Back + Forward + Forward + High Punch
 ```
      Ice Blast: Down + Forward + Low Punch
     Ground Ice: Down + Back + Low Kick
-         Slide: Back + Back + High and Low Kick
+         Slide: Back + Low Punch + Low Kick + Block (same as reptile)
 
    Ice Shatter: Forward + Forward + Down + High Kick (sweep) Then Forward + Down + Forward + Forward + High Punch
    Ice Grenade: Hold Low Punch, Back + Back + Down + Forward + release
@@ -244,8 +244,10 @@ Go to the options menu and move down to done, then press:
 `Left, Down, Left, Right, Down, Right, Left, Left, Right, Right`
 
 ## Acid Bath
-When the screen says "Finish Him!",
-hold Low Punch + Low Kick, press and hold Down, then press High Punch
+Uppercut while holding Low Punch + Low Kick
+
+## Babality and Friendship
+No punches during final round
 
 ## Fergality
 To do a fergality, enter Test Mode, then change the background to 6 and enable
