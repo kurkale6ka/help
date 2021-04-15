@@ -82,8 +82,7 @@ Spinning Tackdown: Up + Up   + Low Kick (Tap Low Kick to keep spinning)
 # Liu Kang
 
 ```
-         Fireball: Forward + Forward + High Punch
-     Air Fireball: Forward + Forward + High Punch (while jumping)
+         Fireball: Forward + Forward + High Punch (also while jumping)
      Low Fireball: Forward + Forward + Low Punch
       Flying Kick: Forward + Forward + High Kick
      Bicycle Kick: Hold Low Kick for 5 seconds
