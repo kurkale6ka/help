@@ -4,6 +4,7 @@
    Blade Swipe: Back               + High Punch
    Blade Spark: Down + Back        + High Punch
       Shredder: Back + Back + Back + Low Punch
+   Double Kick: HK, HK
 
   Decapitation: Hold Block, Back + Back + Back + Back + High Punch
      Stab Lift:    Back + Forward + Down + Forward + Low Punch (close)
@@ -203,56 +204,59 @@ Stage Fatality: Down + Forward + Forward + Block (while close)
 
 # Cheat
 
+## Acid Bath
+Uppercut while holding Low Punch + Low Kick
+Hold D + BL after Stage Fatality to hear Oh Wow.
+
+## Kombat Tomb
+Hold D + BL + Start to force the opponent to fall from the spikes after a Stage Fatality
+
+## Disabling Throws
+Press and hold D + HP for both players before the match starts to disable throwing.
+
+## Babality and Friendship
+No punches during final round
+
+## Random Select
+Press Up + Start on Liu Kang (For Player One) and on Reptile (For Player Two).
+
+## Beat up the Logo
+When you turn on the SNES, hold L and R. Watch Shao Kahn and Kintaro beat up the Acclaim logo.
+
+## Elimination Mode:
+Hold L and R at the main menu. This code will enable an 8-player elimination mode.
+
+## Selectscreen Kodes
+Enter these codes after having selected a player.
+
+Fight Shao Kahn:   F, U, U, F, B, Select
+Fight Kintaro:     U, D, D, F, F, Select
+Fight Noob Saibot: B, U, D, D, F, Select
+Fight Jade:        U, D, D, B, F, Select
+Fight Smoke:       U, B, U, U, F, Select
+
+Super Damage:           D, U, F, U, B, Select
+Extended Fatality Time: U, U, B, U, D, Select
+Enable 30 Credits:      B, U, F, D, B, Select
+
 ## Jade
-Fight
-
-Make your way to the match before the question mark in the main single game.
-Defeat your opponent using only the Low Kick button and directional buttons, no
-other attacks except for Low Kick
-
+Fight:
 Win one round during the match before the "Question Mark" during the main
 single player game using only Low Kick inputs (No blocks, High Punch, Low
 Punch, or High Kick).
 
 ## Noob Saibot
-Fight
-
-Win 25 versus matches in a row
-
-## Shao Kahn
-At the Options menu, press `A, B, C, C, C, B, B, A, A, A, A`
-When Shao Kahn appears, quickly press B to go to the final stage.
+Fight: Win 25 versus matches in a row
 
 ## Smoke
-Fight
-
+Fight:
 On the red portal stage, keep doing upper cuts until Dan "Toasty" Forden (the
 guy who always says toasty) comes out. Then very quickly, press Down + Start
 
-Play
-
+Play:
 You must have a Game Genie. Attach Mortal Kombat 2 to the Game Genie and enter
 the password: B4MT-BE76. Start the game,then switch to Controller two. Choose
 your character, and when you go into battle you will be Smoke.
-
-## Debug Code
-Go to the START/OPTIONS screen and select the option menu. Put the cursor on
-"Done!!" and press code `Left, Down, Left, Right, Down, Right, Left, Left, Right, Right`
-
-## Test Mode
-Go to the options menu and move down to done, then press:
-`Left, Down, Left, Right, Down, Right, Left, Left, Right, Right`
-
-## Acid Bath
-Uppercut while holding Low Punch + Low Kick
-
-## Babality and Friendship
-No punches during final round
-
-## Fergality
-To do a fergality, enter Test Mode, then change the background to 6 and enable
-the "Ooh Nasty" option. Next choose Rayden as your character and finish your
-opponent with Away, Away, Away, Block.
 
 ## Ping Pong
 Beat a second player 250 matches in a row and you will be transported to
