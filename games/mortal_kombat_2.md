@@ -35,12 +35,12 @@ Stage Fatality: Hold Block, Up + Up + Up + Low Kick (close)
 
 ```
         High Fireball: Forward + Down + Back + High Punch
-         Low Fireball: Forward + Down + Back + Low Punch
+         Low Fireball: Back + Down + Forward + Low Punch
           Shadow Kick: Back + Forward + Low kick
       Shadow Uppercut: Back + Down + Back + High Punch
-             Low Blow: Block + Low Punch
+             Low Blow: Block + Low Punch (close)
 
-            Torso Rip: Down + Down + Forward + Forward + High Punch (close)
+            Torso Rip: Down + Down + Forward + Forward + Low Punch (close)
 Decapitating Uppercut: Forward + Forward + Down + Up (close)
        Stage Fatality: Down + Down + Down + High Kick (while close)
 
