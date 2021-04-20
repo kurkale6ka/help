@@ -4,14 +4,14 @@
 
 or:
 
-## 6.0 and below:
+## 6.0 and below
 
 ```
 /etc/pkg.conf
 installpath = https://ftp.icm.edu.pl/pub/OpenBSD/6.0/packages/amd64/
 ```
 
-## 6.1 and later:
+## 6.1 and later
 
 ```
 /etc/installurl
