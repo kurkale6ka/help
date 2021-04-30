@@ -287,14 +287,19 @@ if (my $var = ...) - lvalue, not boolean
 # Command line <a name="cmd_line"></a>
 
 ```perl
-perl -p: read every line -- process -- print every line
-perl -n: read every line -- process -- print only when we need + say so
+perl -n: while (<>) {  ...  } read           lines from files, add -l for chomp
+perl -p: while (<>) { print } read and print lines from files
 
 -a implies -n
 -F implies -an
 
-perl -0777 # slurp file mode: use print $1 in this case else the whole file gets output!
-perl -00   # paragraph mode
+perl -00   # paragraph  mode
+perl -0777 # file slurp mode
+
+# to match newlines we need 'slurp' and //s
+# use print $1 because $& would be the whole file
+# 'while //sg' could be replaced with 'if //ms' when matching with ^ and/or $
+perl -0777 -lne 'print $1 while /(---)/sg' file
 ```
 
 ## use a module <a name="use_module"></a>
