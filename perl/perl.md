@@ -287,8 +287,8 @@ if (my $var = ...) - lvalue, not boolean
 # Command line <a name="cmd_line"></a>
 
 ```perl
-perl -n # while (<>) {  ...  } read           lines from files, add -l for chomp
-perl -p # while (<>) { print } read and print lines from files
+perl -n # while (<>) { ...        } read           lines from files, add -l for chomp
+perl -p # while (<>) { ...; print } read and print lines from files
 
 -a implies -n
 -F implies -an
