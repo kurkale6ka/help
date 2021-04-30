@@ -21,6 +21,7 @@
     * [evaluation in s//$1/](#sub_s_eval)
     * [return values](#sub_return)
 * [Command line](#cmd_line)
+    * [sed](#sed)
     * [use a module](#use_module)
     * [one liners](#one_l)
         * [search and replace in multiple files in parallel](#one_l_replace)
@@ -300,6 +301,17 @@ perl -0777 # file slurp mode
 # use print $1 because $& would be the whole file
 # 'while //sg' could be replaced with 'if //ms' when matching with ^ and/or $
 perl -0777 -lne 'print $1 while /(---)/sg' file
+```
+
+## sed
+
+```perl
+perl -lpe 's///' file
+
+perl [-i(suffix)] -lp[0]e 's///' file
+        \              \
+         \              read null separated data
+          edit in place
 ```
 
 ## use a module <a name="use_module"></a>
