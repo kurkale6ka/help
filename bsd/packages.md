@@ -1,6 +1,6 @@
 # Select a mirror
 
-`export PKG_PATH=https://mirror.bytemark.co.uk/pub/OpenBSD/4.5/packages/$(uname -m)/`
+`export PKG_PATH=ftp://ftp.icm.edu.pl/pub/OpenBSD/4.8/packages/$(uname -m)/`
 
 or:
 
@@ -9,6 +9,8 @@ or:
 ```
 /etc/pkg.conf
 installpath = https://ftp.icm.edu.pl/pub/OpenBSD/6.0/packages/amd64/
+or
+installpath = ftp://ftp.icm.edu.pl/pub/OpenBSD/4.8/packages/i386/
 ```
 
 ## 6.1 and later
