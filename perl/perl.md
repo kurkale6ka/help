@@ -228,6 +228,8 @@ _notes_:
 
 # Subroutines
 
+[FMTEYEWTK on Prototypes in Perl](https://groups.google.com/g/comp.lang.perl.modules/c/SVhwH2tRVaM/m/WwgB6-VNSIQJ)
+
 ```perl
 # takes a scalar, and a 2nd optional one
 sub get ($;$) {
@@ -324,7 +326,7 @@ perl -mTerm::ANSIColor=:constants -E 'say YELLOW.Hello'
 
 ### search and replace in multiple files in parallel <a name="one_l_replace"></a>
 ```perl
-% rg -il mem | parallel -q perl -i -pe 's/mem/Memory/ig'
+% rg -il mem | parallel -q perl -i -lpe 's/mem/Memory/ig'
 ```
 
 ### print from field $3 to last <a name="one_l_fields"></a>
@@ -379,7 +381,7 @@ if ($@) BLOCK
 
 # Traps
 
-always `chomp` after: `system`, backticks, `open`, `<STDIN>`, `perl -l[np]`
+always `chomp` after: `system`, backticks, `open`, `<STDIN>`
 
 ---
 
@@ -407,7 +409,7 @@ vs
 if (system('lsof', ...) == 0)
 ```
 because  
-`% lsof +D folder` always sets `$?` to 1
+`% lsof +D folder` 'always' sets `$?` to 1, `man lsof` (DIAGNOSTICS)
 
 ---
 
