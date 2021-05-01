@@ -391,7 +391,7 @@ solutions: `<"">`, `glob '""'`, or **best** to completely avoid the shell:
 
 ```perl
 opendir my $DIR, '.' or die "$!\n";
-my @dotfiles = grep { -f and /^\..{2,}/ } readdir $DIR;
+my @dotfiles = grep { -f and /^\./ } readdir $DIR;
 ```
 
 ---
