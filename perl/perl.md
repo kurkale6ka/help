@@ -341,7 +341,7 @@ perl -e 'print for sort {($aa, $bb) = map {m:(\d+)C/:} $a, $b; $aa<=>$bb} <>' /m
 
 ### namei -l <a name="one_l_namei"></a>
 ```perl
-% perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qq/ls -ld "$_"/ for @paths, $_' /my/file
+% perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qw/ls -ld/, @paths, $_' /my/file
 ```
 
 ### disk usage pretty <a name="one_l_du"></a>
