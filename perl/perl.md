@@ -387,7 +387,12 @@ always `chomp` after: `system`, backticks, `open`, `<STDIN>`
 
 `glob`, `<*>` is safe for word splitting,  
 it's arguments only split on whitespace, not the returned files!  
-solutions: `<"">`, `glob '""'`
+solutions: `<"">`, `glob '""'`, or **best** to completely avoid the shell:
+
+```perl
+opendir my $DIR, '.' or die "$!\n";
+my @dotfiles = grep { -f and /^\..{2,}/ } readdir $DIR;
+```
 
 ---
 
