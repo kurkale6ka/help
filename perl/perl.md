@@ -24,9 +24,11 @@
     * [sed](#sed)
     * [use a module](#use_module)
     * [one liners](#one_l)
+        * [delete lines](#one_l_delete)
         * [search and replace in multiple files in parallel](#one_l_replace)
         * [print from field $3 to last](#one_l_fields)
         * [regex based sort](#one_l_sort)
+        * [replace ssh key](#authorized_keys)
         * [namei -l](#one_l_namei)
         * [disk usage pretty](#one_l_du)
         * [find files older than a day](#one_l_find)
@@ -324,14 +326,19 @@ perl -mTerm::ANSIColor=:constants -E 'say YELLOW.Hello'
 
 ## one liners <a name="one_l"></a>
 
+### delete lines <a name="one_l_delete"></a>
+```perl
+perl -i -lnE 'say unless /.../ or /.../' file
+```
+
 ### search and replace in multiple files in parallel <a name="one_l_replace"></a>
 ```perl
-% rg -il mem | parallel -q perl -i -lpe 's/mem/Memory/ig'
+rg -il mem | parallel -q perl -i -lpe 's/mem/Memory/ig'
 ```
 
 ### print from field $3 to last <a name="one_l_fields"></a>
 ```perl
-% perl -lae 'print "@F[2..$#F]"' /my/file
+perl -lae 'print "@F[2..$#F]"' /my/file
 ```
 
 ### regex based sort <a name="one_l_sort"></a>
@@ -339,14 +346,19 @@ perl -mTerm::ANSIColor=:constants -E 'say YELLOW.Hello'
 perl -e 'print for sort {($aa, $bb) = map {m:(\d+)C/:} $a, $b; $aa<=>$bb} <>' /my/file
 ```
 
+### replace ssh key <a name="authorized_keys"></a>
+```perl
+perl -i -lnE '$name=...; $_=`cat ~/keys/$name` if /$name/; chomp; say' authorized_keys
+```
+
 ### namei -l <a name="one_l_namei"></a>
 ```perl
-% perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qw/ls -ld/, @paths, $_' /my/file
+perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; system qw/ls -ld/, @paths, $_' /my/file
 ```
 
 ### disk usage pretty <a name="one_l_du"></a>
 ```perl
-% du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
+du -ah0 -t100m -d1 | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
 ```
 
 ### find files older than a day <a name="one_l_find"></a>
