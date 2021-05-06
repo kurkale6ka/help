@@ -353,7 +353,7 @@ perl -i -lnE '$name=...; $_=`cat ~/keys/$name` if /$name/; chomp; say' authorize
 
 ### namei -l <a name="one_l_namei"></a>
 ```perl
-perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; exec qw/ls -ld/, @paths, $_' /my/file
+perl -e '$_=shift; push @paths, $`.$& while m{.*?/(?!$)}g; exec qw/ls -lhd/, @paths, $_' /my/file
 ```
 
 ### disk usage pretty <a name="one_l_du"></a>
