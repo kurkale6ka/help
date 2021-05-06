@@ -28,7 +28,7 @@
         * [search and replace in multiple files in parallel](#one_l_replace)
         * [print from field $3 to last](#one_l_fields)
         * [regex based sort](#one_l_sort)
-        * [replace ssh key](#authorized_keys)
+        * [replace line(s) with contents of file](#authorized_keys)
         * [namei -l](#one_l_namei)
         * [disk usage pretty](#one_l_du)
         * [find files older than a day](#one_l_find)
@@ -346,7 +346,7 @@ perl -lae 'print "@F[2..$#F]"' /my/file
 perl -e 'print for sort {($aa, $bb) = map {m:(\d+)C/:} $a, $b; $aa<=>$bb} <>' /my/file
 ```
 
-### replace ssh key <a name="authorized_keys"></a>
+### replace line(s) with contents of file <a name="authorized_keys"></a>
 ```perl
 perl -i -lnE '$name=...; $_=`cat ~/keys/$name` if /$name/; chomp; say' authorized_keys
 ```
