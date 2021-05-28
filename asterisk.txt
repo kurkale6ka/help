@@ -1,5 +1,4 @@
-cli:
-asterisk -r # connect to asterisk
+asterisk -r # connect to cli
 
-check calls:
-core show channels
+core show channels      # check calls
+core restart gracefully
