@@ -343,7 +343,7 @@ perl -lae 'print "@F[2..$#F]"' /my/file
 
 ### regex based sort <a name="one_l_sort"></a>
 ```perl
-perl -e 'print for sort {($aa, $bb) = map {m:(\d+)C/:} $a, $b; $aa<=>$bb} <>' /my/file
+perl -e 'print for sort {@m=map/(\d\.\d)/,$b,$a; pop@m<=>pop@m} <>' /my/file
 perl -e 'print for sort {(split" ",$a)[1]<=>(split" ",$b)[1]} <>' /my/file # sort on 2nd field
 ```
 
