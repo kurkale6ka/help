@@ -34,6 +34,8 @@ patch pf.conf pf.patch
 patch -p3 < project.patch
 ```
 
+*_NB_*: relative paths in hunks need `-p0`
+
 # Create a patch
 
 ```sh
