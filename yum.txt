@@ -12,6 +12,10 @@ List available versions (apt-cache policy)
 yum list erlang
 yum list --showduplicates erlang
 
+Skip repo for this run
+----------------------
+yum --disablerepo='pgdg*' history
+
 Which package provides a given command (rpm -qf =...)
 -----------------------------------------------------
 
