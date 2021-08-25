@@ -1,0 +1,26 @@
+   J:   atom,   list,  table
+math: scalar, vector, matrix
+
+Compositions
+
+  [: f g                   capped fork, useful in building long trains
+  (f @: g) y  =  f (g y)   monad and monad
+x (f @: g) y  =  f (x g y) monad and dyad
+
+  (f &: g) y  =  f (g y)       monad and monad
+x (f &: g) y  =  (g x) f (g y)  dyad and monad
+
+Trains
+
+  (f g) y  =  y f (g y) monadic hook
+x (f g) y  =  x f (g y)  dyadic hook
+
+  (f g h) y  =    (f y) g (h y)   monadic fork
+x (f g h) y  =  (x f y) g (x h y)  dyadic fork
+
+_9: to 9: - constant functions are useful because they can occur in trains
+
+Ranks
+
+echo"0 NB. print with a newline
+echo"+ NB. use another verb's rank
