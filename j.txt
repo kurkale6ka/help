@@ -1,6 +1,20 @@
    J:   atom,   list,  table
 math: scalar, vector, matrix
 
+Ranks #$
+
+   i.2 3 4
+
+ 0  1  2  3  NB. 2 planes
+ 4  5  6  7  NB. 3 rows
+ 8  9 10 11  NB. 4 columns
+
+12 13 14 15
+16 17 18 19
+20 21 22 23
+
+"0 is the same as "+ since + 0 0 0
+
 Compositions
 
 at
@@ -31,6 +45,4 @@ x (f g h) y  =  (x f y) g (x h y)  dyadic fork
 
 _9: to 9: - constant functions are useful because they can occur in trains
 
-Ranks
-
-"0 is the same as "+ since + 0 0 0
+Operators: adverbs and conjunctions
