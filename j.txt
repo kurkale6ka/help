@@ -40,8 +40,8 @@ x (f g) y  =  x f (g y)  dyadic hook
   (f g h) y  =    (f y) g (h y)   monadic fork
 x (f g h) y  =  (x f y) g (x h y)  dyadic fork
 
-4-train   (e f g h) is a hook between         verb e and fork (f g h)
-5-train (d e f g h) is a fork between verb d, verb e and fork (f g h)
+4-train   (e f g h) => hook:   (e (f g h)) NB. (verb fork)
+5-train (d e f g h) => fork: (d e (f g h)) NB. (verb verb fork)
 
 _9: to 9: - constant functions are useful because they can occur in trains
 
