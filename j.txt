@@ -17,20 +17,25 @@ Ranks #$
 
 Compositions
 
-at
+@: at
+
   [: f g                   capped fork, useful in building long trains
   (f @: g) y  =  f (g y)   monad and monad
 x (f @: g) y  =  f (x g y) monad and dyad
 
-appose
+&: appose
+
   (f &: g) y  =  f (g y)       monad and monad
 x (f &: g) y  =  (g x) f (g y)  dyad and monad
 
-@ (atop) and & (compose) are used for tracking:
-applications of f track the applications of g
+@ atop
+& compose
 
-under
-  (f &. g) y  =  (g ^: _1) f g y
+are used for tracking: applications of f track the applications of g
+
+&. under
+
+  (f &. g) y  =  g inv f g y NB. inv is ^:_1
 
 Trains
 
