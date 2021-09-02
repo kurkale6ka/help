@@ -24,7 +24,7 @@ Responses can be constructed like so:
 
 Examples:
 
-% jq -r '.solutions|.[]|select(.lang=="perl")|select(.scoring=="bytes")|"# "+.hole,.code+"\n"' code-golf-export.json
+% jq -r '.solutions|.[]|select(.lang=="perl"and.scoring=="bytes")|"# "+.hole,.code+"\n"' code-golf-export.json
 
 % aws route53 list-resource-record-sets --hosted-zone-id ... |
   jq -r '.ResourceRecordSets | .[] | if .Type == "A" then [.Name, (.ResourceRecords | .[] | .Value)] else empty end | @tsv'
