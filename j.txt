@@ -51,3 +51,10 @@ x (f g h) y  =  (x f y) g (x h y)  dyadic fork
 _9: to 9: - constant functions are useful because they can occur in trains
 
 Operators: adverbs and conjunctions
+
+Verbs
+
+       1                 2  <- fret (negate to not include the fret)
+<;._2 '-aa-bb-cc 11-22-33 '
+
+cut, using the fret as a separator, then box the results
