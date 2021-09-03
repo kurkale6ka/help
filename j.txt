@@ -5,11 +5,11 @@ Ranks #$
 
    i.2 3 4
 
- 0  1  2  3  NB. 2 planes
- 4  5  6  7  NB. 3 rows
- 8  9 10 11  NB. 4 columns
-
-12 13 14 15
+ 0  1  2  3
+ 4  5  6  7
+ 8  9 10 11  NB. 2 planes
+             NB. 3 rows
+12 13 14 15  NB. 4 columns
 16 17 18 19
 20 21 22 23
 
