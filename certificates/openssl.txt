@@ -51,7 +51,9 @@ Notes:
 * -text: key pair components
 * pem: privacy enhanced email
 * man genrsa|rsa|req|ca|x509
-* openssl enc -aes-256-cbc -in plain.txt -out encrypted.bin
+* openssl enc    -aes-256-cbc -iter 100000 -in plain.txt -out encrypted.bin
+  openssl enc -d -aes-256-cbc -iter 100000 -in encrypted.bin
+
 * des < des3 < aes128 # data encryption standard < advanced encryption standard
                aes192
                aes256
