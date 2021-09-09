@@ -58,3 +58,8 @@ Verbs
 <;._2 '-aa-bb-cc 11-22-33 '
 
 cut, using the fret as a separator, then box the results
+
+Puzzles
+
+f(y) if y > 1, else y
+f ^: (>&1) <=> ] ` f @. (>&1)
