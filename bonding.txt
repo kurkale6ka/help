@@ -1,0 +1,25 @@
+# slave
+HWADDR=18:66:da:b1:a6:6d
+TYPE=Ethernet
+DEVICE=em1
+NAME="bond0 slave 1"
+IPV4_FAILURE_FATAL=no
+ONBOOT=yes
+BOOTPROTO=none
+MASTER=bond0
+SLAVE=yes
+
+# bond
+TYPE=Bond
+DEVICE=bond0
+NAME=bond0
+IPADDR=192.168.99.22
+GATEWAY=192.168.99.1
+PREFIX=24
+IPV4_FAILURE_FATAL=no
+ONBOOT=yes
+BOOTPROTO=none
+BONDING_OPTS="mode=5 miimon=100"
+BONDING_MASTER=yes
+
+grep Status /proc/net/bonding/bond0
