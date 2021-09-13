@@ -1,9 +1,0 @@
-CentOS Vault
-
-/etc/yum.repos.d/CentOS-Base.repo
-
-baseurl=http://vault.centos.org/6.8/os/$basearch/
-baseurl=http://vault.centos.org/6.8/updates/$basearch/
-baseurl=http://vault.centos.org/6.8/extras/$basearch/
-
-also, comment 'mirrorlist' entries out
