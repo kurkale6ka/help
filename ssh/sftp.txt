@@ -1,3 +1,5 @@
+sftp access only
+
 useradd -mN -gwordpress -s /sbin/nologin -c'sftp only account' user1
          |+-- no user group
          +-- create home
@@ -22,3 +24,7 @@ the chroot must be root owned (0:0) and writeable by root only.
 A 2nd Match doesn't reset parameters enabled by the 1st one. Also,
 ForceCommand internal-sftp in the 1st match is what rules even if
 ForceCommand internal-sftp none is set in a following match
+
+errors
+
+-P 2222 is silently ignored if used after the IP
