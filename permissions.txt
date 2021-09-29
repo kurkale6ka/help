@@ -1,4 +1,4 @@
-  u   g   o    base permissions   umask 022
+  u   g   o    base               umask 022
  421 421 421 | File / Directory | File / Directory
 -rwx rwx rwx | 666    777       | 644    755
 
@@ -49,3 +49,8 @@ when set on a directory, files inside can only be removed by their owners
 
 ex: chmod 2755 is equivalent to
     chmod g+s
+
+ACL
+
+setfacl
+getfacl -t
