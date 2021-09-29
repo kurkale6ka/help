@@ -44,7 +44,7 @@
 # use
 
 ```perl
-use v5.10 # say, state, -r -w, //
+use v5.10 # say, state, //, -r -w (-r $file && -w _)
 use v5.12 # use strict, ...
 use v5.14 # s///r
 use v5.16 # fc
@@ -457,6 +457,11 @@ vs
 @backups[0 .. -3]
 ```
 because `..` counts up only
+
+---
+
+100 %  3 =  1 (100 - 3 * 33 = 99)
+100 % -3 = -2 (100 - 3 * 34 = 102 <=> 100 % 3 - 3) # => it's either 0 or negative
 
 # Documentation
 
