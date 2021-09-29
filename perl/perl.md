@@ -460,8 +460,10 @@ because `..` counts up only
 
 ---
 
+```perl
 100 %  3 =  1 (100 - 3 * 33 = 99)
 100 % -3 = -2 (100 - 3 * 34 = 102 <=> 100 % 3 - 3) # => it's either 0 or negative
+```
 
 # Documentation
 
