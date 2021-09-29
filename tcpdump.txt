@@ -42,3 +42,15 @@ tcpdump src port 81 and udp
 tcpdump udp and src port 53
 # To group use ()s but escape them for bash
 tcpdump 'src 10.0.0.1 and (dst port 389 or 21)'
+
+SYN, SYN-ACK, ACK
+-----------------
+
+BSD tcpdump                                                this is how much I can receive
+                                                          /
+SYN:     rtsg.1023 > csam.login: S 768512:768512(0) win 4096 <mss 1024>            # initiate connection
+SYN ack: csam.login > rtsg.1023: S 947648:947648(0) ack 768513 win 4096 <mss 1024> # acknowledge initiator
+ack:     rtsg.1023 > csam.login: . ack 1 win 4096                                  # acknowledge remote
+
+bytes 1st    last
+data  768512:768512(0) # 0 means no data
