@@ -5,7 +5,7 @@ r/w fast but data loss
     R/w fast but ½ storage
 rebuild fast but no hot swap (poweroff needed)
 
-# RAID 10 - 4d - Mirror each disk + stripe across each set (0 & 1 combined)
+# RAID 10 - 4,6,...d - stripe across RAID 1 pairs/legs (0 & 1 combined)
     r/w fast but ½ storage
 rebuild fast
 hot swap
