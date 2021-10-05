@@ -1,0 +1,20 @@
+# RAID  0 - 2d - Striping
+r/w fast but data loss
+
+# RAID  1 - 2d - Mirroring
+    R/w fast but ½ storage
+rebuild fast but no hot swap (poweroff needed)
+
+# RAID 10 - 4d - Mirror each disk + stripe across each set (0 & 1 combined)
+    r/w fast but ½ storage
+rebuild fast
+hot swap
+can withstand 2 fails (depending upon which 2)
+
+# RAID  5 - 3d - Blocks striped across n-1 drives + block parity checksum on the last
+r fast but w (+rebuild) slow because of checksum
+hot swap
+
+# RAID  6 - 4d - Striping with double parity
+r fast but w even slower
+withstands 2 fails
