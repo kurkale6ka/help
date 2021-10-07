@@ -1,0 +1,22 @@
+Startup
+
+/set irc.look.temporary_servers on
+/connect irc.libera.chat
+or
+/server add lib irc.libera.chat -temp
+/connect lib
+
+/j #perl
+/filter add irc_smart * irc_smart_filter *
+
+Keys
+
+ctrl+x - switch between servers
+
+alt+1 - buffer
+alt+/ - last buffer
+alt+m - toggle mouse
+alt+a - activity
+alt+k - grab a key and insert its code
+
+F9/10 - title to the left/right
