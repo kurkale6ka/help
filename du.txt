@@ -1,7 +1,5 @@
 Use
-du -ah -d1
-
-instead of
+du -ah -d1, instead of
 du -sh *
         \
          .files/folders would be missed!
