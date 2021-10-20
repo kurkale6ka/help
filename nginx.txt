@@ -12,7 +12,11 @@ http {
  # vhosts
  server {
     listen 80 default_server; # *:80
-    return 200 'Hello';
+    root /home/goldorak;
+    location / {
+       # avoid in server context as then it's the least specific location
+       try_files /prout /index.html =500;
+    }
   }
  server { # server context
     listen 80;
