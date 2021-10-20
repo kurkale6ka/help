@@ -1,0 +1,22 @@
+nginx # start
+nginx -s stop
+nginx -t
+
+Configuration
+
+events {}
+
+worker_processes 2; # directive in global context
+
+http {
+ # vhosts
+ server {
+    listen 80 default_server; # *:80
+    return 200 'Hello';
+  }
+ server { # server context
+    listen 80;
+    server_name caca; # curl -Hhost:caca localhost:80
+    return 200 'Hi caca';
+  }
+}
