@@ -1,12 +1,12 @@
 nginx # start
-nginx -s stop
+nginx -s quit
 nginx -t
 
 Configuration
 
 events {}
 
-worker_processes 2; # directive in global context
+worker_processes 2; # directive in main context
 
 http {
  # vhosts
