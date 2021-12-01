@@ -1,0 +1,27 @@
+Perl Getopt::Long GetOptions
+
+!   --foo    -> 1
+    --no-foo -> 0
+
++   --more --more --more -> 3
+
+=   s string
+    i integer
+    o extended integer
+    f real number
+    @ list
+    % hash
+
+:   same as = above but arg is optional
+:5  similar to :i but --age -> 5
+:+  similar to :i but --age -> 3 if age was 2
+
+Bash getopts
+
+http://wiki.bash-hackers.org/howto/getopts_tutorial
+
+getopts :f:b:su var $@ (default)
+         \ \     \
+          \ \     where the option is stored (without the -)
+           \ -f expects an argument (available in $OPTARG)
+            silent error mode
