@@ -1,0 +1,19 @@
+mod_authz_host
+
+Require (not) ip ...
+Require (not) host domain
+
+mod_authz_core
+
+Containers
+
+<RequireAll>  : all directives must succeed
+<RequireAny>  : 1 or more directives must succeed
+<RequireNone> : all directives must fail
+
+Directives
+
+Require env ...
+Require all granted|denied : grant or deny all requests
+Require method GET POST ...
+Require expr ...
