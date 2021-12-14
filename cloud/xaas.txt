@@ -14,7 +14,7 @@ PaaS: platform < IaaS +
 OS
 runtime
 
-e.g. Kubernetes, Heroku
+e.g. Kubernetes, AWS Elastic Beanstalk, Heroku
 
 SaaS: software < IaaS/PaaS +
 --------------------------
