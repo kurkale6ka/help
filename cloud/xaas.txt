@@ -1,0 +1,24 @@
+Everything as a service
+
+IaaS: infrastructure
+--------------------
+servers
+storage
+networking
+virtualization
+
+e.g. AWS
+
+PaaS: platform < IaaS +
+---------------------
+OS
+runtime
+
+e.g. Kubernetes, Heroku
+
+SaaS: software < IaaS/PaaS +
+--------------------------
+apps
+data
+
+e.g. Dropbox
