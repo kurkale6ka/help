@@ -1,0 +1,23 @@
+DAI
+dynamic ad insertion
+
+HLS
+HTTP Live Streaming
+
+MPEG-DASH
+Motion Pictures Expert Group Dynamic Adaptive Streaming over HTTP
+
+VOD
+video on demand
+
+PVR
+personal video recorder
+
+VMAP
+Video Multiple Ads Playlist
+
+VAST
+Video Ad Serving Template
+
+transcode
+e.g convert from video analogue signal to digital (MPEG)
