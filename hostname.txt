@@ -1,1 +1,6 @@
 hostnamectl set-hostname new
+
+amazonlinux
+- echo 'preserve_hostname: true' > /etc/cloud/cloud.cfg.d/30_hostname.cfg
+- hostnamectl set-hostname amazonlinux.localdomain
+- 127.0.0.1   amazonlinux amazonlinux.localdomain localhost4 localhost4.localdomain4
