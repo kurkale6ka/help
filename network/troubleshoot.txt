@@ -1,0 +1,28 @@
+Layer 5: Application
+Layer 4: Transport
+Layer 3: Network/Internet # ping, traceroute, firewalls
+Layer 2: Data Link        # ip n; LAN only: ARP, IP <-> MAC; can't reach GW?
+Layer 1: Physical
+
+1.
+ethtool eth0
+ifstat
+ip -s -c l
+ip -br -c l         # DOWN could mean no cable or disabled interface
+ip link set eth0 up #   UP would mean it was simply disabled
+
+3.
+ip -br -c -4 a
+ping: can be rate limited by intermediate network gear => inaccurate application latency
+
+traceroute:
+ - TTL 1, 1st router sends back an ICMP Time-to-Live Exceeded packet
+ - TTL++, 2nd router ...
+
+DNS (not level 3), if it fails, check if we can connect via IP.
+
+4.
+ss -tunlp4
+telnet db 3306
+nc 192.168.0.100 -u 80
+nmap
