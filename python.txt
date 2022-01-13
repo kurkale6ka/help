@@ -96,3 +96,8 @@ Decorators:
 Modifying a list while looping: non
 To avoid side effects, it's best to work on a copy by using the slicing operator:
 for i in list[:]:
+
+iterators
+
+islice() is similar to
+range(), but it returns an iterator
