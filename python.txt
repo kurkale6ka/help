@@ -8,6 +8,9 @@ variable interpolation: f'Hello {var}' (or 'Hello {}'.format(var))
 
 In interactive mode, the last printed expression is assigned to _
 
+if 'yellow' in colors: # shorter/easier than
+any(c == 'yellow' for c in colors)
+
 Decorators
 Pass my function to a 'decorator' function, so it can apply it AND add extra
 functionality, then return a new function to replace my initial one:
@@ -20,6 +23,11 @@ my_func(...)
 Iterators
 islice() parameters act similarly to range()'s ones,
 the difference is we get an iterator, not a range.
+
+itemgetter(0) is the same as lambda g: g[0]
+
+groupby(iterable, key=None) # define a key per item (identity by default)
+(key1, iterator1), ..., (keyN, iteratorN)
 
 venv: create isolated working copies of python with their own site packages.
 This solves the problem of various python projects needing different versions
