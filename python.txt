@@ -1,103 +1,33 @@
-virtualenv: create isolated working copies of python with their own site
-packages. This solves the problem of various python projects needing different
-versions of the same 3rd party packages (aka site packages).
+Variables are pointing to objects and objects can be of arbitrary data type,
+thus variables cannot have types associated with them
 
-yum install python34-virtualenv
+x = 11, y = x => id(x) == id(y) (x is y)
 
-virtualenv ~/my_project
-. ~/my_project/bin/activate
-and when finished:
-deactivate
+' and " are equivalent
+variable interpolation: f'Hello {var}' (or 'Hello {}'.format(var))
+
+In interactive mode, the last printed expression is assigned to _
+
+Decorators
+Pass my function to a 'decorator' function, so it can apply it AND add extra
+functionality, then return a new function to replace my initial one:
+
+my_func = decorator(my_func) # which is what happens with:
+
+@decorator
+my_func(...)
+
+Iterators
+islice() parameters act similarly to range()'s ones,
+the difference is we get an iterator, not a range.
+
+venv: create isolated working copies of python with their own site packages.
+This solves the problem of various python projects needing different versions
+of the same 3rd party packages (aka site packages).
 
 system wide python installation:
 sudo pip install
 
 isolated python installation:
-pip install --user # without virtualenv
-pip install        # if using virtualenv
-
-http://www.python-course.eu/course.php
-https://docs.python.org/3.5/howto/argparse.html
-
-variables are pointing to objects and objects can be of arbitrary data type,
-thus variables cannot have types associated with them
-
-x = 11, y = x => id(x) == id(y) (x is y)
-
-Variable inside a string: "Hello $var" is not a thing.
-Use '+' concatenation or the format function:
-'hello {0}'.format(var)
-
-The augmented assignment s += t is more optimized than s = s + t
-
-=> vars aren't expanded => ' and " have identical functionality
-
-Strings are immutable
-A character is a string of size 1.
-
-s = "Hello World"
-s[0], s[-1], len(s)
-
-'=-'*3 => '=-=-=-'
-
-slicing: from subscript 2 to (exclusif) 4:
-"Hello World"[2:4] => 'll'
-
-print(r'First line.\nSecond line.'): raw string -> 'First line.\nSecond line.'
-
-print('''\
-Hello
-world''')
-
-Python code is translated into intermediate (byte) code, which has to be
-executed by a virtual machine, known as the PVM (.py -> .pyc)
-
-Python programs are structured by colons and indentation
-
-Boolean operators: or, and, not
-
-In interactive mode, the last printed expression is assigned to _
-
-Lists:
-'-'.join(['S', 'o', 'l', 'e', 'i', 'l']) => 'S-o-l-e-i-l'
-
-element ∈ List?: 'b' in ['a','b','c','d','e']
-
-NB: the repetition operator '*' creates references when applied to lists =>
-    when changing a sublist, we are 'changing' all sublists
-
-lst = [2, 3, 5, 7, 11, 13, 17, 19]
-
-lst.append(23) -> returns None!
-lst.pop()      -> returns 23: equivalent to lst.pop(-1)
-lst.extend([29, 31])
-
-Note: methods that only modify a mutable structure return None
-
-tuples:     immutable, heterogeneous (unpacking)
-            t = (1, 2, 'hey')
-tuples are immutable thus faster than lists and can also be used as dictionary keys
-
-sets:       unordered, unique        (membership, eliminating duplicate entries)
-            {'a', 'r', 'b', 'c', 'd'}
-
-dictionary: unordered set of 'key: value' pairs
-            {'one': 1, 'two': 2}
-
-l1 = [1, 2, 3]
-l2 = [11, 22, 33]
-list(zip(l1, l2)) -> [(1, 11), (2, 22), (3, 33)]
-
-Decorators:
-@click.option('--ifname', help='The wireless interface name')
- click.option will return a function (a callable) which will be the decorator's name
-@function
-
-Modifying a list while looping: non
-To avoid side effects, it's best to work on a copy by using the slicing operator:
-for i in list[:]:
-
-iterators
-
-islice() is similar to
-range(), but it returns an iterator
+pip install --user # without venv
+pip install        # if using venv
