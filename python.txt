@@ -11,6 +11,9 @@ In interactive mode, the last printed expression is assigned to _
 if 'yellow' in colors: # shorter/easier than
 any(c == 'yellow' for c in colors)
 
+  packing: assign to *t, we get a single tuple
+unpacking:       use *t, we get all items
+
 Decorators
 Pass my function to a 'decorator' function, so it can apply it AND add extra
 functionality, then return a new function to replace my initial one:
