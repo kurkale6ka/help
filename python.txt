@@ -11,6 +11,9 @@ In interactive mode, the last printed expression is assigned to _
 if 'yellow' in colors: # shorter/easier than
 any(c == 'yellow' for c in colors)
 
+(... for t in text if t.isalpha()) # could lead to a better solution than using
+filter(str.isalpha, text)
+
   packing: assign to *t, we get a single tuple
 unpacking:       use *t, we get all items
 
