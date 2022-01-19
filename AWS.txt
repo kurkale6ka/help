@@ -1,0 +1,7 @@
+Amazon EC2 on-demand Capacity Reservations enable you to create and manage
+reserved capacity on Amazon EC2 without any long-term commitment or fixed
+terms. This can be very beneficial if you regularly face
+InsufficientInstanceCapacity errors when AWS doesn't have enough available
+on-demand capacity while starting or launching an EC2 instance.
+
+use Reserved Instances instead if you want to commit to 1 or 3 years
