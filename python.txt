@@ -14,6 +14,9 @@ any(c == 'yellow' for c in colors)
 (... for t in text if t.isalpha()) # could lead to a better solution than using
 filter(str.isalpha, text)
 
+return a > b # just return the boolean expression
+return True if a > b else False # True if True False if False :-)
+
   packing: assign to *t, we get a single tuple
 unpacking:       use *t, we get all items
 
