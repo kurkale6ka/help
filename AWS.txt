@@ -18,6 +18,13 @@ partition -  avg latency,  avg availability: spread partitions across hardware, 
 
 Elastic Load Balancer
 
-spread load
-seamless handling of downstream instances failures with health checks
-SSL termination
+* dispatch requests to target groups based on routes, query string, headers, IPs
+                                           /url1 -> tg1
+                          /url2, one.example.com -> tg2
+  two.example.com, ?platform=mobile, HTTP header -> tg3
+
+  then spread load across multiple or single (e.g containers) host(s) in the
+  target group based on health checks (port + route) => seamless handling of
+  downstream instances failures
+
+* SSL termination
