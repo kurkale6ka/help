@@ -17,6 +17,9 @@ filter(str.isalpha, text)
 return a > b # just return the boolean expression
 return True if a > b else False # True if True False if False :-)
 
+zip('abs', '@&$') # strings are sequences
+zip(['a', 'b', 's'], ['@', '&', '$'])
+
   packing: assign to *t, we get a single tuple
 unpacking:       use *t, we get all items
 
