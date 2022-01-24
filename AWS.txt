@@ -18,7 +18,11 @@ partition -  avg latency,  avg availability: spread partitions across hardware, 
 
 Elastic Load Balancer
 
-* dispatch requests to target groups based on routes, query string, headers, IPs
+ALB: distribute load based on protocol,  port and HTTP headers, ...
+NLB: distribute load based on protocol & port only
+     define static IPs (per AZ) for the NLB (so customers can whitelist us)
+
+* dispatch requests to target groups based on routes, query string, headers, IPs (ALB)
                                            /url1 -> tg1
                           /url2, one.example.com -> tg2
   two.example.com, ?platform=mobile, HTTP header -> tg3
