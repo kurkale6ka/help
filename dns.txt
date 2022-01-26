@@ -30,3 +30,7 @@ hosts files DNS
         +-- /etc/hosts
 
 gotcha: the host command doesn't respect /etc/nsswitch.conf, thus not /etc/hosts either
+
+www.example.com -> 12.34.56.78
+web.example.com -> CNAME to www.example.com (~symlink)
+    12.34.56.78 ->   PTR to web.example.com (~reverse link)
