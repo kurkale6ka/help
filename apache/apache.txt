@@ -25,6 +25,8 @@ Virtual hosts:
    www.example.com -> <VirtualHost 1.1.1.1:443> RequestHeader set Host www.example.com
    hi.travel.com   -> <VirtualHost 2.2.2.2:443> RequestHeader set Host hi.travel.com
 
+For a single domain with 'aliases', a multi domain certificate could be used instead of SNI.
+
 Location:
 <Location "/private">  -> match /private, /private/, /private/text, ...
 <Location "/private/"> -> match           /private/, /private/text, ...
