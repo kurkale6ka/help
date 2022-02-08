@@ -37,3 +37,6 @@ NLB: distribute load based on protocol & port only
   downstream instances failures
 
 * SSL termination
+
+Service-Linked Role:
+only a specific service can use this role vs a regular role which can be used by all services/users
