@@ -40,3 +40,11 @@ NLB: distribute load based on protocol & port only
 
 Service-Linked Role:
 only a specific service can use this role vs a regular role which can be used by all services/users
+
+  SG - statefull, if one way is allowed then the return way is automatically allowed
+NACL - stateless, both ways are always evaluated
+
+A private host behind NAT "can't" be contacted, for that you need NAT traversal:
+Also known as UDP encapsulation, it allows traffic to get to the specified
+destination which doesn't have a public IP address. In a S2S VPN connection, a
+CGW behind NAT needs this enabled
