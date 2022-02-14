@@ -48,3 +48,15 @@ A private host behind NAT "can't" be contacted, for that you need NAT traversal:
 Also known as UDP encapsulation, it allows traffic to get to the specified
 destination which doesn't have a public IP address. In a S2S VPN connection, a
 CGW behind NAT needs this enabled
+
+CloudFront
+   cache + S3 or http/rtmp endpoint as origin
+
+Global Accelerator: accelerates APPS (no S3) only
+no cache + no http endpoint (VOIP, IoT, ...)
+
+kinesis DS (pub/sub)
+
+                      SDK, KPL                SDK, KCL
+1 MB/s or 1000 msg/s per shard - Kinesis DS - 2 MB/s per shard per       all (shared)
+                                              2 MB/s per shard per consummer (enhanced fanout)
