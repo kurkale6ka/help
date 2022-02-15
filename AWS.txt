@@ -44,6 +44,9 @@ only a specific service can use this role vs a regular role which can be used by
   SG - statefull, if one way is allowed then the return way is automatically allowed
 NACL - stateless, both ways are always evaluated
 
+SG
+EC2, ELB, EFS, RDS
+
 A private host behind NAT "can't" be contacted, for that you need NAT traversal:
 Also known as UDP encapsulation, it allows traffic to get to the specified
 destination which doesn't have a public IP address. In a S2S VPN connection, a
@@ -60,3 +63,21 @@ kinesis DS (pub/sub)
                       SDK, KPL                SDK, KCL
 1 MB/s or 1000 msg/s per shard - Kinesis DS - 2 MB/s per shard per       all (shared)
                                               2 MB/s per shard per consummer (enhanced fanout)
+
+A persistent spot request is like an ASG. It will keep spawning instances till the end of its validity period.
+
+1 CPU = multiple cores = multiple threads. vCPU is the total of threads.
+
+EBS
+                            max
+gp3 | 1 GiB to 16 TiB |  16 000  iops | 1000 MiB/s | not multi-attach
+io2 | 4 GiB to 16 TiB |  32 000 piops |            |
+    |                 |  64 000 piops |            | if Nitro
+    | 4 GiB to 64 TiB | 256 000 piops |            | if block express
+
+ASG
+
+Use golden AMI so updates, app install, ... take less time => we can use a smaller cooldown period
+
+In AWS there is a network cost when data moves between AZs,
+but not for RDS read replicas within the same region (only cross-region)
