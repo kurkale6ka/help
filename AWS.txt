@@ -134,11 +134,21 @@ naming: 3-63 -> no upper, _, IP; start with [a-z0-9]
         s3://bucket-name/folder-1/folder-2/my-image.jgp > max 5TB, multi-part upload if >5GB
                          prefix          + name = key
 
+with versioning enabled, removal of an object adds a 'delete marker'.
+deleting a specific version or a 'delete marker' one is permanent.
+
+replication isn't chained:
+A -> B -> C doesn't mean A -> C.
+objects in B replicated from A aren't considered new. only explicit new ones will be replicated to C
+
 encryption:
 SSE-S3  = "x-amz-server-side-encryption": "AES256",  in header
 SSE-KMS = "x-amz-server-side-encryption": "aws:kms", in header
 SSE-C   =                                       key, in header (https mandatory)
 CSE     = client side encryption
+
+the default encryption setting will be applied only to non-encrypted objects,
+meaning that if an object is already encrypted (e.g via bucket policy) it won't be altered.
 
 block all public access
 * to buckets/objects                 via new ACLs
@@ -146,7 +156,13 @@ block all public access
 * to buckets/objects                 via new public bucket or access point policies
 * to buckets/objects + cross-account via ANY public bucket or access point policies
 
-pre-signed URLs: valid for a limited time only
+pre-signed URLs
+generate GET ones with cli, GET/PUT ones with SDK (creator's get/put permissions inherited by users)
+valid for a limited time only (3600s by default)
+
+note: with CloudFront in front of our bucket, we must use CloudFront signed
+URLs for single files or signed cookies for multiple files because bucket
+access is restricted to the OAI.
 
 CORS: cross-origin resource sharing (web browser security mechanism)
 get index.html                         from www.example.com (origin - protocol://domain:port),
