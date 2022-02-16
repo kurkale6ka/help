@@ -89,3 +89,39 @@ ElastiCache
 * requires heavy code changes
 * no IAM auth, redis auth or Memcached SASL
 redis: sorted sets for real-time leaderboards
+
+Route 53
+
+Alias: CNAME to 1 managed AWS resource (no EC2!)
+       no TTL, can point to zone apex, free
+
+record with multiple A values -> the client will choose at random (client side LB)
+
+health checks: only return IPs for healthy resources
+               e.g give me a healthy ALB, then target group health check to give me a healthy EC2 instance
+
+routing policies:
+
+- simple (no health checks)
+- weighted
+  weight.example.com 70 - 7.8.9.1
+  weight.example.com 30 - 3.4.5.6
+  weight.example.com 10 - 1.1.8.8
+- latency
+- failover (primary active / secondary passive)
+- geolocation (default IP mandatory)
+- geoproximity (traffic flow, bias -1 .. 99)
+- multi-value (again client side LB but with health checks, return up to 8 IPs)
+
+GoDaddy registrar with Route 53 DNS:
+register domain with GoDaddy but specify custom nameservers (AWS ones) where the records will be defined
+
+http statefullness can be achieved with:
+* ELB stickiness (session/client affinity)
+* cookies stored on EC2 instances or sent by user (web cookies)
+* single session_id cookie sent by client, session info stored in ElastiCache
+
+Beanstalk
+dev centric view, infrastructure is transparent
+PaaS: versioned application / environment (dev,test,prod) +    web tier (ELB -> ASG) or
+                                                            worker tier (SQS <- ASG)
