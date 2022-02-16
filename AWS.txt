@@ -125,3 +125,15 @@ Beanstalk
 dev centric view, infrastructure is transparent
 PaaS: versioned application / environment (dev,test,prod) +    web tier (ELB -> ASG) or
                                                             worker tier (SQS <- ASG)
+
+S3 (web URL - http/https)
+
+naming: 3-63 -> no upper, _, IP; start with [a-z0-9]
+        s3://bucket-name/folder-1/folder-2/my-image.jgp > max 5TB, multi-part upload if >5GB
+                         prefix          + name = key
+
+encryption:
+SSE-S3  = "x-amz-server-side-encryption": "AES256",  in header
+SSE-KMS = "x-amz-server-side-encryption": "aws:kms", in header
+SSE-C   =                                       key, in header (https mandatory)
+CSE     = client side encryption
