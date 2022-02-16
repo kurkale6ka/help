@@ -38,6 +38,8 @@ NLB: distribute load based on protocol & port only
 
 * SSL termination
 
+IAM principal = user or role
+
 Service-Linked Role:
 only a specific service can use this role vs a regular role which can be used by all services/users
 
@@ -137,3 +139,17 @@ SSE-S3  = "x-amz-server-side-encryption": "AES256",  in header
 SSE-KMS = "x-amz-server-side-encryption": "aws:kms", in header
 SSE-C   =                                       key, in header (https mandatory)
 CSE     = client side encryption
+
+block all public access
+* to buckets/objects                 via new ACLs
+* to buckets/objects                 via ANY ACLs (existing ones too)
+* to buckets/objects                 via new public bucket or access point policies
+* to buckets/objects + cross-account via ANY public bucket or access point policies
+
+pre-signed URLs: valid for a limited time only
+
+CORS: cross-origin resource sharing (web browser security mechanism)
+get index.html                         from www.example.com (origin - protocol://domain:port),
+    index.html tries to get a resource from   net.games.com (cross-origin)
+                                              net.games.com needs to send headers Access-Control-Allow-Origin:  https://www.example.com
+                                                                                  Access-Control-Allow-Methods: GET, ...
