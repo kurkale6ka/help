@@ -23,8 +23,8 @@ partition -  avg latency,  avg availability: spread partitions across hardware, 
 
 Elastic Load Balancer
 
-ALB: distribute load based on protocol,  port and HTTP headers, ...
-NLB: distribute load based on protocol & port only
+ALB: distribute load based on    http/https + port, headers, ...
+NLB: distribute load based on TCP, UDP, TLS + port
      define static IPs (per AZ) for the NLB (so customers can whitelist us)
 
 * dispatch requests to target groups based on routes, query string, headers, IPs (ALB)
@@ -55,10 +55,25 @@ destination which doesn't have a public IP address. In a S2S VPN connection, a
 CGW behind NAT needs this enabled
 
 CloudFront
-   cache + S3 or http/rtmp endpoint as origin
 
-Global Accelerator: accelerates APPS (no S3) only
-no cache + no http endpoint (VOIP, IoT, ...)
+CloudFront price classes:
+class all - all regions
+class 200 - all, without the most expensive ones
+class 100 - least expensive regions only
+
+origins
+
+multi-origins based on /path/* + origin groups (primary/secondary) for failover
+
+CloudFront (CDN - cache content at the edge)
+S3 or any http/https/rtmp endpoint as origin
+
+Global Accelerator (use edge locations to accelerate APPS (no S3), no caching)
+no http/https endpoint (VOIP, IoT, ...)
+
+field level encryption:
+extra security on top of https - specify up to 10 fields in your POST request
+asymmetric encryption (e.g credit card details) on the edge, decrypted by app (e.g behind ALB origin) private key
 
 kinesis DS (pub/sub)
 
