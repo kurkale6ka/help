@@ -69,11 +69,17 @@ CloudFront (CDN - cache content at the edge)
 S3 or any http/https/rtmp endpoint as origin
 
 Global Accelerator (use edge locations to accelerate APPS (no S3), no caching)
-no http/https endpoint (VOIP, IoT, ...)
+UDP, IoT (MQTT), VOIP endpoint
+           http/https endpoint (if static IPs needed)
 
 field level encryption:
 extra security on top of https - specify up to 10 fields in your POST request
 asymmetric encryption (e.g credit card details) on the edge, decrypted by app (e.g behind ALB origin) private key
+
+Global Accelerator
+
+It's a global load balancer!
+region endpoint groups (akin to TG) -> endpoints (e.g EC2 but can also be ELBs) with health checks
 
 kinesis DS (pub/sub)
 
