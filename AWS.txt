@@ -204,3 +204,12 @@ get index.html                         from www.example.com (origin - protocol:/
     index.html tries to get a resource from   net.games.com (cross-origin)
                                               net.games.com needs to send headers Access-Control-Allow-Origin:  https://www.example.com
                                                                                   Access-Control-Allow-Methods: GET, ...
+
+Snow family (EBS and S3 storage)
+
+             snowcone (  8TB)             2  CPU,   4GiB RAM, no battery/cables, can use DataSync once online
+snowball edge compute ( 42TB) optimized: 52 vCPU, 208GiB RAM, optional GPU
+snowball edge storage ( 80TB) optimized: 40 vCPU,  80GiB RAM, up to 15 nodes storage cluster, cannot import to glacier directly
+           snowmobile (100PB) - prefer to snowball if >10PB
+
+OpsHub: AWS 'snow' Console on your laptop
