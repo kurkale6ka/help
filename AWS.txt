@@ -130,12 +130,26 @@ PaaS: versioned application / environment (dev,test,prod) +    web tier (ELB -> 
 
 S3 (web URL - http/https)
 
+3_500 PUT req/s per prefix
+5_500 GET req/s per prefix, both limited by KMS (5_500, 10_000, 30_000 req/s based on region, increase with quotas)
+
 naming: 3-63 -> no upper, _, IP; start with [a-z0-9]
         s3://bucket-name/folder-1/folder-2/my-image.jgp > max 5TB, multi-part upload if >5GB
                          prefix          + name = key
 
 with versioning enabled, removal of an object adds a 'delete marker'.
 deleting a specific version or a 'delete marker' one is permanent.
+
+storage classes:
+        std, std-ia -> min 30 days
+intelligent tiering -> small monthly monitoring and auto-tiering fee
+     amazon glacier -> archives go in vaults
+                       90 days min, 180 for deep archive
+retrieval cost per GB for all but std/intelligent
+
+lifecycle rules
+- transition actions
+- expiration actions (deletion)
 
 replication isn't chained:
 A -> B -> C doesn't mean A -> C.
