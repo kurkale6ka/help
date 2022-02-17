@@ -81,12 +81,6 @@ Global Accelerator
 It's a global load balancer!
 region endpoint groups (akin to TG) -> endpoints (e.g EC2 but can also be ELBs) with health checks
 
-kinesis DS (pub/sub)
-
-                      SDK, KPL                SDK, KCL
-1 MB/s or 1000 msg/s per shard - Kinesis DS - 2 MB/s per shard per       all (shared)
-                                              2 MB/s per shard per consummer (enhanced fanout)
-
 A persistent spot request is like an ASG. It will keep spawning instances till the end of its validity period.
 
 1 CPU = multiple cores = multiple threads. vCPU is the total of threads.
@@ -235,3 +229,34 @@ snowball edge storage ( 80TB) optimized: 40 vCPU,  80GiB RAM, up to 15 nodes sto
            snowmobile (100PB) - prefer to snowball if >10PB
 
 OpsHub: AWS 'snow' Console on your laptop
+
+Async app to app communication
+
+                         queue model: SQS (256kb per msg, 4 to 14 days retention) <- poll for up to 10 messages
+                       pub/sub model: SNS
+real-time streaming (~pub/sub) model: kinesis data streams
+
+SQS
+visibility timeout (30s): message invisible to other consumers,
+ChangeMessageVisibility API call if not done processing
+
+MaximumReceives: times a msg is allowed to go back to the queue,
+                 then move it to DLQ (dead letter queue)
+
+Delay queue: hide message for up to 15min, send with DelaySeconds can override this
+
+long polling (up to 20s) => less API calls. enable at Q level or WaitTimeSeconds API
+
+request-response systems:
+the producers (requesters) send messages ( [ID/response Q (answer expected there)] ) to a single request Q,
+the consumers (responders) reply via many virtual Qs (SQS Temporary Queue Java Client needed)
+
+Kinesis data streams
+
+                      SDK, KPL                SDK, KCL
+1 MB/s or 1000 msg/s per shard - Kinesis DS - 2 MB/s per shard per      all (shared)
+                                              2 MB/s per shard per consumer (enhanced fanout)
+
+CloudWatch
+
+while exploring metrics in the console, I couldn't filter for sqs, it only worked by filtering for aws first! bug (???)
