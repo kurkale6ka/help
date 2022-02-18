@@ -257,6 +257,17 @@ Kinesis data streams
 1 MB/s or 1000 msg/s per shard - Kinesis DS - 2 MB/s per shard per      all (shared)
                                               2 MB/s per shard per consumer (enhanced fanout)
 
+SNS
+
+           topic,
+publish to phone (SMS),
+           platform endpoint (e.g ADM: Amazon device messaging)
+
+100_000 topics -> 10_000_000 subscriptions per topic (optional JSON policy to filter messages)
+
+FIFO topic: ordering of messages per group
+            subscribers can only be SQS FIFO (throughput limited to 300/s or 3000/s batch)
+
 CloudWatch
 
 while exploring metrics in the console, I couldn't filter for sqs, it only worked by filtering for aws first! bug (???)
