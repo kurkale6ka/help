@@ -234,7 +234,16 @@ Async app to app communication
 
                          queue model: SQS (256kb per msg, 4 to 14 days retention) <- poll for up to 10 messages
                        pub/sub model: SNS
-real-time streaming (~pub/sub) model: kinesis data streams
+real-time streaming (~pub/sub) model: kinesis data streams (records with partition key, same key goes to same shard => ordering can be achieved)
+                                      |
+                           producers  v  consumers
+             kinesis agent, SDK, KPL  ‒  SDK, KCL
+              1 MB/s (or 1000 msg/s)  ‒  2 MB/s per shard per all      (shared)
+                           per shard  ‒  2 MB/s per shard per consumer (enhanced fanout)
+
+             kinesis data firehose: batch writes (near real time) - 32MB or 60s
+                                    custom data transform with lambda
+                                    => S3, redshift (via S3), elasticsearch
 
 SQS
 visibility timeout (30s): message invisible to other consumers,
@@ -251,11 +260,10 @@ request-response systems:
 the producers (requesters) send messages ( [ID/response Q (answer expected there)] ) to a single request Q,
 the consumers (responders) reply via many virtual Qs (SQS Temporary Queue Java Client needed)
 
-Kinesis data streams
-
-                      SDK, KPL                SDK, KCL
-1 MB/s or 1000 msg/s per shard - Kinesis DS - 2 MB/s per shard per      all (shared)
-                                              2 MB/s per shard per consumer (enhanced fanout)
+ordering:
+FIFO + group ID: block group A messages for other consumers while a group A
+                 batch is in flight (being processed, eg. A3-A2-A1), else a
+                 consumer could process say A4 before and the ordering would be broken => A3-A2-A1-A4
 
 SNS
 
@@ -263,10 +271,10 @@ SNS
 publish to phone (SMS),
            platform endpoint (e.g ADM: Amazon device messaging)
 
-100_000 topics -> 10_000_000 subscriptions per topic (optional JSON policy to filter messages)
+100_000 topics -> 12_500_000 subscriptions per topic (optional JSON policy to filter messages)
 
 FIFO topic: ordering of messages per group
-            subscribers can only be SQS FIFO (throughput limited to 300/s or 3000/s batch)
+            subscribers can only be SQS FIFO (throughput limited to 300/s)
 
 CloudWatch
 
