@@ -315,3 +315,15 @@ Events
 EventBridge (old CloudWatch events):
 * can intercept any AWS events and define action targets for them.
 * define CRON jobs (execute task with lambda)
+
+Lambda
+
+limits per region: 128 MB - 10 GB
+                   15 min (900s)
+                   1000 concurrent executions
+                   env    4 KB
+                   /tmp 512 MB
+                   size  50 MB compressed or 250 MB uncompressed
+
+DynamoDB
+react to changes by enabling streams (and we get 24h data retention)
