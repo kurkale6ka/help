@@ -279,3 +279,39 @@ FIFO topic: ordering of messages per group
 CloudWatch
 
 while exploring metrics in the console, I couldn't filter for sqs, it only worked by filtering for aws first! bug (???)
+
+Elastic Container Service
+
+ECS cluster
+   container instances (e.g EC2)
+      services - our app will be a versioned service (v1, v2, ...)
+          tasks - tasks are isolated in services, many services can be defined on the same container instances.
+
+launch types
+*     EC2: 1 ECS agent        per instance, the agent will use the EC2 instance profile role <-> ECS, ECR, CloudWatch
+* Fargate: 1 ENI (private IP) per task,     the task  will use  an ECS task role
+
+share data among tasks by mounting EFS volumes onto the tasks
+
+ALB - TG:
+individual processes run on separate EC2 instances =>
+if ALB listens on port 80, the process can also listen on port 80
+
+ALB - service on EC2:
+multiple tasks can reside on the same container instance => if ALB listens on
+port 80, all tasks can't listen on port 80 so they listen on random ports which
+the ALB will automatically find, therefore on the container instance's SG we
+must allow all ports from ALB's SG
+
+ALB - service on Fargate:
+on the ENIs SGs allow the task port from the ALB SG
+
+scaling
+
+CloudWatch alarm (e.g on CPU service usage) -> service auto scale -> [for EC2 launch type we would also need an ASG for the container instances]
+
+Events
+
+EventBridge (old CloudWatch events):
+* can intercept any AWS events and define action targets for them.
+* define CRON jobs (execute task with lambda)
