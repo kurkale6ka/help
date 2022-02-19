@@ -331,7 +331,7 @@ react to changes by enabling streams (and we get 24h data retention)
 API Gateway vs ALB
 
 - edge-optimized (CloudFront) by default
-- serverless + we can add an ALB for loadbalancing (not needed for lambda as lambda scales automatically)
+- serverless + we can add an ALB for loadbalancing (not needed for lambda as lambda scales/balances automatically)
 - environments (dev/test/prod)
 - authentication & authorization
 - request throttling/transform
@@ -340,7 +340,7 @@ API Gateway vs ALB
 
 security
 - internal: IAM permissions in headers (leverages sig v4)
-- 3rd party: token in headers, validate with lambda authorizer and return IAM policy (can be cached)
+- 3rd party (OAuth, SAML): token in headers, validate with lambda authorizer and return IAM policy (can be cached)
 - CUP: authentication only
 
 Cognito
