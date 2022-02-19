@@ -101,8 +101,8 @@ FSx persistent file system: data is replicated
 FSx scratch    file system: temp storage, faster, cheaper
 
 hybrid storage integration (storage gateways needed because S3 proprietary):
-on-premises                                                    | cloud
----------------------------------------------------------------+--------------------------------------
+on-premises                                                      | cloud
+-----------------------------------------------------------------+--------------------------------------
  app server,     file gateway (NFS, SMB), IAM, optional AD auth  | S3, S3 IA (both) -> S3 IA, S3 glacier
              FSx file gateway (SMB, NTFS, AD)                    | FSx for Windows file server
  app server,   volume gateway (iSCSI)                            | S3               -> S3 EBS snapshots
@@ -122,10 +122,16 @@ In AWS there is a network cost when data moves between AZs,
 but not for RDS read replicas within the same region (only cross-region)
 
 Aurora DB
+auto scaling storage (10GB - 128TB, redshift: 1-128 nodes each up to 128TB)
 writer + reader OR custom endpoint
 
+Redshift
+* no multi-AZ; better enable automated cluster snapshots cross-region COPY (every 8h, 5GB or on a schedule) for DR.
+* spectrum: perform queries directly against S3 (no need to load)
+* enhanced VPC routing: stay within VPC, no public Internet
+
 ElastiCache
-* requires heavy code changes
+* heavy code changes required
 * no IAM auth, redis auth or Memcached SASL
 redis: sorted sets for real-time leaderboards
 
@@ -221,6 +227,8 @@ get index.html                         from www.example.com (origin - protocol:/
                                               net.games.com needs to send headers Access-Control-Allow-Origin:  https://www.example.com
                                                                                   Access-Control-Allow-Methods: GET, ...
 
+MPP: Massively Parallel Processing - athena, redshift (both use Presto(distributed SQL query engine))
+
 Snow family (EBS and S3 storage)
 
              snowcone (  8TB)             2  CPU,   4GiB RAM, no battery/cables, can use DataSync once online
@@ -237,13 +245,15 @@ Async app to app communication
 real-time streaming (~pub/sub) model: kinesis data streams (records with partition key, same key goes to same shard => ordering can be achieved)
                                       |
                            producers  v  consumers
-             kinesis agent, SDK, KPL  ‒  SDK, KCL
+             kinesis agent, SDK, KPL  ‒  SDK, KCL (=> EC2, lambda, ...)
               1 MB/s (or 1000 msg/s)  ‒  2 MB/s per shard per all      (shared)
                            per shard  ‒  2 MB/s per shard per consumer (enhanced fanout)
 
              kinesis data firehose: batch writes (near real time) - 32MB or 60s
                                     custom data transform with lambda
-                                    => S3, redshift (via S3), elasticsearch
+                                    => S3
+                                    => redshift (via S3)
+                                    => ElasticSearch (now OpenSearch)
 
 SQS
 visibility timeout (30s): message invisible to other consumers,
@@ -276,10 +286,6 @@ publish to phone (SMS),
 FIFO topic: ordering of messages per group
             subscribers can only be SQS FIFO (throughput limited to 300/s)
 
-CloudWatch
-
-while exploring metrics in the console, I couldn't filter for sqs, it only worked by filtering for aws first! bug (???)
-
 Elastic Container Service
 
 ECS cluster
@@ -310,11 +316,36 @@ scaling
 
 CloudWatch alarm (e.g on CPU service usage) -> service auto scale -> [for EC2 launch type we would also need an ASG for the container instances]
 
+CloudWatch
+
+Metrics
+* namespaces (e.g EC2) + up to 10 dimensions (identification attributes)
+* custom metrics: PutMetricData API call (accepts data points 2 weeks in the past & 2h in the future)
+                  StorageResolution - 1min (std), 1/5/10/30s (high)
+* metric filter: metric based on CloudWatch Logs filter
+
+EC2: metrics every 5 min or every 1 min (std StorageResolution) with detailed monitoring, no RAM metric
+
+Logs
+
+- query logs with CloudWatch Logs insights
+- unified agent (EC2/on-prem, old: logs agent)
+    - extra system-level metrics
+    - centralized configuration with SSM parameter store
+- export (up to 12h to become ready): CreateExportTask API call, not real or near-real time
+- subscription filter: real time (pub/sub)
+
+while exploring metrics in the console, I couldn't filter for sqs, it only worked by filtering for aws first! bug (???)
+
 Events
 
 EventBridge (old CloudWatch events):
 * can intercept any AWS events and define action targets for them.
 * define CRON jobs (execute task with lambda)
+
+NOT serverless
+
+RDS, Aurora (can be), Redshift, ElastiCache: you have to provision the EC2 instance/node type
 
 Lambda
 
