@@ -330,7 +330,8 @@ react to changes by enabling streams (and we get 24h data retention)
 
 API Gateway vs ALB
 
-- serverless + we can add an ALB for loadbalancing
+- edge-optimized (CloudFront) by default
+- serverless + we can add an ALB for loadbalancing (not needed for lambda as lambda scales automatically)
 - environments (dev/test/prod)
 - authentication & authorization
 - request throttling/transform
