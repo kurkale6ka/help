@@ -341,3 +341,18 @@ security
 - internal: IAM permissions in headers (leverages sig v4)
 - 3rd party: token in headers, validate with lambda authorizer and return IAM policy (can be cached)
 - CUP: authentication only
+
+Cognito
+
+federated means 3rd party source (e.g Google, Facebook)
+
+use app
+* Cognito User Pools (CUP is an IDP, an identity provider: serverless db of users)
+  sign-in (verif, MFA, ...) -> JSON web token
+
+use AWS resources
+* Cognito Identity Pools (credentials provider)
+  login to get token from IDP (Facebook, CUP, ...)
+  Identity Pool verifies token and gets IAM creds from STS
+
+AppSync (old Cognito sync): save app state (20 datasets - 1MB), devices sync, offline, id pool needed
