@@ -23,8 +23,8 @@ partition -  avg latency,  avg availability: spread partitions across hardware, 
 
 Elastic Load Balancer
 
-ALB: distribute load based on    http/https + port, headers, ...
-NLB: distribute load based on TCP, UDP, TLS + port
+ALB: distribute load based on http/https/websocket + port, headers, ...
+NLB: distribute load based on        TCP, UDP, TLS + port
      define static IPs (per AZ) for the NLB (so customers can whitelist us)
 
 * dispatch requests to target groups based on routes, query string, headers, IPs (ALB)
@@ -327,3 +327,17 @@ limits per region: 128 MB - 10 GB
 
 DynamoDB
 react to changes by enabling streams (and we get 24h data retention)
+
+API Gateway vs ALB
+
+- serverless + we can add an ALB for loadbalancing
+- environments (dev/test/prod)
+- authentication & authorization
+- request throttling/transform
+- caching
+- expose any AWS service
+
+security
+- internal: IAM permissions in headers (leverages sig v4)
+- 3rd party: token in headers, validate with lambda authorizer and return IAM policy (can be cached)
+- CUP: authentication only
