@@ -463,3 +463,11 @@ condition - aws:SourceIP, aws:RequestedRegion, ec2:ResourceTag
 
 * arn:aws:s3:::my-bucket   => bucket level permission (e.g ListBucket)
 * arn:awn:s3:::my-bucket/* => object level permission (e.g Get/PutObject)
+
+Resource Access Manager
+
+avoid resource duplication: share resources with any account
+
+VPC subnets
+* share within organization only
+* network is shared => access via private IPs (cross-account SGs can be referenced but not viewed)
