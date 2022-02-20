@@ -197,7 +197,7 @@ encryption:
 SSE-S3  = "x-amz-server-side-encryption": "AES256",  in header
 SSE-KMS = "x-amz-server-side-encryption": "aws:kms", in header
 SSE-C   =                                       key, in header (https mandatory)
-CSE     = client side encryption
+CSE     = client side encryption (could use the Amazon S3 Encryption Client)
 
 the default encryption setting will be applied only to non-encrypted objects,
 meaning that if an object is already encrypted (e.g via bucket policy) it won't be altered.
@@ -481,3 +481,38 @@ avoid resource duplication: share resources with any account
 VPC subnets
 * share within organization only
 * network is shared => access via private IPs (cross-account SGs can be referenced but not viewed)
+
+Encryption
+
+KMS
+
+share passwords/credentials/certificates/encryption at rest
+data > 4KB => use envelope encryption
+access: MANDATORY Key policy + optional IAM policy
+                  +- default (complete access to root + allows access with IAM policies)
+
+* AWS services use symmetric AES-256 CMK (customer master key) keys [create
+  - AWS managed (free)                                               enable/disable
+  - customer managed                                                 rotate]
+    +- automatic rotation: once a year
+    |  - same key id, new backing key (keep old one)
+    +- manual rotation: if greater frequency needed or CMK is asymmetric so not eligible for automatic rotation
+       - new key id, new backing key (keep old one)
+       - apps use the key id so we need an alias to the id in this case
+  - customer imported
+
+* RSA, ECC (elliptic-curve cryptography) asymmetric keys are used for:
+  - sign/verify integrity checks
+  - outside of AWS (no access to KMS API)
+
+SSM Parameter Store
+
+secure storage for configuration and secrets, version tracking
+ssm.get_parameters(Names=['/site/prod/db-url'], WithDecryption=True)
+
+std vs advanced (TTL in parameters policies, more params of bigger size + higher throughput)
+
+AWS Secrets Manager (mostly for RDS MySQL, PostgreSQL, Aurora)
+
+* rotation of secrets + new auto generation
+* KMS encrypted
