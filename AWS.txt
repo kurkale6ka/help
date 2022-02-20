@@ -343,6 +343,30 @@ EventBridge (old CloudWatch events):
 * can intercept any AWS events and define action targets for them.
 * define CRON jobs (execute task with lambda)
 
+event bus
+
+1. default: for AWS services
+2. partner: receive events from 3rd party (send events too???)
+3. custom:  own bus
+
+schema registry: collection of JSON events to help generate code
+
+CloudTrail
+
+90 days retention for events
+* management events (e.g CreateSubnet; can separate Read/Write)
+* data events (e.g GetObject; not logged by default)
+
+enable insights to continuously analyse management write events in order to detect unusual activity => console
+                                                                                                    => S3
+                                                                                                    => EventBridge event
+
+AWS Config
+* record configuration changes
+* evaluate compliance rules (managed or custom with lambda: e.g are all EBS disks of type io2?)
+                      +- eval/trigger per change or at intervals
+                      +- remediation of non-compliant resources with SSM automation documents (managed or custom)
+
 NOT serverless
 
 RDS, Aurora (can be), Redshift, ElastiCache: you have to provision the EC2 instance/node type
