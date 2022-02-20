@@ -433,3 +433,19 @@ Microsoft AD: centralized users/assets management from the domain controller
 * managed Ms AD: on-prem <=> AWS - manage users on both (MFA supported)
 * AD connector:  on-prem <=      - proxy to on-prem AD, manage all users in there
 * simple AD:                 AWS - AD-compatible, manage on AWS, no on-prem connection
+
+Organizations
+
+Root OU
+   master account
+      OU + member accounts
+
+create accounts + OU (organizational units) per BU(business unit)/env/project/...
+
+OU aren't accounts, they just help structuring the hierarchy
+
+SCP (service control policies, restrictive by default)
+* whitelist/blacklist IAM actions at the OU/account level
+* does not affect service-linked roles
+
+move account to another organization: delete from current, invite from 2nd
