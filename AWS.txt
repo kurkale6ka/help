@@ -38,11 +38,6 @@ NLB: distribute load based on        TCP, UDP, TLS + port
 
 * SSL termination
 
-IAM principal = user or role
-
-Service-Linked Role:
-only a specific service can use this role vs a regular role which can be used by all services/users
-
   SG - statefull, if one way is allowed then the return way is automatically allowed
 NACL - stateless, both ways are always evaluated
 
@@ -432,7 +427,7 @@ Microsoft AD: centralized users/assets management from the domain controller
 
 * managed Ms AD: on-prem <=> AWS - manage users on both (MFA supported)
 * AD connector:  on-prem <=      - proxy to on-prem AD, manage all users in there
-* simple AD:                 AWS - AD-compatible, manage on AWS, no on-prem connection
+* simple AD:       N/A       AWS - AD-compatible, manage on AWS, no on-prem connection
 
 Organizations
 
@@ -449,3 +444,22 @@ SCP (service control policies, restrictive by default)
 * does not affect service-linked roles
 
 move account to another organization: delete from current, invite from 2nd
+
+IAM
+
+when you assume a role, you give your original permissions!
+
+permission boundary (user, role, NOT group)
+ex: if boundary = allow s3:*           on *
+                  allow iam:CreateUser on * won't work
+useful to restrict one specific user instead of a whole account with SCP
+
+Service-Linked Role:
+only a specific service can use this role vs a regular role which can be used by all services/users
+
+principal - user, app, service
+condition - aws:SourceIP, aws:RequestedRegion, ec2:ResourceTag
+            "Bool" or "BoolIfExists" (MFA doesn't apply to all resources): {"aws:MultiFactorAuthPresent": false}
+
+* arn:aws:s3:::my-bucket   => bucket level permission (e.g ListBucket)
+* arn:awn:s3:::my-bucket/* => object level permission (e.g Get/PutObject)
