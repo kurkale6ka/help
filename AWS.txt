@@ -412,14 +412,24 @@ AWS STS
 
 grant limited and temporary access to resources (token valid for 15min - 1h)
 
-* AssumeRole...
+* AssumeRole... STS APIs
    - AWS: dev account -- assume UpdateProdBucket role: STS gives token --> modify prod account bucket
-   - 3rd: IdP (e.g ADFS) sends SAML assertion, AssumeRoleWithSAML (STS API),  STS returns temp creds
-                                               post assertion to SSO endpoint
+   - 3rd: IdP (e.g ADFS) sends SAML assertion, AssumeRoleWithSAML,            STS returns temp creds
+                                               POST assertion to SSO endpoint
 * GetSessionToken (for MFA)
 
-
 federation with SAML 2.0 is the old way, prefer SSO federation
+
+SSO
+
+when we need to login to:
+* many AWS accounts
+* many 3rd party business apps (Slack, Dropbox, Office 365, ...)
+* many custom SAML applications
+   Id store - [3rd IdP portal] - AssumeRoleWithSAML
+   Id store - [3rd IdP portal] - AssumeRoleWithSAML
+   Id store - [3rd IdP portal] - AssumeRoleWithSAML
+              +- with SSO no need to manage all these portals, we connect directly to the Id store
 
 Directory Services
 
