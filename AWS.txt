@@ -62,6 +62,7 @@ multi-origins based on /path/* + origin groups (primary/secondary) for failover
 
 CloudFront (CDN - cache content at the edge)
 S3 or any http/https/rtmp endpoint as origin
+                     +- real-time messaging protocol
 
 Global Accelerator (use edge locations to accelerate APPS (no S3), no caching)
 UDP, IoT (MQTT), VOIP endpoint
@@ -387,7 +388,7 @@ react to changes by enabling streams (and we get 24h data retention)
 API Gateway vs ALB
 
 - edge-optimized (CloudFront) by default
-- serverless + we can add an ALB for loadbalancing (not needed for lambda as lambda scales/balances automatically)
+- serverless + we can add an ALB (not for lambda as it scales/balances automatically)
 - environments (dev/test/prod)
 - authentication & authorization
 - request throttling/transform
@@ -522,3 +523,39 @@ AWS Secrets Manager (mostly for RDS MySQL, PostgreSQL, Aurora)
 
 * rotation of secrets + new auto generation
 * KMS encrypted
+
+Shield
+
+Route 53, CloudFront, Global Accelerator, ELB, EC2
+
+WAF (web app firewall)
+
+ALB, API Gateway, CloudFront)
+
+web ACLs:
+* IP filtering
+* http based rules (header, body, URI str)
+* rate (DDoS) + geo-match rules
+* SQL injection + XSS (cross-site scripting)
+
+AWS Firewall Manager
+
+common set of security rules at the organization level:
+- WAF             (ALB,     CloudFront, API Gateway)
+- Shield advanced (ALB/CLB, CloudFront, Elastic IP)
+- SG              (EC2 + ENI)
+
+GuardDuty
+
+threat discovery (cryptocurrency attacks): uses ML, anomaly detection, 3rd party data
+input: DNS/VPC Flow/CloudTrail logs
+
+Amazon inspector
+
+EC2 - agent     => OS vulnerabilities, CIS (center for internet security) benchmarks
+      agentless => network accessibility
+inspector service to send report via SNS
+
+Amazon Macie
+
+ML + pattern matching to alert about exposed (e.g in S3) sensitive data (PII: personally identifiable information)
