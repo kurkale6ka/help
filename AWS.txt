@@ -620,7 +620,7 @@ In public subnet:
 A private host behind NAT "can't" be contacted, for that you need NAT traversal:
 Also known as UDP encapsulation, it allows traffic to get to the specified
 destination which doesn't have a public IP address. In a S2S VPN connection, a
-CGW behind NAT needs this enabled
+CGW behind NAT needs NAT-T enabled
 
 VPC Peering: VPCs must not have overlapping CIDRs
 
@@ -648,3 +648,40 @@ ver | account | eni | srcaddr | dstaddr | srcport | dstport | proto | packets | 
 capture IP traffic (tcpdump)
 * VPC, subnets, ENI
 * ELB, RDS, ElastiCache, Redshift, WorkSpaces, NATGW, Transit Gateway... (managed interfaces)
+
+Site-to-Site (S2S)
+
+VPN:
+IPsec over the public Internet
+
+Direct Connect (DX):
+
+* unencrypted private connection (add VPN between DX location and DC to have IPsec encryption)
+
+* 1 month to setup connection
+  - dedicated (1Gbps and 10Gbps)
+  - hosted (capacity on-demand: 50Mbps, 500Mbps, 1, 2, 5 to 10Gbps)
+
+* high resiliency:    multiple DX locations - multiple DCs
+  maximum resiliency: multiple DX locations - multiple DCs
+                       separate connections - separate connections
+                       per location           per DC
+
+    virtual private gateway - VPG gw or DX gw
+   /
+VGW                  <--> CGW (customer gw)
+                     <--> CGW (CloudHub hub-and-spoke model if multiple DCs)
+     [ DX location ] <--> customer router in DC
+       AWS|customer
+
+VGW region 1 \
+              <--> DX Gateway <-> DX <-> DC (direct connect for same region, direct connect gw cross-regions)
+VGW region 2 /
+
+AWS side
+* must enable route propagation so subnets know how to contact the VPN gateway
+* VPN concentrator (device that helps to manage multiple VPN connections => VPN on a larger scale)
+* allows for custom ASN (Autonomous System Number). Edge location???
+
+on-premises
+* enable NAT-T if behind NAT
