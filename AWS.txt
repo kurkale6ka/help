@@ -197,6 +197,12 @@ encryption:
 SSE-S3  = "x-amz-server-side-encryption": "AES256",  in header
 SSE-KMS = "x-amz-server-side-encryption": "aws:kms", in header
 SSE-C   =                                       key, in header (https mandatory)
+        => CloudHSM (hardware security module, must use client software)
+           * single-tenant, multi-AZ
+           * FIPS 140-2 Level 3 (Federal Information Processing Standard)
+           * MFA + access & authentication management (users & keys) vs IAM
+           * hardware acceleration
+           * supported by Redshift
 CSE     = client side encryption (could use the Amazon S3 Encryption Client)
 
 the default encryption setting will be applied only to non-encrypted objects,
