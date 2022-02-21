@@ -44,11 +44,6 @@ NACL - stateless, both ways are always evaluated
 SG
 EC2, ELB, EFS, RDS, ElastiCache
 
-A private host behind NAT "can't" be contacted, for that you need NAT traversal:
-Also known as UDP encapsulation, it allows traffic to get to the specified
-destination which doesn't have a public IP address. In a S2S VPN connection, a
-CGW behind NAT needs this enabled
-
 CloudFront
 
 CloudFront price classes:
@@ -559,3 +554,53 @@ inspector service to send report via SNS
 Amazon Macie
 
 ML + pattern matching to alert about exposed (e.g in S3) sensitive data (PII: personally identifiable information)
+
+VPC
+
+IGW + routing table for the public subnets = Internet connectivity
+
+* 5 per region (soft limit)
+* 5 CIDR per VPC: min /28 (    16 IPs)
+                  max /16 (65 536 IPs)
+* reserved addresses (e.g 10.0.0.0/24)
+  - 10.0.0.0: network
+  - 10.0.0.1: router
+  - 10.0.0.2: DNS (or 169.254.169.253)
+  - 10.0.0.3: future use
+  - 10.0.0.255: broadcast (not supported in VPC!)
+
+best practice:
+           VPC /16 - 65 536
+ public subnet /24 - 256 (we don't need too many hosts in a public subnet)
+private subnet /20 - 4096
+
+DNS support/resolution (true by default):
+it's best to have a DNS server within the VPC to avoid unnecessary network traffic
+route 53 (default) or custom
+
+DNS hostnames (false by default, true for default VPC):
+* needs enableDnsSupport=true
+* if true => add public DNS for public instances
+
+both needed for custom private DNS
+
+In public subnet:
+
+- bastion host => connect to private EC2 instances
+
+- NAT (EC2) instance (deprecated) => Internet connectivity for private EC2 instances
+  * disable source/destination check (can forward traffic)
+  * must have elastic IP
+  * private subnets to route via it
+
+- NAT Gateway
+  * elastic IP
+  * single AZ (must create multiple NAT Gateways in multiple AZs for HA)
+  * no SG to manage
+  * 5 to 45 Gbps auto-scaling bandwidth
+  * can't be used as bastion host
+
+A private host behind NAT "can't" be contacted, for that you need NAT traversal:
+Also known as UDP encapsulation, it allows traffic to get to the specified
+destination which doesn't have a public IP address. In a S2S VPN connection, a
+CGW behind NAT needs this enabled
