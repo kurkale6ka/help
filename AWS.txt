@@ -574,6 +574,23 @@ best practice:
  public subnet /24 - 256 (we don't need too many hosts in a public subnet)
 private subnet /20 - 4096
 
+NACL (Network Access Control List aka subnet firewall)
+
+* stateless: always needs in + out rules
+* rules are ordered from lowest to highest number, 1st one wins (low num = high precedence)
+* good way of blocking a specific IP address at the subnet level
+* default NACL => allow everything, new NACL => deny everything
+* best practice: use increments of 100 to allow room for more rules
+
+ephemeral ports
+
+- clients connect to a defined port, and expect a response on an ephemeral port
+- because NACL are stateless, we lose info about source port of incoming
+  traffic, therefore outbound return traffic must go to all ephemeral ports:
+
+  allow TCP/3306      to   db subnet --> --> allow TCP/3306      from web subnet
+  allow TCP/ephemeral from db subnet <-- <-- allow TCP/ephemeral to   web subnet
+
 DNS support/resolution (true by default):
 it's best to have a DNS server within the VPC to avoid unnecessary network traffic
 route 53 (default) or custom
