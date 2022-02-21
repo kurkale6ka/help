@@ -621,3 +621,30 @@ A private host behind NAT "can't" be contacted, for that you need NAT traversal:
 Also known as UDP encapsulation, it allows traffic to get to the specified
 destination which doesn't have a public IP address. In a S2S VPN connection, a
 CGW behind NAT needs this enabled
+
+VPC Peering: VPCs must not have overlapping CIDRs
+
+VPC Endpoints (AWS PrivateLink)
+
+* interface endpoints: ENI (private IP => SG)
+* gateway endpoints: S3, DynamoDB
+
+- connect to AWS services privately (from within your private subnets)
+- DNS support must be on, route tables will need amending,
+  no need for IGW or NATGW
+
+Flow Logs
+
+troubleshoot SG & NACL issues
+
+ inbound accept (SG outbound accept), outbound reject => NACL
+outbound accept (SG  inbound accept),  inbound reject => NACL
+
+                       /     IPs     \     /    ports    \                               / epoch \
+ver | account | eni | srcaddr | dstaddr | srcport | dstport | proto | packets | bytes | start | end | action | status
+                                                                                                      v   v
+                                                                                                      SG, NACL - ACCEPT/REJECT
+
+capture IP traffic (tcpdump)
+* VPC, subnets, ENI
+* ELB, RDS, ElastiCache, Redshift, WorkSpaces, NATGW, Transit Gateway... (managed interfaces)
