@@ -633,6 +633,11 @@ VPC Endpoints (AWS PrivateLink)
 - DNS support must be on, route tables will need amending,
   no need for IGW or NATGW
 
+VPC Endpoint Services (PrivateLink)
+
+expose your own services (not AWS ones as above) through a NLB (or GWLB),
+then consumers can connect via ENI thanks to PrivateLink
+
 Flow Logs
 
 troubleshoot SG & NACL issues
@@ -645,9 +650,19 @@ ver | account | eni | srcaddr | dstaddr | srcport | dstport | proto | packets | 
                                                                                                       v   v
                                                                                                       SG, NACL - ACCEPT/REJECT
 
-capture IP traffic (tcpdump)
+capture IP traffic
 * VPC, subnets, ENI
 * ELB, RDS, ElastiCache, Redshift, WorkSpaces, NATGW, Transit Gateway... (managed interfaces)
+
+Traffic Mirroring
+
+capture actual IP traffic for deeper inspection: tcpdump
+e.g from EC2 ENI to another ENI or NLB
+
+EC2-Classic (deprecated)
+
+pre-VPC era: instances ran in a single network shared with other customers.
+to link those old instances to our VPC, we need ClassicLink
 
 Site-to-Site (S2S)
 
@@ -685,3 +700,20 @@ AWS side
 
 on-premises
 * enable NAT-T if behind NAT
+
+Transit Gateway (IP multicast)
+
+transitive peering (traffic passes through) of multiple VPCs,
+can also transfer VPN and DX Gateway connections.
+
+* share cross-account with RAM
+* peer with other Transit Gateways across regions
+* use route tables to limit communications
+
+ECMP (equal-cost multi-path)
+
+define multiple S2S VPN connections to increase the bandwidth of your connection to AWS
+
+1x VPN gw = 2 tunnels = 1.25Gbps
+2x                         5Gbps
+3x                       7.5Gbps
