@@ -377,6 +377,16 @@ limits per region: 128 MB - 10 GB
                    /tmp 512 MB
                    size  50 MB compressed or 250 MB uncompressed
 
+Step Functions
+
+orchestrate your Lambda functions: visual workflow or JSON state machine
+* maximum execution time of 1 year.
+* possibility to implement human approval feature
+
+use AWS SWF (Simple Workflow Service, EC2 => not serverless) instead if:
+- you need external signals
+- you need child processes
+
 DynamoDB
 react to changes by enabling streams (and we get 24h data retention)
 
@@ -803,3 +813,33 @@ single NIC to present itself as several virtual NICs
 
 AWS Batch: multi-node (EC2) parallel jobs
 AWS ParallelCluster: open source cluster management tool for HPC
+
+CICD CodePipeline
+
+find/fix bugs early, deploy often
+*                   push to CodeCommit - GitHub
+*           build & test in CodeBuild  - Jenkins CI (continuous integration)
+* deploy passing build with CodeDeploy - Jenkins CD (continuous delivery: create packages)
+* provision with CloudFormation and/or Ansible (actual deploy???)
+
+CloudFormation
+
+IaC (infrastructure as code)
+* YAML templates go in S3, deploy stack via cli
+* figures out the right order of creation (declarative programming)
+* estimate costs thanks to resource tags using the CloudFormation template
+* dev env: save money by auto deleting 5pm / creating 8am templates
+* auto diagrams
+
+template
+- AWS resources
+- parameters: dynamic inputs
+- mappings:   static vars
+- outputs
+- conditionals
+- metadata
+
+StackSets
+
+Manage stacks across multiple accounts/regions with a single operation.
+Update a stackset to update all stack instances.
