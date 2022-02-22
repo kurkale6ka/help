@@ -735,3 +735,19 @@ free for ingress traffic, we pay only when exiting AWS network
 * $0.02                    inter region
 * $0.09  (S3)                    Internet
 * $0.085 (S3 + CloudFront)       Internet (actually cheaper and S3 requests are 7x cheaper => way better than previous row)
+
+Disaster recovery
+
+examples below: on-premises to AWS cloud
+
+- RPO: Recovery Point Objective => minimize data loss
+  disaster
+- RTO: Recovery  Time Objective => minimize downtime
+
+• Backup and Restore                                  - backup/restore from snapshots:  cheapest ->   high RPO + RTO
+• Pilot Light  (bare core up in the cloud)            -                    DB replica:     cheap ->  lower RPO + RTO
+• Warm Standby (full min-size system up in the cloud) -        ELB + ASG + DB replica: expensive ->    low RPO + RTO
+• Hot Site     (full     size system up in the cloud) -        ELB + ASG + DB replica:    COSTLY -> lowest RPO + RTO
+  multi site active-active approach
+
+chaos: test your prod setup (ref. Netflix simian-army)
