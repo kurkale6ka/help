@@ -843,3 +843,35 @@ StackSets
 
 Manage stacks across multiple accounts/regions with a single operation.
 Update a stackset to update all stack instances.
+
+EMR (elastic MapReduce): manage hadoop clusters to process/analyze big data
+Opsworks: managed Chef & Puppet (alternative to AWS SSM)
+WorkSpaces: VDI (Virtual Desktop Infrastructure), managed, secure cloud desktop (Linux/Windows)
+AppSync: store and sync data across mobile and web apps in real-time (uses GraphQL from Facebook)
+Cost Explorer: Savings Plan alternative to Reserved Instances
+
+Well Architected Framework 5 Pillars
+
+* Operational excellence: IaC, anticipate failure
+  CloudFormation, AWS Config, monitoring, CICD
+
+* Security
+  IAM, security at all levels, encryption, keep people away from data
+
+* Reliability
+  stop guessing capacity => ASG, test/automate recovery
+
+* Performance efficiency
+  use serverless, stay up-to-date: AWS News Blog
+
+* Cost optimization
+  Cost Explorer, Trusted Advisor, spot instances
+                 |
+                 • cost optimization
+                 • performance
+                 • security
+                 • faulttolerance
+                 • service limits/quotas
+
+https://aws.amazon.com/architecture/
+https://aws.amazon.com/solutions/
