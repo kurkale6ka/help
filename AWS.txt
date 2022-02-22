@@ -605,6 +605,10 @@ In public subnet:
 
 - bastion host => connect to private EC2 instances
 
+  make it highly available:
+  * multi-AZ NLB (as ssh is layer 4) - ASG 1:1:1
+  * bonus - thanks to the NLB, the bastion can be moved to the private subnet
+
 - NAT (EC2) instance (deprecated) => Internet connectivity for private EC2 instances
   * disable source/destination check (can forward traffic)
   * must have elastic IP
@@ -773,7 +777,7 @@ source -- EC2 with DMS -- destination
 
 DataSync
 
-move large amounts of data to AWS (storage gw < DataSync < snow family)
+move large amounts of data to AWS (storage gw < DataSync < DX/snow family)
 
 * on-prem NAS to AWS S3/EFS/FSx
                                                 => S3
@@ -788,3 +792,14 @@ AWS Backup
 centralize AWS snapshots management:
 * we need a plan (frequency + retention policy) and AWS services => it all goes to S3
 * supports PITR (point in time recovery), tag-based backups, ...
+
+HPC (high performance computing)
+
+EC2 Enhanced Networking (SR-IOV): single root i/o virtualization:
+single NIC to present itself as several virtual NICs
+* ENA: higher PPS (packets per second) - or legacy Intel 82599 VF for up to 10Gbps
+* EFA: enhanced ENA leveraging MPI (message passing interface)
+                               +- bypasses the underlying Linux OS for lower latency
+
+AWS Batch: multi-node (EC2) parallel jobs
+AWS ParallelCluster: open source cluster management tool for HPC
