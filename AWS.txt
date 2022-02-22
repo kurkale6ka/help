@@ -770,3 +770,21 @@ source -- EC2 with DMS -- destination
 
 * for heterogeneous migrations (different db engines), SCT (Schema ConversionTool) is needed beforehand.
 * continuous data replication with CDC (change data capture): source remains available
+
+DataSync
+
+move large amounts of data to AWS (storage gw < DataSync < snow family)
+
+* on-prem NAS to AWS S3/EFS/FSx
+                                                => S3
+NAS (NFS/SMB) + DataSync agent --> AWS DataSync => EFS
+                                                => FSx for Windows file server
+* AWS: EFS to EFS
+
+ EFS + EC2 with DataSync agent --> AWS DataSync => EFS
+
+AWS Backup
+
+centralize AWS snapshots management:
+* we need a plan (frequency + retention policy) and AWS services => it all goes to S3
+* supports PITR (point in time recovery), tag-based backups, ...
