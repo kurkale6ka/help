@@ -627,7 +627,7 @@ VPC Peering: VPCs must not have overlapping CIDRs
 VPC Endpoints (AWS PrivateLink)
 
 * interface endpoints: ENI (private IP => SG)
-* gateway endpoints: S3, DynamoDB
+* gateway endpoints (at no cost!): S3, DynamoDB
 
 - connect to AWS services privately (from within your private subnets)
 - DNS support must be on, route tables will need amending,
@@ -717,3 +717,21 @@ define multiple S2S VPN connections to increase the bandwidth of your connection
 1x VPN gw = 2 tunnels = 1.25Gbps
 2x                         5Gbps
 3x                       7.5Gbps
+
+IPv6
+
+* IPv6 addresses are public and Internet-routable (no private range)
+* egress-only IGW => same effect as a NAT gw but IPv6 are public so no NAT is needed
+* 2001:db8::1234:5678 -> the middle 4 segments are zero
+* IPv4 + IPv6 = dual-stack mode
+
+Networking Costs in AWS
+
+free for ingress traffic, we pay only when exiting AWS network
+
+*  free  with private IPs within AZ
+* $0.01  with private IPs  cross AZ
+* $0.02  with  public IPs  cross AZ
+* $0.02                    inter region
+* $0.09  (S3)                    Internet
+* $0.085 (S3 + CloudFront)       Internet (actually cheaper and S3 requests are 7x cheaper => way better than previous row)
