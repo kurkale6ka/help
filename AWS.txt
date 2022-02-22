@@ -744,10 +744,29 @@ examples below: on-premises to AWS cloud
   disaster
 - RTO: Recovery  Time Objective => minimize downtime
 
-• Backup and Restore                                  - backup/restore from snapshots:  cheapest ->   high RPO + RTO
-• Pilot Light  (bare core up in the cloud)            -                    DB replica:     cheap ->  lower RPO + RTO
-• Warm Standby (full min-size system up in the cloud) -        ELB + ASG + DB replica: expensive ->    low RPO + RTO
-• Hot Site     (full     size system up in the cloud) -        ELB + ASG + DB replica:    COSTLY -> lowest RPO + RTO
+• Backup and restore                                  - backup/restore from snapshots:  cheapest ->   high RPO + RTO
+• Pilot light  (bare core up in the cloud)            -                    DB replica:     cheap ->  lower RPO + RTO
+• Warm standby (full min-size system up in the cloud) -        ELB + ASG + DB replica: expensive ->    low RPO + RTO
+• Hot site     (full     size system up in the cloud) -        ELB + ASG + DB replica:    COSTLY -> lowest RPO + RTO
   multi site active-active approach
 
 chaos: test your prod setup (ref. Netflix simian-army)
+
+Migration to AWS
+
+* VM import/export (VMs <-> EC2, or ami.iso to use on-premises)
+* Migration Hub
+* Application Discovery Service
+*      Server Migration Service (SMS, live DMS-like migration)
+*    Database Migration Service (section below)
+
+DMS (database migration service)
+
+source -- EC2 with DMS -- destination
++- all dbs                +- all dbs
++- S3                     +- S3
+                          +- ElasticSearch
+                          +- Kinesis data streams
+
+* for heterogeneous migrations (different db engines), SCT (Schema ConversionTool) is needed beforehand.
+* continuous data replication with CDC (change data capture): source remains available
