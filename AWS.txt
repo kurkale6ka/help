@@ -73,7 +73,7 @@ It's a global load balancer!
 region endpoint groups (akin to TG) -> endpoints (e.g EC2 but can also be ELBs) with health checks
 
 * UDP, IoT (MQTT), VOIP endpoint
-* http/https            endpoint (if static IPs needed)
+* http/https            endpoint (if static IPs needed: 2 anycast IPs)
 
 1 CPU = multiple cores + multiple threads. vCPU is the total of threads.
 
@@ -130,11 +130,13 @@ auto scaling storage (10GB - 128TB, redshift: 1-128 nodes each up to 128TB)
 writer + reader OR custom endpoint
 
 Redshift
+
 * no multi-AZ; better enable automated cluster snapshots cross-region COPY (every 8h, 5GB or on a schedule) for DR.
 * spectrum: perform queries directly against S3 (no need to load)
 * enhanced VPC routing: stay within VPC, no public Internet
 
 ElastiCache
+
 * heavy code changes required
 * no IAM auth, redis auth or Memcached SASL
 redis: sorted sets for real-time leaderboards
@@ -287,9 +289,9 @@ FIFO + group ID: block group A messages for other consumers while a group A
 
 SNS
 
-           topic,
-publish to phone (SMS),
-           platform endpoint (e.g ADM: Amazon device messaging)
+         +- topic,
+publish -+- phone (SMS),
+         +- platform endpoint (e.g ADM: Amazon device messaging)
 
 100_000 topics -> 12_500_000 subscriptions per topic (optional JSON policy to filter messages)
 
