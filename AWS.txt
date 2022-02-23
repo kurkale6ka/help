@@ -75,7 +75,7 @@ region endpoint groups (akin to TG) -> endpoints (e.g EC2 but can also be ELBs) 
 * UDP, IoT (MQTT), VOIP endpoint
 * http/https            endpoint (if static IPs needed)
 
-1 CPU = multiple cores = multiple threads. vCPU is the total of threads.
+1 CPU = multiple cores + multiple threads. vCPU is the total of threads.
 
 EBS
                             max
