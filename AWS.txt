@@ -23,20 +23,23 @@ partition -  avg latency,  avg availability: spread partitions across hardware, 
 
 Elastic Load Balancer
 
-ALB: distribute load based on http/https/websocket + port, headers, ...
-NLB: distribute load based on        TCP, UDP, TLS + port
-     define static IPs (per AZ) for the NLB (so customers can whitelist us)
+ALB
+* distribute load based on http/https/websocket + port, headers, ...
+* connection/SSL termination
 
-* dispatch requests to target groups based on routes, query string, headers, IPs (ALB)
-                                           /url1 -> tg1
-                          /url2, one.example.com -> tg2
-  two.example.com, ?platform=mobile, HTTP header -> tg3
+dispatch requests to target groups based on routes, query string, headers, IPs (ALB)
+                                         /url1 -> tg1
+                        /url2, one.example.com -> tg2
+two.example.com, ?platform=mobile, HTTP header -> tg3
 
-  then spread load across multiple or single (e.g containers) host(s) in the
-  target group based on health checks (port + route) => seamless handling of
-  downstream instances failures
+then spread load across multiple or single (e.g containers) host(s) in the
+target group based on health checks (port + route) => seamless handling of
+downstream instances failures
 
-* SSL termination
+NLB
+* distribute load based on TCP, UDP, TLS + port
+* pass through, request IP goes all the way to the app
+* static IPs per AZ => customers can whitelist us
 
   SG - statefull, if one way is allowed then the return way is automatically allowed
 NACL - stateless, both ways are always evaluated
