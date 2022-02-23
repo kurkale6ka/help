@@ -107,7 +107,13 @@ virtualization is needed (???) to install the gateways, instead we can buy a HW 
 
 ASG
 
-Use golden AMI so updates, app install, ... take less time => we can use a smaller cooldown period
+EC2 status check (ok or impaired)
+* instance status check
+* system status check
+
+after scale in/out activites ASG enters the HealthCheckGracePeriod, allowing instances to fully activate before launching/terminating more
+
+Use golden AMI so updates, app install, ... take less time => we can use a smaller HealthCheckGracePeriod aka cooldown period
 
 In AWS there is a network cost when data moves between AZs,
 but not for RDS read replicas within the same region (only cross-region)
@@ -875,3 +881,15 @@ Well Architected Framework 5 Pillars
 
 https://aws.amazon.com/architecture/
 https://aws.amazon.com/solutions/
+
+Exams
+
+* RDS read replicas free between AZs, not regions
+* ASG scale-in, increase deregistration delay to not interrupt long running processes
+      launch template for multiple instance types (on-demand + spot)
+* producers for firehose: SDK, agent + data streams/CloudWatch/Iot => kinesis data firehose
+* blue-green deployment: DNS routing or Global accelerator
+* EFS: file storage, S3: object storage
+* By default, an S3 object is owned by the AWS account that uploaded it => the S3 owner might not have permission to view the objects
+* spot fleet, no auto scaling capabilities?
+  ASG with launch template for mix of on-demand/spot
