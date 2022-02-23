@@ -41,26 +41,27 @@ NLB
 * pass through, request IP goes all the way to the app
 * static IPs per AZ => customers can whitelist us
 
+Networking security
+
   SG - statefull, if one way is allowed then the return way is automatically allowed
 NACL - stateless, both ways are always evaluated
 
-SG
+services behing SGs:
 EC2, ELB, EFS, RDS, ElastiCache
 
-CloudFront
+CloudFront (CDN - cache content at the edge)
 
-CloudFront price classes:
+price classes:
 class all - all regions
 class 200 - all, without the most expensive ones
 class 100 - least expensive regions only
 
 origins
+* S3
+* any http/https/rtmp endpoint
+                 +- real-time messaging protocol
 
 multi-origins based on /path/* + origin groups (primary/secondary) for failover
-
-CloudFront (CDN - cache content at the edge)
-S3 or any http/https/rtmp endpoint as origin
-                     +- real-time messaging protocol
 
 Global Accelerator (use edge locations to accelerate APPS (no S3), no caching)
 UDP, IoT (MQTT), VOIP endpoint
