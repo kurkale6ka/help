@@ -17,9 +17,9 @@ Use Reserved Instances instead if you want to commit to 1 or 3 years
 
 Placement groups
 
-  cluster -  low latency,  low availability: share hardware => same EC2 type
-partition -  avg latency,  avg availability: spread partitions across hardware, 7 partitions per AZ
-   spread - high latency, high availability: multi AZ, 7 instances in different racks in 1 group per AZ, diff hw allows for different EC2 types
+  cluster -  low latency,  low availability: share hardware => same EC2 type                                                                     <= HPC
+partition -  avg latency,  avg availability: spread partitions across hardware, 7 partitions per AZ                                              <= Big Data
+   spread - high latency, high availability: multi AZ, 7 instances in different racks in 1 group per AZ, diff hw allows for different EC2 types  <= HA
 
 Elastic Load Balancer
 
