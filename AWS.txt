@@ -63,20 +63,17 @@ origins
 
 multi-origins based on /path/* + origin groups (primary/secondary) for failover
 
-Global Accelerator (use edge locations to accelerate APPS (no S3), no caching)
-UDP, IoT (MQTT), VOIP endpoint
-           http/https endpoint (if static IPs needed)
-
 field level encryption:
 extra security on top of https - specify up to 10 fields in your POST request
-asymmetric encryption (e.g credit card details) on the edge, decrypted by app (e.g behind ALB origin) private key
+asymmetric encryption (e.g credit card details) on the edge, decrypted by app's (e.g behind ALB origin) private key
 
-Global Accelerator
+Global Accelerator (use edge locations to accelerate APPS (no S3), no caching)
 
 It's a global load balancer!
 region endpoint groups (akin to TG) -> endpoints (e.g EC2 but can also be ELBs) with health checks
 
-A persistent spot request is like an ASG. It will keep spawning instances till the end of its validity period.
+* UDP, IoT (MQTT), VOIP endpoint
+* http/https            endpoint (if static IPs needed)
 
 1 CPU = multiple cores = multiple threads. vCPU is the total of threads.
 
@@ -113,16 +110,22 @@ ASG
 
 EC2 status check (ok or impaired)
 * instance status check
-* system status check
+*   system status check
 
-after scale in/out activites ASG enters the HealthCheckGracePeriod, allowing instances to fully activate before launching/terminating more
+after scale in/out activites ASG enters the HealthCheckGracePeriod,
+allowing health checks to stabilize before launching/terminating more instances
 
-Use golden AMI so updates, app install, ... take less time => we can use a smaller HealthCheckGracePeriod aka cooldown period
+Use golden AMI so updates, app install, ... take less time => we can set a smaller HealthCheckGracePeriod (aka cooldown period)
+
+A persistent spot request is like an ASG. It will keep spawning instances till the end of its validity period.
+
+RDS
 
 In AWS there is a network cost when data moves between AZs,
 but not for RDS read replicas within the same region (only cross-region)
 
 Aurora DB
+
 auto scaling storage (10GB - 128TB, redshift: 1-128 nodes each up to 128TB)
 writer + reader OR custom endpoint
 
