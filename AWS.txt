@@ -24,7 +24,7 @@ partition -  avg latency,  avg availability: spread partitions across hardware, 
 Elastic Load Balancer
 
 ALB
-* distribute load based on http/https/websocket + port, headers, ...
+* distribute load based on http/https/websocket (stateful unlike http) + port, headers, ...
 * connection/SSL termination
 
 dispatch requests to target groups based on routes, query string, headers, IPs (ALB)
@@ -70,7 +70,8 @@ asymmetric encryption (e.g credit card details) on the edge, decrypted by app's 
 Global Accelerator (use edge locations to accelerate APPS (no S3), no caching)
 
 It's a global load balancer!
-region endpoint groups (akin to TG) -> endpoints (e.g EC2 but can also be ELBs) with health checks
+region endpoint groups (akin to TG) => health checks => fast regional failover
+                +- e.g EC2s but can also be ELBs
 
 * UDP, IoT (MQTT), VOIP endpoint
 * http/https            endpoint (if static IPs needed: 2 anycast IPs)
@@ -107,6 +108,10 @@ stored volumes: main data is on-prem with async backup to S3
 virtualization is needed (???) to install the gateways, instead we can buy a HW appliance
 
 ASG
+
+EC2 instances are in one of the following states:
+- InService
+- Standby: helps you temporarily remove an instance from the ASG
 
 EC2 status check (ok or impaired)
 * instance status check
@@ -296,7 +301,7 @@ publish -+- phone (SMS),
 100_000 topics -> 12_500_000 subscriptions per topic (optional JSON policy to filter messages)
 
 FIFO topic: ordering of messages per group
-            subscribers can only be SQS FIFO (throughput limited to 300/s)
+            subscribers can only be SQS FIFO (throughput limited to 300/s -> up to 3000/s in batch mode with batches of 10)
 
 Elastic Container Service
 
@@ -532,6 +537,8 @@ access: MANDATORY Key policy + optional IAM policy
   - sign/verify integrity checks
   - outside of AWS (no access to KMS API)
 
+A deleted CMK is in the 'pending deletion' status and can be recovered for 7 - 30days (default)
+
 SSM Parameter Store
 
 secure storage for configuration and secrets, version tracking
@@ -565,10 +572,13 @@ common set of security rules at the organization level:
 - Shield advanced (ALB/CLB, CloudFront, Elastic IP)
 - SG              (EC2 + ENI)
 
-GuardDuty
+GuardDuty (uses ML, anomaly detection, 3rd party data)
 
-threat discovery (cryptocurrency attacks): uses ML, anomaly detection, 3rd party data
-input: DNS/VPC Flow/CloudTrail logs
+threat discovery (cryptocurrency attacks, malicious IPs):
+* DNS logs
+* VPC Flow logs
+* CloudTrail mgmt events
+* S3 data events
 
 Amazon inspector
 
@@ -902,3 +912,20 @@ Exams
 * By default, an S3 object is owned by the AWS account that uploaded it => the S3 owner might not have permission to view the objects
 * spot fleet, no auto scaling capabilities?
   ASG with launch template for mix of on-demand/spot
+
+Protect EFS with
+* clients uid/gid trusted by default =>
+  manage app access with access points:
+  override clients uid/gid then use rwx permissions
+* VPC SGs to control traffic to and from the file system
+* IAM policy for mount permissions (who can mount the fs)
+
+S3
+Like all other Object Lock settings, retention periods apply to individual object versions
+You can place a retention period on an object version either explicitly (Retain Until Date) or through a bucket default setting
+
+object storage (vs file system) does not allow for in-place edits => not good for collaboration.
+
+Amazon Aurora
+each Read Replica is associated with a priority tier (0-15)
+failover: promote read replica with highest priority: lowest-tier & max-size
