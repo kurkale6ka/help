@@ -51,17 +51,17 @@ EC2, ELB, EFS, RDS, ElastiCache
 
 CloudFront (CDN - cache content at the edge)
 
-price classes:
-class all - all regions
-class 200 - all, without the most expensive ones
-class 100 - least expensive regions only
-
 origins
 * S3
 * any http/https/rtmp endpoint
                  +- real-time messaging protocol
 
 multi-origins based on /path/* + origin groups (primary/secondary) for failover
+
+price classes:
+class all - all regions
+class 200 - all, without the most expensive ones
+class 100 - least expensive regions only
 
 field level encryption:
 extra security on top of https - specify up to 10 fields in your POST request
@@ -386,11 +386,11 @@ AWS Config
 
 NOT serverless
 
-RDS, Aurora (can be), Redshift, ElastiCache: you have to provision the EC2 instance/node type
+RDS, Aurora (can be), Redshift, ElastiCache, EMR: you have to provision the EC2 instance/node type
 
 Lambda
 
-limits per region: 128 MB - 10 GB
+limits per region: 128 MB - 10 GB RAM
                    15 min (900s)
                    1000 concurrent executions
                    env    4 KB
@@ -410,7 +410,7 @@ use AWS SWF (Simple Workflow Service, EC2 => not serverless) instead if:
 DynamoDB
 react to changes by enabling streams (and we get 24h data retention)
 
-API Gateway vs ALB
+API Gateway (vs ALB)
 
 - edge-optimized (CloudFront) by default
 - serverless + we can add an ALB (not for lambda as it scales/balances automatically)
@@ -444,7 +444,7 @@ AWS STS
 
 grant limited and temporary access to resources (token valid for 15min - 1h)
 
-* AssumeRole... STS APIs
+* AssumeRole... (STS APIs)
    - AWS: dev account -- assume UpdateProdBucket role: STS gives token --> modify prod account bucket
    - 3rd: IdP (e.g ADFS) sends SAML assertion, AssumeRoleWithSAML,            STS returns temp creds
                                                POST assertion to SSO endpoint
@@ -557,7 +557,7 @@ Route 53, CloudFront, Global Accelerator, ELB, EC2
 
 WAF (web app firewall)
 
-ALB, API Gateway, CloudFront)
+CloudFront, API Gateway, ALB
 
 web ACLs:
 * IP filtering
@@ -568,8 +568,8 @@ web ACLs:
 AWS Firewall Manager
 
 common set of security rules at the organization level:
-- WAF             (ALB,     CloudFront, API Gateway)
-- Shield advanced (ALB/CLB, CloudFront, Elastic IP)
+- WAF             (CloudFront, API Gateway, ALB,   )
+- Shield advanced (CloudFront, Elastic IP,  ALB/CLB)
 - SG              (EC2 + ENI)
 
 GuardDuty (uses ML, anomaly detection, 3rd party data)
@@ -869,7 +869,7 @@ StackSets
 Manage stacks across multiple accounts/regions with a single operation.
 Update a stackset to update all stack instances.
 
-EMR (elastic MapReduce): manage hadoop clusters to process/analyze big data
+EMR (elastic MapReduce): manage Apache Hadoop/Spark clusters to process/analyze big data
 Opsworks: managed Chef & Puppet (alternative to AWS SSM)
 WorkSpaces: VDI (Virtual Desktop Infrastructure), managed, secure cloud desktop (Linux/Windows)
 AppSync: store and sync data across mobile and web apps in real-time (uses GraphQL from Facebook)
