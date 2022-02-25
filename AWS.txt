@@ -21,7 +21,10 @@ Placement groups
 partition -  avg latency,  avg availability: spread partitions across hardware, 7 partitions per AZ                                              <= Big Data
    spread - high latency, high availability: multi AZ, 7 instances in different racks in 1 group per AZ, diff hw allows for different EC2 types  <= HA
 
-Elastic Load Balancer
+ELB (Elastic Load Balancer)
+
+LBs are managed and highly scalable => behind the scenes there are many LB instances.
+cross-zone loadbalancing: traffic distributed evenly across all targets in all AZ (disabled by default + $ for NLB)
 
 ALB
 * distribute load based on http/https/websocket (stateful unlike http) + port, headers, ...
@@ -115,7 +118,11 @@ EC2 instances are in one of the following states:
 
 EC2 status check (ok or impaired)
 * instance status check
-*   system status check
+*   system status check => AWS responsibility to repair
+
+A recovered instance is almost identical to the original one
+- preserved: ID + metadata, IPs (private, public, Elastic)
+-      lost: RAM data
 
 after scale in/out activites ASG enters the HealthCheckGracePeriod,
 allowing health checks to stabilize before launching/terminating more instances
@@ -268,17 +275,21 @@ Async app to app communication
                          queue model: SQS (256kb per msg, 4 to 14 days retention) <- poll for up to 10 messages
                        pub/sub model: SNS
 real-time streaming (~pub/sub) model: kinesis data streams (records with partition key, same key goes to same shard => ordering can be achieved)
-                                      |
-                           producers  v  consumers
-             kinesis agent, SDK, KPL  ‒  SDK, KCL (=> EC2, lambda, ...)
-              1 MB/s (or 1000 msg/s)  ‒  2 MB/s per shard per all      (shared)
-                           per shard  ‒  2 MB/s per shard per consumer (enhanced fanout)
 
-             kinesis data firehose: batch writes (near real time) - 32MB or 60s
-                                    custom data transform with lambda
-                                    => S3
-                                    => redshift (via S3)
-                                    => ElasticSearch (now OpenSearch)
+Kinesis Data streams (retention: 1(default) - 365days, replay...)
+
+        producers                     consumers
+kinesis agent, SDK, KPL  ‒  SDK, KCL (=> EC2, lambda, ...)
+ 1 MB/s (or 1000 msg/s)  ‒  2 MB/s per shard per all      (shared)
+              per shard  ‒  2 MB/s per shard per consumer (enhanced fanout)
+
+Kinesis Data Firehose
+
+* custom data transform with lambda
+* batch writes (near real time) - 32MB or 60s
+  => S3
+  => redshift (via S3)
+  => ElasticSearch (now OpenSearch)
 
 SQS
 visibility timeout (30s): message invisible to other consumers,
