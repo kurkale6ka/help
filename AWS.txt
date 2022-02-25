@@ -664,6 +664,11 @@ DNS hostnames (false by default, true for default VPC):
 
 both needed for custom private DNS
 
+DNS resolver
+
+    AWS wants mitko.example.com? Route 53 resolver can forward queries to on-prem  via Route 53 outbound endpoint
+on-prem wants       bla.aws.com? on-prem resolvers can forward queries to Route 53 via Route 53  inbound endpoint
+
 In public subnet:
 
 - bastion host => connect to private EC2 instances
