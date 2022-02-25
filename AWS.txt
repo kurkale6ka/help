@@ -112,6 +112,10 @@ virtualization is needed (???) to install the gateways, instead we can buy a HW 
 
 ASG
 
+tenancy:
+* VPC dedicated tenancy => EC2 dedicated
+* VPC   default tenancy => EC2 dedicated only if the launch config says so, else shared
+
 EC2 instances are in one of the following states:
 - InService
 - Standby: helps you temporarily remove an instance from the ASG
@@ -359,7 +363,8 @@ CloudWatch
 Metrics
 * namespaces (e.g EC2) + up to 10 dimensions (identification attributes)
 * custom metrics: PutMetricData API call (accepts data points 2 weeks in the past & 2h in the future)
-                  StorageResolution - 1min (std), 1/5/10/30s (high)
+                  StorageResolution - std: 1min, high: write 1s
+                                                        read 1/5/10/30s
 * metric filter: metric based on CloudWatch Logs filter
 
 EC2: metrics every 5 min or every 1 min (std StorageResolution) with detailed monitoring, no RAM metric
@@ -946,6 +951,8 @@ Like all other Object Lock settings, retention periods apply to individual objec
 You can place a retention period on an object version either explicitly (Retain Until Date) or through a bucket default setting
 
 object storage (vs file system) does not allow for in-place edits => not good for collaboration.
+
+S3TA is preferred over CloudFront + S3 for content bigger than 1GB
 
 Amazon Aurora
 each Read Replica is associated with a priority tier (0-15)
