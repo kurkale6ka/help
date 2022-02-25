@@ -116,6 +116,8 @@ tenancy:
 * VPC dedicated tenancy => EC2 dedicated
 * VPC   default tenancy => EC2 dedicated only if the launch config says so, else shared
 
+EC2 tenancy can change from dedicated to host and vice-versa
+
 EC2 instances are in one of the following states:
 - InService
 - Standby: helps you temporarily remove an instance from the ASG
@@ -425,7 +427,7 @@ limits per region: 128 MB - 10 GB RAM
 
 Step Functions
 
-orchestrate your Lambda functions: visual workflow or JSON state machine
+coordinate and orchestrate multiple AWS services (lambda, glue, ...) into serverless workflows (visual or JSON state machine)
 * maximum execution time of 1 year.
 * possibility to implement human approval feature
 
