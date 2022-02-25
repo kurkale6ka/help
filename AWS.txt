@@ -100,7 +100,7 @@ hybrid storage integration (storage gateways needed because S3 proprietary):
 on-premises                                                      | cloud
 -----------------------------------------------------------------+--------------------------------------
  app server,     file gateway (NFS, SMB), IAM, optional AD auth  | S3, S3 IA (both) -> S3 IA, S3 glacier
-             FSx file gateway (SMB, NTFS, AD)                    | FSx for Windows file server
+             FSx file gateway (SMB, NTFS, AD), cache             | FSx for Windows file server
  app server,   volume gateway (iSCSI)                            | S3               -> S3 EBS snapshots
 data server,     tape gateway (iSCSI, VTL (virtual tape library) | S3               -> S3 glacier
 
