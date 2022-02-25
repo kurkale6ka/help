@@ -122,7 +122,12 @@ allowing health checks to stabilize before launching/terminating more instances
 
 Use golden AMI so updates, app install, ... take less time => we can set a smaller HealthCheckGracePeriod (aka cooldown period)
 
-A persistent spot request is like an ASG. It will keep spawning instances till the end of its validity period.
+Spot instances
+
+* A persistent spot request is like an ASG. It will keep spawning instances till the end of its validity period.
+* You can only cancel spot requests that are open, active, or disabled!
+* if a spot request is persistent, then it is reopened after your spot instance is interrupted (not stopped)
+* spot blocks (instances) with a defined duration (1, 2, 3, 4, 5, or 6h) are designed not to be interrupted
 
 RDS
 
@@ -178,9 +183,12 @@ http statefullness can be achieved with:
 * single session_id cookie sent by client, session info stored in ElastiCache
 
 Beanstalk
+
 dev centric view, infrastructure is transparent
 PaaS: versioned application / environment (dev,test,prod) +    web tier (ELB -> ASG) or
                                                             worker tier (SQS <- ASG)
+
+you retain full control over the provisioned AWS resources and can access them at any time
 
 S3 (web URL - http/https)
 
@@ -279,7 +287,9 @@ ChangeMessageVisibility API call if not done processing
 MaximumReceives: times a msg is allowed to go back to the queue,
                  then move it to DLQ (dead letter queue)
 
-Delay queue: hide message for up to 15min, send with DelaySeconds can override this
+- delay queue: postpone all new messages for up to 15min,
+               send with DelaySeconds can override this
+- message timer: invisibility period for a single message
 
 long polling (up to 20s) => less API calls. enable at Q level or WaitTimeSeconds API
 
