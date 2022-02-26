@@ -602,8 +602,8 @@ web ACLs:
 AWS Firewall Manager
 
 common set of security rules at the organization level:
-- WAF             (CloudFront, API Gateway, ALB,   )
-- Shield advanced (CloudFront, Elastic IP,  ALB/CLB)
+- WAF             (CloudFront, ALB,     API Gateway)
+- Shield advanced (CloudFront, ALB/CLB, Elastic IP )
 - SG              (EC2 + ENI)
 
 GuardDuty (uses ML, anomaly detection, 3rd party data)
@@ -628,7 +628,7 @@ VPC
 
 IGW + routing table for the public subnets = Internet connectivity
 
-* 5 per region (soft limit)
+* 5 VPC per region (soft limit)
 * 5 CIDR per VPC: min /28 (    16 IPs)
                   max /16 (65 536 IPs)
 * reserved addresses (e.g 10.0.0.0/24)
@@ -646,7 +646,7 @@ private subnet /20 - 4096
 NACL (Network Access Control List aka subnet firewall)
 
 * stateless: always needs in + out rules
-* rules are ordered from lowest to highest number, 1st one wins (low num = high precedence)
+* rules are evaluated from lowest to highest number, 1st one wins (low num = high precedence)
 * good way of blocking a specific IP address at the subnet level
 * default NACL => allow everything, new NACL => deny everything
 * best practice: use increments of 100 to allow room for more rules
@@ -657,11 +657,11 @@ ephemeral ports
 - because NACL are stateless, we lose info about source port of incoming
   traffic, therefore outbound return traffic must go to all ephemeral ports:
 
-  allow TCP/3306      to   db subnet --> --> allow TCP/3306      from web subnet
-  allow TCP/ephemeral from db subnet <-- <-- allow TCP/ephemeral to   web subnet
+  allow TCP/3306      to   db subnet  -->>  allow TCP/3306      from web subnet
+  allow TCP/ephemeral from db subnet  <<--  allow TCP/ephemeral to   web subnet
 
 DNS support/resolution (true by default):
-it's best to have a DNS server within the VPC to avoid unnecessary network traffic
+it's best to have a DNS server within the VPC to avoid unnecessary network traffic,
 route 53 (default) or custom
 
 DNS hostnames (false by default, true for default VPC):
@@ -680,7 +680,7 @@ In public subnet:
 - bastion host => connect to private EC2 instances
 
   make it highly available:
-  * multi-AZ NLB (as ssh is layer 4) - ASG 1:1:1
+  * ssh is layer 4 => multi-AZ NLB - ASG 1:1:1
   * bonus - thanks to the NLB, the bastion can be moved to the private subnet
 
 - NAT (EC2) instance (deprecated) => Internet connectivity for private EC2 instances
