@@ -330,16 +330,16 @@ publish -+- phone (SMS),
 FIFO topic: ordering of messages per group
             subscribers can only be SQS FIFO (throughput limited to 300/s -> up to 3000/s in batch mode with batches of 10)
 
-Elastic Container Service
+ECS (Elastic Container Service)
+
+launch types
+* Fargate: 1 ENI (private IP) per task,     the task  will use  an ECS task role
+*     EC2: 1 ECS agent        per instance, the agent will use the EC2 instance profile role <-> ECS, ECR, CloudWatch
 
 ECS cluster
    container instances (e.g EC2)
       services - our app will be a versioned service (v1, v2, ...)
           tasks - tasks are isolated in services, many services can be defined on the same container instances.
-
-launch types
-*     EC2: 1 ECS agent        per instance, the agent will use the EC2 instance profile role <-> ECS, ECR, CloudWatch
-* Fargate: 1 ENI (private IP) per task,     the task  will use  an ECS task role
 
 share data among tasks by mounting EFS volumes onto the tasks
 
@@ -412,9 +412,12 @@ AWS Config
                       +- eval/trigger per change or at intervals
                       +- remediation of non-compliant resources with SSM automation documents (managed or custom)
 
-NOT serverless
-
-RDS, Aurora (can be), Redshift, ElastiCache, EMR: you have to provision the EC2 instance/node type
+NOT serverless (you have to provision the EC2 instance/node type):
+* RDS
+* Aurora (can be)
+* Redshift
+* ElastiCache
+* EMR
 
 Lambda
 
@@ -517,7 +520,9 @@ move account to another organization: delete from current, invite from 2nd
 
 IAM
 
-when you assume a role, you give your original permissions!
+a role is both an identity and a 'resource' (=> it needs a trust policy as well).
+trust policies define who can assume a role.
+when you assume a role, you give up your original permissions!
 
 permission boundary (user, role, NOT group)
 ex: if boundary = allow s3:*           on *
