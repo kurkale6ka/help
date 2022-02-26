@@ -874,7 +874,7 @@ single NIC to present itself as several virtual NICs
 * EFA: enhanced ENA leveraging MPI (message passing interface)
                                +- bypasses the underlying Linux OS for lower latency
 
-AWS Batch: multi-node (EC2) parallel jobs
+AWS Batch: multi-node EC2/spot parallel jobs
 AWS ParallelCluster: open source cluster management tool for HPC
 
 CICD CodePipeline
