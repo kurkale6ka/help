@@ -720,6 +720,10 @@ Flow Logs
 
 troubleshoot SG & NACL issues
 
+capture IP traffic
+* VPC, subnets, ENI
+* ELB, RDS, ElastiCache, Redshift, WorkSpaces, NATGW, Transit Gateway... (managed interfaces)
+
  inbound accept (SG outbound accept), outbound reject => NACL
 outbound accept (SG  inbound accept),  inbound reject => NACL
 
@@ -727,10 +731,6 @@ outbound accept (SG  inbound accept),  inbound reject => NACL
 ver | account | eni | srcaddr | dstaddr | srcport | dstport | proto | packets | bytes | start | end | action | status
                                                                                                       v   v
                                                                                                       SG, NACL - ACCEPT/REJECT
-
-capture IP traffic
-* VPC, subnets, ENI
-* ELB, RDS, ElastiCache, Redshift, WorkSpaces, NATGW, Transit Gateway... (managed interfaces)
 
 Traffic Mirroring
 
@@ -760,7 +760,7 @@ Direct Connect (DX):
                        separate connections - separate connections
                        per location           per DC
 
-    virtual private gateway - VPG gw or DX gw
+    virtual private gateway - VPN gw or DX gw
    /
 VGW                  <--> CGW (customer gw)
                      <--> CGW (CloudHub hub-and-spoke model if multiple DCs)
@@ -792,7 +792,7 @@ ECMP (equal-cost multi-path)
 
 define multiple S2S VPN connections to increase the bandwidth of your connection to AWS
 
-1x VPN gw = 2 tunnels = 1.25Gbps
+1x VPN gw = 2 tunnels = 1.25Gbps ???
 2x                         5Gbps
 3x                       7.5Gbps
 
