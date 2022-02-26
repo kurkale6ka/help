@@ -382,9 +382,10 @@ Logs
 
 while exploring metrics in the console, I couldn't filter for sqs, it only worked by filtering for aws first! bug (???)
 
-Events
+EventBridge (old CloudWatch events)
 
-EventBridge (old CloudWatch events):
+it can be used to simulate SQS between 3rd parties (SaaS)
+
 * can intercept any AWS events and define action targets for them.
 * define CRON jobs (execute task with lambda)
 
