@@ -833,12 +833,11 @@ free for ingress traffic, we pay only when exiting AWS network
 
 Disaster recovery
 
-examples below: on-premises to AWS cloud
-
 - RPO: Recovery Point Objective => minimize data loss
-  disaster
+       /!\ disaster /!\
 - RTO: Recovery  Time Objective => minimize downtime
 
+on-premises to AWS cloud examples:
 • Backup and restore                                  - backup/restore from snapshots:  cheapest ->   high RPO + RTO
 • Pilot light  (bare core up in the cloud)            -                    DB replica:     cheap ->  lower RPO + RTO
 • Warm standby (full min-size system up in the cloud) -        ELB + ASG + DB replica: expensive ->    low RPO + RTO
@@ -868,15 +867,13 @@ source -- EC2 with DMS -- destination
 
 DataSync
 
-move large amounts of data to AWS (storage gw < DataSync < DX/snow family)
+move large amounts of data to AWS (can be used together with snow family). storage gateways is for moving data to S3 only.
 
-* on-prem NAS to AWS S3/EFS/FSx
-                                                => S3
-NAS (NFS/SMB) + DataSync agent --> AWS DataSync => EFS
-                                                => FSx for Windows file server
-* AWS: EFS to EFS
+                                       => S3
+on-prem NAS (NFS/SMB) + DataSync agent => EFS
+                                       => FSx for Windows file server
 
- EFS + EC2 with DataSync agent --> AWS DataSync => EFS
+         EFS + EC2 with DataSync agent => EFS (AWS to AWS)
 
 AWS Backup
 
@@ -886,16 +883,16 @@ centralize AWS snapshots management:
 
 HPC (high performance computing)
 
-EC2 Enhanced Networking (SR-IOV): single root i/o virtualization:
+EC2 enhanced networking (SR-IOV): single root i/o virtualization:
 single NIC to present itself as several virtual NICs
-* ENA: higher PPS (packets per second) - or legacy Intel 82599 VF for up to 10Gbps
-* EFA: enhanced ENA leveraging MPI (message passing interface)
-                               +- bypasses the underlying Linux OS for lower latency
+* ENA (elastic network adapter): higher PPS (packets per second) - or legacy Intel 82599 VF for up to 10Gbps
+* EFA (elastic  fabric adapter): enhanced ENA leveraging MPI (message passing interface)
+                                                         +- bypasses the underlying Linux OS for lower latency
 
 AWS Batch: multi-node EC2/spot parallel jobs
 AWS ParallelCluster: open source cluster management tool for HPC
 
-CICD CodePipeline
+CICD (continuous integration/delivery) CodePipeline
 
 find/fix bugs early, deploy often
 *                   push to CodeCommit - GitHub
@@ -906,19 +903,17 @@ find/fix bugs early, deploy often
 CloudFormation
 
 IaC (infrastructure as code)
-* YAML templates go in S3, deploy stack via cli
+* YAML/JSON templates go in S3, deploy stack via cli
+  - AWS resources
+  - parameters: dynamic inputs
+  - mappings:   static vars
+  - outputs
+  - conditionals
+  - metadata
 * figures out the right order of creation (declarative programming)
 * estimate costs thanks to resource tags using the CloudFormation template
 * dev env: save money by auto deleting 5pm / creating 8am templates
 * auto diagrams
-
-template
-- AWS resources
-- parameters: dynamic inputs
-- mappings:   static vars
-- outputs
-- conditionals
-- metadata
 
 StackSets
 
@@ -962,29 +957,27 @@ Exams
 
 * RDS read replicas free between AZs, not regions
 * ASG scale-in, increase deregistration delay to not interrupt long running processes
-      launch template for multiple instance types (on-demand + spot)
+* ASG with launch template for mix of on-demand/spot
 * producers for firehose: SDK, agent + data streams/CloudWatch/Iot => kinesis data firehose
 * blue-green deployment: DNS routing or Global accelerator
 * EFS: file storage, S3: object storage
 * By default, an S3 object is owned by the AWS account that uploaded it => the S3 owner might not have permission to view the objects
 * spot fleet, no auto scaling capabilities?
-  ASG with launch template for mix of on-demand/spot
 
 Protect EFS with
-* clients uid/gid trusted by default =>
-  manage app access with access points:
-  override clients uid/gid then use rwx permissions
+* access points: manage app access
+  override clients uid/gid then use rwx permissions (clients uid/gid trusted by default)
 * VPC SGs to control traffic to and from the file system
 * IAM policy for mount permissions (who can mount the fs)
 
 S3
-Like all other Object Lock settings, retention periods apply to individual object versions
+Like all other object lock settings, retention periods apply to individual object versions
 You can place a retention period on an object version either explicitly (Retain Until Date) or through a bucket default setting
 
 object storage (vs file system) does not allow for in-place edits => not good for collaboration.
 
-S3TA is preferred over CloudFront + S3 for content bigger than 1GB
+S3TA (S3 Transfer Acceleration) is preferred over CloudFront + S3 for content bigger than 1GB
 
 Amazon Aurora
-each Read Replica is associated with a priority tier (0-15)
-failover: promote read replica with highest priority: lowest-tier & max-size
+each read replica is associated with a priority tier (0-15)
+failover: promote read replica with lowest-tier & max-size (highest priority combination)
