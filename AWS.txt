@@ -30,13 +30,13 @@ ALB
 * distribute load based on http/https/websocket (stateful unlike http) + port, headers, ...
 * connection/SSL termination
 
-dispatch requests to target groups based on routes, query string, headers, IPs (ALB)
+dispatch requests to target groups based on routes, hostnames, query string, headers (ALB)
                                          /url1 -> tg1
                         /url2, one.example.com -> tg2
 two.example.com, ?platform=mobile, HTTP header -> tg3
 
-then spread load across multiple or single (e.g containers) host(s) in the
-target group based on health checks (port + route) => seamless handling of
+then spread load to targets on multiple/single (e.g containers) machine(s) in the
+target group, based on health checks (port + route) => seamless handling of
 downstream instances failures
 
 NLB
@@ -53,6 +53,8 @@ services behing SGs:
 EC2, ELB, EFS, RDS, ElastiCache
 
 CloudFront (CDN - cache content at the edge)
+
+whitelist/blacklist geo restriction
 
 origins
 * S3
@@ -231,6 +233,8 @@ A -> B -> C doesn't mean A -> C.
 objects in B replicated from A aren't considered new. only explicit new ones will be replicated to C
 
 encryption:
+metadata is NOT encrypted
+
 SSE-S3  = "x-amz-server-side-encryption": "AES256",  in header
 SSE-KMS = "x-amz-server-side-encryption": "aws:kms", in header
 SSE-C   =                                       key, in header (https mandatory)
@@ -591,11 +595,11 @@ Route 53, CloudFront, Global Accelerator, ELB, EC2
 
 WAF (web app firewall)
 
-CloudFront, API Gateway, ALB
+CloudFront, ALB, API Gateway
 
 web ACLs:
 * IP filtering
-* http based rules (header, body, URI str)
+* http based rules (header, body, URI string)
 * rate (DDoS) + geo-match rules
 * SQL injection + XSS (cross-site scripting)
 
@@ -913,6 +917,7 @@ Opsworks: managed Chef & Puppet (alternative to AWS SSM)
 WorkSpaces: VDI (Virtual Desktop Infrastructure), managed, secure cloud desktop (Linux/Windows)
 AppSync: store and sync data across mobile and web apps in real-time (uses GraphQL from Facebook)
 Cost Explorer: Savings Plan alternative to Reserved Instances
+Transcribe: ASR (automatic speech recognition) service => convert audio to text
 
 Well Architected Framework 5 Pillars
 
