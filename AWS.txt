@@ -743,8 +743,8 @@ capture IP traffic
  inbound accept (SG outbound accept), outbound reject => NACL
 outbound accept (SG  inbound accept),  inbound reject => NACL
 
-                       /     IPs     \     /    ports    \                               / epoch \
-ver | account | eni | srcaddr | dstaddr | srcport | dstport | proto | packets | bytes | start | end | action | status
+format:
+ver | account | eni | src + dst IPs | src + dst ports | proto | packets | bytes | epoch start + end | action | status
                                                                                                       v   v
                                                                                                       SG, NACL - ACCEPT/REJECT
 
@@ -753,12 +753,12 @@ Traffic Mirroring
 capture actual IP traffic for deeper inspection: tcpdump
 e.g from EC2 ENI to another ENI or NLB
 
-EC2-Classic (deprecated)
+EC2-Classic (deprecated, CLB is another classic resource)
 
 pre-VPC era: instances ran in a single network shared with other customers.
 to link those old instances to our VPC, we need ClassicLink
 
-Site-to-Site (S2S)
+Site-to-Site (S2S) VPN or DX
 
 VPN:
 IPsec over the public Internet
@@ -776,9 +776,9 @@ Direct Connect (DX):
                        separate connections - separate connections
                        per location           per DC
 
-    virtual private gateway - VPN gw or DX gw
+    virtual private gateway - VPN or DX
    /
-VGW                  <--> CGW (customer gw)
+VGW                  <--> CGW (customer gateway)
                      <--> CGW (CloudHub hub-and-spoke model if multiple DCs)
      [ DX location ] <--> customer router in DC
        AWS|customer
@@ -797,8 +797,10 @@ on-premises
 
 Transit Gateway (IP multicast)
 
-transitive peering (traffic passes through) of multiple VPCs,
-can also transfer VPN and DX Gateway connections.
+transitive peering (traffic passes through) of multiple VPCs:
+- peering
+- VPNs
+- DX Gateways
 
 * share cross-account with RAM
 * peer with other Transit Gateways across regions
@@ -808,7 +810,7 @@ ECMP (equal-cost multi-path)
 
 define multiple S2S VPN connections to increase the bandwidth of your connection to AWS
 
-1x VPN gw = 2 tunnels = 1.25Gbps ???
+1x VPN gw = 2 tunnels = 1.25Gbps
 2x                         5Gbps
 3x                       7.5Gbps
 
@@ -825,10 +827,9 @@ free for ingress traffic, we pay only when exiting AWS network
 
 *  free  with private IPs within AZ
 * $0.01  with private IPs  cross AZ
-* $0.02  with  public IPs  cross AZ
-* $0.02                    inter region
-* $0.09  (S3)                    Internet
-* $0.085 (S3 + CloudFront)       Internet (actually cheaper and S3 requests are 7x cheaper => way better than previous row)
+* $0.02  with  public IPs  cross AZ/region
+* $0.09        out to S3  Internet (cross-region)
+* $0.085 CloudFront + S3  Internet (actually cheaper and S3 requests are 7x cheaper => way better than previous row)
 
 Disaster recovery
 
