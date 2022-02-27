@@ -163,8 +163,16 @@ Redshift
 ElastiCache
 
 * heavy code changes required
-* no IAM auth, redis auth or Memcached SASL
-redis: sorted sets for real-time leaderboards
+* no IAM auth, Redis auth or Memcached SASL
+
+Redis only features:
+* advanced data structures (e.g sorted sets for real-time leaderboards)
+* snapshots
+* replication
+* transactions
+* pub/sub
+* lua scripting
+* geospatial support
 
 Route 53
 
@@ -213,6 +221,10 @@ S3 (web URL - http/https)
 naming: 3-63 -> no upper, _, IP; start with [a-z0-9]
         s3://bucket-name/folder-1/folder-2/my-image.jgp > max 5TB, multi-part upload if >5GB
                          prefix          + name = key
+
+static website endpoint (.region or -region):
+http://my-bucket.s3-website.region.amazonaws.com
+http://my-bucket.s3-website-region.amazonaws.com
 
 with versioning enabled, removal of an object adds a 'delete marker'.
 deleting a specific version or a 'delete marker' one is permanent.
