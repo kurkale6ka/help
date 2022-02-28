@@ -271,9 +271,10 @@ pre-signed URLs
 generate GET ones with cli, GET/PUT ones with SDK (creator's get/put permissions inherited by users)
 valid for a limited time only (3600s by default)
 
-note: with CloudFront in front of our bucket, we must use CloudFront signed
-URLs for single files or signed cookies for multiple files because bucket
-access is restricted to the OAI.
+with CloudFront in front of our bucket, we must use CloudFront signed (e.g use lambda@edge):
+* URLs for single files
+* signed cookies for multiple files
+because bucket access is restricted to the OAI.
 
 CORS: cross-origin resource sharing (web browser security mechanism)
 get index.html                         from www.example.com (origin - protocol://domain:port),
@@ -540,6 +541,8 @@ IAM
 a role is both an identity and a 'resource' (=> it needs a trust policy as well).
 trust policies define who can assume a role.
 when you assume a role, you give up your original permissions!
+
+an instance profile is a container for a single role that can be attached to an EC2 instance when launched
 
 permission boundary (user, role, NOT group)
 ex: if boundary = allow s3:*           on *
