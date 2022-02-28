@@ -186,6 +186,9 @@ Redis only features:
 * lua scripting
 * geospatial support
 
+Memcached only feature:
+multithreaded architecture
+
 Route 53
 
 Alias: CNAME to 1 managed AWS resource (no EC2!)
