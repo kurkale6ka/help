@@ -567,8 +567,9 @@ move account to another organization: delete from current, invite from 2nd
 
 IAM
 
-a role is both an identity and a 'resource' (=> it needs a trust policy as well).
-trust policies define who can assume a role.
+a role is both an identity and a 'resource' => it needs a trust policy to define who can assume the role
+e.g lambdas have exe roles and resource-based policies (GUI bottom) which define the allowed callers
+
 when you assume a role, you give up your original permissions!
 
 an instance profile is a container for a single role that can be attached to an EC2 instance when launched
