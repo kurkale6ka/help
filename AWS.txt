@@ -54,7 +54,10 @@ EC2, ELB, EFS, RDS, ElastiCache
 
 CloudFront (CDN - cache content at the edge)
 
-whitelist/blacklist geo restriction
+defenses:
+- endpoint ELBs will only see CloudFront IPs, not client ones =>
+  NACL has no effect on allowing/denying traffic. our only line of defense is WAF
+- whitelist/blacklist geo restriction
 
 origins
 * S3
@@ -920,7 +923,7 @@ HPC (high performance computing)
 
 EC2 enhanced networking (SR-IOV): single root i/o virtualization:
 single NIC to present itself as several virtual NICs
-* ENA (elastic network adapter): higher PPS (packets per second) - or legacy Intel 82599 VF for up to 10Gbps
+* ENA (elastic network adapter): higher PPS (packets per second) 100Gbps - or legacy Intel 82599 VF for up to 10Gbps
 * EFA (elastic  fabric adapter): enhanced ENA leveraging MPI (message passing interface)
                                                          +- bypasses the underlying Linux OS for lower latency
 
