@@ -91,8 +91,8 @@ EBS
                             max
 gp3 | 1 GiB to 16 TiB |  16 000  iops | 1000 MiB/s | not multi-attach
 io2 | 4 GiB to 16 TiB |  32 000 piops |            |
-    |                 |  64 000 piops |            | if Nitro
-    | 4 GiB to 64 TiB | 256 000 piops |            | if block express
+    |                 |  64 000 piops |            | + Nitro
+    | 4 GiB to 64 TiB | 256 000 piops |            | + block express
 
 encrypt unencrypted EBS volume / RDS database:
 * create a snapshot, create new encrypted EBS volume from it
