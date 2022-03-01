@@ -19,6 +19,8 @@ Placement Groups
 partition -  avg latency,  avg availability: spread partitions across hardware, 7 partitions per AZ                                              <= Big Data
    spread - high latency, high availability: multi AZ, 7 instances in different racks in 1 group per AZ, diff hw allows for different EC2 types  <= HA
 
+curl http://169.254.169.254/latest/meta-data/
+
 ELB (Elastic Load Balancer)
 
 LBs are managed and highly scalable => behind the scenes there are many LB instances.
