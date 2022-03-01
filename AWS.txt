@@ -24,10 +24,10 @@ curl http://169.254.169.254/latest/meta-data/
 ELB (Elastic Load Balancer)
 
 LBs are managed and highly scalable => behind the scenes there are many LB instances.
-cross-zone loadbalancing: traffic distributed evenly across all targets in all AZ (disabled by default + $ for NLB)
+cross-zone loadbalancing: traffic distributed evenly across all targets in all AZ (NLB: disabled by default + $)
 
 ALB
-* distribute load based on http/https/websocket (stateful unlike http) + port, headers, ...
+* distribute load based on http/https/websocket (stateful unlike http)
 * connection/SSL termination
 
 dispatch requests to target groups based on routes, hostnames, query string, headers (ALB)
@@ -36,12 +36,12 @@ dispatch requests to target groups based on routes, hostnames, query string, hea
 two.example.com, ?platform=mobile, HTTP header -> tg3
 
 then spread load to targets on multiple/single (e.g containers) machine(s) in the
-target group, based on health checks (port + route) => seamless handling of
-downstream instances failures
+target group, based on health checks (port + route) =>
+seamless handling of downstream instances failures
 
 NLB
 * distribute load based on TCP, UDP, TLS + port
-* pass through, request IP goes all the way to the app
+* pass through (but TLS offloading possible), request IP goes all the way to the app
 * static IPs per AZ => customers can whitelist us
 
 Networking security
@@ -64,7 +64,8 @@ origins
 * any http/https/rtmp endpoint
                  +- real-time messaging protocol
 
-multi-origins based on /path/* + origin groups (primary/secondary) for failover
+multi-origins based on /path/*
+origin groups (primary/secondary) for failover
 
 price classes:
 class all - all regions
@@ -79,7 +80,7 @@ Global Accelerator (use edge locations to accelerate APPS (no S3), no caching)
 
 It's a global load balancer!
 region endpoint groups (akin to TG) => health checks => fast regional failover
-                +- e.g EC2s but can also be ELBs
+                +- e.g ELBs but can also be EC2s
 
 * UDP, IoT (MQTT), VOIP endpoint
 * http/https            endpoint (if static IPs needed: 2 anycast IPs)
