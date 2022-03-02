@@ -602,22 +602,24 @@ VPC subnets
 
 Encryption
 
-KMS
+KMS (Key Management Service)
+- share passwords/credentials/certificates
+- encryption at rest
 
-share passwords/credentials/certificates/encryption at rest
 data > 4KB => use envelope encryption
-access: MANDATORY Key policy + optional IAM policy
+access: MANDATORY key policy + optional IAM policy
                   +- default (complete access to root + allows access with IAM policies)
 
-* AWS services use symmetric AES-256 CMK (customer master key) keys [create
-  - AWS managed (free)                                               enable/disable
-  - customer managed                                                 rotate]
-    +- automatic rotation: once a year
-    |  - same key id, new backing key (keep old one)
+* AWS services use symmetric AES-256 CMK (customer master key) keys
+  - AWS managed (free)
+  - customer imported
+  - customer managed (create, enable/disable, rotate)
+    |
+    +- automatic rotation: once a year - same key id, new backing key (keep old one)
+    |
     +- manual rotation: if greater frequency needed or CMK is asymmetric so not eligible for automatic rotation
        - new key id, new backing key (keep old one)
        - apps use the key id so we need an alias to the id in this case
-  - customer imported
 
 * RSA, ECC (elliptic-curve cryptography) asymmetric keys are used for:
   - sign/verify integrity checks
