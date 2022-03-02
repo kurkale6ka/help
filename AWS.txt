@@ -889,10 +889,10 @@ Migration to AWS
 * VM import/export (VMs <-> EC2, or ami.iso to use on-premises)
 * Migration Hub
 * Application Discovery Service
-*      Server Migration Service (SMS, live DMS-like migration)
+* SMS (Server Migration Service) - live DMS-like migration
 *    Database Migration Service (section below)
 
-DMS (database migration service)
+DMS (Database Migration Service)
 
 source -- EC2 with DMS -- destination
 +- all dbs                +- all dbs
@@ -900,12 +900,12 @@ source -- EC2 with DMS -- destination
                           +- ElasticSearch
                           +- Kinesis data streams
 
-* for heterogeneous migrations (different db engines), SCT (Schema ConversionTool) is needed beforehand.
-* continuous data replication with CDC (change data capture): source remains available
+* for heterogeneous migrations (different db engines), SCT (Schema ConversionTool) is needed beforehand
+* continuous data replication with CDC (Change Data Capture): source remains available
 
 DataSync
 
-move large amounts of data to AWS (can be used together with snow family). storage gateways is for moving data to S3 only.
+move large amounts of data to AWS (can be used together with snow family). storage gateway is for moving data to S3 only.
 
                                        => S3
 on-prem NAS (NFS/SMB) + DataSync agent => EFS
@@ -917,20 +917,20 @@ AWS Backup
 
 centralize AWS snapshots management:
 * we need a plan (frequency + retention policy) and AWS services => it all goes to S3
-* supports PITR (point in time recovery), tag-based backups, ...
+* supports PITR (Point In Time Recovery), tag-based backups, ...
 
-HPC (high performance computing)
+HPC (High Performance Computing)
 
 EC2 enhanced networking (SR-IOV): single root i/o virtualization:
 single NIC to present itself as several virtual NICs
-* ENA (elastic network adapter): higher PPS (packets per second) 100Gbps - or legacy Intel 82599 VF for up to 10Gbps
-* EFA (elastic  fabric adapter): enhanced ENA leveraging MPI (message passing interface)
+* ENA (elastic network adapter): higher PPS (Packets Per Second) 100Gbps - or legacy Intel 82599 VF for up to 10Gbps
+* EFA (elastic  fabric adapter): enhanced ENA leveraging MPI (Message Passing Interface)
                                                          +- bypasses the underlying Linux OS for lower latency
 
 AWS Batch: multi-node EC2/spot parallel jobs
 AWS ParallelCluster: open source cluster management tool for HPC
 
-CICD (continuous integration/delivery) CodePipeline
+CICD (Continuous Integration/Delivery) CodePipeline
 
 find/fix bugs early, deploy often
 *                   push to CodeCommit - GitHub
