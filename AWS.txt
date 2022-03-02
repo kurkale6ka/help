@@ -940,7 +940,7 @@ find/fix bugs early, deploy often
 
 CloudFormation
 
-IaC (infrastructure as code)
+IaC (Infrastructure as Code)
 * YAML/JSON templates go in S3, deploy stack via cli
   - AWS resources
   - parameters: dynamic inputs
