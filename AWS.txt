@@ -958,12 +958,12 @@ StackSets
 Manage stacks across multiple accounts/regions with a single operation.
 Update a stackset to update all stack instances.
 
-EMR (elastic MapReduce): manage Apache Hadoop/Spark clusters to process/analyze big data
-Opsworks: managed Chef & Puppet (alternative to AWS SSM)
-WorkSpaces: VDI (Virtual Desktop Infrastructure), managed, secure cloud desktop (Linux/Windows)
-AppSync: store and sync data across mobile and web apps in real-time (uses GraphQL from Facebook)
+          EMR: Elastic MapReduce - manage Apache Hadoop/Spark clusters to process/analyze big data
+     OpsWorks: managed Chef & Puppet (alternative to AWS SSM)
+   WorkSpaces: VDI (Virtual Desktop Infrastructure), managed, secure cloud desktop (Linux/Windows)
+      AppSync: store and sync data across mobile and web apps in real-time (uses GraphQL from Facebook)
 Cost Explorer: Savings Plan alternative to Reserved Instances
-Transcribe: ASR (automatic speech recognition) service => convert audio to text
+   Transcribe: ASR (Automatic Speech Recognition) service => convert audio to text
 
 Well Architected Framework 5 Pillars
 
@@ -973,10 +973,10 @@ Well Architected Framework 5 Pillars
 * Security
   IAM, security at all levels, encryption, keep people away from data
 
-* Reliability
+* Reliability (HA?)
   stop guessing capacity => ASG, test/automate recovery
 
-* Performance efficiency
+* Performance efficiency (scalability?)
   use serverless, stay up-to-date: AWS News Blog
 
 * Cost optimization
