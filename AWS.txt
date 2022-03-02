@@ -467,12 +467,15 @@ AWS Config
 
 Lambda
 
-limits per region: 128 MB - 10 GB RAM
-                   15 min (900s)
+400_000 GB-seconds of compute time per month for free:
+400_000 seconds if function is 1GB RAM
+
+limits per region: 128MB - 10GB RAM
+                   15min (900s)
                    1000 concurrent executions
-                   env    4 KB
-                   /tmp 512 MB
-                   size  50 MB compressed or 250 MB uncompressed
+                   env    4KB
+                   /tmp 512MB
+                   size  50MB compressed or 250MB uncompressed
 
 Step Functions
 
