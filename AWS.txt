@@ -803,8 +803,7 @@ VPN:
 IPsec over the public Internet
 
 Direct Connect (DX):
-
-* unencrypted private connection (add VPN between DX location and DC to have IPsec encryption)
+unencrypted private connection (add VPN between DX location and DC to have IPsec encryption)
 
 * 1 month to setup connection
   - dedicated (1Gbps and 10Gbps)
@@ -818,7 +817,7 @@ Direct Connect (DX):
     virtual private gateway - VPN or DX
    /
 VGW                  <--> CGW (customer gateway)
-                     <--> CGW (CloudHub hub-and-spoke model if multiple DCs)
+                     <--> CGW (CloudHub hub-and-spoke model for multi-DCs intercommunication)
      [ DX location ] <--> customer router in DC
        AWS|customer
 
