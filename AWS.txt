@@ -254,10 +254,12 @@ you can place a retention period on an object version either explicitly (Retain 
 like all other object lock settings, retention periods apply to individual object versions
 
 storage classes:
-        std, std-ia -> min 30 days
+std | intelligent-tiering | std-ia | 1 zone-ia | glacier | glacier deep archive
+
+        std, std-ia -> 30 days min stay before transition to std-ia or 1 zone-ia
 intelligent tiering -> small monthly monitoring and auto-tiering fee
-     amazon glacier -> archives go in vaults
-                       90 days min, 180 for deep archive
+     amazon glacier -> vaults/archives naming
+                       90 days min charge, 180 for deep archive, others 30 (bar std)
 retrieval cost per GB for all but std/intelligent
 
 lifecycle rules
