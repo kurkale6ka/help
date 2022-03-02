@@ -300,7 +300,7 @@ valid for a limited time only (3600s by default)
 with CloudFront in front of our bucket, we must use CloudFront signed (e.g use lambda@edge):
 * URLs for single files
 * signed cookies for multiple files
-because bucket access is restricted to the OAI.
+because bucket access is restricted to the OAI
 
 CORS: cross-origin resource sharing (web browser security mechanism)
 get index.html                         from www.example.com (origin - protocol://domain:port),
