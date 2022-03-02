@@ -509,7 +509,7 @@ security
 - 3rd party (OAuth, SAML): token in headers, validate with lambda authorizer and return IAM policy (can be cached)
 - CUP: authentication only
 
-Cognito
+Cognito (works with API gw, ALB, not CloudFront)
 
 federated means 3rd party source (e.g Google, Facebook)
 
