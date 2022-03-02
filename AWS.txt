@@ -737,16 +737,16 @@ In public subnet:
   * ssh is layer 4 => multi-AZ NLB - ASG 1:1:1
   * bonus - thanks to the NLB, the bastion can be moved to the private subnet
 
-- NAT (EC2) instance (deprecated) => Internet connectivity for private EC2 instances
+- NAT (EC2) instance (deprecated)
   * disable source/destination check (can forward traffic)
   * must have elastic IP
   * private subnets to route via it
 
-- NAT Gateway
+- NAT Gateway => Internet connectivity for private EC2 instances
   * elastic IP
   * single AZ (must create multiple NAT Gateways in multiple AZs for HA)
   * no SG to manage
-  * 5 to 45 Gbps auto-scaling bandwidth
+  * 5 to 45Gbps auto-scaling bandwidth
   * can't be used as bastion host
 
 A private host behind NAT "can't" be contacted, for that you need NAT traversal:
