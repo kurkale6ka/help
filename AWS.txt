@@ -459,17 +459,11 @@ enable insights to continuously analyse management write events in order to dete
                                                                                                     => EventBridge event
 
 AWS Config
+
 * record configuration changes
 * evaluate compliance rules (managed or custom with lambda: e.g are all EBS disks of type io2?)
                       +- eval/trigger per change or at intervals
                       +- remediation of non-compliant resources with SSM automation documents (managed or custom)
-
-NOT serverless (you have to provision the EC2 instance/node type):
-* RDS
-* Aurora (can be)
-* Redshift
-* ElastiCache
-* EMR
 
 Lambda
 
@@ -999,6 +993,13 @@ http statefullness can be achieved with:
 * ELB stickiness (session/client affinity)
 * cookies stored on EC2 instances or sent by user (web cookies)
 * single session_id cookie sent by client, session info stored in ElastiCache
+
+NOT serverless (you have to provision the EC2 instance/node type):
+* RDS
+* Aurora (can be)
+* Redshift
+* ElastiCache
+* EMR
 
 * while exploring metrics in the console, I couldn't filter for sqs, it only worked by filtering for aws first! bug?
 * spot fleet, no auto scaling capabilities?
