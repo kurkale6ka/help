@@ -678,7 +678,7 @@ Amazon Macie
 
 ML + pattern matching to alert about exposed (e.g in S3) sensitive data (PII: personally identifiable information)
 
-VPC
+VPC (Virtual Private Cloud)
 
 IGW + routing table for the public subnets = Internet connectivity
 
@@ -697,7 +697,7 @@ best practice:
  public subnet /24 - 256 (we don't need too many hosts in a public subnet)
 private subnet /20 - 4096
 
-NACL (Network Access Control List aka subnet firewall)
+NACL (Network Access Control List) aka subnet firewall
 
 * stateless: always needs in + out rules
 * rules are evaluated from lowest to highest number, 1st one wins (low num = high precedence)
@@ -711,6 +711,7 @@ ephemeral ports
 - because NACL are stateless, we lose info about source port of incoming
   traffic, therefore outbound return traffic must go to all ephemeral ports:
 
+                |NACL|                                    |NACL|
   allow TCP/3306      to   db subnet  -->>  allow TCP/3306      from web subnet
   allow TCP/ephemeral from db subnet  <<--  allow TCP/ephemeral to   web subnet
 
