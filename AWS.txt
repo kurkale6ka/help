@@ -240,7 +240,7 @@ S3 (object storage, web URL - http/https)
 5_500 GET req/s per prefix, both limited by KMS (5_500, 10_000, 30_000 req/s based on region, increase with quotas)
 
 naming: 3-63 -> no upper, _, IP; start with [a-z0-9]
-        s3://bucket-name/folder-1/folder-2/my-image.jgp > max 5TB, multi-part upload if >5GB
+        s3://bucket-name/folder-1/folder-2/my-image.jgp - max 5TB, multi-part upload if >5GB
                          prefix          + name = key
 
 static website endpoint (.region or -region):
