@@ -223,11 +223,6 @@ routing policies:
 GoDaddy registrar with Route 53 DNS:
 register domain with GoDaddy but specify custom nameservers (AWS ones) where the records will be defined
 
-http statefullness can be achieved with:
-* ELB stickiness (session/client affinity)
-* cookies stored on EC2 instances or sent by user (web cookies)
-* single session_id cookie sent by client, session info stored in ElastiCache
-
 Beanstalk
 
 dev centric view, infrastructure is transparent
@@ -997,6 +992,11 @@ https://aws.amazon.com/solutions/
 Misc
 
 1 CPU = multiple cores + multiple threads. vCPU is the total of threads.
+
+http statefullness can be achieved with:
+* ELB stickiness (session/client affinity)
+* cookies stored on EC2 instances or sent by user (web cookies)
+* single session_id cookie sent by client, session info stored in ElastiCache
 
 * while exploring metrics in the console, I couldn't filter for sqs, it only worked by filtering for aws first! bug?
 * spot fleet, no auto scaling capabilities?
