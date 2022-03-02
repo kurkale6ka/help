@@ -867,7 +867,7 @@ free for ingress traffic, we pay only when exiting AWS network
 * $0.01  with private IPs  cross AZ
 * $0.02  with  public IPs  cross AZ/region
 * $0.09        out to S3  Internet (cross-region)
-* $0.085 CloudFront + S3  Internet (actually cheaper and S3 requests are 7x cheaper => way better than previous row)
+* $0.085 CloudFront + S3  Internet (actually cheaper and S3 requests are 7x cheaper => way better than S3 alone)
 
 Disaster recovery
 
@@ -877,7 +877,7 @@ Disaster recovery
 
 on-premises to AWS cloud examples:
 • Backup and restore                                  - backup/restore from snapshots:  cheapest ->   high RPO + RTO
-• Pilot light  (bare core up in the cloud)            -                    DB replica:     cheap ->  lower RPO + RTO
+• Pilot light  (bare-core up in the cloud)            -                    DB replica:     cheap ->  lower RPO + RTO
 • Warm standby (full min-size system up in the cloud) -        ELB + ASG + DB replica: expensive ->    low RPO + RTO
 • Hot site     (full     size system up in the cloud) -        ELB + ASG + DB replica:    COSTLY -> lowest RPO + RTO
   multi site active-active approach
