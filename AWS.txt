@@ -173,7 +173,7 @@ read replicas:
 
 Redshift
 
-* no multi-AZ; better enable automated cluster snapshots cross-region COPY (every 8h, 5GB or on a schedule) for DR.
+* no multi-AZ: better enable automated cluster snapshots cross-region COPY (every 8h, 5GB or on a schedule) for DR
 * spectrum: perform queries directly against S3 (no need to load)
 * enhanced VPC routing: stay within VPC, no public Internet
 
