@@ -106,6 +106,8 @@ shared storage (we need to create mount ENI targets, to be mounted on EC2, ...):
 FSx persistent file system: data is replicated
 FSx scratch    file system: temp storage, faster, cheaper
 
+Storage Gateway (on-premises -> S3)
+
 hybrid storage integration (storage gateways needed because S3 proprietary):
 on-premises                                                      | cloud
 -----------------------------------------------------------------+--------------------------------------
