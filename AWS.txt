@@ -422,16 +422,16 @@ Metrics
                                                         read 1/5/10/30s
 * metric filter: metric based on CloudWatch Logs filter
 
-EC2: metrics every 5 min or every 1 min (std StorageResolution) with detailed monitoring, no RAM metric
+EC2: metrics every 5 min or every 1 min with detailed monitoring, no RAM metric
 
 Logs
 
-- query logs with CloudWatch Logs insights
+- query logs with insights
 - unified agent (EC2/on-prem, old: logs agent)
     - extra system-level metrics
     - centralized configuration with SSM parameter store
 - export (up to 12h to become ready): CreateExportTask API call, not real or near-real time
-- subscription filter: real time (pub/sub)
+- subscription filter: real time (pub/sub - lambda, kinesis)
 
 EventBridge (old CloudWatch events)
 
