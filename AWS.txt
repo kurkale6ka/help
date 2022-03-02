@@ -643,7 +643,7 @@ Shield
 
 Route 53, CloudFront, Global Accelerator, ELB, EC2
 
-WAF (web app firewall)
+WAF (Web Application Firewall)
 
 CloudFront, ALB, API Gateway
 
