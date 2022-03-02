@@ -359,11 +359,11 @@ MaximumReceives: times a msg is allowed to go back to the queue,
 
 - delay queue: postpone all new messages for up to 15min,
                send with DelaySeconds can override this
-- message timer: invisibility period for a single message
+- message timer: delay period for a single message
 
 long polling (up to 20s) => less API calls. enable at Q level or WaitTimeSeconds API
 
-request-response systems:
+request-response systems (producers want a response back):
 the producers (requesters) send messages ( [ID/response Q (answer expected there)] ) to a single request Q,
 the consumers (responders) reply via many virtual Qs (SQS Temporary Queue Java Client needed)
 
