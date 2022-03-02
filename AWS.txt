@@ -556,19 +556,19 @@ Organizations
 
 Root OU
    master account
-      OU + member accounts
+      OUs + member accounts
 
 create accounts + OU (organizational units) per BU(business unit)/env/project/...
 
 OU aren't accounts, they just help structuring the hierarchy
 
-SCP (service control policies, restrictive by default)
+SCP (service control policies, restrictive by default):
 * whitelist/blacklist IAM actions at the OU/account level
 * does not affect service-linked roles
 
 move account to another organization: delete from current, invite from 2nd
 
-IAM
+IAM (Identity and Access Management)
 
 a role is both an identity and a 'resource' => it needs a trust policy to define who can assume the role
 e.g lambdas have exe roles and resource-based policies (GUI bottom) which define the allowed callers
@@ -578,12 +578,12 @@ when you assume a role, you give up your original permissions!
 an instance profile is a container for a single role that can be attached to an EC2 instance when launched
 
 permission boundary (user, role, NOT group)
-ex: if boundary = allow s3:*           on *
+ex: if boundary = allow s3:*           on *,
                   allow iam:CreateUser on * won't work
 useful to restrict one specific user instead of a whole account with SCP
 
 Service-Linked Role:
-only a specific service can use this role vs a regular role which can be used by all services/users
+only a specific service can use this role vs a regular role which can be assumed by many services/users
 
 principal - user, app, service
 condition - aws:SourceIP, aws:RequestedRegion, ec2:ResourceTag
