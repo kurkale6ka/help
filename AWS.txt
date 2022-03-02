@@ -483,19 +483,20 @@ coordinate and orchestrate multiple AWS services (lambda, glue, ...) into server
 * maximum execution time of 1 year.
 * possibility to implement human approval feature
 
-use AWS SWF (Simple Workflow Service, EC2 => not serverless) instead if:
+use SWF (Simple Workflow Service, EC2 => not serverless) instead if:
 - you need external signals
 - you need child processes
 
 DynamoDB
+
 react to changes by enabling streams (and we get 24h data retention)
 
 API Gateway (vs ALB)
 
 - edge-optimized (CloudFront) by default
-- serverless + we can add an ALB (not for lambda as it scales/balances automatically)
+- serverless + we can add an ALB (not needed for lambda since lambdas spring into existence => there is always an 'idle' lambda ready to take on load => LB is N/A)
 - environments (dev/test/prod)
-- authentication & authorization
+- authentication & authorization via cognito
 - request throttling/transform
 - caching
 - expose any AWS service
