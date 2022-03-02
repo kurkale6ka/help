@@ -715,9 +715,8 @@ ephemeral ports
   allow TCP/3306      to   db subnet  -->>  allow TCP/3306      from web subnet
   allow TCP/ephemeral from db subnet  <<--  allow TCP/ephemeral to   web subnet
 
-DNS support/resolution (true by default):
-it's best to have a DNS server within the VPC to avoid unnecessary network traffic,
-route 53 (default) or custom
+DNS support/resolution (true + route 53 by default):
+it's best to have a DNS server within the VPC to avoid unnecessary network traffic
 
 DNS hostnames (false by default, true for default VPC):
 * needs enableDnsSupport=true
@@ -727,8 +726,8 @@ both needed for custom private DNS
 
 DNS resolver
 
-    AWS wants mitko.example.com? Route 53 resolver can forward queries to on-prem  via Route 53 outbound endpoint
-on-prem wants       bla.aws.com? on-prem resolvers can forward queries to Route 53 via Route 53  inbound endpoint
+    AWS wants mitko.example.com? route 53 outbound endpoint: forward queries to on-prem
+on-prem wants bla.amazonaws.com? route 53  inbound endpoint: on-prem resolvers can forward queries to us
 
 In public subnet:
 
