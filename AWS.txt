@@ -1,5 +1,11 @@
 EC2
 
+tenancy:
+* VPC dedicated tenancy => EC2 dedicated
+* VPC   default tenancy => EC2 dedicated only if the launch config says so, else shared
+
+EC2 tenancy can change from dedicated to host and vice-versa
+
 Reserved Instances vs Capacity Reservations
 
 Use reserved instances if you want to commit to 1 or 3 years
@@ -127,12 +133,6 @@ ASG
 - use a launch template to provision a mix of on-demand & spot instances
 - increase deregistration delay to not interrupt long running processes when scaling-in
 
-tenancy:
-* VPC dedicated tenancy => EC2 dedicated
-* VPC   default tenancy => EC2 dedicated only if the launch config says so, else shared
-
-EC2 tenancy can change from dedicated to host and vice-versa
-
 EC2 instances are in one of the following states:
 - InService
 - Standby: helps you temporarily remove an instance from the ASG
@@ -141,7 +141,7 @@ EC2 status check (ok or impaired)
 * instance status check
 *   system status check => AWS responsibility to repair
 
-A recovered instance is almost identical to the original one
+a recovered instance is almost identical to the original one
 - preserved: ID + metadata, IPs (private, public, Elastic)
 -      lost: RAM data
 
@@ -152,8 +152,8 @@ Use golden AMI so updates, app install, ... take less time => we can set a small
 
 Spot instances
 
-* A persistent spot request is like an ASG. It will keep spawning instances till the end of its validity period.
-* You can only cancel spot requests that are open, active, or disabled!
+* a persistent spot request is like an ASG. it will keep launching/terminating instances till the end of its validity period
+* you can only cancel spot requests that are open, active, or disabled!
 * if a spot request is persistent, then it is reopened after your spot instance is interrupted (not stopped)
 * spot blocks (instances) with a defined duration (1, 2, 3, 4, 5, or 6h) are designed not to be interrupted
 
