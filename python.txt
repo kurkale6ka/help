@@ -8,8 +8,8 @@ variable interpolation: f'Hello {var}' (or 'Hello {}'.format(var))
 
 In interactive mode, the last printed expression is assigned to _
 
-whenever a list needs to be created (e.g with .append()),
-think if using a comprehension wouldn't be easier/clearer
+whenever a list needs to be created/shortened in a loop (e.g with .append()/.remove()),
+assess if using a comprehension wouldn't be easier/clearer
 
 if 'yellow' in colors: # shorter/easier than
 any(c == 'yellow' for c in colors)
