@@ -1,0 +1,18 @@
+providers: AWS, Azure, GCP, ...
+resources: EC2, ALB, ...
+
+terraform init # install provider plugins in .terraform
+terraform plan # preview changes
+terraform apply # apply changes
+terraform show # inspect state
+terraform state list
+terraform validate # config check
+terraform fmt # coding standards
+
+main.tf
+
+terraform { required_providers { aws = { ...
+
+provider "aws" { ...
+
+resource "aws_instance (type)" "app_server (name)" { ... # id: aws_instance.app_server
