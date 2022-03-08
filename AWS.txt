@@ -101,8 +101,8 @@ io2 | 4 GiB to 16 TiB |  32 000 piops |            |
     | 4 GiB to 64 TiB | 256 000 piops |            | + block express
 
 encrypt unencrypted EBS volume / RDS database - create a snapshot, then:
-* create new encrypted EBS volume from it
-* copy it into an encrypted one, create new volume/db from it
+create new encrypted EBS volume from it or
+copy it into an encrypted one, create new volume/db from it
 
 shared storage (we need to create mount ENI targets, to be mounted on EC2, ...):
 * EFS (NFS),
