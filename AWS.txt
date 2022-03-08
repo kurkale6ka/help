@@ -36,7 +36,7 @@ ALB
 * distribute load based on http/https/websocket (stateful unlike http)
 * connection/SSL termination
 
-dispatch requests to target groups based on routes, hostnames, query string, headers (ALB)
+dispatch requests to target groups based on routes, hostnames, query string, headers:
                                          /url1 -> tg1
                         /url2, one.example.com -> tg2
 two.example.com, ?platform=mobile, HTTP header -> tg3
