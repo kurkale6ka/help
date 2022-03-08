@@ -115,18 +115,18 @@ FSx scratch    file system: temp storage, faster, cheaper
 Storage Gateway (on-premises -> S3)
 
 hybrid storage integration (storage gateways needed because S3 proprietary):
-on-premises                                                      | cloud
------------------------------------------------------------------+--------------------------------------
- app server,     file gateway (NFS, SMB), IAM, optional AD auth  | S3, S3 IA (both) -> S3 IA, S3 glacier
-             FSx file gateway (SMB, NTFS, AD), cache             | FSx for Windows file server
- app server,   volume gateway (iSCSI)                            | S3               -> S3 EBS snapshots
-data server,     tape gateway (iSCSI, VTL (virtual tape library) | S3               -> S3 glacier
+on-premises                                                       | cloud
+------------------------------------------------------------------+--------------------------------------
+ app server,     file gateway (NFS, SMB), IAM, optional AD auth   | S3, S3 IA (both) -> S3 IA, S3 glacier
+             FSx file gateway (SMB, NTFS, AD), cache              | FSx for Windows file server
+ app server,   volume gateway (iSCSI)                             | S3               -> S3 EBS snapshots
+data server,     tape gateway (iSCSI), VTL (Virtual Tape Library) | S3               -> S3 glacier
 
 volume gateway specific
 cached volumes: main data is on S3 with local on-prem cache for fast access
 stored volumes: main data is on-prem with async backup to S3
 
-virtualization is needed (???) to install the gateways, instead we can buy a HW appliance
+virtualization is needed to install the gateways, instead we can buy a HW appliance
 
 ASG
 
@@ -156,6 +156,7 @@ Spot instances
 * you can only cancel spot requests that are open, active, or disabled!
 * if a spot request is persistent, then it is reopened after your spot instance is interrupted (not stopped)
 * spot blocks (instances) with a defined duration (1, 2, 3, 4, 5, or 6h) are designed not to be interrupted
+* spot fleets = spot instances + optional on-demand instances
 
 RDS
 
@@ -1008,4 +1009,3 @@ NOT serverless (you have to provision the EC2 instance/node type):
 * EMR
 
 * while exploring metrics in the console, I couldn't filter for sqs, it only worked by filtering for aws first! bug?
-* spot fleet, no auto scaling capabilities?
