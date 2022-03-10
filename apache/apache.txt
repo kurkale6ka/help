@@ -21,11 +21,11 @@ Virtual hosts:
    www.example.com -> <VirtualHost *:80> ServerName www.example.com
    hi.travel.com   -> <VirtualHost *:80> ServerName hi.travel.com
 
-2. with ssl, not using sni, the Host header isn't available for matching against a ServerName. In that case we could set the Host header for further processing
+2. with ssl, not using sni, the Host header isn't available for matching against a ServerName. In that case we could set it for further processing:
    www.example.com -> <VirtualHost 1.1.1.1:443> RequestHeader set Host www.example.com
    hi.travel.com   -> <VirtualHost 2.2.2.2:443> RequestHeader set Host hi.travel.com
 
-For a single domain with 'aliases', a multi domain certificate could be used instead of SNI.
+For a single domain with alternative names, a multi domain certificate could be used instead of SNI.
 
 Location:
 <Location "/private">  -> match /private, /private/, /private/text, ...
