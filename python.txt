@@ -4,7 +4,7 @@ thus variables cannot have types associated with them
 x = 11, y = x => id(x) == id(y) (x is y)
 
 ' and " are equivalent
-variable interpolation: f'Hello {var}' (or 'Hello {}'.format(var))
+variable interpolation: f'Hello {var}' or 'Hello {}'.format(var)
 
 In interactive mode, the last printed expression is assigned to _
 
@@ -39,6 +39,18 @@ my_func = decorator(my_func) # which is what happens with:
 my_func(...)
 
 Iterators
+
+- iterables implement __iter__ to return an iterator
+- an iterator implements __next__ to get elements + raises StopIteration
+- a generator helps to create an iterator thanks to the yield statement
+
+(n**2 for n in seq) generator expression:
+* create items as needed => little RAM, infinite sequences
+* iterate once, no access to list methods
+
+[n**2 for n in seq] list comprehension:
+create whole list in RAM
+
 islice() parameters act similarly to range()'s ones,
 the difference is we get an iterator, not a range.
 
