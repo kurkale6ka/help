@@ -1,6 +1,3 @@
-MySQL
-=====
-
 For a verbose command line, use:
 mysql -v db <<< 'your query; SELECT row_count();'
 
@@ -49,15 +46,3 @@ Note 2: Transactions can't be used on ALTER, DROP, RENAME, TRUNCATE...
 
 Use backticks to escape special characters such as a dash:
 drop database `wp-database`;
-
-SQLite
-======
-
-cd ~/.mozilla/firefox/g3iwn869.default
-sqlite3 places.sqlite
-
-sqlite> .databases
-sqlite> .tables
-sqlite> .schema moz_places
-sqlite> select url from moz_places where url like '%dailymotion%broca%';
-sqlite> select url from moz_places where url like '%ulozto%medved%';
