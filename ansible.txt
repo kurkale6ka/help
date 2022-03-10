@@ -112,9 +112,12 @@ ansible-playbook playbook.yml options
   - name: ensure that postgresql is started
     service: name=postgresql state=started
 
-Roles:
-Roles are similar to modules autoloading in puppet
-Roles are just automation around ‘include’ directives
+Roles
+
+roles let you automatically load related vars, files, tasks, handlers, and other Ansible artifacts based on a known file structure.
+After you group your content in roles, you can easily reuse them and share them with other users.
+
+roles are just automation around ‘include’ directives
 
 ex: auto include roles/*/tasks/main.yml (equiv to init.pp in puppet land)
     vs - include: tasks/foo.yml
