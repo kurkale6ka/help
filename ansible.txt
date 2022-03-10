@@ -146,5 +146,11 @@ forks = 50
 # fix the unreachable issue related to the sftp subsystem not being enabled
 scp_if_ssh = True
 
-jinja2 filter test:
+jinja2
+
+tests:
+* filter - variable | filter
+*   test - variable is test_name # match/search/regex/truthy/falsy/all/any/directory/file/exists/failed/...
+
+ex:
 ansible localhost -m debug -a "msg={{ 'hello.world'|replace('.world','') }}"
