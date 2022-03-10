@@ -59,6 +59,26 @@ groupby(iterable, key=None) # define a key per item (identity by default)
 
 operator.itemgetter(0) is the same as lambda g: g[0]
 
+Regex
+
+use match.group() after a match:
+    match(^pattern , string, flags=0) -> match
+fullmatch(^pattern$, string, flags=0) -> match
+   search( pattern , string, flags=0) -> match
+
+findall(pattern, string, flags=0) -> list/list of groups
+
+split(pattern, string, maxsplit=0, flags=0) -> list/list of groups
+
+# s///
+sub(pattern, repl, string, count=0, flags=0) -> string
+
+with pattern:
+1. compile(pattern, flags=0) -> pattern
+2. pattern.match(string) for example
+
+Environment
+
 venv: create isolated working copies of python with their own site packages.
 This solves the problem of various python projects needing different versions
 of the same 3rd party packages (aka site packages).
