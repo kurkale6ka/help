@@ -1,0 +1,21 @@
+lightweight virtualization
+daemon + containers are OS processes
+
+docker daemon: not a hypervisor, it's the containerization runtime
+image: provides filesystem, dependencies, config
+container: runnable instance of an image aka sandboxed process (akin to chroot)
+
+docker help ps
+docker search
+docker ps
+docker build # see: Dockerfile
+docker volume ls # persist data
+docker images # list
+docker image prune # manage
+docker container prune
+docker rm id
+docker run -it --rm centos:7 bash # interactive + tty + auto rm container on exit
+docker run -d -p 80:80 docker/getting-started # detached mode
+docker stop id
+docker pull debian:stable-slim
+docker push kurkale6ka/catnip
