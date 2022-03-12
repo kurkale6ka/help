@@ -1,0 +1,9 @@
+nodes
+* ECS instances
+* master/worker + kubelet (ECS agent)
+
+pods - ECS tasks but pods contain several containers
+
+deployments - ECS ASG + HA
+
+services connect to pods with label selectors, they LB between pods
