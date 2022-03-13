@@ -10,12 +10,57 @@ docker search
 docker ps
 docker build # see: Dockerfile
 docker volume ls # persist data
-docker images # list
+docker images # docker image ls
 docker image prune # manage
 docker container prune
 docker rm id
+
 docker run -it --rm centos:7 bash # interactive + tty + auto rm container on exit
 docker run -d -p 80:80 docker/getting-started # detached mode
+docker exec -it id cat /etc/passwd # run a command in a running container
 docker stop id
+
 docker pull debian:stable-slim
 docker push kurkale6ka/catnip
+
+containers need to be on the same network in order to talk
+
+docker network ls
+docker network create my-app # docker run --network my-app ...
+
+Docker Compose
+
+* define and share multi-container (app & mysql) applications
+* define your application stack in a versioned file
+* docker-compose up/down/... -d
+
+version: "3.7"
+
+services:
+  app:
+    image: node:12-alpine
+    ports:
+      - 3000:3000
+    environment:
+      MYSQL_HOST: mysql
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+
+versus 2 docker run commands
+
+$ docker run -dp 3000:3000 \
+  -w /app -v "$(pwd):/app" \
+  --network my-app \
+  -e MYSQL_HOST=mysql \
+  node:12-alpine \
+  sh -c "yarn install && yarn run dev"
+
+$ docker run -d \
+  --network my-app --network-alias mysql \
+  mysql:5.7
