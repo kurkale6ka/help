@@ -312,7 +312,9 @@ get index.html                         from www.example.com (origin - protocol:/
 
 S3TA (S3 Transfer Acceleration) is preferred over CloudFront + S3 for content bigger than 1GB
 
-EFS (file storage)
+EFS (Elastic File System)
+
+file storage: managed NFS
 
 protect EFS with:
 * access points: manage app access
@@ -378,7 +380,7 @@ SNS
 
          +- topic,
 publish -+- phone (SMS),
-         +- platform endpoint (e.g ADM: Amazon device messaging)
+         +- platform endpoint (e.g ADM: Amazon Device Messaging)
 
 100_000 topics -> 12_500_000 subscriptions per topic (optional JSON policy to filter messages)
 
