@@ -11,6 +11,9 @@ In interactive mode, the last printed expression is assigned to _
 whenever a list needs to be created/shortened in a loop (e.g with .append()/.remove()),
 assess if using a comprehension wouldn't be easier/clearer
 
+str.index (raises ValueError) <~>
+str.find (returns -1)
+
 if 'yellow' in colors: # shorter/easier than
 any(c == 'yellow' for c in colors)
 
