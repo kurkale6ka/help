@@ -132,10 +132,11 @@ ex 2:
 Autoload structure:
 roles/
   webservers/
-    files/
-    templates/
     tasks/
     handlers/
+    library/
+    files/
+    templates/
     vars/
     defaults/
     meta/
