@@ -232,10 +232,11 @@ PaaS: versioned application / environment (dev,test,prod) +    web tier (ELB -> 
 
 you retain full control over the provisioned AWS resources and can access them at any time
 
-S3 (object storage, web URL - http/https)
+S3 (Simple Storage Service)
 
 - object storage (vs file system) does not allow for in-place edits => not good for collaboration.
 - by default, an S3 object is owned by the AWS account that uploaded it => the S3 owner might not have permission to view the objects
+- web URL, http/https
 
 3_500 PUT req/s per prefix
 5_500 GET req/s per prefix, both limited by KMS (5_500, 10_000, 30_000 req/s based on region, increase with quotas)
