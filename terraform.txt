@@ -16,3 +16,34 @@ terraform { required_providers { aws = { ...
 provider "aws" { ...
 
 resource "aws_instance (type)" "app_server (name)" { ... # id: aws_instance.app_server
+
+Module
+
+folder with .tf files in it
+
++-- elasticache
+¦   +-- main.tf
+¦   ¦   # resource "aws_elasticache_replication_group" "elasticache-cluster" {
+¦   ¦   #   replication_group_id = "tf-${var.environment}-rep-group"
+¦   ¦   #   availability_zones   = ["${var.availability_zones}"]
+¦   +-- variables.tf
+¦       # variable "environment" {}
+¦       # variable "availability_zones" { type = "list" }
++-- environments
+¦   +-- production
+¦   ¦   +-- main.tf
+¦   ¦       # module "prod-elasticache" {
+¦   ¦       #   source = "../../elasticache"
+¦   ¦       #   environment        = "dev"
+¦   ¦       #   availability_zones = ["us-east-1a", "us-east-1b"]
+¦   +-- staging
+¦       +-- main.tf
+¦           # module "stg-elasticache" {
++-- main.tf
+    # module "staging" {
+    #   source = "environments/staging"
+    # }
+    #
+    # module "production" {
+    #   source = "environments/production"
+    # }
