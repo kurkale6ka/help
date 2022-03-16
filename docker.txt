@@ -8,7 +8,7 @@ container: runnable instance of an image aka sandboxed process (akin to chroot)
 docker help ps
 docker search
 docker ps
-docker build # see: Dockerfile
+docker build # Dockerfile
 docker volume ls # persist data
 docker images # docker image ls
 docker image prune # manage
@@ -17,7 +17,7 @@ docker rm id
 
 docker run -it --rm centos:7 bash # interactive + tty + auto rm container on exit
 docker run -d -p 80:80 docker/getting-started # detached mode
-docker exec -it id cat /etc/passwd # run a command in a running container
+docker exec -it id cat /etc/passwd # exec a command in a running container
 docker stop id
 
 docker pull debian:stable-slim
@@ -30,27 +30,27 @@ docker network create my-app # docker run --network my-app ...
 
 Docker Compose
 
-* define and share multi-container (app & mysql) applications
 * define your application stack in a versioned file
 * docker-compose up/down/... -d
+* application can be multi-container: e.g app & mysql in the below example
 
-version: "3.7"
-
-services:
-  app:
-    image: node:12-alpine
-    ports:
-      - 3000:3000
-    environment:
-      MYSQL_HOST: mysql
-
-  mysql:
-    image: mysql:5.7
-    volumes:
-      - mysql-data:/var/lib/mysql
-
-volumes:
-  mysql-data:
+~ version: "3.7"
+~
+~ services:
+~   app:
+~     image: node:12-alpine
+~     ports:
+~       - 3000:3000
+~     environment:
+~       MYSQL_HOST: mysql
+~
+~   mysql:
+~     image: mysql:5.7
+~     volumes:
+~       - mysql-data:/var/lib/mysql
+~
+~ volumes:
+~   mysql-data:
 
 versus 2 docker run commands
 
