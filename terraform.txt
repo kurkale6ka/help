@@ -1,13 +1,13 @@
 providers: AWS, Azure, GCP, ...
 resources: EC2, ALB, ...
 
-terraform init # install provider plugins in .terraform
-terraform plan # preview changes
-terraform apply # apply changes
-terraform show # inspect state
+terraform init       # install provider plugins in .terraform
+terraform plan       # preview changes
+terraform apply      # apply changes
+terraform show       # inspect state
 terraform state list
-terraform validate # config check
-terraform fmt # coding standards
+terraform validate   # config check
+terraform fmt        # coding standards
 
 main.tf
 
@@ -21,7 +21,7 @@ Module
 
 folder with .tf files in it
 
-+-- elasticache
++-- elasticache/
 ¦   +-- main.tf
 ¦   ¦   # resource "aws_elasticache_replication_group" "elasticache-cluster" {
 ¦   ¦   #   replication_group_id = "tf-${var.environment}-rep-group"
@@ -29,21 +29,18 @@ folder with .tf files in it
 ¦   +-- variables.tf
 ¦       # variable "environment" {}
 ¦       # variable "availability_zones" { type = "list" }
-+-- environments
-¦   +-- production
++-- environments/
+¦   +-- production/
 ¦   ¦   +-- main.tf
 ¦   ¦       # module "prod-elasticache" {
 ¦   ¦       #   source = "../../elasticache"
 ¦   ¦       #   environment        = "dev"
 ¦   ¦       #   availability_zones = ["us-east-1a", "us-east-1b"]
-¦   +-- staging
+¦   +-- staging/
 ¦       +-- main.tf
 ¦           # module "stg-elasticache" {
+¦           #   source = "../../elasticache"
 +-- main.tf
-    # module "staging" {
-    #   source = "environments/staging"
-    # }
-    #
     # module "production" {
     #   source = "environments/production"
     # }
