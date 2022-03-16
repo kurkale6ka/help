@@ -1,0 +1,13 @@
+node: machine/container. e.g the controller + agents
+
+// Jenkinsfile, declarative pipeline
+pipeline {
+    agent any
+    stages {
+        stage('build') {
+            steps {
+                sh 'python3 --version'
+            }
+        }
+    }
+}
