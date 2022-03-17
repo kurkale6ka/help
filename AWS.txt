@@ -977,7 +977,7 @@ Well Architected Framework 5 Pillars
 * Security
   IAM, security at all levels, encryption, keep people away from data
 
-* Reliability (HA?)
+* Reliability (scalability + HA?)
   stop guessing capacity => ASG, test/automate recovery
 
 * Performance efficiency (scalability?)
