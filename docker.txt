@@ -1,3 +1,10 @@
+share kernel/network/disk/memory with the host
+
+kernel isolates network and disk resources per processes running in a kernel namespace: the container.
+kernel namespaces are possible thanks to runc (run containers) and previously LinuX Containers (LXC)?
+aufs is used for disk sharing. all containers get a ro shared acces to all common parts of the OS + get their own mount for writing.
+each docker image contains only the differences from the base. When you run your image, you also need the base, and it layers your image on top of the base using a layered file system (aufs)
+
 lightweight virtualization
 daemon + containers are OS processes
 
