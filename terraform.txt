@@ -44,3 +44,11 @@ folder with .tf files in it
     # module "production" {
     #   source = "environments/production"
     # }
+
+Syntax
+
+blk_type "label1" ... "labeln" {
+
+name = "value" # argument
+
+}
