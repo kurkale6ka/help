@@ -1,3 +1,6 @@
+Containers abstract applications from operating systems, much like
+virtualization abstracts operating systems from physical hardware
+
 share kernel/network/disk/memory with the host
 
 kernel isolates network and disk resources per processes running in a kernel namespace: the container.
