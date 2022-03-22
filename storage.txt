@@ -1,6 +1,27 @@
-                            Software Defined Storage
+Storage options
 
-SDS creates a storage pool from cheap hardware.
+file
+* hierarchy of folders, limited vertical scalability
+* direct + NAS storage
+
+block
+* no metadata
+* decouple the data from the user’s environment
+* doesn’t rely on a single path to data—like file storage does—it can be retrieved quickly
+* most expensive
+* used in SANs (note: it's also network attached storage)
+
+object
+* HTTP API
+* most metadata
+* objects can’t be modified => write the object completely at once
+* no lock mechanism
+* flat structure, so better at scaling
+* least expensive
+
+SDS (Software Defined Storage)
+
+create a storage pool from cheap hardware.
 
 - Unlike LVM it spans physical hosts.
 
