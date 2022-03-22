@@ -128,7 +128,7 @@ stored volumes: main data is on-prem with async backup to S3
 
 virtualization is needed to install the gateways, instead we can buy a HW appliance
 
-ASG
+ASG (Auto Scaling Group)
 
 - use a launch template to provision a mix of on-demand & spot instances
 - increase deregistration delay to not interrupt long running processes when scaling-in
@@ -158,7 +158,7 @@ Spot instances
 * spot blocks (instances) with a defined duration (1, 2, 3, 4, 5, or 6h) are designed not to be interrupted
 * spot fleets = spot instances + optional on-demand instances
 
-RDS
+RDS (Relational Database Service)
 
 In AWS there is a network cost when data moves between AZs,
 but not for read replicas (only cross-region)
@@ -354,7 +354,8 @@ consumers: batch writes (near real time) - 32MB or 60s
 
 custom data transform with lambda
 
-SQS
+SQS (Simple Queue Service)
+
 visibility timeout (30s): message invisible to other consumers,
 ChangeMessageVisibility API call if not done processing
 
@@ -376,7 +377,7 @@ FIFO + group ID: block group A messages for other consumers while a group A
                  batch is in flight (being processed, eg. A3-A2-A1), else a
                  consumer could process say A4 before and the ordering would be broken => A3-A2-A1-A4
 
-SNS
+SNS (Simple Notification Service)
 
          +- topic,
 publish -+- phone (SMS),
@@ -525,7 +526,7 @@ Authorize to use AWS resources
 
 AppSync (old Cognito sync): save app state (20 datasets - 1MB), devices sync, offline, id pool needed
 
-AWS STS
+STS (Security Token Service)
 
 grant limited and temporary access to resources (token valid for 15min - 1h)
 
@@ -537,7 +538,7 @@ grant limited and temporary access to resources (token valid for 15min - 1h)
 
 federation with SAML 2.0 is the old way, prefer SSO federation
 
-SSO
+SSO (Single Sign-On)
 
 when we need to login to:
 * many AWS accounts
