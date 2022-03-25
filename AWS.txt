@@ -440,10 +440,9 @@ Logs
 
 EventBridge (old CloudWatch events)
 
-it can be used to simulate SQS between 3rd parties (SaaS)
-
 * can intercept any AWS events and define action targets for them.
 * define CRON jobs (execute task with lambda)
+* it can be used to simulate SQS between 3rd parties (SaaS)
 
 event bus
 
@@ -479,7 +478,7 @@ limits per region: 128MB - 10GB RAM
                    15min (900s)
                    1000 concurrent executions
                    env    4KB
-                   /tmp 512MB
+                   /tmp 512MB, up to 10GB ($)
                    size  50MB compressed or 250MB uncompressed
 
 Step Functions
