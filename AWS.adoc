@@ -1,4 +1,4 @@
-:toc:
+:toc: left
 == EC2 (Elastic Compute Cloud)
 
 === tenancy:
@@ -182,12 +182,12 @@ Redshift
 MPP (Massively Parallel Processing)
 both redshift and athena use Presto (distributed SQL query engine)
 
-ElastiCache
+== ElastiCache
 
 * heavy code changes required
 * no IAM auth, Redis auth or Memcached SASL
 
-Redis only features:
+=== Redis only features:
 * advanced data structures (e.g sorted sets for real-time leaderboards)
 * snapshots
 * replication
@@ -196,10 +196,10 @@ Redis only features:
 * lua scripting
 * geospatial support
 
-Memcached only feature:
+=== Memcached only feature:
 multithreaded architecture
 
-Route 53
+== Route 53
 
 Alias: CNAME to 1 managed AWS resource (no EC2!)
        no TTL, can point to zone apex, free
@@ -209,7 +209,7 @@ record with multiple A values -> the client will choose at random (client side L
 health checks: only return IPs for healthy resources
                e.g give me a healthy ALB, then target group health check to give me a healthy EC2 instance
 
-routing policies:
+=== routing policies:
 
 - simple (no health checks)
 - weighted
@@ -225,7 +225,7 @@ routing policies:
 GoDaddy registrar with Route 53 DNS:
 register domain with GoDaddy but specify custom nameservers (AWS ones) where the records will be defined
 
-Beanstalk
+== Beanstalk
 
 dev centric view, infrastructure is transparent
 PaaS: versioned application / environment (dev,test,prod) +    web tier (ELB -> ASG) or
@@ -233,7 +233,7 @@ PaaS: versioned application / environment (dev,test,prod) +    web tier (ELB -> 
 
 you retain full control over the provisioned AWS resources and can access them at any time
 
-S3 (Simple Storage Service)
+== S3 (Simple Storage Service)
 
 - object storage (vs file system) does not allow for in-place edits => not good for collaboration.
 - by default, an S3 object is owned by the AWS account that uploaded it => the S3 owner might not have permission to view the objects
@@ -256,7 +256,7 @@ deleting a specific version or a 'delete marker' one is permanent.
 you can place a retention period on an object version either explicitly (Retain Until Date) or through a bucket default setting.
 like all other object lock settings, retention periods apply to individual object versions
 
-storage classes:
+=== storage classes:
 std | intelligent-tiering | std-ia | 1 zone-ia | glacier | glacier deep archive
 
         std, std-ia -> 30 days min stay before transition to std-ia or 1 zone-ia
@@ -273,7 +273,7 @@ replication isn't chained:
 A -> B -> C doesn't mean A -> C.
 objects in B replicated from A aren't considered new. only explicit new ones will be replicated to C
 
-encryption:
+=== encryption:
 metadata is NOT encrypted
 
 SSE-S3  = "x-amz-server-side-encryption": "AES256",  in header
@@ -313,7 +313,7 @@ get index.html                         from www.example.com (origin - protocol:/
 
 S3TA (S3 Transfer Acceleration) is preferred over CloudFront + S3 for content bigger than 1GB
 
-EFS (Elastic File System)
+== EFS (Elastic File System)
 
 file storage: managed NFS
 
@@ -323,7 +323,7 @@ protect EFS with:
 * VPC SGs to control traffic to and from the file system
 * IAM policy for mount permissions (who can mount the fs)
 
-Snow family (EBS and S3 storage)
+== Snow family (EBS and S3 storage)
 
              snowcone (  8TB)             2  CPU,   4GiB RAM, no battery/cables, can use DataSync once online
 snowball edge compute ( 42TB) optimized: 52 vCPU, 208GiB RAM, optional GPU
@@ -332,7 +332,7 @@ snowball edge storage ( 80TB) optimized: 40 vCPU,  80GiB RAM, up to 15 nodes sto
 
 OpsHub: AWS 'snow' Console on your laptop
 
-Async app to app communication
+== Async app to app communication
 
                          queue model: SQS (256kb per msg, 4 to 14 days retention) <- poll for up to 10 messages
                        pub/sub model: SNS
@@ -355,7 +355,7 @@ consumers: batch writes (near real time) - 32MB or 60s
 
 custom data transform with lambda
 
-SQS (Simple Queue Service)
+== SQS (Simple Queue Service)
 
 visibility timeout (30s): message invisible to other consumers,
 ChangeMessageVisibility API call if not done processing
@@ -378,7 +378,7 @@ FIFO + group ID: block group A messages for other consumers while a group A
                  batch is in flight (being processed, eg. A3-A2-A1), else a
                  consumer could process say A4 before and the ordering would be broken => A3-A2-A1-A4
 
-SNS (Simple Notification Service)
+== SNS (Simple Notification Service)
 
          +- topic,
 publish -+- phone (SMS),
@@ -389,7 +389,7 @@ publish -+- phone (SMS),
 FIFO topic: ordering of messages per group
             subscribers can only be SQS FIFO (throughput limited to 300/s -> up to 3000/s in batch mode with batches of 10)
 
-ECS (Elastic Container Service)
+== ECS (Elastic Container Service)
 
 launch types
 * Fargate: 1 ENI (private IP) per task,     the task  will use  an ECS task role
@@ -419,7 +419,7 @@ scaling
 
 CloudWatch alarm (e.g on CPU service usage) -> service auto scale -> [for EC2 launch type we would also need an ASG for the container instances]
 
-CloudWatch
+== CloudWatch
 
 Metrics
 * namespaces (e.g EC2) + up to 10 dimensions (identification attributes)
@@ -453,7 +453,7 @@ event bus
 
 schema registry: collection of JSON events to help generate code
 
-CloudTrail
+== CloudTrail
 
 90 days retention for events
 * management events (e.g CreateSubnet; can separate Read/Write)
@@ -463,14 +463,14 @@ enable insights to continuously analyse management write events in order to dete
                                                                                                     => S3
                                                                                                     => EventBridge event
 
-AWS Config
+== AWS Config
 
 * record configuration changes
 * evaluate compliance rules (managed or custom with lambda: e.g are all EBS disks of type io2?)
                       +- eval/trigger per change or at intervals
                       +- remediation of non-compliant resources with SSM automation documents (managed or custom)
 
-Lambda
+== Lambda
 
 400_000 GB-seconds of compute time per month for free:
 400_000 seconds if function is 1GB RAM
@@ -492,11 +492,11 @@ use SWF (Simple Workflow Service, EC2 => not serverless) instead if:
 - you need external signals
 - you need child processes
 
-DynamoDB
+== DynamoDB
 
 react to changes by enabling streams (and we get 24h data retention)
 
-API Gateway (vs ALB)
+== API Gateway (vs ALB)
 
 - edge-optimized (CloudFront) by default
 - serverless + we can add an ALB (not needed for lambda since lambdas spring into existence => there is always an 'idle' lambda ready to take on load => LB is N/A)
@@ -683,7 +683,7 @@ Amazon Macie
 
 ML + pattern matching to alert about exposed (e.g in S3) sensitive data (PII: personally identifiable information)
 
-VPC (Virtual Private Cloud)
+== VPC (Virtual Private Cloud)
 
 IGW + routing table for the public subnets = Internet connectivity
 
