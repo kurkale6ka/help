@@ -1,12 +1,13 @@
-EC2
+:toc:
+== EC2 (Elastic Compute Cloud)
 
-tenancy:
+=== tenancy:
 * VPC dedicated tenancy => EC2 dedicated
 * VPC   default tenancy => EC2 dedicated only if the launch config says so, else shared
 
 EC2 tenancy can change from dedicated to host and vice-versa
 
-Reserved Instances vs Capacity Reservations
+=== Reserved Instances vs Capacity Reservations
 
 Use reserved instances if you want to commit to 1 or 3 years
 
@@ -19,7 +20,7 @@ on-demand capacity while starting or launching an EC2 instance.
 For cluster placement groups, capacity also means running on the 'same'
 hardware and that hardware needs to be reserved.
 
-Placement Groups
+=== Placement Groups
 
   cluster -  low latency,  low availability: share hardware => same EC2 type                                                                     <= HPC
 partition -  avg latency,  avg availability: spread partitions across hardware, 7 partitions per AZ                                              <= Big Data
@@ -27,12 +28,12 @@ partition -  avg latency,  avg availability: spread partitions across hardware, 
 
 curl http://169.254.169.254/latest/meta-data/
 
-ELB (Elastic Load Balancer)
+== ELB (Elastic Load Balancer)
 
 LBs are managed and highly scalable => behind the scenes there are many LB instances.
 cross-zone loadbalancing: traffic distributed evenly across all targets in all AZ (NLB: disabled by default + $)
 
-ALB
+=== ALB (Application Load Balancer)
 * distribute load based on http/https/websocket (stateful unlike http)
 * connection/SSL termination
 
@@ -45,7 +46,7 @@ then spread load to targets on multiple/single (e.g containers) machine(s) in th
 target group, based on health checks (port + route) =>
 seamless handling of downstream instances failures
 
-NLB
+=== NLB (Network Load Balancer)
 * distribute load based on TCP, UDP, TLS + port
 * pass through (but TLS offloading possible), request IP goes all the way to the app
 * static IPs per AZ => customers can whitelist us
@@ -58,14 +59,14 @@ NACL - stateless, both ways are always evaluated
 services behing SGs:
 EC2, ELB, EFS, RDS, ElastiCache
 
-CloudFront (CDN - cache content at the edge)
+== CloudFront (CDN - cache content at the edge)
 
-defenses:
+=== defenses:
 - endpoint ELBs will only see CloudFront IPs, not client ones =>
   NACL has no effect on allowing/denying traffic. our only line of defense is WAF
 - whitelist/blacklist geo restriction
 
-origins
+=== origins
 * S3
 * any http/https/rtmp endpoint
                  +- real-time messaging protocol
@@ -73,16 +74,16 @@ origins
 multi-origins based on /path/*
 origin groups (primary/secondary) for failover
 
-price classes:
+=== price classes:
 class all - all regions
 class 200 - all, without the most expensive ones
 class 100 - least expensive regions only
 
-field level encryption:
+=== field level encryption:
 extra security on top of https - specify up to 10 fields in your POST request
 asymmetric encryption (e.g credit card details) on the edge, decrypted by app's (e.g behind ALB origin) private key
 
-Global Accelerator (use edge locations to accelerate APPS (no S3), no caching)
+== Global Accelerator (use edge locations to accelerate APPS (no S3), no caching)
 
 It's a global load balancer!
 region endpoint groups (akin to TG) => health checks => fast regional failover
@@ -93,14 +94,14 @@ region endpoint groups (akin to TG) => health checks => fast regional failover
 
 blue-green deployment: both DNS routing and global accelerator can be used
 
-EBS
+== EBS (Elastic Block Store)
                             max
 gp3 | 1 GiB to 16 TiB |  16 000  iops | 1000 MiB/s | not multi-attach
 io2 | 4 GiB to 16 TiB |  32 000 piops |            |
     |                 |  64 000 piops |            | + Nitro
     | 4 GiB to 64 TiB | 256 000 piops |            | + block express
 
-encrypt unencrypted EBS volume / RDS database - create a snapshot, then:
+=== encrypt unencrypted EBS volume / RDS database - create a snapshot, then:
 create new encrypted EBS volume from it or
 copy it into an encrypted one, create new volume/db from it
 
@@ -128,12 +129,12 @@ stored volumes: main data is on-prem with async backup to S3
 
 virtualization is needed to install the gateways, instead we can buy a HW appliance
 
-ASG (Auto Scaling Group)
+== ASG (Auto Scaling Group)
 
 - use a launch template to provision a mix of on-demand & spot instances
 - increase deregistration delay to not interrupt long running processes when scaling-in
 
-EC2 instances are in one of the following states:
+=== EC2 instances are in one of the following states:
 - InService
 - Standby: helps you temporarily remove an instance from the ASG
 
@@ -150,7 +151,7 @@ allowing health checks to stabilize before launching/terminating more instances
 
 Use golden AMI so updates, app install, ... take less time => we can set a smaller HealthCheckGracePeriod (aka cooldown period)
 
-Spot instances
+== Spot instances
 
 * a persistent spot request is like an ASG. it will keep launching/terminating instances till the end of its validity period
 * you can only cancel spot requests that are open, active, or disabled!
@@ -158,7 +159,7 @@ Spot instances
 * spot blocks (instances) with a defined duration (1, 2, 3, 4, 5, or 6h) are designed not to be interrupted
 * spot fleets = spot instances + optional on-demand instances
 
-RDS (Relational Database Service)
+== RDS (Relational Database Service)
 
 In AWS there is a network cost when data moves between AZs,
 but not for read replicas (only cross-region)
@@ -1012,3 +1013,5 @@ NOT serverless (you have to provision the EC2 instance/node type):
 * EMR
 
 * while exploring metrics in the console, I couldn't filter for sqs, it only worked by filtering for aws first! bug?
+
+# vim: fde=getline(v\:lnum)=~'^\\s*=='?'>'.(len(matchstr(getline(v\:lnum),'===*'))-1)\:'='
