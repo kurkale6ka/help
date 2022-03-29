@@ -18,7 +18,7 @@ Use reserved instances if you want to commit to 1 or 3 years
 Amazon EC2 on-demand Capacity Reservations enable you to create and manage
 reserved capacity on Amazon EC2 without any long-term commitment or fixed
 terms. This can be very beneficial if you regularly face
-InsufficientInstanceCapacity errors when AWS doesn't have enough available
+`InsufficientInstanceCapacity` errors when AWS doesn't have enough available
 on-demand capacity while starting or launching an EC2 instance.
 
 For cluster placement groups, capacity also means running on the 'same'
@@ -30,11 +30,12 @@ hardware and that hardware needs to be reserved.
 partition -  avg latency,  avg availability: spread partitions across hardware, 7 partitions per AZ                                              <= Big Data
    spread - high latency, high availability: multi AZ, 7 instances in different racks in 1 group per AZ, diff hw allows for different EC2 types  <= HA
 
+=== Metadata
 curl http://169.254.169.254/latest/meta-data/
 
 == ELB (Elastic Load Balancer)
 
-LBs are managed and highly scalable => behind the scenes there are many LB instances.
+LBs are managed and highly scalable => behind the scenes there are many LB instances. +
 cross-zone loadbalancing: traffic distributed evenly across all targets in all AZ (NLB: disabled by default + $)
 
 === ALB (Application Load Balancer)
@@ -42,6 +43,7 @@ cross-zone loadbalancing: traffic distributed evenly across all targets in all A
 * connection/SSL termination
 
 dispatch requests to target groups based on routes, hostnames, query string, headers:
+
                                          /url1 -> tg1
                         /url2, one.example.com -> tg2
 two.example.com, ?platform=mobile, HTTP header -> tg3
@@ -64,25 +66,25 @@ seamless handling of downstream instances failures
 
 === origins
 * S3
-* any http/https/rtmp endpoint
+* any http/https/rtmp endpoint +
                  +- real-time messaging protocol
 
-multi-origins based on /path/*
+multi-origins based on `/path/*` +
 origin groups (primary/secondary) for failover
 
 === price classes
-class all - all regions
-class 200 - all, without the most expensive ones
-class 100 - least expensive regions only
+* class all - all regions
+* class 200 - all, without the most expensive ones
+* class 100 - least expensive regions only
 
 === field level encryption
-extra security on top of https - specify up to 10 fields in your POST request
+extra security on top of https - specify up to 10 fields in your POST request +
 asymmetric encryption (e.g credit card details) on the edge, decrypted by app's (e.g behind ALB origin) private key
 
 == Global Accelerator (use edge locations to accelerate APPS (no S3), no caching)
 
-It's a global load balancer!
-region endpoint groups (akin to TG) => health checks => fast regional failover
+It's a global load balancer! +
+region endpoint groups (akin to TG) => health checks => fast regional failover +
                 +- e.g ELBs but can also be EC2s
 
 * UDP, IoT (MQTT), VOIP endpoint
@@ -100,31 +102,34 @@ io2 | 4 GiB to 16 TiB |  32 000 piops |            |
 === encrypt unencrypted EBS volume / RDS database
 
 create a snapshot, then:
+
 - create new encrypted EBS volume from it or
 - copy it into an encrypted one, create new volume/db from it
 
 == FSx: 3rd party high-performance file systems
 
 shared storage (we need to create mount ENI targets, to be mounted on EC2, ...):
+
 * EFS (NFS),
 * FSx for Lustre (Linux cluster)
 * FSx for Windows (SMB, NTFS)
 
-FSx persistent file system: data is replicated
+FSx persistent file system: data is replicated +
 FSx scratch    file system: temp storage, faster, cheaper
 
 == Storage Gateway (on-premises -> S3)
 
 hybrid storage integration (storage gateways needed because S3 proprietary):
-on-premises                                                       | cloud
-------------------------------------------------------------------+--------------------------------------
- app server,     file gateway (NFS, SMB), IAM, optional AD auth   | S3, S3 IA (both) -> S3 IA, S3 glacier
-             FSx file gateway (SMB, NTFS, AD), cache              | FSx for Windows file server
- app server,   volume gateway (iSCSI)                             | S3               -> S3 EBS snapshots
-data server,     tape gateway (iSCSI), VTL (Virtual Tape Library) | S3               -> S3 glacier
 
-volume gateway specific
-cached volumes: main data is on S3 with local on-prem cache for fast access
+ on-premises                                                       | cloud
+ ------------------------------------------------------------------+--------------------------------------
+  app server,     file gateway (NFS, SMB), IAM, optional AD auth   | S3, S3 IA (both) -> S3 IA, S3 glacier
+              FSx file gateway (SMB, NTFS, AD), cache              | FSx for Windows file server
+  app server,   volume gateway (iSCSI)                             | S3               -> S3 EBS snapshots
+ data server,     tape gateway (iSCSI), VTL (Virtual Tape Library) | S3               -> S3 glacier
+
+=== volume gateway specific
+cached volumes: main data is on S3 with local on-prem cache for fast access +
 stored volumes: main data is on-prem with async backup to S3
 
 virtualization is needed to install the gateways, instead we can buy a HW appliance
@@ -143,13 +148,14 @@ virtualization is needed to install the gateways, instead we can buy a HW applia
 *   system status check => AWS responsibility to repair
 
 a recovered instance is almost identical to the original one
+
 - preserved: ID + metadata, IPs (private, public, Elastic)
 -      lost: RAM data
 
-after scale in/out activites ASG enters the HealthCheckGracePeriod,
+after scale in/out activites ASG enters the `HealthCheckGracePeriod`, +
 allowing health checks to stabilize before launching/terminating more instances
 
-Use golden AMI so updates, app install, ... take less time => we can set a smaller HealthCheckGracePeriod (aka cooldown period)
+Use golden AMI so updates, app install, ... take less time => we can set a smaller `HealthCheckGracePeriod` (aka cooldown period)
 
 == Spot instances
 
@@ -166,10 +172,11 @@ but not for read replicas (only cross-region)
 
 == Aurora DB
 
-auto scaling storage (10GB - 128TB, redshift: 1-128 nodes each up to 128TB)
+auto scaling storage (10GB - 128TB, redshift: 1-128 nodes each up to 128TB) +
 writer + reader OR custom endpoint(s)
 
 read replicas:
+
 * each replica is associated with a priority tier (0-15)
 * failover: promote replica with lowest-tier & max-size (highest priority combination)
 
