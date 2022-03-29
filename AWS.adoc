@@ -186,7 +186,7 @@ read replicas:
 * spectrum: perform queries directly against S3 (no need to load)
 * enhanced VPC routing: stay within VPC, no public Internet
 
-MPP (Massively Parallel Processing)
+MPP (Massively Parallel Processing) +
 both redshift and athena use Presto (distributed SQL query engine)
 
 == ElastiCache
@@ -208,35 +208,36 @@ multithreaded architecture
 
 == Route 53
 
-Alias: CNAME to 1 managed AWS resource (no EC2!)
+Alias: CNAME to 1 managed AWS resource (no EC2!),
        no TTL, can point to zone apex, free
 
 record with multiple A values -> the client will choose at random (client side LB)
 
-health checks: only return IPs for healthy resources
+health checks: only return IPs for healthy resources,
                e.g give me a healthy ALB, then target group health check to give me a healthy EC2 instance
 
 === routing policies
 
 - simple (no health checks)
 - weighted
-  weight.example.com 70 - 7.8.9.1
-  weight.example.com 30 - 3.4.5.6
-  weight.example.com 10 - 1.1.8.8
+  * weight.example.com 70 - 7.8.9.1
+  * weight.example.com 30 - 3.4.5.6
+  * weight.example.com 10 - 1.1.8.8
 - latency
 - failover (primary active / secondary passive)
 - geolocation (default IP mandatory)
 - geoproximity (traffic flow, bias -1 .. 99)
 - multi-value (again client side LB but with health checks, return up to 8 IPs)
 
-GoDaddy registrar with Route 53 DNS:
+GoDaddy registrar with Route 53 DNS: +
 register domain with GoDaddy but specify custom nameservers (AWS ones) where the records will be defined
 
 == Beanstalk
 
 dev centric view, infrastructure is transparent
-PaaS: versioned application / environment (dev,test,prod) +    web tier (ELB -> ASG) or
-                                                            worker tier (SQS <- ASG)
+
+ PaaS: versioned application / environment (dev,test,prod) +    web tier (ELB -> ASG) or
+                                                             worker tier (SQS <- ASG)
 
 you retain full control over the provisioned AWS resources and can access them at any time
 
@@ -246,18 +247,19 @@ you retain full control over the provisioned AWS resources and can access them a
 - by default, an S3 object is owned by the AWS account that uploaded it => the S3 owner might not have permission to view the objects
 - web URL, http/https
 
-3_500 PUT req/s per prefix
+3_500 PUT req/s per prefix +
 5_500 GET req/s per prefix, both limited by KMS (5_500, 10_000, 30_000 req/s based on region, increase with quotas)
 
 naming: 3-63 -> no upper, _, IP; start with [a-z0-9]
+
         s3://bucket-name/folder-1/folder-2/my-image.jgp - max 5TB, multi-part upload if >5GB
                          prefix          + name = key
 
-static website endpoint (.region or -region):
-http://my-bucket.s3-website.region.amazonaws.com
+static website endpoint (.region or -region): +
+http://my-bucket.s3-website.region.amazonaws.com +
 http://my-bucket.s3-website-region.amazonaws.com
 
-with versioning enabled, removal of an object adds a 'delete marker'.
+with versioning enabled, removal of an object adds a 'delete marker'. +
 deleting a specific version or a 'delete marker' one is permanent.
 
 you can place a retention period on an object version either explicitly (Retain Until Date) or through a bucket default setting.
@@ -273,26 +275,27 @@ intelligent tiering -> small monthly monitoring and auto-tiering fee
 retrieval cost per GB for all but std/intelligent
 
 lifecycle rules
+
 - transition actions
 - expiration actions (deletion)
 
-replication isn't chained:
-A -> B -> C doesn't mean A -> C.
+replication isn't chained: +
+A -> B -> C doesn't mean A -> C. +
 objects in B replicated from A aren't considered new. only explicit new ones will be replicated to C
 
 === encryption
 metadata is NOT encrypted
 
-SSE-S3  = "x-amz-server-side-encryption": "AES256",  in header
-SSE-KMS = "x-amz-server-side-encryption": "aws:kms", in header
-SSE-C   =                                       key, in header (https mandatory)
-        => CloudHSM (hardware security module, must use client software)
-           * single-tenant, multi-AZ
-           * FIPS 140-2 Level 3 (Federal Information Processing Standard)
-           * MFA + access & authentication management (users & keys) vs IAM
-           * hardware acceleration
-           * supported by Redshift
-CSE     = client side encryption (could use the Amazon S3 Encryption Client)
+ SSE-S3  = "x-amz-server-side-encryption": "AES256",  in header
+ SSE-KMS = "x-amz-server-side-encryption": "aws:kms", in header
+ SSE-C   =                                       key, in header (https mandatory)
+         => CloudHSM (hardware security module, must use client software)
+            * single-tenant, multi-AZ
+            * FIPS 140-2 Level 3 (Federal Information Processing Standard)
+            * MFA + access & authentication management (users & keys) vs IAM
+            * hardware acceleration
+            * supported by Redshift
+ CSE     = client side encryption (could use the Amazon S3 Encryption Client)
 
 the default encryption setting will be applied only to non-encrypted objects,
 meaning that if an object is already encrypted (e.g via bucket policy) it won't be altered.
@@ -303,20 +306,22 @@ meaning that if an object is already encrypted (e.g via bucket policy) it won't 
 * to buckets/objects                 via new public bucket or access point policies
 * to buckets/objects + cross-account via ANY public bucket or access point policies
 
-pre-signed URLs
-generate GET ones with cli, GET/PUT ones with SDK (creator's get/put permissions inherited by users)
+=== pre-signed URLs
+generate GET ones with cli, GET/PUT ones with SDK (creator's get/put permissions inherited by users),
 valid for a limited time only (3600s by default)
 
 === with CloudFront in front of our bucket, we must use CloudFront signed (e.g use lambda@edge)
 * URLs for single files
 * signed cookies for multiple files
+
 because bucket access is restricted to the OAI
 
 === CORS: cross-origin resource sharing (web browser security mechanism)
-get index.html                         from www.example.com (origin - protocol://domain:port),
-    index.html tries to get a resource from   net.games.com (cross-origin)
-                                              net.games.com needs to send headers Access-Control-Allow-Origin:  https://www.example.com
-                                                                                  Access-Control-Allow-Methods: GET, ...
+
+ get index.html                         from www.example.com (origin - protocol://domain:port),
+     index.html tries to get a resource from   net.games.com (cross-origin)
+                                               net.games.com needs to send headers Access-Control-Allow-Origin:  https://www.example.com
+                                                                                   Access-Control-Allow-Methods: GET, ...
 
 === S3TA (S3 Transfer Acceleration)
 preferred over CloudFront + S3 for content bigger than 1GB
@@ -326,6 +331,7 @@ preferred over CloudFront + S3 for content bigger than 1GB
 file storage: managed NFS
 
 protect EFS with:
+
 * access points: manage app access
   override clients uid/gid then use rwx permissions (clients uid/gid trusted by default)
 * VPC SGs to control traffic to and from the file system
@@ -338,7 +344,7 @@ snowball edge compute ( 42TB) optimized: 52 vCPU, 208GiB RAM, optional GPU
 snowball edge storage ( 80TB) optimized: 40 vCPU,  80GiB RAM, up to 15 nodes storage cluster, cannot import to glacier directly
            snowmobile (100PB) - prefer to snowball if >10PB
 
-OpsHub: AWS 'snow' Console on your laptop
+OpsHub:: AWS 'snow' Console on your laptop
 
 == Async app to app communication
 
@@ -355,20 +361,21 @@ kinesis agent, SDK, KPL  ‒  SDK, KCL (=> EC2, lambda, ...)
 
 == Kinesis Data Firehose
 
-producers: SDK, agent, data streams/logs/events/IoT
-consumers: batch writes (near real time) - 32MB or 60s
-  => S3
-  => redshift (via S3)
-  => ElasticSearch (now OpenSearch)
+producers:: SDK, agent, data streams/logs/events/IoT
+consumers:: batch writes (near real time) - 32MB or 60s
+
+ => S3
+ => redshift (via S3)
+ => ElasticSearch (now OpenSearch)
 
 custom data transform with lambda
 
 == SQS (Simple Queue Service)
 
-visibility timeout (30s): message invisible to other consumers,
-ChangeMessageVisibility API call if not done processing
+visibility timeout (30s):: message invisible to other consumers,
+`ChangeMessageVisibility` API call if not done processing
 
-MaximumReceives: times a msg is allowed to go back to the queue,
+MaximumReceives:: times a msg is allowed to go back to the queue,
                  then move it to DLQ (dead letter queue)
 
 - delay queue: postpone all new messages for up to 15min,
@@ -378,12 +385,12 @@ MaximumReceives: times a msg is allowed to go back to the queue,
 long polling (up to 20s) => less API calls. enable at Q level or WaitTimeSeconds API
 
 === ordering
-FIFO + group ID: block group A messages for other consumers while a group A
-                 batch is in flight (being processed, eg. A3-A2-A1), else a
-                 consumer could process say A4 before and the ordering would be broken => A3-A2-A1-A4
+FIFO + group ID:: block group A messages for other consumers while a group A +
+                  batch is in flight (being processed, eg. A3-A2-A1), else a +
+                  consumer could process say A4 before and the ordering would be broken => A3-A2-A1-A4
 
 === request-response systems (producers want a response back)
-the producers (requesters) send messages ( [ID/response Q (answer expected there)] ) to a single request Q,
+the producers (requesters) send messages ( [ID/response Q (answer expected there)] ) to a single request Q, +
 the consumers (responders) reply via many virtual Qs (SQS Temporary Queue Java Client needed)
 
 == SNS (Simple Notification Service)
@@ -394,29 +401,30 @@ publish -+- phone (SMS),
 
 100_000 topics -> 12_500_000 subscriptions per topic (optional JSON policy to filter messages)
 
-FIFO topic: ordering of messages per group
-            subscribers can only be SQS FIFO (throughput limited to 300/s -> up to 3000/s in batch mode with batches of 10)
+FIFO topic:: ordering of messages per group +
+             subscribers can only be SQS FIFO (throughput limited to 300/s -> up to 3000/s in batch mode with batches of 10)
 
 == ECS (Elastic Container Service)
 
 launch types
+
 * Fargate: 1 ENI (private IP) per task,     the task  will use  an ECS task role
 *     EC2: 1 ECS agent        per instance, the agent will use the EC2 instance profile role <-> ECS, ECR, CloudWatch
 
-ECS cluster
-   container instances (e.g EC2)
-      services - our app will be a versioned service (v1, v2, ...)
-          tasks - tasks are isolated in services, many services can be defined on the same container instances.
+ ECS cluster
+    container instances (e.g EC2)
+       services - our app will be a versioned service (v1, v2, ...)
+           tasks - tasks are isolated in services, many services can be defined on the same container instances.
 
 share data among tasks by mounting EFS volumes onto the tasks
 
-scaling:
+scaling::
 CloudWatch alarm (e.g on CPU service usage) -> service auto scale -> [for EC2 launch type we would also need an ASG for the container instances]
 
 === ports and SG
 
 ==== ALB - TG
-individual processes run on separate EC2 instances =>
+individual processes run on separate EC2 instances => +
 if ALB listens on port 80, the process can also listen on port 80
 
 ==== ALB - service on EC2
@@ -432,9 +440,13 @@ on the ENIs SGs allow the task port from the ALB SG
 
 === Metrics
 * namespaces (e.g EC2) + up to 10 dimensions (identification attributes)
-* custom metrics: PutMetricData API call (accepts data points 2 weeks in the past & 2h in the future)
-                  StorageResolution - std: 1min, high: write 1s
-                                                        read 1/5/10/30s
+* custom metrics:
++
+`PutMetricData` API call (accepts data points 2 weeks in the past & 2h in the future)
++
+ StorageResolution - std: 1min, high: write 1s
+                                       read 1/5/10/30s
++
 * metric filter: metric based on CloudWatch Logs filter
 
 EC2: metrics every 5 min or every 1 min with detailed monitoring, no RAM metric
@@ -442,8 +454,8 @@ EC2: metrics every 5 min or every 1 min with detailed monitoring, no RAM metric
 === Logs
 - query logs with insights
 - unified agent (EC2/on-prem, old: logs agent)
-    - extra system-level metrics
-    - centralized configuration with SSM parameter store
+    * extra system-level metrics
+    * centralized configuration with SSM parameter store
 - export (up to 12h to become ready): CreateExportTask API call, not real or near-real time
 - subscription filter: real time (pub/sub - lambda, kinesis)
 
@@ -464,39 +476,43 @@ schema registry: collection of JSON events to help generate code
 == CloudTrail
 
 90 days retention for events
+
 * management events (e.g CreateSubnet; can separate Read/Write)
 * data events (e.g GetObject; not logged by default)
 
-enable insights to continuously analyse management write events in order to detect unusual activity => console
-                                                                                                    => S3
-                                                                                                    => EventBridge event
+ enable insights to continuously analyse management write events in order to detect unusual activity => console
+                                                                                                     => S3
+                                                                                                     => EventBridge event
 
 == AWS Config
 
 * record configuration changes
-* evaluate compliance rules (managed or custom with lambda: e.g are all EBS disks of type io2?)
-                      +- eval/trigger per change or at intervals
+* evaluate compliance rules (managed or custom with lambda: e.g are all EBS disks of type io2?) +
+                      +- eval/trigger per change or at intervals +
                       +- remediation of non-compliant resources with SSM automation documents (managed or custom)
 
 == Lambda
 
-400_000 GB-seconds of compute time per month for free:
+400_000 GB-seconds of compute time per month for free: +
 400_000 seconds if function is 1GB RAM
 
-limits per region: 128MB - 10GB RAM
-                   15min (900s)
-                   1000 concurrent executions
-                   env    4KB
-                   /tmp 512MB, up to 10GB ($)
-                   size  50MB compressed or 250MB uncompressed
+limits per region::
+* 128MB - 10GB RAM
+* 15min (900s)
+* 1000 concurrent executions
+* env    4KB
+* /tmp 512MB, up to 10GB ($)
+* size  50MB compressed or 250MB uncompressed
 
 == Step Functions
 
 coordinate and orchestrate multiple AWS services (lambda, glue, ...) into serverless workflows (visual or JSON state machine)
+
 * maximum execution time of 1 year.
 * possibility to implement human approval feature
 
 use SWF (Simple Workflow Service, EC2 => not serverless) instead if:
+
 - you need external signals
 - you need child processes
 
@@ -515,6 +531,7 @@ react to changes by enabling streams (and we get 24h data retention)
 - expose any AWS service
 
 security
+
 - internal: IAM permissions in headers (leverages sig v4)
 - 3rd party (OAuth, SAML): token in headers, validate with lambda authorizer and return IAM policy (can be cached)
 - CUP: authentication only
@@ -524,13 +541,13 @@ security
 federated means 3rd party source (e.g Google, Facebook)
 
 === Authenticate to app
-* Cognito User Pools (CUP is an IdP, an identity provider: serverless db of users)
-  sign-in (verif, MFA, ...) -> JSON web token
+Cognito User Pools (CUP is an IdP, an identity provider: serverless db of users), +
+sign-in (verif, MFA, ...) -> JSON web token
 
 === Authorize to use AWS resources
-* Cognito Identity (role) Pools (credentials provider, prefer to AssumeRoleWithWebIdentity)
-  login to get token from IdP (Facebook, CUP, ...)
-  Identity Pool verifies token and gets IAM creds from STS
+Cognito Identity (role) Pools (credentials provider, prefer to `AssumeRoleWithWebIdentity`) +
+login to get token from IdP (Facebook, CUP, ...) +
+Identity Pool verifies token and gets IAM creds from STS
 
 AppSync (old Cognito sync): save app state (20 datasets - 1MB), devices sync, offline, id pool needed
 
@@ -540,7 +557,7 @@ grant limited and temporary access to resources (token valid for 15min - 1h)
 
 * AssumeRole... (STS APIs)
    - AWS: dev account -- assume UpdateProdBucket role: STS gives token --> modify prod account bucket
-   - 3rd: IdP (e.g ADFS) sends SAML assertion, AssumeRoleWithSAML,            STS returns temp creds
+   - 3rd: IdP (e.g ADFS) sends SAML assertion, `AssumeRoleWithSAML`,          STS returns temp creds
                                                POST assertion to SSO endpoint
 * GetSessionToken (for MFA)
 
@@ -549,13 +566,15 @@ federation with SAML 2.0 is the old way, prefer SSO federation
 == SSO (Single Sign-On)
 
 when we need to login to:
+
 * many AWS accounts
 * many 3rd party business apps (Slack, Dropbox, Office 365, ...)
 * many custom SAML applications
-   Id store - [3rd IdP portal] - AssumeRoleWithSAML
-   Id store - [3rd IdP portal] - AssumeRoleWithSAML
-   Id store - [3rd IdP portal] - AssumeRoleWithSAML
-              +- with SSO no need to manage all these portals, we connect directly to the Id store
++
+Id store - [3rd IdP portal] - AssumeRoleWithSAML +
+Id store - [3rd IdP portal] - AssumeRoleWithSAML +
+Id store - [3rd IdP portal] - AssumeRoleWithSAML +
+           +- with SSO no need to manage all these portals, we connect directly to the Id store
 
 == Directory Services
 
@@ -567,9 +586,9 @@ Microsoft AD: centralized users/assets management from the domain controller
 
 == Organizations
 
-Root OU
-   master account
-      OUs + member accounts
+ Root OU
+    master account
+       OUs + member accounts
 
 create accounts + OU (organizational units) per BU(business unit)/env/project/...
 
