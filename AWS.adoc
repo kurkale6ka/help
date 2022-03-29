@@ -1,7 +1,7 @@
 :toc: left
 == EC2 (Elastic Compute Cloud)
 
-=== tenancy:
+=== tenancy
 * VPC dedicated tenancy => EC2 dedicated
 * VPC   default tenancy => EC2 dedicated only if the launch config says so, else shared
 
@@ -51,17 +51,9 @@ seamless handling of downstream instances failures
 * pass through (but TLS offloading possible), request IP goes all the way to the app
 * static IPs per AZ => customers can whitelist us
 
-Networking security
-
-  SG - statefull, if one way is allowed then the return way is automatically allowed
-NACL - stateless, both ways are always evaluated
-
-services behing SGs:
-EC2, ELB, EFS, RDS, ElastiCache
-
 == CloudFront (CDN - cache content at the edge)
 
-=== defenses:
+=== defenses
 - endpoint ELBs will only see CloudFront IPs, not client ones =>
   NACL has no effect on allowing/denying traffic. our only line of defense is WAF
 - whitelist/blacklist geo restriction
@@ -74,12 +66,12 @@ EC2, ELB, EFS, RDS, ElastiCache
 multi-origins based on /path/*
 origin groups (primary/secondary) for failover
 
-=== price classes:
+=== price classes
 class all - all regions
 class 200 - all, without the most expensive ones
 class 100 - least expensive regions only
 
-=== field level encryption:
+=== field level encryption
 extra security on top of https - specify up to 10 fields in your POST request
 asymmetric encryption (e.g credit card details) on the edge, decrypted by app's (e.g behind ALB origin) private key
 
@@ -101,9 +93,13 @@ io2 | 4 GiB to 16 TiB |  32 000 piops |            |
     |                 |  64 000 piops |            | + Nitro
     | 4 GiB to 64 TiB | 256 000 piops |            | + block express
 
-=== encrypt unencrypted EBS volume / RDS database - create a snapshot, then:
-create new encrypted EBS volume from it or
-copy it into an encrypted one, create new volume/db from it
+=== encrypt unencrypted EBS volume / RDS database
+
+create a snapshot, then:
+- create new encrypted EBS volume from it or
+- copy it into an encrypted one, create new volume/db from it
+
+== FSx: 3rd party high-performance file systems
 
 shared storage (we need to create mount ENI targets, to be mounted on EC2, ...):
 * EFS (NFS),
@@ -113,7 +109,7 @@ shared storage (we need to create mount ENI targets, to be mounted on EC2, ...):
 FSx persistent file system: data is replicated
 FSx scratch    file system: temp storage, faster, cheaper
 
-Storage Gateway (on-premises -> S3)
+== Storage Gateway (on-premises -> S3)
 
 hybrid storage integration (storage gateways needed because S3 proprietary):
 on-premises                                                       | cloud
@@ -134,11 +130,11 @@ virtualization is needed to install the gateways, instead we can buy a HW applia
 - use a launch template to provision a mix of on-demand & spot instances
 - increase deregistration delay to not interrupt long running processes when scaling-in
 
-=== EC2 instances are in one of the following states:
+=== EC2 instances are in one of the following states
 - InService
 - Standby: helps you temporarily remove an instance from the ASG
 
-EC2 status check (ok or impaired)
+=== EC2 status check (ok or impaired)
 * instance status check
 *   system status check => AWS responsibility to repair
 
@@ -164,7 +160,7 @@ Use golden AMI so updates, app install, ... take less time => we can set a small
 In AWS there is a network cost when data moves between AZs,
 but not for read replicas (only cross-region)
 
-Aurora DB
+== Aurora DB
 
 auto scaling storage (10GB - 128TB, redshift: 1-128 nodes each up to 128TB)
 writer + reader OR custom endpoint(s)
@@ -173,7 +169,7 @@ read replicas:
 * each replica is associated with a priority tier (0-15)
 * failover: promote replica with lowest-tier & max-size (highest priority combination)
 
-Redshift
+== Redshift
 
 * no multi-AZ: better enable automated cluster snapshots cross-region COPY (every 8h, 5GB or on a schedule) for DR
 * spectrum: perform queries directly against S3 (no need to load)
@@ -187,7 +183,7 @@ both redshift and athena use Presto (distributed SQL query engine)
 * heavy code changes required
 * no IAM auth, Redis auth or Memcached SASL
 
-=== Redis only features:
+=== Redis only features
 * advanced data structures (e.g sorted sets for real-time leaderboards)
 * snapshots
 * replication
@@ -196,7 +192,7 @@ both redshift and athena use Presto (distributed SQL query engine)
 * lua scripting
 * geospatial support
 
-=== Memcached only feature:
+=== Memcached only feature
 multithreaded architecture
 
 == Route 53
@@ -209,7 +205,7 @@ record with multiple A values -> the client will choose at random (client side L
 health checks: only return IPs for healthy resources
                e.g give me a healthy ALB, then target group health check to give me a healthy EC2 instance
 
-=== routing policies:
+=== routing policies
 
 - simple (no health checks)
 - weighted
@@ -256,7 +252,7 @@ deleting a specific version or a 'delete marker' one is permanent.
 you can place a retention period on an object version either explicitly (Retain Until Date) or through a bucket default setting.
 like all other object lock settings, retention periods apply to individual object versions
 
-=== storage classes:
+=== storage classes
 std | intelligent-tiering | std-ia | 1 zone-ia | glacier | glacier deep archive
 
         std, std-ia -> 30 days min stay before transition to std-ia or 1 zone-ia
@@ -273,7 +269,7 @@ replication isn't chained:
 A -> B -> C doesn't mean A -> C.
 objects in B replicated from A aren't considered new. only explicit new ones will be replicated to C
 
-=== encryption:
+=== encryption
 metadata is NOT encrypted
 
 SSE-S3  = "x-amz-server-side-encryption": "AES256",  in header
@@ -290,7 +286,7 @@ CSE     = client side encryption (could use the Amazon S3 Encryption Client)
 the default encryption setting will be applied only to non-encrypted objects,
 meaning that if an object is already encrypted (e.g via bucket policy) it won't be altered.
 
-block all public access
+=== block all public access
 * to buckets/objects                 via new ACLs
 * to buckets/objects                 via ANY ACLs (existing ones too)
 * to buckets/objects                 via new public bucket or access point policies
@@ -300,18 +296,19 @@ pre-signed URLs
 generate GET ones with cli, GET/PUT ones with SDK (creator's get/put permissions inherited by users)
 valid for a limited time only (3600s by default)
 
-with CloudFront in front of our bucket, we must use CloudFront signed (e.g use lambda@edge):
+=== with CloudFront in front of our bucket, we must use CloudFront signed (e.g use lambda@edge)
 * URLs for single files
 * signed cookies for multiple files
 because bucket access is restricted to the OAI
 
-CORS: cross-origin resource sharing (web browser security mechanism)
+=== CORS: cross-origin resource sharing (web browser security mechanism)
 get index.html                         from www.example.com (origin - protocol://domain:port),
     index.html tries to get a resource from   net.games.com (cross-origin)
                                               net.games.com needs to send headers Access-Control-Allow-Origin:  https://www.example.com
                                                                                   Access-Control-Allow-Methods: GET, ...
 
-S3TA (S3 Transfer Acceleration) is preferred over CloudFront + S3 for content bigger than 1GB
+=== S3TA (S3 Transfer Acceleration)
+preferred over CloudFront + S3 for content bigger than 1GB
 
 == EFS (Elastic File System)
 
@@ -338,14 +335,14 @@ OpsHub: AWS 'snow' Console on your laptop
                        pub/sub model: SNS
 real-time streaming (~pub/sub) model: kinesis data streams (records with partition key, same key goes to same shard => ordering can be achieved)
 
-Kinesis Data streams (retention: 1(default) - 365days, replay...)
+== Kinesis Data streams (retention: 1(default) - 365days, replay...)
 
         producers                     consumers
 kinesis agent, SDK, KPL  ‒  SDK, KCL (=> EC2, lambda, ...)
  1 MB/s (or 1000 msg/s)  ‒  2 MB/s per shard per all      (shared)
               per shard  ‒  2 MB/s per shard per consumer (enhanced fanout)
 
-Kinesis Data Firehose
+== Kinesis Data Firehose
 
 producers: SDK, agent, data streams/logs/events/IoT
 consumers: batch writes (near real time) - 32MB or 60s
@@ -369,14 +366,14 @@ MaximumReceives: times a msg is allowed to go back to the queue,
 
 long polling (up to 20s) => less API calls. enable at Q level or WaitTimeSeconds API
 
-request-response systems (producers want a response back):
-the producers (requesters) send messages ( [ID/response Q (answer expected there)] ) to a single request Q,
-the consumers (responders) reply via many virtual Qs (SQS Temporary Queue Java Client needed)
-
-ordering:
+=== ordering
 FIFO + group ID: block group A messages for other consumers while a group A
                  batch is in flight (being processed, eg. A3-A2-A1), else a
                  consumer could process say A4 before and the ordering would be broken => A3-A2-A1-A4
+
+=== request-response systems (producers want a response back)
+the producers (requesters) send messages ( [ID/response Q (answer expected there)] ) to a single request Q,
+the consumers (responders) reply via many virtual Qs (SQS Temporary Queue Java Client needed)
 
 == SNS (Simple Notification Service)
 
@@ -402,26 +399,27 @@ ECS cluster
 
 share data among tasks by mounting EFS volumes onto the tasks
 
-ALB - TG:
+scaling:
+CloudWatch alarm (e.g on CPU service usage) -> service auto scale -> [for EC2 launch type we would also need an ASG for the container instances]
+
+=== ports and SG
+
+==== ALB - TG
 individual processes run on separate EC2 instances =>
 if ALB listens on port 80, the process can also listen on port 80
 
-ALB - service on EC2:
+==== ALB - service on EC2
 multiple tasks can reside on the same container instance => if ALB listens on
 port 80, all tasks can't listen on port 80 so they listen on random ports which
 the ALB will automatically find, therefore on the container instance's SG we
 must allow all ports from ALB's SG
 
-ALB - service on Fargate:
+==== ALB - service on Fargate
 on the ENIs SGs allow the task port from the ALB SG
-
-scaling
-
-CloudWatch alarm (e.g on CPU service usage) -> service auto scale -> [for EC2 launch type we would also need an ASG for the container instances]
 
 == CloudWatch
 
-Metrics
+=== Metrics
 * namespaces (e.g EC2) + up to 10 dimensions (identification attributes)
 * custom metrics: PutMetricData API call (accepts data points 2 weeks in the past & 2h in the future)
                   StorageResolution - std: 1min, high: write 1s
@@ -430,8 +428,7 @@ Metrics
 
 EC2: metrics every 5 min or every 1 min with detailed monitoring, no RAM metric
 
-Logs
-
+=== Logs
 - query logs with insights
 - unified agent (EC2/on-prem, old: logs agent)
     - extra system-level metrics
@@ -439,7 +436,7 @@ Logs
 - export (up to 12h to become ready): CreateExportTask API call, not real or near-real time
 - subscription filter: real time (pub/sub - lambda, kinesis)
 
-EventBridge (old CloudWatch events)
+== EventBridge (old CloudWatch events)
 
 * can intercept any AWS events and define action targets for them.
 * define CRON jobs (execute task with lambda)
@@ -482,7 +479,7 @@ limits per region: 128MB - 10GB RAM
                    /tmp 512MB, up to 10GB ($)
                    size  50MB compressed or 250MB uncompressed
 
-Step Functions
+== Step Functions
 
 coordinate and orchestrate multiple AWS services (lambda, glue, ...) into serverless workflows (visual or JSON state machine)
 * maximum execution time of 1 year.
@@ -511,22 +508,22 @@ security
 - 3rd party (OAuth, SAML): token in headers, validate with lambda authorizer and return IAM policy (can be cached)
 - CUP: authentication only
 
-Cognito (works with API gw, ALB, not CloudFront)
+== Cognito (works with API gw, ALB, not CloudFront)
 
 federated means 3rd party source (e.g Google, Facebook)
 
-Authenticate to app
+=== Authenticate to app
 * Cognito User Pools (CUP is an IdP, an identity provider: serverless db of users)
   sign-in (verif, MFA, ...) -> JSON web token
 
-Authorize to use AWS resources
+=== Authorize to use AWS resources
 * Cognito Identity (role) Pools (credentials provider, prefer to AssumeRoleWithWebIdentity)
   login to get token from IdP (Facebook, CUP, ...)
   Identity Pool verifies token and gets IAM creds from STS
 
 AppSync (old Cognito sync): save app state (20 datasets - 1MB), devices sync, offline, id pool needed
 
-STS (Security Token Service)
+== STS (Security Token Service)
 
 grant limited and temporary access to resources (token valid for 15min - 1h)
 
@@ -538,7 +535,7 @@ grant limited and temporary access to resources (token valid for 15min - 1h)
 
 federation with SAML 2.0 is the old way, prefer SSO federation
 
-SSO (Single Sign-On)
+== SSO (Single Sign-On)
 
 when we need to login to:
 * many AWS accounts
@@ -549,7 +546,7 @@ when we need to login to:
    Id store - [3rd IdP portal] - AssumeRoleWithSAML
               +- with SSO no need to manage all these portals, we connect directly to the Id store
 
-Directory Services
+== Directory Services
 
 Microsoft AD: centralized users/assets management from the domain controller
 
@@ -557,7 +554,7 @@ Microsoft AD: centralized users/assets management from the domain controller
 * AD connector:  on-prem <=      - proxy to on-prem AD, manage all users in there
 * simple AD:       N/A       AWS - AD-compatible, manage on AWS, no on-prem connection
 
-Organizations
+== Organizations
 
 Root OU
    master account
@@ -573,7 +570,7 @@ SCP (service control policies, restrictive by default):
 
 move account to another organization: delete from current, invite from 2nd
 
-IAM (Identity and Access Management)
+== IAM (Identity and Access Management)
 
 a role is both an identity and a 'resource' => it needs a trust policy to define who can assume the role
 e.g lambdas have exe roles and resource-based policies (GUI bottom) which define the allowed callers
@@ -597,7 +594,7 @@ condition - aws:SourceIP, aws:RequestedRegion, ec2:ResourceTag
 * arn:aws:s3:::my-bucket   => bucket level permission (e.g ListBucket)
 * arn:awn:s3:::my-bucket/* => object level permission (e.g Get/PutObject)
 
-Resource Access Manager
+== Resource Access Manager
 
 avoid resource duplication: share resources with any account
 
@@ -605,7 +602,7 @@ VPC subnets
 * share within organization only
 * network is shared => access via private IPs (cross-account SGs can be referenced but not viewed)
 
-Encryption
+== Encryption
 
 KMS (Key Management Service)
 - share passwords/credentials/certificates
@@ -632,23 +629,23 @@ access: MANDATORY key policy + optional IAM policy
 
 A deleted CMK is in the 'pending deletion' status and can be recovered for 7 - 30days (default)
 
-SSM Parameter Store
+== SSM Parameter Store
 
 secure storage for configuration and secrets, version tracking
 ssm.get_parameters(Names=['/site/prod/db-url'], WithDecryption=True)
 
 std vs advanced (TTL in parameters policies, more params of bigger size + higher throughput)
 
-AWS Secrets Manager (mostly for RDS MySQL, PostgreSQL, Aurora)
+== AWS Secrets Manager (mostly for RDS MySQL, PostgreSQL, Aurora)
 
 * rotation of secrets + new auto generation
 * KMS encrypted
 
-Shield
+== Shield
 
 Route 53, CloudFront, Global Accelerator, ELB, EC2
 
-WAF (Web Application Firewall)
+== WAF (Web Application Firewall)
 
 CloudFront, ALB, API Gateway
 
@@ -658,14 +655,14 @@ web ACLs:
 * rate (DDoS) + geo-match rules
 * SQL injection + XSS (cross-site scripting)
 
-AWS Firewall Manager
+== AWS Firewall Manager
 
 common set of security rules at the organization level:
 - WAF             (CloudFront, ALB,     API Gateway)
 - Shield advanced (CloudFront, ALB/CLB, Elastic IP )
 - SG              (EC2 + ENI)
 
-GuardDuty (uses ML, anomaly detection, 3rd party data)
+== GuardDuty (uses ML, anomaly detection, 3rd party data)
 
 threat discovery (cryptocurrency attacks, malicious IPs):
 * DNS logs
@@ -673,13 +670,13 @@ threat discovery (cryptocurrency attacks, malicious IPs):
 * CloudTrail mgmt events
 * S3 data events
 
-Amazon inspector
+== Amazon inspector
 
 EC2 - agent     => OS vulnerabilities, CIS (center for internet security) benchmarks
       agentless => network accessibility
 inspector service to send report via SNS
 
-Amazon Macie
+== Amazon Macie
 
 ML + pattern matching to alert about exposed (e.g in S3) sensitive data (PII: personally identifiable information)
 
@@ -702,7 +699,7 @@ best practice:
  public subnet /24 - 256 (we don't need too many hosts in a public subnet)
 private subnet /20 - 4096
 
-NACL (Network Access Control List) aka subnet firewall
+=== NACL (Network Access Control List) aka subnet firewall
 
 * stateless: always needs in + out rules
 * rules are evaluated from lowest to highest number, 1st one wins (low num = high precedence)
@@ -710,7 +707,15 @@ NACL (Network Access Control List) aka subnet firewall
 * default NACL => allow everything, new NACL => deny everything
 * best practice: use increments of 100 to allow room for more rules
 
-ephemeral ports
+==== networking security
+
+  SG - statefull, if one way is allowed then the return way is automatically allowed
+NACL - stateless, both ways are always evaluated
+
+services behing SGs:
+EC2, ELB, EFS, RDS, ElastiCache
+
+==== ephemeral ports
 
 - clients connect to a defined port, and expect a response on an ephemeral port
 - because NACL are stateless, we lose info about source port of incoming
@@ -720,10 +725,10 @@ ephemeral ports
   allow TCP/3306      to   db subnet  -->>  allow TCP/3306      from web subnet
   allow TCP/ephemeral from db subnet  <<--  allow TCP/ephemeral to   web subnet
 
-DNS support/resolution (true + route 53 by default):
+=== DNS support/resolution (true + route 53 by default)
 it's best to have a DNS server within the VPC to avoid unnecessary network traffic
 
-DNS hostnames (false by default, true for default VPC):
+=== DNS hostnames (false by default, true for default VPC)
 * needs enableDnsSupport=true
 * if true => add public DNS for public instances
 
@@ -734,7 +739,7 @@ DNS resolver
     AWS wants mitko.example.com? route 53 outbound endpoint: forward queries to on-prem
 on-prem wants bla.amazonaws.com? route 53  inbound endpoint: on-prem resolvers can forward queries to us
 
-In public subnet:
+=== objects in public subnets
 
 - bastion host => connect to private EC2 instances
 
@@ -759,9 +764,9 @@ Also known as UDP encapsulation, it allows traffic to get to the specified
 destination which doesn't have a public IP address. In a S2S VPN connection, a
 CGW behind NAT needs NAT-T enabled
 
-VPC Peering: VPCs must not have overlapping CIDRs
+=== VPC Peering: VPCs must not have overlapping CIDRs
 
-VPC Endpoints (AWS PrivateLink)
+=== VPC Endpoints (AWS PrivateLink)
 
 * interface endpoints: ENI (private IP => SG)
 * gateway endpoints (at no cost!): S3, DynamoDB
@@ -770,12 +775,12 @@ VPC Endpoints (AWS PrivateLink)
 - DNS support must be on, route tables will need amending,
   no need for IGW or NATGW
 
-VPC Endpoint Services (PrivateLink)
+=== VPC Endpoint Services (PrivateLink)
 
 expose your own services (not AWS ones as above) through a NLB (or GWLB),
 then consumers can connect via ENI thanks to PrivateLink
 
-Flow Logs
+=== VPC Flow Logs
 
 troubleshoot SG & NACL issues
 
@@ -792,22 +797,22 @@ ver | account | eni | src + dst IPs | src + dst ports | proto | packets | bytes 
                                                                                                       v   v
                                                                                                       SG, NACL - ACCEPT/REJECT
 
-Traffic Mirroring
+=== Traffic Mirroring
 
 capture actual IP traffic for deeper inspection: tcpdump
 e.g from EC2 ENI to another ENI or NLB
 
-EC2-Classic (deprecated, CLB is another classic resource)
+=== EC2-Classic (deprecated, CLB is another classic resource)
 
 pre-VPC era: instances ran in a single network shared with other customers.
 to link those old instances to our VPC, we need ClassicLink
 
-Site-to-Site (S2S) VPN or DX
+== Site-to-Site (S2S) VPN or Direct Connect (DX)
 
-VPN:
+=== VPN
 IPsec over the public Internet
 
-Direct Connect (DX):
+=== Direct Connect (DX)
 unencrypted private connection (add VPN between DX location and DC to have IPsec encryption)
 
 * 1 month to setup connection
@@ -830,15 +835,15 @@ VGW region 1 \
               <--> DX Gateway <-> DX <-> DC (direct connect for same region, direct connect gw cross-regions)
 VGW region 2 /
 
-AWS side
+=== AWS side
 * must enable route propagation so subnets know how to contact the VPN gateway
 * VPN concentrator (device that helps to manage multiple VPN connections => VPN on a larger scale)
 * allows for custom ASN (Autonomous System Number). Edge location???
 
-on-premises
+=== on-premises
 * enable NAT-T if behind NAT
 
-Transit Gateway (IP multicast)
+== Transit Gateway (IP multicast)
 
 transitive peering (traffic passes through) of multiple VPCs:
 - peering
@@ -849,7 +854,7 @@ transitive peering (traffic passes through) of multiple VPCs:
 * peer with other Transit Gateways across regions
 * use route tables to limit communications
 
-ECMP (equal-cost multi-path)
+=== ECMP (equal-cost multi-path)
 
 define multiple S2S VPN connections to increase the bandwidth of your connection to AWS
 
@@ -857,14 +862,14 @@ define multiple S2S VPN connections to increase the bandwidth of your connection
 2x                         5Gbps
 3x                       7.5Gbps
 
-IPv6
+== IPv6
 
 * IPv6 addresses are public and Internet-routable (no private range)
 * egress-only IGW => same effect as a NAT gw but IPv6 are public so no NAT is needed
 * 2001:db8::1234:5678 -> the middle 4 segments are zero
 * IPv4 + IPv6 = dual-stack mode
 
-Networking Costs in AWS
+== Networking Costs in AWS
 
 free for ingress traffic, we pay only when exiting AWS network
 
@@ -874,22 +879,22 @@ free for ingress traffic, we pay only when exiting AWS network
 * $0.09        out to S3  Internet (cross-region)
 * $0.085 CloudFront + S3  Internet (actually cheaper and S3 requests are 7x cheaper => way better than S3 alone)
 
-Disaster recovery
+== Disaster recovery
 
 - RPO: Recovery Point Objective => minimize data loss
        /!\ disaster /!\
 - RTO: Recovery  Time Objective => minimize downtime
 
 on-premises to AWS cloud examples:
-• Backup and restore                                  - backup/restore from snapshots:  cheapest ->   high RPO + RTO
-• Pilot light  (bare-core up in the cloud)            -                    DB replica:     cheap ->  lower RPO + RTO
-• Warm standby (full min-size system up in the cloud) -        ELB + ASG + DB replica: expensive ->    low RPO + RTO
-• Hot site     (full     size system up in the cloud) -        ELB + ASG + DB replica:    COSTLY -> lowest RPO + RTO
+* Backup and restore                                  - backup/restore from snapshots:  cheapest ->   high RPO + RTO
+* Pilot light  (bare-core up in the cloud)            -                    DB replica:     cheap ->  lower RPO + RTO
+* Warm standby (full min-size system up in the cloud) -        ELB + ASG + DB replica: expensive ->    low RPO + RTO
+* Hot site     (full     size system up in the cloud) -        ELB + ASG + DB replica:    COSTLY -> lowest RPO + RTO
   multi site active-active approach
 
 chaos: test your prod setup (ref. Netflix simian-army)
 
-Migration to AWS
+== Migration to AWS
 
 * VM import/export (VMs <-> EC2, or ami.iso to use on-premises)
 * Migration Hub
@@ -897,7 +902,7 @@ Migration to AWS
 * SMS (Server Migration Service) - live DMS-like migration
 *    Database Migration Service (section below)
 
-DMS (Database Migration Service)
+=== DMS (Database Migration Service)
 
 source -- EC2 with DMS -- destination
 +- all dbs                +- all dbs
@@ -908,7 +913,7 @@ source -- EC2 with DMS -- destination
 * for heterogeneous migrations (different db engines), SCT (Schema ConversionTool) is needed beforehand
 * continuous data replication with CDC (Change Data Capture): source remains available
 
-DataSync
+=== DataSync
 
 move large amounts of data to AWS (can be used together with snow family). storage gateway is for moving data to S3 only.
 
@@ -918,13 +923,13 @@ on-prem NAS (NFS/SMB) + DataSync agent => EFS
 
          EFS + EC2 with DataSync agent => EFS (AWS to AWS)
 
-AWS Backup
+== AWS Backup
 
 centralize AWS snapshots management:
 * we need a plan (frequency + retention policy) and AWS services => it all goes to S3
 * supports PITR (Point In Time Recovery), tag-based backups, ...
 
-HPC (High Performance Computing)
+== HPC (High Performance Computing)
 
 EC2 enhanced networking (SR-IOV): single root i/o virtualization:
 single NIC to present itself as several virtual NICs
@@ -935,7 +940,7 @@ single NIC to present itself as several virtual NICs
 AWS Batch: multi-node EC2/spot parallel jobs
 AWS ParallelCluster: open source cluster management tool for HPC
 
-CICD (Continuous Integration/Delivery) CodePipeline
+== CICD (Continuous Integration/Delivery) CodePipeline
 
 find/fix bugs early, deploy often
 *                   push to CodeCommit - GitHub
@@ -943,7 +948,7 @@ find/fix bugs early, deploy often
 * deploy passing build with CodeDeploy - Jenkins CD (continuous delivery: create packages)
 * provision with CloudFormation and/or Ansible (actual deploy???)
 
-CloudFormation
+== CloudFormation
 
 IaC (Infrastructure as Code)
 * YAML/JSON templates go in S3, deploy stack via cli
@@ -958,7 +963,7 @@ IaC (Infrastructure as Code)
 * dev env: save money by auto deleting 5pm / creating 8am templates
 * auto diagrams
 
-StackSets
+=== StackSets
 
 Manage stacks across multiple accounts/regions with a single operation.
 Update a stackset to update all stack instances.
@@ -970,7 +975,7 @@ Update a stackset to update all stack instances.
 Cost Explorer: Savings Plan alternative to Reserved Instances
    Transcribe: ASR (Automatic Speech Recognition) service => convert audio to text
 
-Well Architected Framework 5 Pillars
+== Well Architected Framework 5 Pillars
 
 * Operational excellence: IaC, anticipate failure
   CloudFormation, AWS Config, monitoring, CICD
@@ -987,16 +992,16 @@ Well Architected Framework 5 Pillars
 * Cost optimization
   Cost Explorer, Trusted Advisor, spot instances
                  |
-                 • cost optimization
-                 • performance
-                 • security
-                 • faulttolerance
-                 • service limits/quotas
+                 ** cost optimization
+                 ** performance
+                 ** security
+                 ** faulttolerance
+                 ** service limits/quotas
 
 https://aws.amazon.com/architecture/
 https://aws.amazon.com/solutions/
 
-Misc
+== Misc
 
 1 CPU = multiple cores + multiple threads. vCPU is the total of threads.
 
@@ -1014,4 +1019,4 @@ NOT serverless (you have to provision the EC2 instance/node type):
 
 * while exploring metrics in the console, I couldn't filter for sqs, it only worked by filtering for aws first! bug?
 
-# vim: fde=getline(v\:lnum)=~'^\\s*=='?'>'.(len(matchstr(getline(v\:lnum),'===*'))-1)\:'='
+// vim: fdm=expr fde=getline(v\:lnum)=~'^=='?'>'.(len(matchstr(getline(v\:lnum),'===*'))-1)\:'='
