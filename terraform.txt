@@ -45,6 +45,8 @@ folder with .tf files in it
     #   source = "environments/production"
     # }
 
+remote registry: [hostname]/namespace/name/provider//subdir
+
 Syntax
 
 blk_type "label1" ... "labeln" {
