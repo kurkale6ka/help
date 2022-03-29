@@ -1,4 +1,8 @@
 :toc: left
+:toc-title: AWS
+
+= AWS (Amazon Web Services)
+
 == EC2 (Elastic Compute Cloud)
 
 === tenancy
@@ -998,8 +1002,10 @@ Cost Explorer: Savings Plan alternative to Reserved Instances
                  ** faulttolerance
                  ** service limits/quotas
 
-https://aws.amazon.com/architecture/
-https://aws.amazon.com/solutions/
+=== Reference
+* https://aws.amazon.com/architecture/reference-architecture-diagrams[Architecture Diagrams^]
+* https://aws.amazon.com/architecture/[Architecture Examples and Best Practices^]
+* https://aws.amazon.com/solutions/[Solutions Library^]
 
 == Misc
 
