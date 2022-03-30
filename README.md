@@ -1,4 +1,4 @@
-* [AWS](AWS.txt)
+* [AWS](AWS.adoc)
 * [Perl](perl/perl.md)
 * [patch](patch.md)
 * [disk usage](du.txt)
