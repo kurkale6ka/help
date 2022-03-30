@@ -851,7 +851,8 @@ capture IP traffic
   inbound accept, outbound reject => NACL issue
  outbound accept,  inbound reject => NACL issue
 
-format::
+*format*:
+
  ver | account | eni | src + dst IPs | src + dst ports | proto | packets | bytes | epoch start + end | action | status
                                                                                                        v   v
                                                                                                        SG, NACL - ACCEPT/REJECT
