@@ -373,10 +373,12 @@ custom data transform with lambda
 == SQS (Simple Queue Service)
 
 visibility timeout (30s):: message invisible to other consumers,
-`ChangeMessageVisibility` API call if not done processing
+                           `ChangeMessageVisibility` API call if not done processing
 
 MaximumReceives:: times a msg is allowed to go back to the queue,
-                 then move it to DLQ (dead letter queue)
+                  then move it to DLQ (dead letter queue)
+
+---
 
 - delay queue: postpone all new messages for up to 15min,
                send with DelaySeconds can override this
@@ -642,20 +644,18 @@ VPC subnets
 - share passwords/credentials/certificates
 - encryption at rest
 
-data > 4KB => use envelope encryption
-access: MANDATORY key policy + optional IAM policy
+data > 4KB => use envelope encryption +
+access: MANDATORY key policy + optional IAM policy +
                   +- default (complete access to root + allows access with IAM policies)
 
-* AWS services use symmetric AES-256 CMK (customer master key) keys
-  - AWS managed (free)
-  - customer imported
-  - customer managed (create, enable/disable, rotate)
-    |
-    +- automatic rotation: once a year - same key id, new backing key (keep old one)
-    |
-    +- manual rotation: if greater frequency needed or CMK is asymmetric so not eligible for automatic rotation
-       - new key id, new backing key (keep old one)
-       - apps use the key id so we need an alias to the id in this case
+* AWS services use symmetric AES-256 CMK (Customer Master Key) keys
+  ** AWS managed (free)
+  ** customer imported
+  ** customer managed (create, enable/disable, rotate)
+    *** automatic rotation: once a year - same key id, new backing key (keep old one)
+    *** manual rotation: if greater frequency needed or CMK is asymmetric so not eligible for automatic rotation
+       **** new key id, new backing key (keep old one)
+       **** apps use the key id so we need an alias to the id in this case
 
 * RSA, ECC (elliptic-curve cryptography) asymmetric keys are used for:
   - sign/verify integrity checks
@@ -666,7 +666,10 @@ A deleted CMK is in the 'pending deletion' status and can be recovered for 7 - 3
 == SSM Parameter Store
 
 secure storage for configuration and secrets, version tracking
+[source,python]
+----
 ssm.get_parameters(Names=['/site/prod/db-url'], WithDecryption=True)
+----
 
 std vs advanced (TTL in parameters policies, more params of bigger size + higher throughput)
 
@@ -684,6 +687,7 @@ Route 53, CloudFront, Global Accelerator, ELB, EC2
 CloudFront, ALB, API Gateway
 
 web ACLs:
+
 * IP filtering
 * http based rules (header, body, URI string)
 * rate (DDoS) + geo-match rules
@@ -692,6 +696,7 @@ web ACLs:
 == AWS Firewall Manager
 
 common set of security rules at the organization level:
+
 - WAF             (CloudFront, ALB,     API Gateway)
 - Shield advanced (CloudFront, ALB/CLB, Elastic IP )
 - SG              (EC2 + ENI)
@@ -699,6 +704,7 @@ common set of security rules at the organization level:
 == GuardDuty (uses ML, anomaly detection, 3rd party data)
 
 threat discovery (cryptocurrency attacks, malicious IPs):
+
 * DNS logs
 * VPC Flow logs
 * CloudTrail mgmt events
@@ -706,20 +712,21 @@ threat discovery (cryptocurrency attacks, malicious IPs):
 
 == Amazon inspector
 
-EC2 - agent     => OS vulnerabilities, CIS (center for internet security) benchmarks
-      agentless => network accessibility
+ EC2 - agent     => OS vulnerabilities, CIS (center for internet security) benchmarks
+       agentless => network accessibility
+
 inspector service to send report via SNS
 
 == Amazon Macie
 
-ML + pattern matching to alert about exposed (e.g in S3) sensitive data (PII: personally identifiable information)
+ML + pattern matching to alert about exposed (e.g in S3) sensitive data (PII: Personally Identifiable Information)
 
 == VPC (Virtual Private Cloud)
 
 IGW + routing table for the public subnets = Internet connectivity
 
 * 5 VPC per region (soft limit)
-* 5 CIDR per VPC: min /28 (    16 IPs)
+* 5 CIDR per VPC: min /28 (    16 IPs) +
                   max /16 (65 536 IPs)
 * reserved addresses (e.g 10.0.0.0/24)
   - 10.0.0.0: network
@@ -729,6 +736,7 @@ IGW + routing table for the public subnets = Internet connectivity
   - 10.0.0.255: broadcast (not supported in VPC!)
 
 best practice:
+
            VPC /16 - 65 536
  public subnet /24 - 256 (we don't need too many hosts in a public subnet)
 private subnet /20 - 4096
@@ -746,7 +754,7 @@ private subnet /20 - 4096
   SG - statefull, if one way is allowed then the return way is automatically allowed
 NACL - stateless, both ways are always evaluated
 
-services behing SGs:
+services behing SGs::
 EC2, ELB, EFS, RDS, ElastiCache
 
 ==== ephemeral ports
@@ -776,11 +784,12 @@ on-prem wants bla.amazonaws.com? route 53  inbound endpoint: on-prem resolvers c
 === objects in public subnets
 
 - bastion host => connect to private EC2 instances
++
+make it highly available:
 
-  make it highly available:
-  * ssh is layer 4 => multi-AZ NLB - ASG 1:1:1
-  * bonus - thanks to the NLB, the bastion can be moved to the private subnet
-
+* ssh is layer 4 => multi-AZ NLB - ASG 1:1:1
+* bonus - thanks to the NLB, the bastion can be moved to the private subnet
++
 - NAT (EC2) instance (deprecated)
   * disable source/destination check (can forward traffic)
   * must have elastic IP
@@ -793,6 +802,7 @@ on-prem wants bla.amazonaws.com? route 53  inbound endpoint: on-prem resolvers c
   * 5 to 45Gbps auto-scaling bandwidth
   * can't be used as bastion host
 
+[[NAT-T]]
 A private host behind NAT "can't" be contacted, for that you need NAT traversal:
 Also known as UDP encapsulation, it allows traffic to get to the specified
 destination which doesn't have a public IP address. In a S2S VPN connection, a
@@ -802,12 +812,12 @@ CGW behind NAT needs NAT-T enabled
 
 === VPC Endpoints (AWS PrivateLink)
 
+connect to AWS services privately (from within your private subnets) +
+DNS support must be on, route tables will need amending,
+no need for IGW or NATGW
+
 * interface endpoints: ENI (private IP => SG)
 * gateway endpoints (at no cost!): S3, DynamoDB
-
-- connect to AWS services privately (from within your private subnets)
-- DNS support must be on, route tables will need amending,
-  no need for IGW or NATGW
 
 === VPC Endpoint Services (PrivateLink)
 
@@ -819,21 +829,23 @@ then consumers can connect via ENI thanks to PrivateLink
 troubleshoot SG & NACL issues
 
 capture IP traffic
+
 * VPC, subnets, ENI
 * ELB, RDS, ElastiCache, Redshift, WorkSpaces, NATGW, Transit Gateway... (managed interfaces)
 
 -> |NACL| -> SG EC2:
- inbound accept, outbound reject => NACL issue
-outbound accept,  inbound reject => NACL issue
 
-format:
-ver | account | eni | src + dst IPs | src + dst ports | proto | packets | bytes | epoch start + end | action | status
-                                                                                                      v   v
-                                                                                                      SG, NACL - ACCEPT/REJECT
+  inbound accept, outbound reject => NACL issue
+ outbound accept,  inbound reject => NACL issue
+
+format::
+ ver | account | eni | src + dst IPs | src + dst ports | proto | packets | bytes | epoch start + end | action | status
+                                                                                                       v   v
+                                                                                                       SG, NACL - ACCEPT/REJECT
 
 === Traffic Mirroring
 
-capture actual IP traffic for deeper inspection: tcpdump
+capture actual IP traffic for deeper inspection: `tcpdump` +
 e.g from EC2 ENI to another ENI or NLB
 
 === EC2-Classic (deprecated, CLB is another classic resource)
@@ -849,14 +861,15 @@ IPsec over the public Internet
 === Direct Connect (DX)
 unencrypted private connection (add VPN between DX location and DC to have IPsec encryption)
 
-* 1 month to setup connection
-  - dedicated (1Gbps and 10Gbps)
-  - hosted (capacity on-demand: 50Mbps, 500Mbps, 1, 2, 5 to 10Gbps)
+WARNING: 1 month to setup connection
 
-* high resiliency:    multiple DX locations - multiple DCs
-  maximum resiliency: multiple DX locations - multiple DCs
-                       separate connections - separate connections
-                       per location           per DC
+- dedicated (1Gbps and 10Gbps)
+- hosted (capacity on-demand: 50Mbps, 500Mbps, 1, 2, 5 to 10Gbps)
+
+    high resiliency: multiple DX locations - multiple DCs
+ maximum resiliency: multiple DX locations - multiple DCs
+                      separate connections - separate connections
+                      per location           per DC
 
     virtual private gateway - VPN or DX
    /
@@ -865,9 +878,9 @@ VGW                  <--> CGW (customer gateway)
      [ DX location ] <--> customer router in DC
        AWS|customer
 
-VGW region 1 \
-              <--> DX Gateway <-> DX <-> DC (direct connect for same region, direct connect gw cross-regions)
-VGW region 2 /
+ VGW region 1 \
+               <--> DX Gateway <-> DX <-> DC (direct connect for same region, direct connect gw cross-regions)
+ VGW region 2 /
 
 === AWS side
 * must enable route propagation so subnets know how to contact the VPN gateway
@@ -875,14 +888,17 @@ VGW region 2 /
 * allows for custom ASN (Autonomous System Number). Edge location???
 
 === on-premises
-* enable NAT-T if behind NAT
+* enable <<NAT-T>> if behind NAT
 
 == Transit Gateway (IP multicast)
 
 transitive peering (traffic passes through) of multiple VPCs:
+
 - peering
 - VPNs
 - DX Gateways
+
+---
 
 * share cross-account with RAM
 * peer with other Transit Gateways across regions
@@ -892,9 +908,9 @@ transitive peering (traffic passes through) of multiple VPCs:
 
 define multiple S2S VPN connections to increase the bandwidth of your connection to AWS
 
-1x VPN gw = 2 tunnels = 1.25Gbps
-2x                         5Gbps
-3x                       7.5Gbps
+ 1x VPN gw = 2 tunnels = 1.25Gbps
+ 2x                         5Gbps
+ 3x                       7.5Gbps
 
 == IPv6
 
@@ -915,18 +931,21 @@ free for ingress traffic, we pay only when exiting AWS network
 
 == Disaster recovery
 
-- RPO: Recovery Point Objective => minimize data loss
-       /!\ disaster /!\
+- RPO: Recovery Point Objective => minimize data loss +
+       `*/!\ disaster /!\*`
 - RTO: Recovery  Time Objective => minimize downtime
 
 on-premises to AWS cloud examples:
-* Backup and restore                                  - backup/restore from snapshots:  cheapest ->   high RPO + RTO
-* Pilot light  (bare-core up in the cloud)            -                    DB replica:     cheap ->  lower RPO + RTO
-* Warm standby (full min-size system up in the cloud) -        ELB + ASG + DB replica: expensive ->    low RPO + RTO
-* Hot site     (full     size system up in the cloud) -        ELB + ASG + DB replica:    COSTLY -> lowest RPO + RTO
-  multi site active-active approach
 
-chaos: test your prod setup (ref. Netflix simian-army)
+ 1 Backup and restore                                  - backup/restore from snapshots:  cheapest ->   high RPO + RTO
+ 2 Pilot light  (bare-core up in the cloud)            -                    DB replica:     cheap ->  lower RPO + RTO
+ 3 Warm standby (full min-size system up in the cloud) -        ELB + ASG + DB replica: expensive ->    low RPO + RTO
+ 4 Hot site     (full     size system up in the cloud) -        ELB + ASG + DB replica:    COSTLY -> lowest RPO + RTO
+   multi site active-active approach
+
+---
+
+chaos:: test your prod setup (ref. Netflix simian-army)
 
 == Migration to AWS
 
@@ -938,11 +957,11 @@ chaos: test your prod setup (ref. Netflix simian-army)
 
 === DMS (Database Migration Service)
 
-source -- EC2 with DMS -- destination
-+- all dbs                +- all dbs
-+- S3                     +- S3
-                          +- ElasticSearch
-                          +- Kinesis data streams
+ source -- EC2 with DMS -- destination
+ +- all dbs                +- all dbs
+ +- S3                     +- S3
+                           +- ElasticSearch
+                           +- Kinesis data streams
 
 * for heterogeneous migrations (different db engines), SCT (Schema ConversionTool) is needed beforehand
 * continuous data replication with CDC (Change Data Capture): source remains available
@@ -960,6 +979,7 @@ on-prem NAS (NFS/SMB) + DataSync agent => EFS
 == AWS Backup
 
 centralize AWS snapshots management:
+
 * we need a plan (frequency + retention policy) and AWS services => it all goes to S3
 * supports PITR (Point In Time Recovery), tag-based backups, ...
 
@@ -967,16 +987,20 @@ centralize AWS snapshots management:
 
 EC2 enhanced networking (SR-IOV): single root i/o virtualization:
 single NIC to present itself as several virtual NICs
+
 * ENA (elastic network adapter): higher PPS (Packets Per Second) 100Gbps - or legacy Intel 82599 VF for up to 10Gbps
-* EFA (elastic  fabric adapter): enhanced ENA leveraging MPI (Message Passing Interface)
+* EFA (elastic  fabric adapter): enhanced ENA leveraging MPI (Message Passing Interface) +
                                                          +- bypasses the underlying Linux OS for lower latency
 
-AWS Batch: multi-node EC2/spot parallel jobs
-AWS ParallelCluster: open source cluster management tool for HPC
+---
+
+AWS Batch:: multi-node EC2/spot parallel jobs
+AWS ParallelCluster:: open source cluster management tool for HPC
 
 == CICD (Continuous Integration/Delivery) CodePipeline
 
 find/fix bugs early, deploy often
+
 *                   push to CodeCommit - GitHub
 *           build & test in CodeBuild  - Jenkins CI (continuous integration)
 * deploy passing build with CodeDeploy - Jenkins CD (continuous delivery: create packages)
@@ -985,6 +1009,7 @@ find/fix bugs early, deploy often
 == CloudFormation
 
 IaC (Infrastructure as Code)
+
 * YAML/JSON templates go in S3, deploy stack via cli
   - AWS resources
   - parameters: dynamic inputs
@@ -999,7 +1024,7 @@ IaC (Infrastructure as Code)
 
 === StackSets
 
-Manage stacks across multiple accounts/regions with a single operation.
+Manage stacks across multiple accounts/regions with a single operation. +
 Update a stackset to update all stack instances.
 
           EMR: Elastic MapReduce - manage Apache Hadoop/Spark clusters to process/analyze big data
@@ -1011,26 +1036,26 @@ Cost Explorer: Savings Plan alternative to Reserved Instances
 
 == Well Architected Framework 5 Pillars
 
-* Operational excellence: IaC, anticipate failure
-  CloudFormation, AWS Config, monitoring, CICD
+Operational excellence::
+  IaC, anticipate failure, AWS Config, monitoring, CICD
 
-* Security
+Security::
   IAM, security at all levels, encryption, keep people away from data
 
-* Reliability (scalability + HA?)
+Reliability (scalability + HA?)::
   stop guessing capacity => ASG, test/automate recovery
 
-* Performance efficiency (scalability?)
+Performance efficiency (scalability?)::
   use serverless, stay up-to-date: AWS News Blog
 
-* Cost optimization
-  Cost Explorer, Trusted Advisor, spot instances
-                 |
-                 ** cost optimization
-                 ** performance
-                 ** security
-                 ** faulttolerance
-                 ** service limits/quotas
+Cost optimization::
+  - Cost Explorer, spot instances
+  - Trusted Advisor
+      * cost optimization
+      * performance
+      * security
+      * faulttolerance
+      * service limits/quotas
 
 === Reference
 * https://aws.amazon.com/architecture/reference-architecture-diagrams[Architecture Diagrams^]
@@ -1041,18 +1066,22 @@ Cost Explorer: Savings Plan alternative to Reserved Instances
 
 1 CPU = multiple cores + multiple threads. vCPU is the total of threads.
 
-http statefullness can be achieved with:
+=== http statefullness
+
+_can be achieved with:_
+
 * ELB stickiness (session/client affinity)
 * cookies stored on EC2 instances or sent by user (web cookies)
 * single session_id cookie sent by client, session info stored in ElastiCache
 
-NOT serverless (you have to provision the EC2 instance/node type):
+=== *not* serverless
+
+_you have to provision the EC2 instance/node type:_
+
 * RDS
 * Aurora (can be)
 * Redshift
 * ElastiCache
 * EMR
-
-* while exploring metrics in the console, I couldn't filter for sqs, it only worked by filtering for aws first! bug?
 
 // vim: fdm=expr fde=getline(v\:lnum)=~'^=='?'>'.(len(matchstr(getline(v\:lnum),'===*'))-1)\:'='
