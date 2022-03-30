@@ -48,8 +48,8 @@ dispatch requests to target groups based on routes, hostnames, query string, hea
                         /url2, one.example.com -> tg2
 two.example.com, ?platform=mobile, HTTP header -> tg3
 
-then spread load to targets on multiple/single (e.g containers) machine(s) in the
-target group, based on health checks (port + route) =>
+then spread load to targets on multiple/single (e.g containers) machine(s) in
+the target group, based on health checks (port + route) =>
 seamless handling of downstream instances failures
 
 === NLB (Network Load Balancer)
@@ -90,7 +90,9 @@ region endpoint groups (akin to TG) => health checks => fast regional failover +
 * UDP, IoT (MQTT), VOIP endpoint
 * http/https            endpoint (if static IPs needed: 2 anycast IPs)
 
-blue-green deployment: both DNS routing and global accelerator can be used
+---
+
+blue-green deployment:: both DNS routing and global accelerator can be used
 
 == EBS (Elastic Block Store)
                             max
@@ -114,8 +116,10 @@ shared storage (we need to create mount ENI targets, to be mounted on EC2, ...):
 * FSx for Lustre (Linux cluster)
 * FSx for Windows (SMB, NTFS)
 
-FSx persistent file system: data is replicated +
-FSx scratch    file system: temp storage, faster, cheaper
+---
+
+FSx persistent file system:: data is replicated
+FSx scratch    file system:: temp storage, faster, cheaper
 
 == Storage Gateway (on-premises -> S3)
 
@@ -129,8 +133,8 @@ hybrid storage integration (storage gateways needed because S3 proprietary):
  data server,     tape gateway (iSCSI), VTL (Virtual Tape Library) | S3               -> S3 glacier
 
 === volume gateway specific
-cached volumes: main data is on S3 with local on-prem cache for fast access +
-stored volumes: main data is on-prem with async backup to S3
+cached volumes:: main data is on S3 with local on-prem cache for fast access
+stored volumes:: main data is on-prem with async backup to S3
 
 virtualization is needed to install the gateways, instead we can buy a HW appliance
 
@@ -182,9 +186,10 @@ read replicas:
 
 == Redshift
 
-* no multi-AZ: better enable automated cluster snapshots cross-region COPY (every 8h, 5GB or on a schedule) for DR
-* spectrum: perform queries directly against S3 (no need to load)
-* enhanced VPC routing: stay within VPC, no public Internet
+WARNING: *_no multi-AZ_*: better enable automated cluster snapshots cross-region COPY (every 8h, 5GB or on a schedule) for DR
+
+spectrum:: perform queries directly against S3 (no need to load)
+enhanced VPC routing:: stay within VPC, no public Internet
 
 MPP (Massively Parallel Processing) +
 both redshift and athena use Presto (distributed SQL query engine)
@@ -208,13 +213,13 @@ multithreaded architecture
 
 == Route 53
 
-Alias: CNAME to 1 managed AWS resource (no EC2!),
-       no TTL, can point to zone apex, free
+Alias:: CNAME to 1 managed AWS resource (no EC2!),
+        no TTL, can point to zone apex, free
+
+health checks:: only return IPs for healthy resources,
+                e.g give me a healthy ALB, then target group health check to give me a healthy EC2 instance
 
 record with multiple A values -> the client will choose at random (client side LB)
-
-health checks: only return IPs for healthy resources,
-               e.g give me a healthy ALB, then target group health check to give me a healthy EC2 instance
 
 === routing policies
 
@@ -248,16 +253,16 @@ you retain full control over the provisioned AWS resources and can access them a
 - web URL, http/https
 
 3_500 PUT req/s per prefix +
-5_500 GET req/s per prefix, both limited by KMS (5_500, 10_000, 30_000 req/s based on region, increase with quotas)
+5_500 GET req/s per prefix, *both limited by KMS* (5_500, 10_000, 30_000 req/s based on region, increase with quotas)
 
-naming: 3-63 -> no upper, _, IP; start with [a-z0-9]
+CAUTION: _naming_: 3-63 -> no upper, _, IP; start with [a-z0-9]
 
-        s3://bucket-name/folder-1/folder-2/my-image.jgp - max 5TB, multi-part upload if >5GB
-                         prefix          + name = key
+ s3://bucket-name/folder-1/folder-2/my-image.jgp - max 5TB, multi-part upload if >5GB
+                  prefix          + name = key
 
-static website endpoint (.region or -region): +
-http://my-bucket.s3-website.region.amazonaws.com +
-http://my-bucket.s3-website-region.amazonaws.com
+static website endpoint (.region or -region)::
+- http://my-bucket.s3-website.region.amazonaws.com
+- http://my-bucket.s3-website-region.amazonaws.com
 
 with versioning enabled, removal of an object adds a 'delete marker'. +
 deleting a specific version or a 'delete marker' one is permanent.
@@ -279,7 +284,7 @@ lifecycle rules
 - transition actions
 - expiration actions (deletion)
 
-replication isn't chained: +
+*_replication isn't chained:_* +
 A -> B -> C doesn't mean A -> C. +
 objects in B replicated from A aren't considered new. only explicit new ones will be replicated to C
 
@@ -362,7 +367,7 @@ kinesis agent, SDK, KPL  ‒  SDK, KCL (=> EC2, lambda, ...)
 == Kinesis Data Firehose
 
 producers:: SDK, agent, data streams/logs/events/IoT
-consumers:: batch writes (near real time) - 32MB or 60s
+consumers:: batch writes (*near real time*) - 32MB or 60s
 
  => S3
  => redshift (via S3)
@@ -445,20 +450,22 @@ on the ENIs SGs allow the task port from the ALB SG
 * custom metrics:
 +
 `PutMetricData` API call (accepts data points 2 weeks in the past & 2h in the future)
-+
+
  StorageResolution - std: 1min, high: write 1s
                                        read 1/5/10/30s
 +
 * metric filter: metric based on CloudWatch Logs filter
 
-EC2: metrics every 5 min or every 1 min with detailed monitoring, no RAM metric
+---
+
+EC2 detailed monitoring:: metrics every 1 min vs 5 min, no RAM metric
 
 === Logs
 - query logs with insights
 - unified agent (EC2/on-prem, old: logs agent)
     * extra system-level metrics
     * centralized configuration with SSM parameter store
-- export (up to 12h to become ready): CreateExportTask API call, not real or near-real time
+- export (up to 12h to become ready): `CreateExportTask` API call, *not real or near-real* time
 - subscription filter: real time (pub/sub - lambda, kinesis)
 
 == EventBridge (old CloudWatch events)
@@ -467,13 +474,14 @@ EC2: metrics every 5 min or every 1 min with detailed monitoring, no RAM metric
 * define CRON jobs (execute task with lambda)
 * it can be used to simulate SQS between 3rd parties (SaaS)
 
-event bus
+---
 
-1. default: for AWS services
-2. partner: receive events from 3rd party (send events too???)
-3. custom:  own bus
+event bus::
+1. _default_: for AWS services
+2. _partner_: receive events from 3rd party (send events too???)
+3.  _custom_:  own bus
 
-schema registry: collection of JSON events to help generate code
+schema registry:: collection of JSON events to help generate code
 
 == CloudTrail
 
@@ -551,7 +559,7 @@ Cognito Identity (role) Pools (credentials provider, prefer to `AssumeRoleWithWe
 login to get token from IdP (Facebook, CUP, ...) +
 Identity Pool verifies token and gets IAM creds from STS
 
-AppSync (old Cognito sync): save app state (20 datasets - 1MB), devices sync, offline, id pool needed
+AppSync (old Cognito sync):: save app state (20 datasets - 1MB), devices sync, offline, id pool needed
 
 == STS (Security Token Service)
 
@@ -561,7 +569,7 @@ grant limited and temporary access to resources (token valid for 15min - 1h)
    - AWS: dev account -- assume UpdateProdBucket role: STS gives token --> modify prod account bucket
    - 3rd: IdP (e.g ADFS) sends SAML assertion, `AssumeRoleWithSAML`,          STS returns temp creds
                                                POST assertion to SSO endpoint
-* GetSessionToken (for MFA)
+* `GetSessionToken` (for MFA)
 
 federation with SAML 2.0 is the old way, prefer SSO federation
 
@@ -580,7 +588,9 @@ Id store - [3rd IdP portal] - AssumeRoleWithSAML +
 
 == Directory Services
 
-Microsoft AD: centralized users/assets management from the domain controller
+Microsoft AD:: centralized users/assets management from the domain controller
+
+---
 
 * managed Ms AD: on-prem <=> AWS - manage users on both (MFA supported)
 * AD connector:  on-prem <=      - proxy to on-prem AD, manage all users in there
@@ -601,7 +611,9 @@ OU aren't accounts, they just help structuring the hierarchy
 * whitelist/blacklist IAM actions at the OU/account level
 * does not affect service-linked roles
 
-move account to another organization: delete from current, invite from 2nd
+---
+
+move account to another organization:: delete from current, invite from 2nd
 
 == IAM (Identity and Access Management)
 
@@ -661,7 +673,7 @@ access: MANDATORY key policy + optional IAM policy +
   - sign/verify integrity checks
   - outside of AWS (no access to KMS API)
 
-A deleted CMK is in the 'pending deletion' status and can be recovered for 7 - 30days (default)
+*A deleted CMK is in the 'pending deletion' status and can be recovered for 7 - 30days (default)*
 
 == SSM Parameter Store
 
@@ -680,6 +692,7 @@ std vs advanced (TTL in parameters policies, more params of bigger size + higher
 
 == Shield
 
+managed DDoS (Distributed Denial of Service) protection service +
 Route 53, CloudFront, Global Accelerator, ELB, EC2
 
 == WAF (Web Application Firewall)
@@ -871,12 +884,12 @@ WARNING: 1 month to setup connection
                       separate connections - separate connections
                       per location           per DC
 
-    virtual private gateway - VPN or DX
-   /
-VGW                  <--> CGW (customer gateway)
-                     <--> CGW (CloudHub hub-and-spoke model for multi-DCs intercommunication)
-     [ DX location ] <--> customer router in DC
-       AWS|customer
+     virtual private gateway - VPN or DX
+    /
+ VGW                  <--> CGW (customer gateway)
+                      <--> CGW (CloudHub hub-and-spoke model for multi-DCs intercommunication)
+      [ DX location ] <--> customer router in DC
+        AWS|customer
 
  VGW region 1 \
                <--> DX Gateway <-> DX <-> DC (direct connect for same region, direct connect gw cross-regions)
