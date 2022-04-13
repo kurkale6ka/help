@@ -1,0 +1,8 @@
+                       ---------------
+client using the proxy                 socks5 proxy ____________ Internet
+VPN client                             VPN server
+                       ---------------
+
+ssh -D 1234 remote:
+* remote will be our socks5 proxy
+* our client (browser) needs to use localhost:1234
