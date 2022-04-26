@@ -1,0 +1,1 @@
+aws ec2 describe-images --owners self # filter by own account id
