@@ -1,6 +1,8 @@
 aws ec2 describe-images --owners self # filter by own account
 
 # jmespath
+NB: string literals must be 'quoted' or `quoted`
+
 >>> jmespath.search('ls[*][1]', {"ls":[[1,2],[1,2]]})
 [2, 2]                          +-- dict
                                 +-- json.load(file)
