@@ -1,50 +1,10 @@
 :toc: left
-:toc-title: AWS cli tips
+:toc-title: AWS
+:toclevels: 3
 
-== General
+= AWS cli
+
+== Tips
 
 === filter by own account
 `$ aws ec2 describe-images --owners *self*`
-
-== JMESPath
-
-=== literals
-literals (including numbers, e.g \`5`) must be 'quoted' or \`quoted`
-
-=== search
-
- >>> jmespath.search('ls[*][1]', {"ls":[[1,2],[1,2]]})
- [2, 2]                          +-- dict
-                                 +-- json.load(file)
-
-=== list filters: [? ... ]
-
- $ aws ec2 describe-images --owners self --query 'Images[?Description != None && contains(Description,`ed`)].[ImageId,Description]' --output table
-
-=== outputs
-
- $ aws kms list-aliases --query 'Aliases[*].AliasName'                        # list of scalars
- $ aws kms list-aliases --query 'Aliases[*].[AliasName]'        --output text # list of lists   => newlines
- $ aws kms list-aliases --query 'Aliases[*].{Alias: AliasName}' --output text # list of objects => newlines
-
-=== function evaluation
-
-arguments are evaluated before calling a function
-
-`sort_by(Contents, &Date)`
-
- Date would return null (it's not in the outer hash)
-&Date will be evaluated later
-
- {
-   "Contents": [
-     {
-       "Date": "...",
-       ...
-     },
-     {
-       "Date": "...",
-       ...
-     }
-   ]
- }

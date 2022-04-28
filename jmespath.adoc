@@ -1,0 +1,62 @@
+:toc: left
+:toclevels: 3
+
+= JMESPath
+
+== Specification
+
+=== literals
+literals (including numbers, e.g \`5`) must be 'quoted' or \`quoted`
+
+=== projections
+`null` values are not included in the final list
+
+==== list: `id[*]`
+
+`id[?...]` (filters):
+
+ $ aws ec2 describe-images --owners self --query 'Images[?Description != None && contains(Description,`ed`)].[ImageId,Description]' --output table
+
+==== object: `id.*`
+create a list with the objects' values:
+
+ "ops": {                        \         \    [
+   "functionA": {"numArgs": 2},   \  ops.*  \     {"numArgs": 2},
+   "functionB": {"numArgs": 3}    /         /     {"numArgs": 3}
+ }                               /         /    ]
+
+=== function evaluation: `&`
+
+arguments are evaluated before calling a function
+
+`sort_by(Contents, &Date)`
+
+ Date would return null (it's not in the outer hash)
+&Date will be evaluated later
+
+ {
+   "Contents": [
+     {
+       "Date": "...",
+       ...
+     },
+     {
+       "Date": "...",
+       ...
+     }
+   ]
+ }
+
+== Integrations
+
+=== aws cli outputs
+
+ $ aws kms list-aliases --query 'Aliases[*].AliasName'                        # list of scalars
+ $ aws kms list-aliases --query 'Aliases[*].[AliasName]'        --output text # list of lists   => newlines
+ $ aws kms list-aliases --query 'Aliases[*].{Alias: AliasName}' --output text # list of objects => newlines
+
+=== jmespath.search()
+
+ >>> jmespath.search('ls[*][1]', {"ls":[[1,2],[1,2]]})
+ [2, 2]                          +-- dict
+                                 +-- json.load(file)
