@@ -25,4 +25,4 @@ literals (including numbers, e.g \`5`) must be 'quoted' or \`quoted`
 
  $ aws kms list-aliases --query 'Aliases[*].AliasName'                        # list of scalars
  $ aws kms list-aliases --query 'Aliases[*].[AliasName]'        --output text # list of lists   => newlines
- $ aws kms list-aliases --query 'Aliases[*].{Alias: AliasName}' --output text # list of object  => newliness
+ $ aws kms list-aliases --query 'Aliases[*].{Alias: AliasName}' --output text # list of objects => newlines
