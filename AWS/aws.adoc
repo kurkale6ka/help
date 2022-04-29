@@ -40,7 +40,7 @@ cross-zone loadbalancing: traffic distributed evenly across all targets in all A
 
 === ALB (Application Load Balancer)
 * distribute load based on http/https/websocket (stateful unlike http)
-* connection/SSL termination
+* connection/SSL termination (else we can't parse the request as it is encrypted)
 
 dispatch requests to target groups based on routes, hostnames, query string, headers:
 
