@@ -1,4 +1,5 @@
-ssh-keygen -trsa -b4096 -Cuser@domain
+ssh-keygen -ted25519 -Ccomment
+ssh-keygen -trsa -b4096 -Ccomment
 
 Fingerprints
 
