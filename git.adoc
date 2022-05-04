@@ -1,3 +1,5 @@
+== Commits
+
 commit 98ca9
 - metadata (author, date, ...)
 - previous commits
@@ -11,9 +13,35 @@ objects
 - blob 5b1d3 README contents
 - blob 911e7 LICENSE contents
 
+== Branches
+
+`git branch -vv`
+
 a branch is a pointer to a commit
 HEAD points to the current branch # git checkout br1 moves HEAD to br1
 The HEAD branch moves forward when a commit is made
+
+git ls-remote origin -> refs/heads/master # heads refers to 'branches'
+
+== Track a remote(-tracking) branch (e.g origin/master)
+
+you do that in order to use git pull/push without arguments (implied origin + remote)
+
+note:: origin/master is called a remote-tracking branch.
+       it's a local reference/pointer that can't be moved
+
+ git checkout -b <branch> <remote>/<branch>
+ git checkout --track origin/serverfix
+ git checkout serverfix
+
+ git branch -u origin/serverfix
+ git push -u origin my-branch # set origin/my-branch (@{u[pstream]}) as upstream for my-branch
+
+ git push origin serverfix
+ git push origin serverfix:serverfix
+ git push origin refs/heads/serverfix:refs/heads/serverfix
+
+== Index aka staging area
 
 Everything tracked is in your staging area - the index.
 
