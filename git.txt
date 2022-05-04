@@ -12,7 +12,7 @@ objects
 - blob 911e7 LICENSE contents
 
 a branch is a pointer to a commit
-HEAD points to the current branch
+HEAD points to the current branch # git checkout br1 moves HEAD to br1
 The HEAD branch moves forward when a commit is made
 
 Everything tracked is in your staging area - the index.
