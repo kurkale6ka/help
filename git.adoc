@@ -55,21 +55,30 @@ git rm --cached
 git commit --amend
 ------------------
     change the message of the previous commit + add any staged files
+    same as git reset --soft HEAD^, change index, then git commit
 
-git reset
----------
-HEAD    ⇒  Index    ⇒  Working dir
-move       copy to     copy to
---soft     --mixed     --hard
+== git reset
 
-git reset
-    unstage all files
-git reset file
+=== reset with a ref but without a path
+
+1. move `HEAD`
+2. update index: _stop here by default (change with --*soft*/*hard*)_
+3. optionally update the working dir
+
+HEAD (--soft)  ⇒  Index  ⇒  Working dir (--hard)
+
+example: `git reset HEAD~`::
+    * move HEAD+branch to previous commit => undo last commit
+    * update index with the snapshot HEAD+branch point to => unstage everything
+
+=== reset with a path
+
+git reset file::
     unstage file (opposite of git add file)
-git reset --hard
+git reset::
+    unstage all files
+git reset --hard::
     unstage everything + reset working dir
-git reset HEAD~
-    undo previous commit (move branch) + unstage everything
 
 git rebase
 ----------
@@ -196,3 +205,7 @@ Rename:
 5. rm -rf .git/modules/bundle/_my/*
 6. rm -rf bundle/_my/
 7. git submodule add git@github.com:kurkale6ka/vim-swap.git .bundle/swap
+
+== Annexe
+
+HEAD~ is the same as HEAD^ which is the parent commit of HEAD
