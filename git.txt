@@ -11,6 +11,10 @@ objects
 - blob 5b1d3 README contents
 - blob 911e7 LICENSE contents
 
+a branch is a pointer to a commit
+HEAD points to the current branch
+The HEAD branch moves forward when a commit is made
+
 Everything tracked is in your staging area - the index.
 
 git rm
