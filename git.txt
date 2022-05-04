@@ -1,4 +1,15 @@
-                                      Git
+commit 98ca9
+- metadata (author, date, ...)
+- previous commits
+- tree 92ec2 (index snapshot)
+
+tree 92ec2
+- blob 5b1d3 README
+- blob 911e7 LICENSE
+
+objects
+- blob 5b1d3 README contents
+- blob 911e7 LICENSE contents
 
 Everything tracked is in your staging area - the index.
 
