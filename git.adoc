@@ -52,10 +52,12 @@ git rm
 git rm --cached
     removes from the index only => untracks the file!
 
-git commit --amend
-------------------
-    change the message of the previous commit + add any staged files
-    same as git reset --soft HEAD^, change index, then git commit
+`git commit --amend`::
+redo last commit: change index plus/or commit message.
+same as:
+* `git reset --soft HEAD^`
+* modify staging area
+* `git commit`
 
 == git reset
 
