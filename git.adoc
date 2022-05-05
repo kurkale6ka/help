@@ -73,21 +73,25 @@ same as:
 
 == git reset
 
-=== reset with a ref but without a path
+=== reset with a ref (commit) but without a path (file)
 
 [.underline]#Our need is to change the commits...#
 
-1. move `HEAD->branch` to a previous commit.
+1. move `HEAD->branch` to another commit.
 2. update index: _stop here by default (change with --*soft*/*hard*)_
 3. optionally update the working dir
 
 HEAD (--soft)  ⇒  Index  ⇒  Working dir (--hard)
 
-example: `git reset HEAD~`::
+example 1: `git reset HEAD~`::
     * move `HEAD->branch` to previous commit => undo last commit
     * update index with the snapshot `HEAD->branch` points to => unstage everything
 
-=== reset with a path
+example 2: `git reset master`::
+    * move `HEAD->branch` to where `master` points
+    * ...
+
+=== reset with a path (and optional commit)
 
 [.underline]#Here, commit history isn't the issue, plus changing commit would affect many files => so we skip step 1.#
 
@@ -98,6 +102,10 @@ git reset::
 git reset --hard::
     unstage everything + reset working dir
 
+git checkout master~2 file::
+    update the index + working dir from `master~2` commit (default is `HEAD`)
+    `git reset --hard [branch] file` would do the same thing.
+
 git rebase
 ----------
 git rebase -i HEAD~5 # interactive
@@ -105,50 +113,6 @@ git rebase -i HEAD~5 # interactive
 git add
 -------
 git add -p # only add chosen hunks for this commit
-
-git config
-----------
-git config --global user.name 'Dimitar Dimitrov'
-git config --global user.email mitkofr@yahoo.fr
-
-git config --global core.excludesfile "$HOME"/.gitignore
-git config --global core.editor "vim -u $HOME/.vimrc"
-git config --global color.ui true
-
-# make 'git pull' on master always use rebase
-# git config branch.master.rebase true
-
-# setup rebase for every tracking branch
-git config --global branch.autosetuprebase always
-
-git config --global diff.tool vimdiff
-git config --global difftool.prompt false
-
-git config --global alias.d difftool
-git config --global alias.df diff
-git config --global alias.co checkout
-git config --global alias.ci commit
-git config --global alias.msg 'log -1 --pretty=\%B'
-git config --global pager.msg false
-git config --global alias.sha "rev-parse HEAD"
-git config --global alias.st status
-git config --global alias.br branch
-git config --global alias.l "log --date=short --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) %C(blue)%an%C(reset) | %s %C(red)%d%C(reset)'"
-git config --global alias.lg "log --graph --date=short --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) %C(blue)%an%C(reset) | %s %C(red)%d%C(reset)'"
-git config --global alias.type cat-file -t
-git config --global alias.dump cat-file -p
-
-alias gc='git commit -v'
-alias gp='git push origin master'
-alias gs='git status -sb'
-alias go='git checkout'
-alias gm='git checkout master'
-alias ga='git add'
-alias gb='git branch'
-alias gd='git diff --word-diff=color'
-alias gf='git fetch'
-alias gl='git log --oneline --decorate'
-alias gll='git log -U1 --word-diff=color' # -U1: 1 line of context (-p implied)
 
 git checkout
 ------------
@@ -183,46 +147,6 @@ Make an existing Git branch track a remote branch
 -------------------------------------------------
 
 git branch -u origin/foo
-
-Submodules
-----------
-Add
-git submodule add git@github.com:tpope/vim-commentary.git bundle/vim-commentary
-
-Delete
-{
-mods=()
-mods+=("")
-for m in "${mods[@]}"
-do
-   # rm -rf bundle/"$m"
-   git submodule deinit bundle/"$m"
-   git rm bundle/"$m"
-   rm -rf .git/modules/bundle/"$m"
-done
-}
-
-Update:
-all
-git submodule foreach git pull origin master
-
-only one
-cd $my_submodule && git pull # OR
-git -C my_submodule pull
-
-Cloning a Project with Submodules:
-Activate the submodules with:
-git submodule init
-git submodule update
-
-Rename:
-1. Delete the relevant section from the .gitmodules file
-2. git add .gitmodules
-3. Delete the relevant section from .git/config
-4. git rm --cached bundle/_my/\* (no trailing slash)
-5. rm -rf .git/modules/bundle/_my/*
-6. rm -rf bundle/_my/
-7. git submodule add git@github.com:kurkale6ka/vim-swap.git .bundle/swap
 
 == Annexe
 
