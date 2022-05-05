@@ -1,3 +1,7 @@
+:toc: left
+
+= Terraform
+
 == Command Line
 
  terraform init       # install provider plugins in .terraform
@@ -8,52 +12,51 @@
  terraform validate   # config check
  terraform fmt        # coding standards
 
-== HCL: main.tf
+== HCL (HashiCorp Configuration Language)
+
+=== Syntax
+
+ blk_type "label1" ... "labeln" {
+    name = "value" # argument
+ }
 
  terraform {
     required_providers {
        aws = {
           source = registry.terraform.io/hashicorp/aws ...
-                                hostname/namespace/provider
+
+remote registry:: [hostname]/namespace/name/provider//subdir
 
 `provider "aws" { ...`
 
-`resource "aws_instance (*type*)" "app_server (*name*)" { ... # id: aws_instance.app_server`
+`resource "aws_instance (*type*)" "app_server (*name*)" {`
+
+id:: aws_instance.app_server
 
 == Modules
 
-folder with .tf files in it
+folder with _.tf_ files in it
 
-+-- elasticache/
-¦   +-- main.tf
-¦   ¦   # resource "aws_elasticache_replication_group" "elasticache-cluster" {
-¦   ¦   #   replication_group_id = "tf-${var.environment}-rep-group"
-¦   ¦   #   availability_zones   = ["${var.availability_zones}"]
-¦   +-- variables.tf
-¦       # variable "environment" {}
-¦       # variable "availability_zones" { type = "list" }
-+-- environments/
-¦   +-- production/
-¦   ¦   +-- main.tf
-¦   ¦       # module "prod-elasticache" {
-¦   ¦       #   source = "../../elasticache"
-¦   ¦       #   environment        = "dev"
-¦   ¦       #   availability_zones = ["us-east-1a", "us-east-1b"]
-¦   +-- staging/
-¦       +-- main.tf
-¦           # module "stg-elasticache" {
-¦           #   source = "../../elasticache"
-+-- main.tf
-    # module "production" {
-    #   source = "environments/production"
-    # }
-
-remote registry: [hostname]/namespace/name/provider//subdir
-
-Syntax
-
-blk_type "label1" ... "labeln" {
-
-name = "value" # argument
-
-}
+ +-- elasticache/
+ ¦   +-- main.tf
+ ¦   ¦   # resource "aws_elasticache_replication_group" "elasticache-cluster" {
+ ¦   ¦   #   replication_group_id = "tf-${var.environment}-rep-group"
+ ¦   ¦   #   availability_zones   = ["${var.availability_zones}"]
+ ¦   +-- variables.tf
+ ¦       # variable "environment" {}
+ ¦       # variable "availability_zones" { type = "list" }
+ +-- environments/
+ ¦   +-- production/
+ ¦   ¦   +-- main.tf
+ ¦   ¦       # module "prod-elasticache" {
+ ¦   ¦       #   source = "../../elasticache"
+ ¦   ¦       #   environment        = "dev"
+ ¦   ¦       #   availability_zones = ["us-east-1a", "us-east-1b"]
+ ¦   +-- staging/
+ ¦       +-- main.tf
+ ¦           # module "stg-elasticache" {
+ ¦           #   source = "../../elasticache"
+ +-- main.tf
+     # module "production" {
+     #   source = "environments/production"
+     # }
