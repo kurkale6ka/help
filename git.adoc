@@ -13,6 +13,18 @@ objects
 - blob 5b1d3 README contents
 - blob 911e7 LICENSE contents
 
+=== Commit ranges
+
+==== all commits in experiment not in master
+
+ # all commits reachable from experiment that aren’t reachable from master
+ git log master..experiment
+
+==== what one is about to push to a remote
+
+ git log origin/master..HEAD
+ git log origin/master..
+
 == Branches
 
 `git branch -vv`
