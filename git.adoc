@@ -19,6 +19,8 @@ objects
 
  # all commits reachable from experiment that aren’t reachable from master
  git log master..experiment
+ git log experiment --not master
+ git log experiment ^master
 
 ==== what one is about to push to a remote
 
