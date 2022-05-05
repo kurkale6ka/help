@@ -63,17 +63,21 @@ same as:
 
 === reset with a ref but without a path
 
-1. move `HEAD`
+[.underline]#Our need is to change the commits...#
+
+1. move `HEAD->branch` to a previous commit.
 2. update index: _stop here by default (change with --*soft*/*hard*)_
 3. optionally update the working dir
 
 HEAD (--soft)  ⇒  Index  ⇒  Working dir (--hard)
 
 example: `git reset HEAD~`::
-    * move HEAD+branch to previous commit => undo last commit
-    * update index with the snapshot HEAD+branch point to => unstage everything
+    * move `HEAD->branch` to previous commit => undo last commit
+    * update index with the snapshot `HEAD->branch` points to => unstage everything
 
 === reset with a path
+
+[.underline]#Here, commit history isn't the issue, plus changing commit would affect many files => so we skip step 1.#
 
 git reset file::
     unstage file (opposite of git add file)
