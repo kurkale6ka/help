@@ -1,23 +1,26 @@
-providers: AWS, Azure, GCP, ...
-resources: EC2, ALB, ...
+== Command Line
 
-terraform init       # install provider plugins in .terraform
-terraform plan       # preview changes
-terraform apply      # apply changes
-terraform show       # inspect state
-terraform state list
-terraform validate   # config check
-terraform fmt        # coding standards
+ terraform init       # install provider plugins in .terraform
+ terraform plan       # preview changes
+ terraform apply      # apply changes
+ terraform show       # inspect state
+ terraform state list
+ terraform validate   # config check
+ terraform fmt        # coding standards
 
-main.tf
+== HCL: main.tf
 
-terraform { required_providers { aws = { ...
+ terraform {
+    required_providers {
+       aws = {
+          source = registry.terraform.io/hashicorp/aws ...
+                                hostname/namespace/provider
 
-provider "aws" { ...
+`provider "aws" { ...`
 
-resource "aws_instance (type)" "app_server (name)" { ... # id: aws_instance.app_server
+`resource "aws_instance (*type*)" "app_server (*name*)" { ... # id: aws_instance.app_server`
 
-Module
+== Modules
 
 folder with .tf files in it
 
