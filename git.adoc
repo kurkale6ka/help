@@ -63,7 +63,7 @@ git rm
 ------
     removes from both the index and the working copy
 
-git rm --cached
+`git rm --cached`
     removes from the index only => untracks the file!
 
 `git commit --amend`::
@@ -72,6 +72,11 @@ same as:
 * `git reset --soft HEAD^`
 * modify staging area
 * `git commit`
+
+_uncommit file example:_
+
+- `git reset HEAD~ file`
+- `git commit --amend -m'...'`
 
 == git reset
 
@@ -95,7 +100,8 @@ example 2: `git reset master`::
 
 === reset with a path (and optional commit)
 
-[.underline]#Here, commit history isn't the issue, plus changing commit would affect many files => so we skip step 1.#
+1. [.underline]#Here, commit history isn't the issue, plus changing commit would affect many files => so skip this step#
+2. unstage file or more accurately, copy file from HEAD to index
 
 git reset file::
     unstage file (opposite of git add file)
@@ -107,6 +113,11 @@ git reset --hard::
 git checkout master~2 file::
     update the index + working dir from `master~2` commit (default is `HEAD`)
     `git reset --hard [branch] file` would do the same thing.
+
+== reflog
+
+* it's a *local* history of *all* (no history rewriting as with `git log`) commits
+* ring buffer with a limited amount of data (a few months)
 
 git rebase
 ----------
