@@ -1,0 +1,25 @@
+== Call
+
+    var.name
+ "${var.name}"
+
+== Define
+
+blocks in _*.tf_, _*.pkr.hcl_:
+
+ variable "name" {
+     description = "..."
+     type        = string
+     default     = "..."
+ }
+
+== Assign (or use `default = ...` in the definition):
+
+=== auto load '_key = value_' files:
+
+==== terraform
+- terraform.tfvars
+- *.auto.tfvars
+
+==== packer
+- *.auto.pkrvars.hcl
