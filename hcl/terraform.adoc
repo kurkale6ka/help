@@ -17,7 +17,8 @@
 === Syntax
 
  blk_type "label1" ... "labeln" {
-    name = "value" # argument
+    # argument
+    name = "value"
  }
 
  terraform {
