@@ -127,12 +127,26 @@ example 2: `git reset master`::
  git branch topic master && git checkout topic
      create topic from local master and check it out
 
-== git push
+== refspec
+
+- fetch = `+src(_remote_):dst(_local_)`
+- push = `+src(_local_):dst(_remote_)`
+
+`+`: update the reference even if it isn’t a fast-forward
+
+remote branches `refs/heads/\*` go under `refs/remotes/origin/*` locally::
+   `fetch = +refs/heads/\*:refs/remotes/origin/*`
+
+_these are equivalent:_
 
  git push origin serverfix
  git push origin serverfix:serverfix
  git push origin refs/heads/serverfix:refs/heads/serverfix
-                                local:remote
+
+=== delete remote reference
+
+* `git push origin --delete topic`
+* `git push origin :topic` <- push empty `src` to remote
 
 == Annexe
 
