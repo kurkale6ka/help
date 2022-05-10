@@ -33,6 +33,8 @@ partition -  avg latency,  avg availability: spread partitions across hardware, 
 === Metadata
 curl http://169.254.169.254/latest/meta-data/
 
+the `cloud-init` service will make use of `user-data` in order to provision instances at boot.
+
 == ELB (Elastic Load Balancer)
 
 LBs are managed and highly scalable => behind the scenes there are many LB instances. +
