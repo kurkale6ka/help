@@ -61,3 +61,8 @@ folder with _.tf_ files in it
      # module "production" {
      #   source = "environments/production"
      # }
+
+== Deprecated
+
+* `terraform [.line-through]#taint#` vs `terraform apply -replace aws_instance.web1`
+* `terraform [.line-through]#refresh#` vs `terraform apply -refresh-only`
