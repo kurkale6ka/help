@@ -2,15 +2,11 @@
 
 = Terraform
 
-== Command Line
+== State
 
- terraform init       # install provider plugins in .terraform
- terraform plan       # preview changes
- terraform apply      # apply changes
- terraform show       # inspect state
- terraform state list
- terraform validate   # config check
- terraform fmt        # coding standards
+`terraform 'refresh'` checks if objects in my 'real world' (state file) exist and are the same in the actual world (_e.g_ cloud). +
+Thus, if I `terraform state rm ADDR`, I've got less things to compare => +
+a `'refresh'` on an empty state would report 'No changes' (_nothing to compare_)!
 
 == HCL (HashiCorp Configuration Language)
 
@@ -33,6 +29,8 @@ remote registry:: [hostname]/namespace/name/provider//subdir
 `resource "aws_instance (*type*)" "app_server (*name*)" {`
 
 id:: aws_instance.app_server
+
+`for_each` = `map` or `set` => `each.key` [+ `each.value`]
 
 == Modules
 
