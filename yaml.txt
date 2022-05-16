@@ -1,8 +1,37 @@
-List:
-- item1
-- item2
+--- # start of new yaml document (needed for single files with many yaml docs)
+... #   end of     yaml document
 
-Mapping:
+key: > long line
+  split for readability
+
+key: | heredoc lines
+  with newlines preserved
+
+chomp modifiers - and +:
+  >- and |- will remove the final newline
+
+key: null or ~
+
+Notes:
+* quotes aren't needed around strings
+* booleans: true, on, yes
+
+List
+
+items: ["item1", "item2"]
+
+or
+
+items:
+  - item1
+  - item2
+
+Dictionary
+
+{item1: value1, item2: value2}
+
+or
+
 item1: value1
 item2: value2
 
