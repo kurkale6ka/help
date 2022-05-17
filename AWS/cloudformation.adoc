@@ -1,0 +1,8 @@
+yaml
+
+InstanceId:
+  Ref: MyEC2Instance
+
+or short version
+
+InstanceId: !Ref MyEC2Instance
