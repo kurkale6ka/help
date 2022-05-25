@@ -47,6 +47,15 @@ arguments are evaluated before calling a function
    ]
  }
 
+=== Current element: `@`
+
+`aws iam list-account-aliases --query 'AccountAliases[*].{Alias: @}'`
+
+  [              \   [
+      "alias1",   \      { "Alias": "alias1" },
+      "alias2"    /      { "Alias": "alias2" }
+  ]              /   ]
+
 == Integrations
 
 === aws cli outputs
