@@ -123,9 +123,13 @@ example 2: `git reset master`::
 
 == git checkout
 
- git checkout -b topic master
- git branch topic master && git checkout topic
-     create topic from local master and check it out
+=== create topic from local master and check it out
+`git checkout -b topic master`
+
+same as:
+
+ git branch topic master
+ git checkout topic
 
 == refspec
 
