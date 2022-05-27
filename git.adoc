@@ -114,7 +114,7 @@ example 2: `git reset master`::
 
 `git checkout master~2 file`::
     update the index + working dir from `master~2` commit (default is `HEAD`)
-    `git reset --hard [branch] file` would do the same thing.
+    `git reset --hard master~2 file` would do the same thing.
 
 == reflog
 
