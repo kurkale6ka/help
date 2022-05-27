@@ -1,3 +1,5 @@
+YAML is a superset of JSON => you can use json within a .yml file
+
 --- # start of new yaml document (needed for single files with many yaml docs)
 ... #   end of     yaml document
 
@@ -10,37 +12,50 @@ key: | heredoc lines
 chomp modifiers - and +:
   >- and |- will remove the final newline
 
-key: null or ~
+null_value_key: null or ~
 
 Notes:
 * quotes aren't needed around strings
 * booleans: true, on, yes
 
-List
+List/array/sequence
 
-items: ["item1", "item2"]
+[item1, item2]
+-------------- or
+- item1
+- item2
 
-or
-
-items:
-  - item1
-  - item2
-
-Dictionary
+Dictionary/hash/map/object
 
 {item1: value1, item2: value2}
-
-or
-
+------------------------------ or
 item1: value1
 item2: value2
 
-Anchors/aliases
-&defaults (define an anchor)
-*defaults (use the anchor)
 '? ' -> complex mapping key
 
-<< means “merge the given hash (mapping) into the current one”
-Note: merging arrays is not possible, simple inheritance is supported,
-      integration:
-        *defaults
+Set (map with null values)
+
+? item1
+? item2
+-------------- or
+{item1, item2}
+
+Anchors
+
+define
+
+nested dictionary: &keys
+  key1: value1
+nested dictionary: &list
+  - item1
+dictionary key: &value my string
+
+use
+
+dictionary3:
+  <<: *keys # merge the above keys
+dictionary2:
+  - *list # include (NOT MERGE) the above list
+dictionary3:
+  key1: *value # replace with 'my string'
