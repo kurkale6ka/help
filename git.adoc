@@ -58,6 +58,27 @@ note:: `origin/master` is called a remote-tracking branch.
  git branch -u origin/serverfix
  git push -u origin my-branch # set origin/my-branch (@{u[pstream]}) as upstream for my-branch
 
+== Merge
+
+ git checkout master
+ git merge experiment
+
+== Rebase
+:sectnums:
+
+=== rebase experiment onto master => experiment moves/points further ahead
+
+`git rebase master experiment` + or
+
+ git checkout experiment
+ git rebase master
+
+=== ff merge experiment into master => master catches up with experiment
+
+ git checkout master
+ git merge experiment
+
+:sectnums!:
 == Index aka staging area
 
 Everything tracked is in your staging area - the index.
