@@ -32,7 +32,7 @@ Dictionary/hash/map/object
 item1: value1
 item2: value2
 
-'? ' -> complex mapping key
+'? ' -> complex dictionary key
 
 Set (map with null values)
 
@@ -47,14 +47,14 @@ define
 
 nested dictionary: &keys
   key1: value1
-nested dictionary: &list
+dictionary: &list
   - item1
 dictionary key: &value my string
 
 use
 
-dictionary3:
-  <<: *keys # merge the above keys
+dictionary1:
+  <<: *keys # MERGE the above keys
 dictionary2:
   - *list # include (NOT MERGE) the above list
 dictionary3:
