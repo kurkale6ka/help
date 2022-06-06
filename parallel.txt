@@ -1,13 +1,15 @@
 Single input source
 
-parallel echo ::: arg1 arg2 arg3
-parallel echo :::: file
+parallel cmd ::: arg1 arg2 arg3
+parallel cmd :::: args_from_file
+
+ex: parallel --tag 'git -C {} stash list' ::: *(/)
 
 Multiple input sources
 
-parallel echo ::: args... ::: args...
-parallel echo :::: file1 file2
-parallel -afile1 -afile2 echo
+parallel cmd ::: args... ::: args...
+parallel cmd :::: file1 file2
+parallel -afile1 -afile2 cmd
 
 STDIN
 
