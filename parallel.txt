@@ -3,7 +3,7 @@ Single input source
 parallel cmd ::: arg1 arg2 arg3
 parallel cmd :::: args_from_file
 
-ex: parallel --tag 'git -C {} stash list' ::: *(/)
+ex: parallel --tag git -C {} stash list ::: *(/)
 
 Multiple input sources
 
