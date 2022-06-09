@@ -98,7 +98,7 @@ Everything tracked is in your staging area - the index.
     * `git commit`
 
 _uncommit file example_::
-    - `git reset HEAD~ file`
+    - `git reset @~ file`
     - `git commit --amend -m'...'`
 
 == git reset
@@ -107,7 +107,7 @@ _uncommit file example_::
 
 [.underline]#Our need is to change the commits...#
 
-1. move `HEAD->branch` to another commit.
+1. move the `HEAD->branch` pair to another commit.
 2. update index: _stop here by default (change with --*soft*/*hard*)_
 3. optionally update the working dir
 
