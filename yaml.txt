@@ -47,15 +47,24 @@ define
 
 nested dictionary: &keys
   key1: value1
+
 dictionary: &list
   - item1
+
 dictionary key: &value my string
 
 use
 
+# MERGE the above keys
+# GitLab - `extends: .job` (merge .job's keys)
 dictionary1:
-  <<: *keys # MERGE the above keys
+  <<: *keys
+
+# include (NOT MERGE) the above list
 dictionary2:
-  - *list # include (NOT MERGE) the above list
+  - *list
+
+# replace with 'my string'
+# GitLab - `my_var: !reference [.vars, variables, Z_VAR]` (reuse only part of .vars's config)
 dictionary3:
-  key1: *value # replace with 'my string'
+  key1: *value
