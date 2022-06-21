@@ -1,0 +1,10 @@
+  EC2          separate EC2
+GitLab <---> GitLab Runner app
+==============================
+job 1    |   runner 1
+job ...  |     executor
+         |       shell  (e.g PowerShell if GitLab Runner is on a Win server)
+         |       docker (GitLab Runner on a Linux server)
+         |   runner ...
+
+runners need to be registered with the GitLab instance
