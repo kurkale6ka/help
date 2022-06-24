@@ -144,6 +144,16 @@ example 2: `git reset master`::
 
 == git checkout
 
+=== without paths
+
+`git checkout [commit]`, same as +
+`git reset --hard [commit]` but working-dir safe + only moves `HEAD`
+
+=== with paths
+
+`git checkout [commit] file`, same as +
+`git reset --hard [commit] file` (but not implemented in `git-reset`)
+
 === create topic from local master and check it out
 `git checkout -b topic master`
 
@@ -175,4 +185,5 @@ _these are equivalent:_
 
 == Annexe
 
-`HEAD~` is the same as `HEAD^` which is the parent commit of `HEAD`
+parent commit of `HEAD`::
+`HEAD^` or `HEAD~` or `@~`
