@@ -5,7 +5,7 @@
 
 == Define
 
-blocks in _*.tf_, _*.pkr.hcl_:
+blocks in _*.tf_ for terraform and _*.pkr.hcl_ for packer:
 
  variable "name" {
      description = "..."
