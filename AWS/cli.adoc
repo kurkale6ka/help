@@ -10,6 +10,8 @@ https://github.com/awslabs/awscli-aliases
 
 [source,bash]
 ----
+~/.aws/cli/alias
+
 aliases =
     !f() {
     grep '^\S\+\s*=' ~/.aws/cli/alias | grep -v aliases | cut -d= -f1
@@ -17,8 +19,8 @@ aliases =
 
 w =
     !f() {
-    aws iam list-account-aliases --query 'AccountAliases[*].{Alias: @}'
-    aws sts get-caller-identity
+    aws --no-cli-pager iam list-account-aliases --query 'AccountAliases[*].{Alias: @}'
+    aws --no-cli-pager sts get-caller-identity
     }; f
 ----
 
