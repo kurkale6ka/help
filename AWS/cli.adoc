@@ -4,6 +4,24 @@
 
 = AWS cli
 
+== Aliases
+
+https://github.com/awslabs/awscli-aliases
+
+[source,bash]
+----
+aliases =
+    !f() {
+    grep '^\S\+\s*=' ~/.aws/cli/alias | grep -v aliases | cut -d= -f1
+    }; f
+
+w =
+    !f() {
+    aws iam list-account-aliases --query 'AccountAliases[*].{Alias: @}'
+    aws sts get-caller-identity
+    }; f
+----
+
 == Tips
 
 === filter by own account
