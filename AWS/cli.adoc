@@ -13,15 +13,21 @@ https://github.com/awslabs/awscli-aliases
 ~/.aws/cli/alias
 
 aliases =
-    !f() {
-    grep '^\S\+\s*=' ~/.aws/cli/alias | grep -v aliases | cut -d= -f1
-    }; f
+  !f() {
+  grep '^\S\+\s*=' ~/.aws/cli/alias | grep -v aliases | cut -d= -f1
+  }; f
 
 w =
-    !f() {
-    aws --no-cli-pager iam list-account-aliases --query 'AccountAliases[*].{Alias: @}'
-    aws --no-cli-pager sts get-caller-identity
-    }; f
+  !f() {
+  aws --no-cli-pager iam list-account-aliases --query 'AccountAliases[*].{Alias: @}'
+  aws --no-cli-pager sts get-caller-identity
+  }; f
+
+# Input: ec2 instance id
+ip =
+  !f() {
+  aws --no-cli-pager ec2 describe-instances --query "Reservations[*].Instances[?InstanceId==\`$1\`].PrivateIpAddress" --output text
+  }; f
 ----
 
 == Tips
