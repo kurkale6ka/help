@@ -1,0 +1,7 @@
+= Secrets
+
+A *kv* secret is a *list* of key/value pairs
+
+ [/namespace/]engine/secret
+   - field1 = val1
+   - field2 = val2
