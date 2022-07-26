@@ -1,5 +1,5 @@
   EC2          separate EC2
-GitLab <---> GitLab Runner app
+GitLab <---> GitLab Runner app (golang)
 ==============================
 job 1    |   runner 1
 job ...  |     executor
