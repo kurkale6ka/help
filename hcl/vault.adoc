@@ -1,7 +1,12 @@
 = Secrets
 
-A *kv* secret is a *list* of key/value pairs
+A *kv* secret is a *dict* of key/value pairs
 
- [/namespace/]engine/secret
-   - field1 = val1
-   - field2 = val2
+ [/namespace/]engine(e.g kv)/secret
+   field1: val1
+   field2: val2
+
+== list
+
+ vault secrets list
+ vault      kv list GitLab
