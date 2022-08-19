@@ -338,7 +338,7 @@ rg -il mem | parallel -q perl -i -lpe 's/mem/Memory/ig'
 
 ### print from field $3 to last <a name="one_l_fields"></a>
 ```perl
-perl -lae 'print "@F[2..$#F]"' /my/file
+perl -lane 'print "@F[2..$#F]"' /my/file
 ```
 
 ### regex based sort <a name="one_l_sort"></a>
