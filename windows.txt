@@ -25,3 +25,6 @@ present in the Sources folder of your bootable media with these contents:
 _Default
 [VL]
 0
+
+Use dvorak layout at startup:
+typing/advanced keyboard settings (at the bottom)
