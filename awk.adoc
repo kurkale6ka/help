@@ -1,0 +1,7 @@
+== print all but the first column
+
+ history | awk '{$1="";print}'
+ history | awk '{$1=$2="";print}' # bar first two columns
+
+* `history | perl -lane 'print "@F[1..$#F]"'` works but it's too complex
+* `cut -d' ' -f2-` won't work as the delimiter must be a single char
