@@ -1,4 +1,6 @@
-                                    Ansible
+Ansible works by connecting to your nodes and pushing out small programs,
+called "Ansible modules" to them. Ansible then executes these modules, and
+removes them when finished.
 
 ansible hosts -mmodule -aarguments options
                   \
