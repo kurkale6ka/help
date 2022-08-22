@@ -1,0 +1,10 @@
+== A default command that can be replaced by any command
+
+ CMD [ "zsh" ]
+
+== An entry command that can't be replaced and needs arguments
+
+*NB*: CMD will supply default arguments
+
+ ENTRYPOINT [ "perl" ]
+ CMD [ "-e", "print 'Perl script expected\n'" ]
