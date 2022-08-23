@@ -1,5 +1,6 @@
 1. Download
 
+https://github.com/ryanoasis/nerd-fonts#patched-fonts
 https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.ttf
 
 2. Install
@@ -11,6 +12,8 @@ https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono
 
 `fc-cache -fv`
 
-4. Check
+3.1 Check
 
 `fc-list | grep -i nerd`
+
+4. Change terminal preferences to use the font
