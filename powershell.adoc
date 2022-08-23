@@ -1,0 +1,14 @@
+== Check
+
+`$PROFILE`
+
+== Create
+
+ mkdir $PROFILE\WindowsPowerShell # if needed
+ echo '' > $PROFILE               # touch equivalent
+
+== Edit
+
+ ise $PROFILE
+ Set-PSReadLineOption -EditMode Emacs
+ Set-PSReadLineOption -BellStyle Visual
