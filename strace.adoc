@@ -5,8 +5,12 @@ call(args) = return value
 
 system calls are the kernel interface for userland processes
 
-== open
-open(2) returns a file descriptor for use in subsequent system calls
+== open(2)
+open returns a file descriptor for use in subsequent system calls
 
  open("/a/file", O_RDONLY) = 8 # reused by 'read' below
  read(8, "blabla"..., 65536) = 65536
+
+== read(2)
+read up to count bytes from fd into buf
+`read(fd, buf, count) -> number-of-bytes-read`
