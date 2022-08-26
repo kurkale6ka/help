@@ -1,0 +1,16 @@
+== short
+`PS1='[\u@\h \w]\$ '`
+
+== with day and time
+`PS1='[\u@\h \w] \d \t \$ '`
+
+ man bash (search for PS1)
+
+ \d     date in "Weekday Month Date" format (e.g., "Tue May 26")
+ \h     hostname up to the first .
+ \t     time in 24-hour HH:MM:SS format
+ \u     user
+ \w     CWD full
+ \W     CWD basename
+ \$     non root - $
+            root - #
