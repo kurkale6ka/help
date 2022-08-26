@@ -57,6 +57,7 @@ note:: `origin/master` is called a remote-tracking branch.
 
  git branch -u origin/serverfix
  git push -u origin my-branch # set origin/my-branch (@{u[pstream]}) as upstream for my-branch
+                    └─ or HEAD if on the branch
 
 == Merge
 
