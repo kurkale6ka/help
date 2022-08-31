@@ -1,3 +1,5 @@
+A patched font is a font that has a bunch of icons patched into it
+
 1. Download
 
 https://github.com/ryanoasis/nerd-fonts#patched-fonts
