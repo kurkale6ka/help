@@ -5,6 +5,7 @@
              +- Extensible Firmware Interface
 
 linuxswap:
+
 * < 4GiB RAM - twice the swap
 * > 4GiB RAM - same swap
 
@@ -30,6 +31,7 @@ linuxswap:
 == LVM operatios
 
 pv:
+
 * `/var`  25G
 * `/home` remaining
 
