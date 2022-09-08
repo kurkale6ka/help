@@ -1,0 +1,47 @@
+== Optimal sizes?
+
+ /     20GiB
+ /boot  1GiB EFI System Partition (ESP)
+             +- Extensible Firmware Interface
+
+linuxswap:
+* < 4GiB RAM - twice the swap
+* > 4GiB RAM - same swap
+
+== Create new partition
+
+ fdisk /dev/sda
+ n - accept default sectors to use all space
+ t - 31 Linux LVM
+ w
+ pvcreate /dev/sda3
+ vgcreate vgroup /dev/sda3
+ lvcreate -l100%FREE -nsync vgroup
+ mkfs.xfs /dev/vgroup/sync
+ mkdir /sync
+ mount /dev/sda3 /sync
+
+== LVM list
+
+ pvs[can] # physical volumes
+ vgs[can] # volume groups
+ lvs[can] # logical volumes
+
+== LVM operatios
+
+pv:
+* `/var`  25G
+* `/home` remaining
+
+[source,bash]
+....
+lvcreate -L25gib -nvar lv
+lvcreate -l100%FREE -nhome lv
+
+# extend an lvm volume + resize the ext4 partition on it
+lvextend -L+2gib /dev/lv/lv-var /dev/sda4
+# alternatively use all remaining space
+# lvextend -l100%FREE /dev/lv/lv-var /dev/sda4
+
+resize2fs /dev/lv/lv-var
+....
