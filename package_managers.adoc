@@ -11,10 +11,12 @@
 
 == Find which package contains a given file/binary (reverse of 'List package contents')
 
-[code,bash]
+[source,bash]
 ....
-rpm -qf /usr/bin/certutil # nss-tools
-pacman -Qo clear          # ncurses
+rpm -qf /usr/bin/certutil
+dpkg -S =pgrep
+yum provides sar
+pacman -Qo clear
 ....
 
 == Show all available versions for a package
