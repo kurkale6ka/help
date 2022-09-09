@@ -1,0 +1,18 @@
+== List package contents
+
+.yum
+|===
+|installed |non installed
+
+|rpm -ql pkg
+|repoquery -l pkg
+|===
+
+== Show all available versions for a package
+
+`yum list --showduplicates httpd`
+
+== Check the owner of a file/app
+
+ rpm -qf /usr/bin/certutil # nss-tools
+ pacman -Qo clear # ncurses
