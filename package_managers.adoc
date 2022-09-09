@@ -11,7 +11,12 @@
 
 == Show all available versions for a package
 
-`yum list --showduplicates httpd`
+|===
+|yum | apt
+
+|`yum list --showduplicates httpd`
+|`apt-cache policy httpd`
+|===
 
 == Check the owner of a file/app
 
