@@ -1,11 +1,12 @@
 == List package contents
 
+:table-caption: package manager
 .yum
 |===
-|installed |non installed
+|installed |non-installed
 
-|rpm -ql pkg
-|repoquery -l pkg
+|`rpm -ql pkg`
+|`repoquery -l pkg`
 |===
 
 == Show all available versions for a package
