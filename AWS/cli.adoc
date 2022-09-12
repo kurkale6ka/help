@@ -4,6 +4,16 @@
 
 = AWS cli
 
+== Access key import
+
+=== prepend _user name_ to the `.csv` file
+
+ User Name,xxx,xxx
+ default,xxx,xxx
+
+then:
+`aws configure import --csv *file://*path.csv`
+
 == Aliases
 
 https://github.com/awslabs/awscli-aliases
