@@ -11,8 +11,7 @@
  User Name,xxx,xxx
  default,xxx,xxx
 
-then:
-`aws configure import --csv *file://*path.csv`
+then: `aws configure import --csv *file://*path.csv`
 
 == Aliases
 
