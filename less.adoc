@@ -1,0 +1,7 @@
+== search
+`ESC-u`:: undo search highlighting
+`&pattern`:: show only matching lines (`&CR` to stop)
+
+== options
+`-S`:: chop long lines
+`-N`:: display line numbers
