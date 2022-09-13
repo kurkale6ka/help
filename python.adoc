@@ -1,11 +1,15 @@
+= Variables
+
 Variables are pointing to objects and objects can be of arbitrary data type,
 thus variables cannot have types associated with them
 
 x = 11, y = x => id(x) == id(y) (x is y)
 
+= Quotes
 ' and " are equivalent
 variable interpolation: f'Hello {var}' or 'Hello {}'.format(var)
 
+= Tips
 In interactive mode, the last printed expression is assigned to _
 
 whenever a list needs to be created/shortened in a loop (e.g with .append()/.remove()),
@@ -32,7 +36,7 @@ zip(['a', 'b', 's'], ['@', '&', '$'])
   packing: assign to *t, we get a single tuple
 unpacking:       use *t, we get all items
 
-Decorators
+= Decorators
 Pass my function to a 'decorator' function, so it can apply it AND add extra
 functionality, then return a new function to replace my initial one:
 
@@ -41,7 +45,7 @@ my_func = decorator(my_func) # which is what happens with:
 @decorator
 my_func(...)
 
-Iterators
+= Iterators
 
 - iterables implement __iter__ to return an iterator
 - an iterator implements __next__ to get elements + raises StopIteration
@@ -62,9 +66,10 @@ groupby(iterable, key=None) # define a key per item (identity by default)
 
 operator.itemgetter(0) is the same as lambda g: g[0]
 
-Regex
+= Regex
 
-use match.group() after a match:
+== use match.group() after a match:
+
     match(^pattern , string, flags=0) -> match
 fullmatch(^pattern$, string, flags=0) -> match
    search( pattern , string, flags=0) -> match
@@ -80,7 +85,7 @@ with pattern:
 1. compile(pattern, flags=0) -> pattern
 2. pattern.match(string) for example
 
-Virtual environments
+= Virtual environments
 
 venv: create isolated working copies of python with their own site packages.
 This solves the problem of various python projects needing different versions

@@ -32,6 +32,12 @@ id:: aws_instance.app_server
 
 `for_each` = `map` or `set` => `each.key` [+ `each.value`]
 
+== Data sources
+
+Resources take arguments and export attributes for use in configuration, but
+while managed resources cause Terraform to create, update, and delete
+infrastructure objects, data resources cause Terraform only to read objects
+
 == Modules
 
 folder with _.tf_ files in it
