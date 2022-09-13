@@ -2,15 +2,20 @@
 `PS1='[\u@\h \w]\$ '`
 
 == with day and time
-`PS1='[\u@\h \w] \d \t \$ '`
+
+ PS1='[\u@\h \w] \d \t \$ '
+ PS1='\D{%d %b} [\u@\h \w] \A \$ '
+          │  │
+          │  └─ short month name _# strftime_
+          └─ day 01 - 31
 
  man bash (search for PS1)
 
  \d     date in "Weekday Month Date" format (e.g., "Tue May 26")
  \h     hostname up to the first .
  \t     time in 24-hour HH:MM:SS format
+ \A     time in 24-hour HH:MM    format
  \u     user
  \w     CWD full
  \W     CWD basename
- \$     non root - $
-            root - #
+ \$     root # else $
