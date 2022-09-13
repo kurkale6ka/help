@@ -34,10 +34,9 @@ id:: aws_instance.app_server
 
 == Data sources
 
-resource block) is known as a managed resource. Both kinds of resources take
-arguments and export attributes for use in configuration, but while managed
-resources cause Terraform to create, update, and delete infrastructure objects,
-data resources cause Terraform only to read objects
+Resources take arguments and export attributes for use in configuration, but
+while managed resources cause Terraform to create, update, and delete
+infrastructure objects, data resources cause Terraform only to read objects
 
 == Modules
 
