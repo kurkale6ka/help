@@ -39,11 +39,11 @@ macro that updates every line in sequence - use one of the above
 # gf and 'includeexpr
 'includeexpr' is used for gf if an unmodified file name can't be found
 the problem is gf will always 'find' and try to open an http(s):// URL,
-which means 'includeexpr' will never get a change to modify it!
+which means 'includeexpr' will never get a chance to modify it!
 
 Note: disabling netrw doesn't help
 
-Workaround:
+workaround:
 nmap <buffer> gf :e <cfile>:s###<cr>
 
 # Open a file by only changing some part in its PATH
