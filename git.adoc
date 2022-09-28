@@ -44,7 +44,7 @@ objects:
 
 `git ls-remote origin -> refs/heads/master # *heads* refers to 'branches'`
 
-== Track a remote(-tracking) branch (e.g origin/master)
+=== Track a remote(-tracking) branch (e.g origin/master)
 
 you do that in order to use git pull/push without arguments (implied origin + remote)
 
@@ -58,6 +58,11 @@ note:: `origin/master` is called a remote-tracking branch.
  git branch -u origin/serverfix
  git push -u origin my-branch # set origin/my-branch (@{u[pstream]}) as upstream for my-branch
                     └─ or HEAD if on the branch
+
+=== Prune remote-tracking branches
+
+ git fetch --prune
+ git remote prune origin
 
 == Merge
 
