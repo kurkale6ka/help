@@ -196,6 +196,8 @@ _these are equivalent:_
  git config --global credential.https://github.com.*username* kurkale6ka
  git config --global credential.helper store
 
+then `git push` will ask for the token/password
+
 == Glossary
 
 parent commit of `HEAD`::
