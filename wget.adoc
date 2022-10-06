@@ -1,0 +1,3 @@
+== Download "folder" from URI
+
+`wget -r -q -nH -np --cut-dirs=2 -R'index.html*' https://people.redhat.com/kwalker/repos/rpm-deathwatch/`
