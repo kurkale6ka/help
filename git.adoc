@@ -84,6 +84,7 @@ note:: `origin/master` is called a remote-tracking branch.
  git checkout master
  git merge experiment
 
+:sectnums!:
 == Cherry Pick
 
 Cherry picking is the act of picking a commit from a branch and applying it to another.
@@ -101,7 +102,6 @@ Cherry picking is the act of picking a commit from a branch and applying it to a
 CAUTION:
 *`f`* is now a duplicate commit. Only use if `topic` is not to be merged to `main` (i.e. we only need the single commit)
 
-:sectnums!:
 == Index aka staging area
 
 Everything tracked is in your staging area - the index.
