@@ -205,6 +205,8 @@ my @numbers = $version =~ /\d+/g; # progressive matching
 (?<! ... ) --- (?! ... )
 ```
 
+:warning: `.+(?=bla)` (variable length pattern) is a bad idea as lookahead is of zero-width so `.+` consumes everything!
+
 ## multilines and newlines in s///ms <a name="reg_newlines"></a>
 ```perl
 # ^ and $ positions: hello$\n^alien$\n^world, beware of $\ or $. which are special variables!
