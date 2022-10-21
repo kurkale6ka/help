@@ -20,3 +20,7 @@ https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono
 `fc-list | grep -i nerd`
 
 4. Change terminal preferences to use the font
+
+5. Find fonts
+
+https://www.nerdfonts.com/cheat-sheet
