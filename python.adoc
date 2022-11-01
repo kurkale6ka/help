@@ -1,3 +1,8 @@
+:toc: left
+:toc-title: Python
+
+= Python
+
 == Variables
 
 Variables are pointers to objects and objects can be of arbitrary data type,
@@ -13,23 +18,29 @@ variable interpolation: `f'Hello {var}'` or `'Hello {}'.format(var)`
 == Tips
 In interactive mode, the last printed expression is assigned to `_`
 
-whenever a list needs to be created/shortened in a loop (e.g with .append()/.remove()),
+whenever a list needs to be created/shortened in a loop (e.g with `.append()`/`.remove()`),
 assess if using a comprehension wouldn't be easier/clearer
 
-str.index (raises ValueError) <~>
-str.find (returns -1)
+[source,python]
+....
+str.index # raises  ValueError <~>
+str.find  # returns -1
 
 if 'yellow' in colors: # shorter/easier than
 any(c == 'yellow' for c in colors)
 
 (... for t in text if t.isalpha()) # could lead to a better solution than using
 filter(str.isalpha, text)
+....
 
-Turn a list into a string with str(ls) vs
-''.join(str(i) for i in ls) # not exactly the same but maybe ok
+Turn a list into a string with `str(ls)` vs
+`''.join(str(i) for i in ls) # not exactly the same but maybe ok`
 
+[source,python]
+....
 return a > b # just return the boolean expression
 return True if a > b else False # True if True False if False :-)
+....
 
 === string sequences
 
