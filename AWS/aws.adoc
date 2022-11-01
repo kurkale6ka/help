@@ -603,8 +603,8 @@ Microsoft AD:: centralized users/assets management from the domain controller
 == Organizations
 
  Root OU
-    master account
-       OUs + member accounts
+ └─ management account
+    └─ OUs + member accounts
 
 create accounts + OU (organizational units) per BU(business unit)/env/project/...
 
