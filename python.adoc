@@ -1,16 +1,17 @@
 == Variables
 
-Variables are pointing to objects and objects can be of arbitrary data type,
+Variables are pointers to objects and objects can be of arbitrary data type,
 thus variables cannot have types associated with them
 
-x = 11, y = x => id(x) == id(y) (x is y)
+`x = 11, y = x` => `id(x) == id(y) # y is x`
 
 == Quotes
-' and " are equivalent
-variable interpolation: f'Hello {var}' or 'Hello {}'.format(var)
+`'` and `"` are equivalent
+
+variable interpolation: `f'Hello {var}'` or `'Hello {}'.format(var)`
 
 == Tips
-In interactive mode, the last printed expression is assigned to _
+In interactive mode, the last printed expression is assigned to `_`
 
 whenever a list needs to be created/shortened in a loop (e.g with .append()/.remove()),
 assess if using a comprehension wouldn't be easier/clearer
@@ -30,8 +31,18 @@ Turn a list into a string with str(ls) vs
 return a > b # just return the boolean expression
 return True if a > b else False # True if True False if False :-)
 
-zip('abs', '@&$') # strings are sequences
-zip(['a', 'b', 's'], ['@', '&', '$'])
+=== string sequences
+
+[source,python]
+....
+ zip('abs', '@&$') # strings are sequences
+ <=>
+ zip(['a', 'b', 's'], ['@', '&', '$'])
+ -------------------------------------
+ list(...) => [('a', '@'), ('b', '&'), ('s', '$')]
+....
+
+=== packing
 
   packing: assign to *t, we get a single tuple
 unpacking:       use *t, we get all items
@@ -87,9 +98,9 @@ with pattern:
 
 == Virtual environments
 
-venv module:: Create isolated working copies of python with their own site packages.
-This solves the problem of various python projects needing different versions
-of the same 3rd party packages (aka site packages).
+venv module:: Create isolated working copies of python with their own site
+packages. This solves the problem of various python projects needing different
+versions of the same package.
 
 [source,bash]
 ....
