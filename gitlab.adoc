@@ -13,8 +13,8 @@ runners need to be registered with the GitLab instance
 
 == https://docs.gitlab.com/ee/ci/yaml/[Keywords]
 
-needs:: Relationships between jobs to speedup runs
-`needs: []`: job runs immediately as it has no needs
+needs:: Relationships between jobs to speedup runs.
+With `needs: []`, a job runs immediately as it has no needs
 
 trigger:: Start a downstream pipeline
 
