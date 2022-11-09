@@ -1,3 +1,5 @@
+== Runners
+
   EC2          separate EC2
 GitLab <---> GitLab Runner app (golang)
 ==============================
@@ -8,3 +10,14 @@ job ...  |     executor
          |   runner ...
 
 runners need to be registered with the GitLab instance
+
+== https://docs.gitlab.com/ee/ci/yaml/[Keywords]
+
+needs:: Relationships between jobs to speedup runs
+`needs: []`: job runs immediately as it has no needs
+
+trigger:: Start a downstream pipeline
+
+exends:: Reuse configuration sections. Replaces YAML anchors
+
+rules:if:: replaces only/except
