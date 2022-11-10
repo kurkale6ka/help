@@ -225,6 +225,11 @@ _these are equivalent:_
 * `git push origin --delete topic`
 * `git push origin :topic` <- push empty `src` to remote
 
+== Operations in bulk
+
+ fd --strip-cwd-prefix -FH -td .git | parallel --tag --tagstring '{//}' 'git -C {//} branch' | grep -v 'main$'
+ fd --strip-cwd-prefix -FH -td .git | parallel --tag --tagstring '{//}' 'git -c color.status=always -C {//} status -sb'
+
 == Configuration
 
 === store credentials for use with https
