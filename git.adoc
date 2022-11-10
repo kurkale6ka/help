@@ -84,6 +84,25 @@ note:: `origin/master` is called a remote-tracking branch.
  git checkout master
  git merge experiment
 
+== diffs
+
+=== diff
+
+....
+# difference between the tips of the branches
+git diff foo..bar
+git diff foo  bar
+
+# changes introduced in bar, ignoring everything done on foo
+git diff foo...bar
+....
+
+=== log
+
+ git log A..B.  # commits in B that don't exist in A
+ git log A...B. # commits in B that don't exist in A +
+                  commits in A that don't exist in B
+
 :sectnums!:
 == Cherry Pick
 
