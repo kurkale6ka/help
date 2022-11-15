@@ -1,29 +1,37 @@
-ssh-keygen -ted25519 -Ccomment
-ssh-keygen -trsa -b4096 -Ccomment
+== Generate
 
-Fingerprints
+ ssh-keygen -ted25519 -Ccomment
+ ssh-keygen -trsa -b4096 -Ccomment
 
+== Fingerprints
+
+....
 ssh-add -l
 ssh-keygen -lf ~/.ssh/id_rsa
 ssh-keygen -Emd5 -lf ~/.ssh/id_rsa
 
 4096 SHA256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ~/.ssh/id_rsa (RSA)
 4096 MD5:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc:fc ~/.ssh/id_rsa (RSA)
+....
 
-location on servers:
-/etc/ssh # HostKey in sshd_config
+== Chain ssh invocations
+`ssh -t user1@server1 'ssh user2@server2'`
 
-Convert from OPENSSH PRIVATE KEY to RSA/PEM PRIVATE KEY:
-- backup id_rsa
-- ssh-keygen -m pem -f id_rsa
+== Keys
 
-Chain ssh invocations:
-ssh -t user1@server1 'ssh user2@server2'
+=== location on servers
 
-Mac OS
+`/etc/ssh # HostKey in sshd_config`
 
-/usr/bin/ssh-add -K ~/.ssh/id_rsa # store in keychain
-/usr/bin/ssh-add -A               # add from keychain
-Host *
-   AddKeysToAgent yes
-   UseKeychain yes
+=== Convert from OPENSSH PRIVATE KEY to RSA/PEM PRIVATE KEY
+
+- backup `id_rsa`
+- `ssh-keygen -m pem -f id_rsa`
+
+=== store
+
+ /usr/bin/ssh-add -K ~/.ssh/id_rsa # store in keychain - Mac OS only
+ /usr/bin/ssh-add -A               # add from keychain - Mac OS only
+ Host *
+    AddKeysToAgent yes
+    UseKeychain yes                #                   - Mac OS only
