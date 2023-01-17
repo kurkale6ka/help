@@ -227,8 +227,8 @@ _these are equivalent:_
 
 == Operations in bulk
 
- fd --strip-cwd-prefix -FH -td .git | parallel --tag --tagstring '{//}' 'git -C {//} branch' | grep -v 'main$'
- fd --strip-cwd-prefix -FH -td .git | parallel --tag --tagstring '{//}' 'git -c color.status=always -C {//} status -sb'
+ fd --strip-cwd-prefix -FIH -td .git | parallel --tag --tagstring '{//}' 'git -C {//} branch' | grep -v 'main$'
+ fd --strip-cwd-prefix -FIH -td .git | parallel --tag --tagstring '{//}' 'git -c color.status=always -C {//} status -sb'
 
 == Configuration
 
