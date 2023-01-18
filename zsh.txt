@@ -120,3 +120,7 @@ My list separator is #. After zstyle ':completion:*:options' list-colors '=(\# *
 zsh compinit: insecure directories and files, run compaudit for list
 compaudit | xargs chmod g-w
 compaudit | xargs chown root
+
+== Change your login shell
+if `chsh -s /bin/zsh` doesn't work, use the terminal:
+'run a custom command instead of my shell: `zsh --login`'
