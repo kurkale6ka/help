@@ -1,17 +1,11 @@
-Hiragana Katakana
+.Hiragana Katakana
 |===
-| a | i | u | e | o
+|   |   a  |   i  |   u  |   e  |   o
 
-| あア
-| いイ
-| うウ
-| えエ
-| おオ
-
-| かカ
-| きキ
-| くク
-| けケ
-| こコ
+|   | あア | いイ | うウ | えエ | おオ
+| k | かカ | きキ | くク | けケ | こコ
+| s | さサ | しシ | すス | せセ | そソ
 
 |===
+
+# vim: comments+=b\:| formatoptions-=j keymap=kana
