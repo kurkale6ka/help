@@ -1,11 +1,19 @@
-.Hiragana Katakana
+.Hiragana - ひらがな, Katakana - カタカナ
 |===
 |   |   a  |   i  |   u  |   e  |   o
 
 |   | あア | いイ | うウ | えエ | おオ
 | k | かカ | きキ | くク | けケ | こコ
 | s | さサ | しシ | すス | せセ | そソ
+| t | たタ | ちチ | つツ | てテ | とト
+| n | なナ | にニ | ぬヌ | ねネ | のノ
+| h | はハ | ひヒ | ふフ | へヘ | ほホ
+| m | まマ | みミ | むム | めメ | もモ
+| y | やヤ |      | ゆユ |      | よヨ
+| r | らラ | りリ | るル | れレ | ろロ
+| w | わワ |      |      |      | をヲ
+|   | んン |      |      |      |
 
 |===
 
-# vim: comments+=b\:| formatoptions-=j keymap=kana
+// vim: comments+=b\:| formatoptions-=j keymap=kana
