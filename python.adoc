@@ -67,6 +67,10 @@ my_func = decorator(my_func) # which is what happens with:
 @decorator
 my_func(...)
 
+so now my_func executes:
+* own code,
+* decorator's code (which is part of my_func now)
+
 == Iterators
 
 - iterables implement __iter__ to return an iterator
@@ -106,6 +110,20 @@ sub(pattern, repl, string, count=0, flags=0) -> string
 with pattern:
 1. compile(pattern, flags=0) -> pattern
 2. pattern.match(string) for example
+
+== Linting
+
+[source,json]
+....
+pyrightconfig.json
+{
+    "venv": "boto3",
+    "venvPath": "/home/xxx/py-envs"
+}
+....
+
+== AWS SDK boto3
+https://stackoverflow.com/questions/42809096/difference-in-boto3-between-resource-client-and-session
 
 == Virtual environments
 
