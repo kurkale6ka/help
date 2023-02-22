@@ -1,0 +1,2 @@
+== List valid `/home` directories
+`perl -F: -lanE 'next if $F[0] =~ /halt|sync|shutdown|nfsnobody/; next if $F[6] =~ m#^(?:/usr)?/sbin/nologin/?$# or $F[6] =~ m#(?:/usr)?/bin/false/?$#; say $F[5]' /etc/passwd | xargs ls -Fld --color`
