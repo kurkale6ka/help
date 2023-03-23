@@ -1,5 +1,0 @@
-\setenv PAGER less
-
-select * from pg_stat_activity;
-
--S to chop lines in 'less'
