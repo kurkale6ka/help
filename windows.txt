@@ -26,5 +26,8 @@ _Default
 [VL]
 0
 
-Use dvorak layout at startup:
+Dvorak
+Language settings/English (United Kingdom) -> options -> US dvorak
+
+use dvorak layout at startup:
 typing/advanced keyboard settings (at the bottom)
