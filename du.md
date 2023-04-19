@@ -7,14 +7,15 @@ du -ah -d1
 #   └─ all files, not only dirs
 ```
 
-du -sh *
-        \
-         .files/folders would be missed!
-
+```bash
 du -ah -d1 -t100m | sort -hr
-     \       \
-      \       min 100M
-       include files
+#           └─ min threshold
+```
+
+> **Warning**
+> ```bash
+> du -sh * # .files/folders would be missed
+> ```
 
 # pretty
 du -ah0 -d1 -t100m | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
