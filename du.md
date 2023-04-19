@@ -23,8 +23,10 @@ du -ah -d1 -t100m | sort -hr
 
 > **Note**
 >
-> with old versions of `du`/`sort`, use:<br>
-> `du -a --max-depth 1 | sort -nr`
+> with old versions of `du`/`sort`, use:
+> ```bash
+> du -a --max-depth 1 | sort -nr
+> ```
 
 ## filtered, sorted and pretty output
 ```bash
