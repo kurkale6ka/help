@@ -1,5 +1,12 @@
-Use
-du -ah -d1, instead of
+# Disk usage
+
+```bash
+du -ah -d1
+#   ││  └─ depth
+#   │└─ human readable
+#   └─ all files, not only dirs
+```
+
 du -sh *
         \
          .files/folders would be missed!
