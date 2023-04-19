@@ -9,29 +9,27 @@ du -ah -d1
 
 ```bash
 du -ah -d1 -t100m | sort -hr
-#           │            └─┴─ human, reverse
+#           │             └┴─ human, reverse
 #           └─ min threshold
 ```
 
 > **Warning**
 > ```bash
 > du -sh * # .files/folders would be missed
-> #   └─ summarize
+> #   └─ summarize (same as -d0)
 > ```
 
-# Pretty display
-```perl
+## Pretty
+```bash
 du -ah0 -d1 -t100m | sort -hrz | perl -0lane 's:^\./:: for @F; print shift @F, " ", `ls -d --color "@F"`'
 ```
 
-notes:
-* remove/increase `-d1` in order to descend into directories
-* skip files/folders with `--exclude`
+> **Note**
+> * `du`: remove/increase `-d1` in order to descend into directories
+> * `du`: skip files/folders with `--exclude`
 
-# total
-du -sh /etc
-     \
-      same as -d0
+# Total
+`du -sh /etc`
 
 ## old versions of du/sort
 du -a --max-depth 1 | sort -nr
