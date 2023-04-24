@@ -27,3 +27,10 @@ Stream #0:3(ger): Subtitle: text (default)
 
 Ex: extract audio streams:
 ffmpeg -i input.mkv -map 0:1 -map 0:2 -c copy output.mkv
+
+## Import CD audio tracks
+
+findmnt
+cd /run/user/1000/gvfs/cdda:host=sr0
+
+parallel ffmpeg -i {} -codec:a libmp3lame -qscale:a 0 ~/Dropbox/music/clarinet_abracadabra/cd_1/{.}.mp3 ::: *.wav
