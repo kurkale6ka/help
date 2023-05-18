@@ -1,6 +1,6 @@
 # Everything as a Service
 
-## Infrastructure as a Service (*IaaS*)
+## Infrastructure as a Service (**IaaS**)
 - servers
 - storage
 - networking
@@ -8,10 +8,10 @@
 
 e.g. AWS
 
-## Platform as a Service (*PaaS*: IaaS + OS + runtime)
+## Platform as a Service (**PaaS**: _IaaS_ + OS + runtime)
 
 e.g. Kubernetes, AWS Elastic Beanstalk, Heroku
 
-## Software as a Service (*SaaS*: PaaS + apps + data)
+## Software as a Service (**SaaS**: _PaaS_ + apps + data)
 
 e.g. Dropbox
