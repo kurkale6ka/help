@@ -1,5 +1,0 @@
-cmd1 | xargs cmd2
-
-eXecute cmd2 on Arguments (output from cmd1) in bulk (and in parallel with -P0)
-
-printf '%s ' 1 2 3 4 | xargs -n2 # default command is echo
