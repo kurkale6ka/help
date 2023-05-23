@@ -1,14 +1,14 @@
 # Docker
 
-Lightweight virtualization
-daemon + containers are OS processes =>
+Lightweight virtualization<br>
+daemon + containers are OS processes =><br>
 containers share kernel/network/disk/memory with the host
 
 Containers abstract applications from operating systems, much like
 virtualization abstracts operating systems from physical hardware
 
-The kernel isolates network and disk resources per processes running in a kernel namespace: the container.
-Kernel namespaces are possible thanks to `runc` (run containers) and previously Linux Containers (LXC)?
+The kernel isolates network and disk resources per processes running in a kernel namespace: the container.<br>
+Kernel namespaces are possible thanks to `runc` (run containers) and previously Linux Containers (LXC)?<br>
 `aufs` is used for disk sharing. All containers get a ro shared acces to all common parts of the OS + get their own mount for writing.
 
 Each docker image contains only the differences from the base. When you run
