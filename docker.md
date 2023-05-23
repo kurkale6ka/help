@@ -11,10 +11,16 @@ each docker image contains only the differences from the base. When you run your
 lightweight virtualization
 daemon + containers are OS processes
 
-docker daemon: not a hypervisor, it's the containerization runtime
-image: provides filesystem, dependencies, config
-container: runnable instance of an image aka sandboxed process (akin to chroot)
+docker daemon
+: not a hypervisor, it's the containerization runtime
 
+image
+: provides filesystem, dependencies, config
+
+container
+: runnable instance of an image aka sandboxed process (akin to chroot)
+
+```bash
 docker help ps
 docker search
 docker ps
@@ -32,45 +38,52 @@ docker stop id
 
 docker pull debian:stable-slim
 docker push kurkale6ka/catnip
+```
 
 containers need to be on the same network in order to talk
 
+```bash
 docker network ls
 docker network create my-app # docker run --network my-app ...
+```
 
-Docker Compose
+## Docker Compose
 
 * define your application stack in a versioned file
-* docker-compose up/down/... -d
+* docker-compose up/down/... `-d`
 * application can be multi-container: e.g app & mysql in the below example
 
-~ version: "3.7"
-~
-~ services:
-~   app:
-~     image: node:12-alpine
-~     ports:
-~       - 3000:3000
-~     environment:
-~       MYSQL_HOST: mysql
-~
-~   mysql:
-~     image: mysql:5.7
-~     volumes:
-~       - mysql-data:/var/lib/mysql
-~
-~ volumes:
-~   mysql-data:
+```yaml
+version: "3.7"
+
+services:
+  app:
+    image: node:12-alpine
+    ports:
+      - 3000:3000
+    environment:
+      MYSQL_HOST: mysql
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+```
 
 versus 2 docker run commands
 
-$ docker run -dp 3000:3000 \
+```bash
+docker run -dp 3000:3000 \
   -w /app -v "$(pwd):/app" \
   --network my-app \
   -e MYSQL_HOST=mysql \
   node:12-alpine \
   sh -c "yarn install && yarn run dev"
 
-$ docker run -d \
+docker run -d \
   --network my-app --network-alias mysql \
   mysql:5.7
+```
