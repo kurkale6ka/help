@@ -2,6 +2,9 @@
  421 421 421 | File / Directory | File / Directory
 -rwx rwx rwx | 666    777       | 644    755
 
+file      default: 666 (-rw-rw-rw-) => 644 (-rw-r--r--)
+directory default: 777 (drwxrwxrwx) => 755 (drwxr-xr-x)
+
 dir: rwx
       \\\
        \\*- cd + use
