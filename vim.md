@@ -1,4 +1,5 @@
 # ; in ranges
+```
 1
 2
 3
@@ -16,40 +17,51 @@
             range printed: 2-4
 
 :h:;
+```
 
 # Buffer loading
+```
 :bun unload,          , :ls :ls!
-:bd  unload,          ,  X  :ls!
-:bw  unload, del marks,  X   X
+:bd  unload,          ,  ✗  :ls!
+:bw  unload, del marks,  ✗   ✗
+```
 
 # Clipboard
+```
 cb^=unnamed:     y/d/c go to "" and "*
 cb^=unnamedplus: y/d/c go to "" and "+
+```
 
 # for wasavi
-se is ic nu report=0 ai
+`se is ic nu report=0 ai`
 
 # Commands on range
+```
 :g    - exe ex commands on range
 :norm - exe normal mode commands on range
         use instead of :g/patt/norm when patt on adjacent lines
+```
 
 macro that updates every line in sequence - use one of the above
 
 # gf and 'includeexpr
-'includeexpr' is used for gf if an unmodified file name can't be found
-the problem is gf will always 'find' and try to open an http(s):// URL,
-which means 'includeexpr' will never get a chance to modify it!
+`'includeexpr'` is used for gf if an unmodified file name can't be found
+the problem is gf will always "find" and try to open an http(s):// URL,
+which means `'includeexpr'` will never get a chance to modify it!
 
 Note: disabling netrw doesn't help
 
-workaround:
-nmap <buffer> gf :e <cfile>:s###<cr>
+[!NOTE]  
+workaround: `nmap <buffer> gf :e <cfile>:s###<cr>`
 
 # Open a file by only changing some part in its PATH
-:e%:p:s/development/integration/
+`:e%:p:s/development/integration/`
 
-" Generate a range of lines matching a pattern
+# vimball
+Invalid range fix: add newline to the end of file
+
+# Generate a range of lines matching a pattern
+```vim
 function! easy#PipeRange(includepat) range
 
    let top = a:firstline
@@ -73,3 +85,4 @@ function! easy#PipeRange(includepat) range
    let lines = map(range(top, bot), 'getline(v:val)')
 
 endfunction
+```
