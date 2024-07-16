@@ -1,7 +1,3 @@
-# List filesystems
-- `findmnt`
-- `mount`
-
 # Synopsis
 `mount -t type device mount_point`
 
@@ -38,3 +34,10 @@ mount `/mydata` looks in `/etc/fstab` (first for mount points then for devices)
 
 # Lazy unmount of a filesystem (after disk operations are done)
 `umount /mydata -l`
+
+# List filesystems
+- `findmnt`
+- `mount`
+
+# See if a directory or file is a mountpoint
+`mountpoint directory|file`
