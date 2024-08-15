@@ -1,7 +1,12 @@
 # Start the debugger
-- `python -mpdb code.py args...`
-- `breakpoint()` in code
-- set a br: `(Pdb) b line, condition`, list all: `(Pdb) b`
+- `python -m pdb main.py`
+- `breakpoint()` in code, then `python main.py`
+
+_Set a breakpoint_:
+```python
+(Pdb) b line, condition
+(Pdb) b                 # list all
+```
 
 # Pdb repl
 ```python
