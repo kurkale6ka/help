@@ -91,10 +91,14 @@ operator.itemgetter(0) # same as lambda g: g[0]
 ```
 
 # Regex
-- `^match`
-- `^fullmatch$`
-- `/search/`
-- `findall` -> list/groups
+| Example                               | Details                        |
+| ---                                   | ---                            |
+| `match = re.match(pattern, str)`      | `^match`                       |
+| `match = re.fullmatch(pattern, str)`  | `^fullmatch$`                  |
+| `match = re.search(pattern, str)`     | `/search/`                     |
+| `fst, snd = re.findall(pattern, str)` | `findall` -> _list_ of matches |
+
+_Note_: Get groups/`(.+)` with `match.groups()`
 
 # Resource vs Client in AWS SDK boto3
 https://stackoverflow.com/questions/42809096/difference-in-boto3-between-resource-client-and-session
