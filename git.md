@@ -1,42 +1,20 @@
-:toc: left
+# Commit ranges
 
-= Git
+## all commits in experiment not in master
+```sh
+# all commits reachable from experiment that aren’t reachable from master
+git log master..experiment
+git log experiment --not master
+git log experiment ^master
+```
 
-== Commits
+## what one is about to push to a remote
+```sh
+git log origin/master..HEAD
+git log origin/master..
+```
 
-commit `98ca9`:
-
-- metadata (author, date, ...)
-- previous commits
-- tree `92ec2` (index snapshot)
-
-tree `92ec2`:
-
-- blob `5b1d3` README
-- blob `911e7` LICENSE
-
-objects:
-
-- blob `5b1d3` README contents
-- blob `911e7` LICENSE contents
-
-=== Commit ranges
-
-==== all commits in experiment not in master
-
- # all commits reachable from experiment that aren’t reachable from master
- git log master..experiment
- git log experiment --not master
- git log experiment ^master
-
-==== what one is about to push to a remote
-
- git log origin/master..HEAD
- git log origin/master..
-
-== Branches
-
-`git branch -vv`
+# Branches
 
 * a branch is a pointer to a commit
 * `HEAD` points to the current branch # `git checkout br1` moves `HEAD->br1`
@@ -44,7 +22,7 @@ objects:
 
 `git ls-remote origin -> refs/heads/master # *heads* refers to 'branches'`
 
-=== Track a remote(-tracking) branch (e.g origin/master)
+## Track a remote(-tracking) branch (e.g origin/master)
 
 you do that in order to use git pull/push without arguments (implied origin + remote)
 
@@ -59,34 +37,28 @@ note:: `origin/master` is called a remote-tracking branch.
  git push -u origin my-branch # set origin/my-branch (@{u[pstream]}) as upstream for my-branch
                     └─ or HEAD if on the branch
 
-=== Prune remote-tracking branches
+## Prune remote-tracking branches
 
  git fetch --prune
  git remote prune origin
 
-== Merge
+# Rebase
 
- git checkout master
- git merge experiment
-
-== Rebase
-:sectnums:
-
-=== rebase experiment onto master => experiment moves/points further ahead
+## rebase experiment onto master => experiment moves/points further ahead
 
 `git rebase master experiment` + or
 
  git checkout experiment
  git rebase master
 
-=== ff merge experiment into master => master catches up with experiment
+## ff merge experiment into master => master catches up with experiment
 
  git checkout master
  git merge experiment
 
-== diffs
+# diffs
 
-=== diff
+## diff
 
 ....
 # difference between the tips of the branches
@@ -97,14 +69,13 @@ git diff foo  bar
 git diff foo...bar
 ....
 
-=== log
+## log
 
  git log A..B.  # commits in B that don't exist in A
  git log A...B. # commits in B that don't exist in A +
                   commits in A that don't exist in B
 
-:sectnums!:
-== Cherry Pick
+# Cherry Pick
 
 Cherry picking is the act of picking a commit from a branch and applying it to another.
 
