@@ -1,17 +1,15 @@
-# Commit ranges
+# Ranges
 
-## all commits in experiment not in master
+## commits
 ```sh
-# all commits reachable from experiment that aren’t reachable from master
-git log master..experiment
-git log experiment --not master
-git log experiment ^master
+git log main.. # commits in HEAD only
+git log A...B  # commits in B only and in A only
 ```
 
-## what one is about to push to a remote
+## diff
 ```sh
-git log origin/master..HEAD
-git log origin/master..
+git diff foo..bar  # changes introduced by both
+git diff foo...bar # changes in bar only
 ```
 
 # Branches
@@ -20,13 +18,13 @@ git log origin/master..
 * `HEAD` points to the current branch # `git checkout br1` moves `HEAD->br1`
 * The `HEAD` branch moves forward when a commit is made
 
-`git ls-remote origin -> refs/heads/master # *heads* refers to 'branches'`
+`git ls-remote origin -> refs/heads/main # *heads* refers to 'branches'`
 
-## Track a remote(-tracking) branch (e.g origin/master)
+## Track a remote(-tracking) branch (e.g origin/main)
 
 you do that in order to use git pull/push without arguments (implied origin + remote)
 
-note:: `origin/master` is called a remote-tracking branch.
+note:: `origin/main` is called a remote-tracking branch.
        it's a local reference/pointer that can't be moved
 
  git checkout -b <branch> <remote>/<branch>
@@ -44,36 +42,17 @@ note:: `origin/master` is called a remote-tracking branch.
 
 # Rebase
 
-## rebase experiment onto master => experiment moves/points further ahead
+## rebase experiment onto main => experiment moves/points further ahead
 
-`git rebase master experiment` + or
+`git rebase main experiment` + or
 
  git checkout experiment
- git rebase master
+ git rebase main
 
-## ff merge experiment into master => master catches up with experiment
+## ff merge experiment into main => main catches up with experiment
 
- git checkout master
+ git checkout main
  git merge experiment
-
-# diffs
-
-## diff
-
-....
-# difference between the tips of the branches
-git diff foo..bar
-git diff foo  bar
-
-# changes introduced in bar, ignoring everything done on foo
-git diff foo...bar
-....
-
-## log
-
- git log A..B.  # commits in B that don't exist in A
- git log A...B. # commits in B that don't exist in A +
-                  commits in A that don't exist in B
 
 # Cherry Pick
 
@@ -130,8 +109,8 @@ example 1: `git reset HEAD~`::
     * move `HEAD->branch` to previous commit => undo last commit
     * update index with the snapshot `HEAD->branch` points to => unstage everything
 
-example 2: `git reset master`::
-    * move `HEAD->branch` to where `master` points
+example 2: `git reset main`::
+    * move `HEAD->branch` to where `main` points
     * ...
 
 === reset with a path (and optional commit)
@@ -146,9 +125,9 @@ example 2: `git reset master`::
 `git reset --hard`::
     unstage everything + reset working dir
 
-`git checkout master~2 file`::
-    update the index + working dir from `master~2` commit (default is `HEAD`)
-    `git reset --hard master~2 file` would do the same thing.
+`git checkout main~2 file`::
+    update the index + working dir from `main~2` commit (default is `HEAD`)
+    `git reset --hard main~2 file` would do the same thing.
 
 == reflog
 
@@ -167,12 +146,12 @@ example 2: `git reset master`::
 `git checkout [commit] file`, same as +
 `git reset --hard [commit] file` (but not implemented in `git-reset`)
 
-=== create topic from local master and check it out
-`git checkout -b topic master`
+=== create topic from local main and check it out
+`git checkout -b topic main`
 
 same as:
 
- git branch topic master
+ git branch topic main
  git checkout topic
 
 == refspec
