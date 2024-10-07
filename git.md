@@ -56,20 +56,11 @@ note:: `origin/main` is called a remote-tracking branch.
 
 # Cherry Pick
 
-Cherry picking is the act of picking a commit from a branch and applying it to another.
-
- a - b - c - d     main (current)
-      \
-       e - f - g   topic
-
- git cherry-pick f
-
- a - b - c - d - f main
-      \
-       e - f - g   topic
-
-CAUTION:
-*`f`* is now a duplicate commit. Only use if `topic` is not to be merged to `main` (i.e. we only need the single commit)
+Apply any commit to the current branch
+```sh
+git cherry-pick 3c9b10a # this commit comes from another branch
+```
+_we now have a duplicate commit (it exists in 2 branches) => only do if you don't want the whole other branch!_
 
 == Index aka staging area
 
