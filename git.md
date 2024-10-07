@@ -62,15 +62,12 @@ git cherry-pick 3c9b10a # this commit comes from another branch
 ```
 _we now have a duplicate commit (it exists in 2 branches) => only do if you don't want the whole other branch!_
 
-== Index aka staging area
-
-Everything tracked is in your staging area - the index.
-
-`git rm`::
-    removes from both the index and the working copy
-
-`git rm --cached`::
-    removes from the index only => untracks the file!
+# Index
+Everything tracked is in your staging area - _the index_
+```sh
+git rm --cached # untrack: remove from index
+git rm          #      rm: remove from index and working copy
+```
 
 === redo last commit: change index plus/or commit message.
 
