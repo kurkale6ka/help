@@ -1,30 +1,29 @@
 # Manual examples
-```
-%Ea:ar      # right align around :
-%Ea\ arl    # align right then left affecting the first 2 spaces only - pyramid!
-%Ea\ arl**  # same as above but repeat: rl rl ...
-%Ea**\ arl  # same as above
-%Ea\ arl*   # align right then always left
-%Ea*\ arl   # same as above
-%Ea,iu1     # align around , ignoring unmatched lines
-%Ea*|       # align around all |s, not the 1st one only
-%Ea*|<l0r2  # align around all |s, stick delimiter to the left with 0 margin before it and 2 after
-%Ea*/=\+/dr # align around regexes with delimiters right aligned
+```vim
+%Ea:ar      " right align around :
+%Ea\ arl    " align right then left affecting the first 2 spaces only - pyramid!
+%Ea\ arl**  " same as above but repeat: rl rl ...
+%Ea**\ arl  " same as above
+%Ea\ arl*   " align right then always left
+%Ea*\ arl   " same as above
+%Ea,iu1     " align around , ignoring unmatched lines
+%Ea*|       " align around all |s, not the 1st one only
+%Ea*|<l0r2  " align around all |s, stick delimiter to the left with 0 margin before it and 2 after
+%Ea*/=\+/dr " align around regexes with delimiters right aligned
 ```
 
-_NB_: regarding the `arl**` and `arl*` examples above, the meaning of `*/**` is
-    different than when not using `a` (see point 3. below)
+_NB_: regarding the `arl**` and `arl*` examples above, the meaning of `*/**` is different than when not using `a` (see point 3. below)
 
-1. gaip
+1. `gaip`
 
 2. Return key to select alignment mode (left, right, or center)
 
 3. N-th delimiter (default: 1)
-   - 2  Around the 2nd occurrences of delimiters
-   - *  Around all occurrences of delimiters
-   - ** Left-right alternating alignment around all delimiters
-   - -  Around the last occurrences of delimiters (-1)
-   - -2 Around the second to last occurrences of delimiters
+   - `2`  Around the 2nd occurrences of delimiters
+   - `*`  Around all occurrences of delimiters
+   - `**` Left-right alternating alignment around all delimiters
+   - `-`  Around the last occurrences of delimiters (-1)
+   - `-2` Around the second to last occurrences of delimiters
 
 4. a) Predefined delimiter rule
 ```
@@ -57,30 +56,32 @@ Ctrl-a | align           | string: /[lrc]+\*{0,2}/
 
 # Examples
 
-- Ctrl-a with llr*
+- `Ctrl-a` with `llr*`
+```
+aa = bb = cc = dd = ee
+a = b = c = d = e
+aaa = bbb = ccc = ddd = eee
 
-  aa = bb = cc = dd = ee
-  a = b = c = d = e
-  aaa = bbb = ccc = ddd = eee
+gaip * Ctrl-a llr* =
 
-  gaip * Ctrl-a llr* =
-
-  aa  = bb  =  cc =  dd =  ee
-  a   = b   =   c =   d =   e
-  aaa = bbb = ccc = ddd = eee
+aa  = bb  =  cc =  dd =  ee
+a   = b   =   c =   d =   e
+aaa = bbb = ccc = ddd = eee
+```
 
 - Pyramid
+```
+aa bb
+a b
+aaa bbb
 
-  aa bb
-  a b
-  aaa bbb
+gaap ** <return> <space>
+or
+gaap Ctrl-a rl <space>
 
-  gaap ** <return> <space>
-  or
-  gaap Ctrl-a rl <space>
+aa bb
+a b
+aaa bbb
+```
 
-   aa bb
-    a b
-  aaa bbb
-
-Note: if aligning doesn't work, :se ft&
+_Note_: if aligning doesn't work, `:se ft&`
