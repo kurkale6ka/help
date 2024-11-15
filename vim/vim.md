@@ -1,5 +1,5 @@
 # ; in ranges
-```
+```vim
 1
 2
 3
@@ -10,49 +10,48 @@
 8
 9
 
-2,/oge/p -> find the next occurrence of oge starting from the cursor's position
-            range printed: 2-7
+2,/oge/p " find the next occurrence of oge starting from the cursor's position
+         " range printed: 2-7
 
-2;/oge/p -> find the next occurrence of oge starting from 2
-            range printed: 2-4
+2;/oge/p " find the next occurrence of oge starting from 2
+         " range printed: 2-4
 
 :h:;
 ```
 
 # Buffer loading
-```
-:bun unload,          , :ls :ls!
-:bd  unload,          ,  ✗  :ls!
-:bw  unload, del marks,  ✗   ✗
+```vim
+:bun unload,           " :ls :ls!
+:bd  unload,           "  ✗  :ls!
+:bw  unload, del marks "  ✗   ✗
 ```
 
 # Clipboard
-```
-cb^=unnamed:     y/d/c go to "" and "*
-cb^=unnamedplus: y/d/c go to "" and "+
+```vim
+cb^=unnamed     " y/d/c go to "" and "*
+cb^=unnamedplus " y/d/c go to "" and "+
 ```
 
 # for wasavi
 `se is ic nu report=0 ai`
 
 # Commands on range
-```
-:g    - exe ex commands on range
-:norm - exe normal mode commands on range
-        use instead of :g/patt/norm when patt on adjacent lines
+```vim
+:g    " exe ex commands on range
+:norm " exe normal mode commands on range
+      " use instead of :g/patt/norm when patt on adjacent lines
 ```
 
 macro that updates every line in sequence - use one of the above
 
-# gf and 'includeexpr
+# `gf` and `'includeexpr`
 `'includeexpr'` is used for gf if an unmodified file name can't be found
 the problem is gf will always "find" and try to open an http(s):// URL,
 which means `'includeexpr'` will never get a chance to modify it!
 
-Note: disabling netrw doesn't help
+_Note_: disabling netrw doesn't help
 
-[!NOTE]  
-workaround: `nmap <buffer> gf :e <cfile>:s###<cr>`
+_workaround_: `nmap <buffer> gf :e <cfile>:s###<cr>`
 
 # Open a file by only changing some part in its PATH
 `:e%:p:s/development/integration/`

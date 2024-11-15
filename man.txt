@@ -1,5 +1,0 @@
-LESS= man manpage # -F was the problem
-nroff -man <(zcat /usr/share/man/man1/env.1.gz) | LESS= less
-groff -man -Tascii <(zcat /usr/share/man/man1/env.1.gz) | LESS= less
-
-man -M/Users/XXX/.fzf/man fzf
